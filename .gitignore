@@ -3,8 +3,5 @@
 .RData
 .Ruserdata
 SelectBoost.Rproj
-<<<<<<< HEAD
-=======
 ^.*\.Rproj$
 ^\.Rproj\.user$
->>>>>>> origin/master
