@@ -1,0 +1,15 @@
+diabetes_first_order_lasso	Example of use of the SelectBoost algorithm applied to the lasso to the diabetes dataset: first order model.
+diabetes_quadratic_lasso	Example of use of the SelectBoost algorithm to the diabetes dataset: quadratic model.
+diabetes_first_order_lasso_multicores	Example of use of the SelectBoost algorithm applied to the lasso to the diabetes dataset: first order model with multicore support.
+diabetes_first_order_adaptative_lasso	Example of use of the SelectBoost algorithm applied to the adaptative lasso to the diabetes dataset: first order model.
+bysteps_diabetes_first_order_lasso_and_adaptative	Example of use of the SelectBoost algorithm applied to the (weighted) lasso and to the adaptative lasso to the diabetes dataset: first order model.
+bysteps_diabetes_first_order_lasso_and_adaptative_parallel	Example of use of the SelectBoost algorithm applied to the lasso and to the adaptative lasso to the diabetes dataset: first order model with examples of multicore and cluster support.
+bysteps_diabetes_quadratic_lasso_and_adaptative	Example of use of the SelectBoost algorithm applied to the lasso and to the adaptative lasso to the diabetes dataset: quadratic model.
+bysteps_diabetes_quadratic_lasso_and_adaptative_parallel	Example of use of the SelectBoost algorithm applied to the lasso and to the adaptative lasso to the diabetes dataset: quadratic model with examples of multicore and cluster support.
+bysteps_diabetes_quadratic_lasso_and_adaptative_parallel_bootstrap	Example of use of the SelectBoost algorithm applied to the lasso and to the adaptative lasso to the diabetes dataset via bootstrapping instead of fitting vonMises distributions: quadratic model with examples of multicore and cluster support.
+simulation	Example of data generation for simulation purposes
+bysteps_huntington	Example of use of the SelectBoost algorithm applied step by step to the huntington dataset.
+bysteps_huntington_community	Example of use of the SelectBoost algorithm applied step by step to the huntington dataset using community analysis.
+autoboost_huntington	Example of use of the SelectBoost algorithm applied to the huntington dataset.
+autoboost_diabetes_first_order	Example of use of the SelectBoost algorithm applied to the diabetes dataset: first order model.
+simuls_selectboost_network	Selectboost and reverser engineering of networks

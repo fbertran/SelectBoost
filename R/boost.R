@@ -1,120 +1,575 @@
-boost<-function(X,Y,group,func,corr=1,B=200,normalize=TRUE,eps=10^(-4)){
-  
-  
-  group2<-eval(parse(text=paste("function(x){return(",group,"(x,corr))}",sep="")))
-  
-  
-  #require(snowfall)
-  #require(lars)
-  
-  
-  #if(multi==FALSE){
-  #if(cpu>1){
-  #sfInit( parallel=TRUE, cpus=cpu )
-  #}else{
-  #sfInit( parallel=FALSE, cpus=cpu )	
-  #	}
-  #sfLibrary(movMF)
-  #sfLibrary(lars)
-  #sfLibrary(msgps)
-  
-  require(movMF)
-  #require(lars)
-  #require(msgps)
-  require(glmnet)
-  
-  #sfLibrary(snowfall)}
-  
-  if(normalize==TRUE){
-    
-    X<-X-matrix(rep(apply(X,2,mean),dim(X)[1]),dim(X)[1],dim(X)[2],byrow=TRUE)	
-    X<-t(t(X)/sqrt(diag(t(X)%*%X)))
-    
+#' @title Boost step by step functions
+#'
+#' @description Step by step functions to apply the selectboost algorithm.
+#'
+#' @name boost
+#'
+#' @return Various types depending on the function.
+#' @family Selectboost functions
+#' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+#' @seealso \code{\link{fastboost}}, \code{\link{autoboost}}
+#' @examples
+#' set.seed(314)
+#' xran=matrix(rnorm(200),20,10)
+#' yran=rnorm(20)
+globalVariables("iforeach")
+#> NULL
+
+#' @rdname boost
+#'
+#' @param X Numerical matrix. Matrix of the variables.
+#' @param eps Numerical value. Response vector.
+#'
+#' @details \code{boost.normalize} returns a numeric matrix whose colun are centered and l2 normalized.
+#'
+#' @examples
+#' xran_norm <- boost.normalize(xran)
+#'
+#' @export
+boost.normalize<-function(X,eps=1e-8){
+  tempcolnames <- colnames(X)
+  center <- colMeans(X, na.rm = TRUE)
+  X <- sweep(X, 2L, center, check.margin = FALSE)
+  colnorm2 <- function(v) {
+    v <- v[!is.na(v)]
+    sqrt(sum(v^2))
   }
-  
-  Correlation_matrice<-t(X)%*%X
-  Correlation_indice<-Correlation_matrice*0	
-  Correlation_indice[which((Correlation_matrice)>=0)]<-1		
-  Correlation_indice[which(-(Correlation_matrice)>=0)]<--1	
-  diag(Correlation_indice)<-1
-  
-  groups<-group2(X)
-  
-  #nb_correlated_variables<-apply(abs(Correlation_indice),2,sum)
-  #		#cat("Number of correlated variables : \n")
-  
-  
-  Boot<-matrix(rep(0,dim(X)[2]*B),B,dim(X)[2])
-  
-  func_passage1<-function(x){
-    
-    Xpass<-matrix(0,dim(X)[1],dim(X)[1]-1)
-    Xpass[col(Xpass)>row(Xpass)]<-1
-    diag(Xpass)<-1
-    Xpass[col(Xpass)==(row(Xpass)-1)]<--(1:(dim(X)[1]-1))
-    Xpass<-t(t(Xpass)/sqrt(diag(t(Xpass)%*%Xpass)))
-    return(solve(t(Xpass)%*%Xpass)%*%t(Xpass)%*%x)
-  }	
-  
-  func_passage2<-function(x){
-    
-    Xpass<-matrix(0,dim(X)[1],dim(X)[1]-1)
-    Xpass[col(Xpass)>row(Xpass)]<-1
-    diag(Xpass)<-1
-    Xpass[col(Xpass)==(row(Xpass)-1)]<--(1:(dim(X)[1]-1))
-    Xpass<-t(t(Xpass)/sqrt(diag(t(Xpass)%*%Xpass)))
-    return(apply( matrix(rep(x,dim(X)[1]),dim(X)[1],dim(X)[1]-1,byrow=TRUE)*Xpass,1,sum))
-  }
-  
-  Xret<-array(0,c(dim(X)[1],dim(X)[2],B))
-  Xb<-X
-  
-  
-  
-  simul1<-function(j){
-    
-    if(length(groups[[j]])>=2){
-      
-      indice<-groups[[j]]
-      corr_set<-t(t(X[,indice])*Correlation_indice[j,indice])
-      corr_set2<-apply(corr_set,2,func_passage1)
-      BB<-coef(movMF(t(corr_set2),1))$theta
-      newv<-rmovMF(1,BB)
-      newv<-func_passage2(newv)
-    }else{
-      
-      newv<-X[,j]
-      
+  scale <- apply(X, 2L, colnorm2)
+  scale[scale<eps] <- 1
+  Xnorm <- sweep(X, 2L, scale, "/", check.margin = FALSE)
+  #Center columns and then set their SS to 1
+  attr(Xnorm,"orig.colnames") <- tempcolnames
+  colnames(Xnorm) <- 1:ncol(X)
+  return(Xnorm)
+}
+
+#' @rdname boost
+#'
+#' @param Xnorm Numerical matrix. Needs to be centered and l2 normalized.
+#' @param corrfunc Character value or function. The function to compute associations between the variables.
+#' @param verbose Boolean.
+#' Defaults to \code{FALSE}.
+#' @param testvarindic Boolean vector. Compute associations for a subset of variables.
+#' By default, the scope of the computation is the whole dataset, i.e. \code{rep(TRUE,ncol(Xnorm))}.
+#'
+#' @details \code{boost.compcorrs} returns a correlation like matrix computed using the \code{corrfunc} function.
+#'
+#' @examples
+#' xran_corr<- boost.compcorrs(xran_norm)
+#'
+#' @export
+boost.compcorrs<-function(Xnorm,corrfunc="cor",verbose=FALSE,testvarindic=rep(TRUE,ncol(Xnorm))){
+  if (is.character(corrfunc)){
+    tempcorr <- get(corrfunc, mode = "function", envir = parent.frame())
+    if(all(testvarindic)){
+      Correlation_matrice <- tempcorr(Xnorm)
+    }else {
+      Correlation_matrice <- tempcorr(Xnorm,Xnorm[,testvarindic])
     }
-    
-    
-    return(newv)			
   }
-  
+
+  if (is.function(corrfunc)){
+    if(all(testvarindic)){
+      Correlation_matrice <- corrfunc(Xnorm)
+    }else {
+      Correlation_matrice <- corrfunc(Xnorm,Xnorm[,testvarindic])
+    }
+  }
+  return(Correlation_matrice)
+}
+
+#' @rdname boost
+#'
+#' @param Correlation_matrice Numerical matrix.
+# #' @param verbose Boolean.
+# #' Defaults to \code{FALSE}.
+#' @details \code{boost.Xpass} returns the transformation matrix.
+#'
+#' @examples
+#' xran_corr_sign <- boost.correlation_sign(xran_corr)
+#'
+#' @export
+boost.correlation_sign<-function(Correlation_matrice,verbose=FALSE) {
+  return(sign(Correlation_matrice))
+}
+
+#' @rdname boost
+#'
+# #' @param Correlation_matrice Numerical matrix.
+#' @param group Character value or function. The grouping function.
+#' @param corr Numerical value. Thresholding value. Defaults to \code{1}.
+# #' @param verbose Boolean. Compute associations a subset of variables. Defaults to \code{FALSE}.
+#'
+#' @details \code{boost.findgroups} returns a list of groups or communities found using the \code{group} function.
+#'
+#' @examples
+#' xran_groups <- boost.findgroups(xran_corr, group=group_func_1, .3)
+#' xran_groups_2 <- boost.findgroups(xran_corr, group=group_func_2, .3)
+#'
+#' @export
+boost.findgroups<-function(Correlation_matrice,group,corr=1,verbose=FALSE){
+
+  if (is.character(group)){
+    tempgroup <- get(group, mode = "function", envir = parent.frame())
+    group2 <- function(x) return(tempgroup(x,corr))
+  }
+
+  if (is.function(group)){
+    group2 <- function(x) return(group(x,corr))
+  }
+
+#  Correlation_sign<-sign(Correlation_matrice)
+  #diag(Correlation_sign)<-1
+  groups<-group2(Correlation_matrice)
+
+  if(attr(groups,"type")=="compact"){
+    length.communities=lapply(groups$communities,length)
+    length.groups=length.communities[unlist((groups)[setdiff(names(groups),"communities")])]
+  } else {
+    length.groups=sapply(groups,length)
+  }
+  attr(groups,"length.groups") <- unlist(length.groups)
+
+  if(verbose){
+    cat("Number of correlated variables :", attr(groups,"length.groups"), "\n")
+    cat("Number of variables :", ncol(Correlation_matrice), "\n")
+  }
+
+  return(list(groups=groups
+              #,Correlation_sign=Correlation_sign
+              ))
+}
+
+#' @rdname boost
+#'
+#' @param nrowX Numerical value
+#' @param ncolX Numerical value.
+#'
+#' @details \code{boost.Xpass} returns the transformation matrix.
+#'
+#' @examples
+#' xran_Xpass <- boost.Xpass(nrow(xran_norm),ncol(xran_norm))
+#'
+#' @export
+boost.Xpass<-function(nrowX,ncolX){
+  Xpass<-matrix(0,nrowX,nrowX-1)
+  Xpass[col(Xpass)>=row(Xpass)]<-1
+  Xpass[col(Xpass)==(row(Xpass)-1)]<--(1:(nrowX-1))
+  colnorm2 <- function(v) {
+    v <- v[!is.na(v)]
+    sqrt(sum(v^2))
+  }
+  scale <- apply(Xpass, 2L, colnorm2)
+  Xpass <- sweep(Xpass, 2L, scale, "/", check.margin = FALSE)
+  return(Xpass)
+}
+
+#' @rdname boost
+#'
+# #' @param X Numerical matrix. l2 normed matrix.
+#' @param groups List. List of groups or communities (compact form).
+#' @param Correlation_sign Numerical -1/1 matrix.
+#' @param Xpass Numerical value. Transformation matrix.
+#' Defaults to \code{boost.Xpass(nrowX,ncolX)}, with \code{nrowX=nrow(X)} and \code{ncolX=ncol(X)}.
+# #' @param verbose Boolean.
+# #' Defaults to \code{FALSE}.
+#' @param use.parallel Boolean.
+#' Defaults to \code{FALSE}.
+#' @param ncores Numerical value. Number of cores to use.
+#' Defaults to \code{4}.
+#'
+#' @details \code{boost.adjust} returns the list of the parameters ot the fitted von-Mises distributions.
+#'
+#' @examples
+#' xran_adjust <- boost.adjust(xran_norm, xran_groups$groups, xran_corr_sign)
+#'
+#' @export
+boost.adjust<-function(X,groups,Correlation_sign,Xpass=boost.Xpass(nrowX,ncolX),verbose=FALSE,use.parallel=FALSE,ncores=4) {
+  if(attr(groups,"type")=="compact"){
+    communities=groups$communities
+    groups$communities <- NULL
+    listnames=vector("list",length(groups))
+  }
+  ngroups=length(groups)
+  nrowX=nrow(X)
+  ncolX=ncol(X)
+#  Xpass <- boost.Xpass(nrowX,ncolX)
+
+  func_passage1<-function(x){
+    return(crossprod(Xpass,x))
+  }
+
+  corr_set0<-func_passage1(X) #t(Xpass)%*%X
+  fit1<-function(j){
+    if(attr(groups,"length.groups")[j]>=2){
+      if(verbose){
+        cat(paste(j,": Random","\n"))
+      }
+      if(attr(groups,"type")=="compact"){
+        indice<-unlist((communities)[groups[[j]]])
+      } else {
+        indice<-groups[[j]]
+      }
+      corr_set2<-sweep(corr_set0[,indice,drop=FALSE],2L,Correlation_sign[indice,j],"*")
+      return(vmf.mle(t(corr_set2)))
+    }else{
+      if(verbose){
+        print(paste(j,": NoRandom","\n"))
+      }
+      return("NoRandom")
+    }
+  }
+  fit1<-Vectorize(fit1, SIMPLIFY = FALSE)
+
+  if(use.parallel) {
+    requireNamespace("doMC")
+    registerDoMC(ncores)
+    vmf.params=foreach(iforeach=1:ngroups, .combine=c) %dopar% fit1(iforeach)
+
+  } else {
+    vmf.params=fit1(1:ngroups)
+  }
+
+  if(attr(groups,"type")=="compact"){
+    listnames=vector("list",ngroups)
+    for(lll in 1:ngroups){
+      listnames[[lll]]<-unlist((communities)[groups[[lll]]])
+    }
+    names(vmf.params) <- unlist(lapply(listnames,paste,collapse="."))
+  } else {
+    names(vmf.params) <- lapply(groups,paste,collapse=".")
+  }
+
+  return(list(Xpass=Xpass,vmf.params=vmf.params))
+}
+
+#' @rdname boost
+#'
+# #' @param X Numerical matrix. l2 normed matrix.
+# #' @param Xpass Numerical value. Transformation matrix.
+#' @param vmf.params List. List of the parameters ot the fitted von-Mises distributions.
+# #' @param verbose Boolean.
+# #' Defaults to \code{FALSE}.
+#' @param B Integer value. Number of resampling.
+# #' @param use.parallel Boolean.
+# #' @param ncores Numerical value. Number of cores to use.
+#'
+#' @details \code{boost.random} returns an array with the resampled datasets.
+#'
+#' @examples
+#' xran_random <- boost.random(xran_norm, xran_Xpass, xran_adjust$vmf.params, B=100)
+#'
+#' @export
+boost.random<-function(X,Xpass,vmf.params,verbose=FALSE,B=100,use.parallel=FALSE,ncores=4) {
+  nvmf.params=length(vmf.params)
+  nrowX=nrow(X)
+  ncolX=ncol(X)
+
+  func_passage2<-function(x){
+    return(Xpass%*%t(x)) #tcrossprod(Xpass,x)
+  }
+
+  findcols<-function(j){
+    if(is.list(vmf.params[[j]])){
+      return(j)
+    }
+  }
+
+  colstosimul<-unlist(lapply(1:nvmf.params,findcols))
+
+  simul1<-function(j){
+    newv<-rvmf(1,mu=vmf.params[[j]]$mu,k=vmf.params[[j]]$kappa)
+    newv<-func_passage2(newv) #Xpass%*%t(newv)
+    return(newv)
+  }
+
   simul1<-Vectorize(simul1)
-  
-  simul2<-function(){simul1(1:(dim(X)[2]))}
-  
-  Xret<-replicate(B,simul2())
-  
-  
-  select<-function(k){
-    rr<-eval(parse(text=paste(func,"(Xret[,,",k,"],Y)",sep="")))
-    
-    return(rr)	
+  if(B>1){
+    simul2<-function(){simul1(colstosimul)}
+    if(use.parallel & !is.null(colstosimul)) {
+      requireNamespace("doMC")
+      registerDoMC(ncores)
+      res<-foreach(iforeach=1:B, .combine=list, .multicombine=TRUE) %dopar% simul2()
+      res<-simplify2array(res)
+    } else {
+      res<-replicate(B,simul2())
+    }
+  } else {
+    if(use.parallel & !is.null(colstosimul)) {
+      requireNamespace("doMC")
+      registerDoMC(ncores)
+      res<-foreach(iforeach=colstosimul, .combine=cbind) %dopar% simul1(iforeach)
+    } else {
+      res<-simul1(colstosimul)
+    }
   }
-  
-  
-  Boot<-lapply(1:B,select)
-  
-  Boot2<-c()
-  for(i in 1:B) {Boot2<-c(Boot2,unlist(Boot[[i]][-1,]))}
-  
-  Boot<-matrix(Boot2,B,dim(X)[2],byrow=TRUE)
-  
-  Fs<-apply(abs(Boot)>eps,2,sum)
-  
-  
+  if(is.null(colstosimul)){
+    colstosimul<-NA
+    attr(res,"nosimul")<-TRUE
+  } else {
+    attr(res,"nosimul")<-FALSE
+  }
+  attr(res,"colstosimul")<-colstosimul
+  attr(res,"nsimul")<-B
+  return(res)
+
+#  simul2<-function(){simul1(colstosimul)}
+#  Xret<-replicate(B,simul2())
+#  return(Xret)
+}
+
+#' @rdname boost
+#'
+# #' @param X Numerical matrix. l2 normed matrix of predictors.
+#' @param cols.simul Numerical value. Transformation matrix.
+#' @param Y Numerical vector or factor. Response.
+#' @param func Function. Variable selection function.
+# #' @param verbose Boolean.
+# #' Defaults to \code{FALSE}.
+# #' @param use.parallel Boolean.
+# #' Defaults to \code{FALSE}.
+# #' @param ncores Numerical value. Number of cores to use.
+# #' Defaults to \code{4}.
+#' @param ... . Additionnal parameters passed to the \code{func} function.
+#'
+#' @details \code{boost.apply} returns a matrix with the coefficients estimated using the resampled datasets.
+#'
+#' @examples
+#' xran_apply <- boost.apply(xran_norm, xran_random, yran, lasso_msgps_AICc)
+#'
+#' @export
+boost.apply<-function(X,cols.simul,Y,func,verbose=FALSE,use.parallel=FALSE,ncores=4,...){
+
+if (is.character(func)){
+  funcgroup <- get(func, mode = "function", envir = parent.frame())
+}
+if (is.function(func)){
+  funcgroup <- func
+}
+
+if(attr(cols.simul,"nosimul")) {
+    if(attr(cols.simul,"nsimul")==1) {
+      return(funcgroup(X,Y,...))
+    } else {
+      applyfunction<-function(k){
+        return(funcgroup(X,Y,...))
+      }
+      if(use.parallel) {
+        requireNamespace("doMC")
+        registerDoMC(ncores)
+        return(foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind) %dopar% applyfunction(iforeach))
+      } else {
+        return(sapply(1:attr(cols.simul,"nsimul"),applyfunction))
+      }
+    }
+  } else {
+    if(attr(cols.simul,"nsimul")==1) {
+      X[,attr(cols.simul,"colstosimul")] <-cols.simul
+      return(funcgroup(X,Y,...))
+    } else {
+      applyfunction<-function(k){
+        X[,attr(cols.simul,"colstosimul")] <-cols.simul[,,k]
+        return(funcgroup(X,Y,...))
+      }
+      if(use.parallel) {
+        requireNamespace("doMC")
+        registerDoMC(ncores)
+        return(foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind) %dopar% applyfunction(iforeach))
+      } else {
+        return(sapply(1:attr(cols.simul,"nsimul"),applyfunction))
+      }
+    }
+  }
+}
+
+#' @rdname boost
+#'
+#' @param Boost.coeffs Numerical matrix. l2 normed matrix of predictors.
+# #' @param eps Numerical value.
+# #' Defaults to \code{eps=10^(-4)}.
+#' @param version Character value. "lars" (no intercept value) or "glmnet" (first coefficient is the intercept value).
+# #' @param verbose Boolean.
+# #' Defaults to \code{FALSE}.
+#'
+#' @details \code{boost.select} returns a vector with the proportion of times each variable was selected.
+#'
+#' @examples
+#' xran_select <- boost.select(xran_apply)
+#'
+#' @export
+boost.select<-function(Boost.coeffs,eps=10^(-4),version="lars",verbose=FALSE){
+  nsim=ncol(Boost.coeffs)
+  if(version=="glmnet") {
+    Boost.coeffs<-Boost.coeffs[-1,]
+
+  }
+  if(is.null(dim(Boost.coeffs))){Boost.coeffs<-as.matrix(Boost.coeffs)
+  Fs<-apply(abs(Boost.coeffs)>eps,1,sum)
+  return(Fs)} else{
+  Fs<-apply(abs(Boost.coeffs)>eps,1,sum)
+#  names(Fs)<-NULL
+  return(Fs/nsim)
+  }
+}
+
+#' @rdname boost
+#'
+# #' @param X Numerical matrix. Matrix of the variables.
+# #' @param Y Numerical vector or factor. Response vector.
+# #' @param group Function. The grouping function.
+# #' @param func Function. The variable selection function.
+# #' @param corr Numerical value. Thresholding value.
+# #' Defaults to \code{1}.
+# #' @param B Integer. Number of resampled fits of the model.
+# #' Defaults to \code{100}.
+#' @param normalize Boolean. Shall the X matrix be centered and scaled?
+#' Defaults to \code{TRUE}.
+# #' @param eps Numerical value. Tolerance for non-zero coefficient..
+# #' Defaults to \code{10^(-4)}.
+# #' @param version Character value.
+# #' Defaults to \code{lars}
+# #' @param verbose Boolean.
+# #' Defaults to \code{FALSE}.
+#' @param method Character value.
+#' \itemize{
+#' \item \code{"Xarrays"}: returns resampled datasets.
+#' \item \code{"Xboost"}: returns coefficients of the models fitted to the resampled datasets.
+#' \item \code{"boost"}: Return proportion of selection for each variable.
+#' }
+#' Defaults to \code{"boost"}.
+# #' @param use.parallel Boolean. Use parallel computing (doMC).
+# #' Defaults to \code{TRUE}.
+# #' @param ncores Numerical value. Number of cores for parallel computing.
+# #' Defaults to \code{4}.
+#'
+#' @details \code{boost} returns a vector with the proportion of times each variable was selected. Much slower than
+#' \code{autoboost} or \code{fastboost}.
+#'
+#' @examples
+#' xran_select <- boost(xran, yran, group_func_1, lasso_msgps_AICc, corr=.3)
+#'
+#' @export
+boost<-function(X,Y,group,func,corr=1,B=200,normalize=TRUE,eps=10^(-4),version="lars",verbose=FALSE,method="boost",use.parallel=FALSE,ncores=2){
+
+  if (is.character(group))
+    tempgroup <- get(group, mode = "function", envir = parent.frame())
+    group2 <- function(x) return(tempgroup(x,corr))
+
+  if (is.function(group))
+    group2 <- function(x) return(group(x,corr))
+
+  if(normalize==TRUE){
+    X<-scale(X,scale=apply(X, 2, sd, na.rm = TRUE)*sqrt(nrow(x = X)-1))
+    #Center columns and then set their SS to 1
+    Correlation_matrice<-crossprod(X)
+  } else {
+    Correlation_matrice<-cor(X)
+  }
+
+  Correlation_sign<-sign(Correlation_matrice)
+  #diag(Correlation_sign)<-1
+  groups<-group2(Correlation_matrice)
+  len.groups<-sapply(groups,length)
+  nrowX=nrow(X)
+  ncolX=ncol(X)
+
+  if(verbose){
+    cat("Number of correlated variables :", len.groups, "\n")
+    cat("Number cases :", nrowX,"\n")
+    cat("Number of variables :", ncolX, "\n")
+  }
+
+  Boot<-matrix(0,B,ncolX)
+
+  Xpass<-matrix(0,nrowX,nrowX-1)
+  Xpass[col(Xpass)>=row(Xpass)]<-1
+  Xpass[col(Xpass)==(row(Xpass)-1)]<--(1:(nrowX-1))
+  colnorm2 <- function(v) {
+    v <- v[!is.na(v)]
+    sqrt(sum(v^2))
+  }
+  scale <- apply(Xpass, 2L, colnorm2)
+  Xpass <- sweep(Xpass, 2L, scale, "/", check.margin = FALSE)
+  Xprod <- t(Xpass)
+
+  func_passage1<-function(x){
+    return(Xprod%*%x)
+  }
+
+  func_passage2<-function(x){
+#    return(apply(matrix(rep(x,nrowX),nrowX,nrowX-1,byrow=TRUE)*Xpass,1,sum))
+    return(Xpass%*%x)
+  }
+
+  Xret<-array(0,c(nrowX,ncolX,B))
+  Xb<-X
+
+  corr_set0<-func_passage1(X) #Xprod%*%X
+
+  simul1<-function(j){
+    if(length(groups[[j]])>=2){
+      indice<-groups[[j]]
+      corr_set2<-sweep(corr_set0[,indice],2L,Correlation_sign[j,indice],"*")
+      BB<-vmf.mle(t(corr_set2))
+      newv<-rvmf(1,mu=BB$mu,k=BB$kappa)
+
+      newv<-func_passage2(t(newv)) #Xpass%*%t(newv)
+    }else{
+      newv<-X[,j]
+    }
+    return(newv)
+  }
+
+  simul1<-Vectorize(simul1)
+
+  if(method=="Xarrays"){
+    simul2<-function(){simul1(1:ncolX)}
+    if(use.parallel) {
+      requireNamespace("doMC")
+      registerDoMC(ncores)
+      Xret<-foreach(iforeach=1:B, .combine=cbind) %dopar% simul2()
+    } else {
+      Xret<-replicate(B,simul2())
+    }
+    return(Xret)
+  }
+
+  if (is.character(func)){
+    funcgroup <- get(func, mode = "function", envir = parent.frame())
+  }
+#  select <- function(k) return(funcgroup(Xret[,,k],Y))
+  if (is.function(func)){
+    funcgroup <- func
+  }
+
+  simul2<-function(){return(funcgroup(simul1(1:ncolX),Y))}
+
+  if(use.parallel) {
+
+  requireNamespace("doMC")
+  registerDoMC(ncores)
+  Boost<-foreach(iforeach=1:B, .combine=cbind) %dopar% simul2()
+
+  } else {
+    Boost<-replicate(B,simul2())
+  }
+
+  if(method=="Xboost"){
+    return(Boost)
+  }
+
+  if(version=="glmnet") {
+    Boost<-c()
+    for(i in 1:B) {Boost<-c(Boost,unlist(Boost[[i]][-1,]))}
+
+    Boost<-t(matrix(Boost,B,ncolX,byrow=TRUE))
+  }
+
+  Fs<-apply(abs(Boost)>eps,1,sum)
+  names(Fs)<-NULL
+
   return(Fs/B)
 }
+
 

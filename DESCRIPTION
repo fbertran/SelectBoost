@@ -1,11 +1,19 @@
 Package: SelectBoost
-Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Version: 1.0.0
+Date: 2019-01-06
+Depends: R (>= 2.10)
+Imports: lars, glmnet, igraph, parallel, msgps, Rfast, doMC, foreach
+Title: A General Algorithm to Enhance the Performance of Variable Selection Methods in Correlated Datasets
+Authors@R: c(
+	person(given = "Frederic", family= "Bertrand", role = c("cre", "aut"), email = "frederic.bertrand@math.unistra.fr", comment = c(ORCID = "0000-0002-0837-8281")),
+	person(given = "Myriam", family= "Maumy-Bertrand", role = c("ctr"), email = "myriam.maumy-bertrand@math.unistra.fr", comment = c(ORCID = "0000-0002-4615-1512")),
+	person(given = "Ismail", family= "Aouadi", role = c("ctr"), email = "i.aouadi@unistra.fr"),
+	person(given = "Nicolas", family= "Jung", role = c("ctr"), email = "nicolas.jung@unistra.fr"))
+Author: Frederic Bertrand [cre, aut] (<https://orcid.org/0000-0002-0837-8281>), Myriam Maumy-Bertrand [aut] (<https://orcid.org/0000-0002-4615-1512>), Ismail Aouadi [ctr], Nicolas Jung [ctr]
+Maintainer: Frederic Bertrand <frederic.bertrand@math.unistra.fr>
+Description: The selectboost algorithm is general algorithm which improves the precision of any existing variable selection method. This algorithm is based on highly intensive simulations and takes into account the correlation structure of the data. It can either produce a confidence index for variable selection or it can be used in an experimental design planning perspective.
+License: GPL-3
 Encoding: UTF-8
-LazyData: true
+URL: http://www-irma.u-strasbg.fr/~fbertran/
+Classification/MSC: 62J12, 62J99
+RoxygenNote: 6.1.1

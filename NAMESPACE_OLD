@@ -1,0 +1,93 @@
+# imports functions
+importFrom("stats", "coef", "cor", "predict", "var")
+#importFrom("stats", "AIC", "Gamma", "binomial", "coef", "contrasts",
+#           "family", "gaussian", "glm", "inverse.gaussian",
+#           "is.empty.model", "lm", "make.link", "model.frame",
+#           "model.matrix", "model.offset", "model.response",
+#           "model.weights", "na.exclude", "na.pass", "pnorm",
+#           "poisson", "predict", "rbinom", "residuals.glm",
+#           "weighted.mean")
+
+importFrom(Rfast,vmf.mle)
+importFrom(Rfast,rvmf)
+importFrom(parallel,detectCores)
+importFrom(parallel,makeCluster)
+importFrom(parallel,clusterEvalQ)
+importFrom(parallel,clusterExport)
+importFrom(parallel,parLapply)
+importFrom(parallel,stopCluster)
+importFrom(doMC,registerDoMC)
+importFrom(foreach,foreach)
+importFrom(foreach,"%dopar%")
+importFrom(igraph,graph.adjacency)
+importFrom(igraph,infomap.community)
+importFrom(igraph,communities)
+import(lars)
+import(glmnet)
+import(msgps)
+
+#suggested imports
+importFrom("grDevices", "rainbow")
+importFrom("graphics", "abline", "axis", "barplot", "matplot", "mtext",
+           "par", "plot", "points", "segments")
+importFrom("stats", "binom.test", "median", "plogis", "pt", "qbinom", "quantile",
+           "rbinom", "rnorm", "runif", "sd", "t.test", "wilcox.test")
+
+# functions
+export(AICc_glmnetB           )
+export(analyze.selectboost    )
+export(auto.analyze.selectboost)
+export(autoboost              )
+export(BIC_glmnetB            )
+export(boost                  )
+export(boost.normalize        )
+export(boost.Xpass            )
+export(boost.compcorrs        )
+export(boost.correlation_sign )
+export(boost.findgroups       )
+export(boost.adjust           )
+export(boost.random           )
+export(boost.apply            )
+export(boost.select           )
+export(fastboost              )
+export(forward_cv_1se         )
+export(forward_cv_min         )
+export(group_func_1           )
+export(group_func_2           )
+export(lasso_cv_glmnet_bin_min)
+export(lasso_cv_glmnet_bin_1se)
+export(lasso_glmnet_bin_AICc  )
+export(lasso_glmnet_bin_BIC   )
+export(lasso_cv_lars_min      )
+export(lasso_cv_lars_1se      )
+export(lasso_cv_glmnet_min    )
+export(lasso_cv_glmnet_1se    )
+export(lasso_cv_glmnet_min_weighted)
+export(lasso_cv_glmnet_1se_weighted)
+export(lasso_msgps_Cp         )
+export(lasso_msgps_AICc       )
+export(lasso_msgps_GCV        )
+export(lasso_lars_BIC         )
+export(lasso_lars_BIC2        )
+export(lasso_lars_GCV         )
+export(msgps_enetf            )
+export(msgps_enetF            )
+export(plot.autoboost         )
+export(plot.trajC0.selectboost)
+export(plot.analyze.selectboost)
+export(rerr                   )
+export(ridge_logistic         )
+export(stepwise_cv_1se        )
+export(stepwise_cv_min        )
+export(simulation_cor         )
+export(simulation_X           )
+export(simulation_DATA        )
+
+## S3 methods for generics in base
+#S3method("print", "summary.plsRglmmodel")
+
+
+
+
+
+
