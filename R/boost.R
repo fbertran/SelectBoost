@@ -258,7 +258,12 @@ boost.adjust<-function(X,groups,Correlation_sign,Xpass=boost.Xpass(nrowX,ncolX),
 #' @details \code{boost.random} returns an array with the resampled datasets.
 #'
 #' @examples
+#' #Not meaningful, should be run with B>=100
+#' xran_random <- boost.random(xran_norm, xran_Xpass, xran_adjust$vmf.params, B=5)
+#'
+#' \dontrun{
 #' xran_random <- boost.random(xran_norm, xran_Xpass, xran_adjust$vmf.params, B=100)
+#' }
 #'
 #' @export
 boost.random<-function(X,Xpass,vmf.params,verbose=FALSE,B=100,use.parallel=FALSE,ncores=4) {

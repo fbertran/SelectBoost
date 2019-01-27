@@ -15,7 +15,7 @@
 #' (Model Selection Criteria via Generalized Path Seeking). Defaults to "enet".
 #' "genet" is the generalized elastic net and "alasso" is the adaptive lasso,
 #' which is a weighted version of the lasso.
-#' @param alpha A numeric value to set the value of α on "enet" and "genet" penalty in msgps
+#' @param alpha A numeric value to set the value of \eqn{\alpha} on "enet" and "genet" penalty in msgps
 #' (Model Selection Criteria via Generalized Path Seeking).
 #' @param M A numeric matrix. The transposed predictors matrix.
 #' @param K A numeric value. Number of folds to use.

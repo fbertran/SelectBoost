@@ -83,12 +83,13 @@ xran=matrix(rnorm(75),15,5)
 ybin=sample(0:1,15,replace=TRUE)
 yran=rnorm(15)
 set.seed(314)
-#For quick test purpose, not meaningful
-res.autoboost <- autoboost(xran,yran,B=5,use.parallel=FALSE)
 
 \donttest{
 #Should be run with greater value of B.
 autoboost(xran,yran)
+#Disable parallel computing
+autoboost(xran,yran,use.parallel=FALSE)
+#Customize resampling levels
 autoboost(xran,yran,steps.seq=c(.99,.95,.9))
 
 #Binary logistic regression

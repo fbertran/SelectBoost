@@ -84,7 +84,7 @@ ybin=sample(0:1,15,replace=TRUE)
 yran=rnorm(15)
 set.seed(314)
 #For quick test purpose, not meaningful
-res.fastboost <- fastboost(xran,yran,B=5,use.parallel=FALSE)
+res.fastboost <- fastboost(xran,yran,B=2,use.parallel=FALSE)
 
 \donttest{
 #Should be run with greater value of B.

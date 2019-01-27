@@ -78,7 +78,7 @@ lasso_cascade(M, Y, K, eps = 10^-5, cv.fun)
 "genet" is the generalized elastic net and "alasso" is the adaptive lasso,
 which is a weighted version of the lasso.}
 
-\item{alpha}{A numeric value to set the value of α on "enet" and "genet" penalty in msgps
+\item{alpha}{A numeric value to set the value of \eqn{\alpha} on "enet" and "genet" penalty in msgps
 (Model Selection Criteria via Generalized Path Seeking).}
 
 \item{M}{A numeric matrix. The transposed predictors matrix.}
