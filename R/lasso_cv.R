@@ -17,6 +17,10 @@
 #' which is a weighted version of the lasso.
 #' @param alpha A numeric value to set the value of α on "enet" and "genet" penalty in msgps
 #' (Model Selection Criteria via Generalized Path Seeking).
+#' @param M A numeric matrix. The transposed predictors matrix.
+#' @param K A numeric value. Number of folds to use.
+#' @param eps A numeric value. Threshold to set to 0 the inferred value of a parameter.
+#' @param cv.fun A function. Fonction used to create folds. Used to perform corss-validation subkectwise.
 #'
 #' @return A vector of coefficients.
 #' @family Variable selection functions
@@ -412,3 +416,76 @@ enetf_msgps_BIC<-function(X,Y,penalty="enet",alpha=0.5){
 
 }
 
+#' @rdname var_select
+#'
+#' @details \code{lasso_cascade} returns the vector of coefficients
+#' for a linear model estimated by the lasso.
+#' It uses the \code{lars} function of the \code{lars} package.
+#'
+#' @examples
+#' set.seed(314)
+#' lasso_cascade(t(xran),yran,5)
+#'
+#' @export
+lasso_cascade<-function(M,Y,K,eps=10^-5,cv.fun#=lars::cv.folds
+#                    ,cv.fun.name#="lars::cv.folds"
+){
+  #  require(lars)
+#  cat("lasso_reg",cv.fun.name,"\n")
+  model<-try(cv.lars1(t(M),(Y),intercept=FALSE,K=K,plot.it=FALSE,eps=eps,cv.fun=cv.fun
+#                      , cv.fun.name=cv.fun.name
+  ))
+  n<-try(model$index[which(model$cv %in% min(model$cv))])
+  model<-try(lars::lars(t(M),(Y),intercept=FALSE,eps=eps))
+  repu<-try(lars::coef.lars(model,s=n,mode="fraction"))
+  if(!is.vector(repu)){repu<-rep(0,dim(M)[1])}
+  return(repu)
+}
+
+cv.lars1 <- function (x, y, K = 10, index, trace = FALSE, plot.it = TRUE,
+                      se = TRUE, type = c("lasso", "lar", "forward.stagewise",
+                                          "stepwise"), mode = c("fraction", "step"), cv.fun
+#                      , cv.fun.name
+                      , ...)
+{
+  #  requireNamespace("lars")
+#  cat(cv.fun.name)
+  type = match.arg(type)
+  if (missing(mode)) {
+    mode = switch(type, lasso = "fraction", lar = "step",
+                  forward.stagewise = "fraction", stepwise = "step")
+  }
+  else mode = match.arg(mode)
+  all.folds <- cv.fun(length(y), K)
+  #  cat(all.folds[[1]],"\n")
+  if (missing(index)) {
+    index = seq(from = 0, to = 1, length = 100)
+    if (mode == "step") {
+      fit = lars::lars(x, y, type = type, ...)
+      nsteps = nrow(fit$beta)
+      maxfold = max(sapply(all.folds, length))
+      nsteps = min(nsteps, length(y) - maxfold)
+      index = seq(nsteps)
+    }
+  }
+  residmat <- matrix(0, length(index), K)
+  for (i in seq(K)) {
+    omit <- all.folds[[i]]
+    fit <- lars::lars(x[-omit, , drop = FALSE], y[-omit], trace = trace,
+                      type = type, ...)
+    fit <- lars::predict.lars(fit, x[omit, , drop = FALSE], mode = mode,
+                              s = index)$fit
+    if (length(omit) == 1)
+      fit <- matrix(fit, nrow = 1)
+    residmat[, i] <- apply((y[omit] - fit)^2, 2, mean)
+    if (trace)
+      cat("\n CV Fold", i, "\n\n")
+  }
+  cv <- apply(residmat, 1, mean)
+  cv.error <- sqrt(apply(residmat, 1, var)/K)
+  object <- list(index = index, cv = cv, cv.error = cv.error,
+                 mode = mode)
+  if (plot.it)
+    lars::plotCVLars(object, se = se)
+  invisible(object)
+}

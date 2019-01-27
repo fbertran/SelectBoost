@@ -14,8 +14,9 @@
 #' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
 # @import lars glmnet igraph parallel msgps Rfast doMC foreach
 #' @import lars glmnet msgps
+#' @importFrom methods new
 #' @importFrom utils head tail
-#' @importFrom stats coef cor predict var
+#' @importFrom stats coef cor heatmap predict var
 #' @importFrom grDevices rainbow
 #' @importFrom graphics abline axis barplot matplot mtext par plot points segments
 #' @importFrom stats binom.test median plogis pt qbinom quantile rbinom rnorm runif sd t.test wilcox.test

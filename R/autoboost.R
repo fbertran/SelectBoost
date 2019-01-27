@@ -326,21 +326,6 @@ return(result)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #' @title Fastboost
 #'
 #' @description All in one use of selectboost that avoids redondant fitting of distributions
@@ -693,8 +678,6 @@ fastboost<-function(X,Y,ncores=4,group=group_func_1,func=lasso_msgps_AICc,corrfu
 }
 
 
-
-
 #' @title Plot selectboost object
 #'
 #' @description Plot a selectboostboost object.
@@ -726,6 +709,8 @@ NULL
 #> NULL
 
 #' @rdname plot.selectboost
+#' @method plot selectboost
+#' @S3method plot selectboost
 #'
 #' @details \code{plot.selectboost} returns an invisible list and creates four graphics.
 #' Two plots the proportion of selection with respect to c0 (by step or according to real scale).
@@ -790,8 +775,6 @@ plot.selectboost <- function(x,verbose=FALSE,prop.level=.95,conf.int.level=.95,c
 }
 
 
-
-
 #' @title Summarize a selectboost analysis
 #'
 #' @description Summarize a selectboost analysis.
@@ -799,43 +782,27 @@ plot.selectboost <- function(x,verbose=FALSE,prop.level=.95,conf.int.level=.95,c
 #' @name summary.selectboost
 #'
 #' @param object Numerical matrix. Result of selectboost (autoboost, fastboost, ...).
+#' @param crit.func Function . Defaults to the \code{mean} function.
+#' @param crit.int Character value. Mean or median based confidence intervals. Defaults to \code{"mean"} based confidence intervals.
+#' @param custom.values.lim Vector of numeric values. Defults to \code{NULL}.
+#' @param index.lim Vector of numeric values. Defults to \code{NULL}.
+#' @param alpha.conf.level Numeric value. Defults to \code{0.99}.
+#' @param force.dec Boolean. Force trajectories to be non-increasing.
+#' @param ... Additionnal arguments. Passed to the \code{crit.func} function.
 #'
-#' selectboost_result,crit.func=mean,crit.int="mean",custom.values.lim=NULL,index.lim=NULL,alpha.conf.level=0.99,force.dec=TRUE,...
-#'
-#' @param verbose Boolean.
-#' Defaults to \code{FALSE}.
-#' @param prop.level Numeric value. Used to compute the proportion of selection is
-#' greater than prop.level. Defaults to \code{.95}.
-#' @param conf.int.level Numeric value. Confidence level for confidence intervals on estimated
-#' proportions of selection. Defaults to \code{.95}.
-#' @param conf.threshold Numeric value. Used to compute the number of steps (c0) for which
-#' the proportion of selection remains greater than conf.threshold. Defaults to \code{.95}.
-#' @param ... . Passed to the plotting functions.
-#'
-#' @return An invisible list.
+#' @return A list with the results.
 #' @family Selectboost analyse functions
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
 #' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
 #' @seealso \code{\link{fastboost}}, \code{\link{autoboost}}
-#' @examples
-#' set.seed(314)
-#' xran=matrix(rnorm(75),15,5)
-#' ybin=sample(0:1,15,replace=TRUE)
-#' yran=rnorm(15)
 NULL
 #> NULL
 
 #' @rdname summary.selectboost
 #'
-#' @details \code{summary.selectboost} returns an invisible list and creates four graphics.
-#' Two plots the proportion of selection with respect to c0 (by step or according to real scale).
-#' On the third graph, no bar means a proportion of selection less than prop.level.
-#' Confidence intervals are computed at the conf.int.level level.
-#' Barplot of the confidence index (1-min(c0, such that proportion|c0>conf.threshold)).
+#' @details \code{summary.selectboost} returns a list with the results.
 #'
 #' @examples
-#' layout(matrix(1:4,2,2))
-#'
 #' data(autoboost.res.x)
 #' summary(autoboost.res.x)
 #' summary(autoboost.res.x, force.dec=FALSE)
@@ -869,11 +836,11 @@ summary.selectboost <- function(object,crit.func=mean,crit.int="mean",custom.val
   c0.seq=attr(object,"c0.seq")
   tdiff=apply(object,2,diff)
   tdiff[tdiff>0]<-0
-  object.dec<-pmax(rbind(0,apply(tdiff,2,cumsum))+matrix(object[1,],nrow(object),ncol(object),byrow=TRUE),0)
+  selectboost_result.dec<-pmax(rbind(0,apply(tdiff,2,cumsum))+matrix(object[1,],nrow(object),ncol(object),byrow=TRUE),0)
   rownames(object) <- rownames(object)
 
   if(force.dec){
-    crit.func.values=apply(object.dec,1,crit.func,...)
+    crit.func.values=apply(selectboost_result.dec,1,crit.func,...)
   } else {
     crit.func.values=apply(object,1,crit.func,...)
   }
@@ -904,7 +871,7 @@ summary.selectboost <- function(object,crit.func=mean,crit.int="mean",custom.val
   tempfreq=NULL
   for(iii in 0:20){
     tempfreq<-rbind(tempfreq,
-                    table(factor(colSums(object.dec>=1-iii*.05),levels=0:nrow(object.dec)))
+                    table(factor(colSums(selectboost_result.dec>=1-iii*.05),levels=0:nrow(selectboost_result.dec)))
     )
   }
   rownames(tempfreq) <- paste("thres =",round(1-(0:20)*.05,2))
@@ -912,11 +879,11 @@ summary.selectboost <- function(object,crit.func=mean,crit.int="mean",custom.val
   tempfreq.lims=NULL
   for(iii in crit.func.values.lim){
     tempfreq.lims<-rbind(tempfreq.lims,
-                         table(factor(colSums(object.dec>=iii),levels=0:nrow(object.dec)))
+                         table(factor(colSums(selectboost_result.dec>=iii),levels=0:nrow(selectboost_result.dec)))
     )
   }
   rownames(tempfreq.lims) <- paste("thres =",round(crit.func.values.lim,6))
-  res<-list(crit.func.values=crit.func.values,crit.func.values.lim=crit.func.values.lim,force.dec=force.dec,index.lim=index.lim,col.crit.func.values=col.crit.func.values,object.dec=object.dec,freq.dec=tempfreq,freq.dec.lims=tempfreq.lims)
+  res<-list(crit.func.values=crit.func.values,crit.func.values.lim=crit.func.values.lim,force.dec=force.dec,index.lim=index.lim,col.crit.func.values=col.crit.func.values,selectboost_result.dec=selectboost_result.dec,freq.dec=tempfreq,freq.dec.lims=tempfreq.lims)
   class(res) <- "summary.selectboost"
 
   return(res)
@@ -937,15 +904,12 @@ summary.selectboost <- function(object,crit.func=mean,crit.int="mean",custom.val
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
 #' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
 #' @seealso \code{\link{fastboost}}, \code{\link{autoboost}} and \code{\link{summary.selectboost}}
-#' @examples
-#' set.seed(314)
-#' xran=matrix(rnorm(75),15,5)
-#' ybin=sample(0:1,15,replace=TRUE)
-#' yran=rnorm(15)
 NULL
 #> NULL
 
 #' @rdname plot.summary.selectboost
+#' @method plot summary.selectboost
+#' @S3method plot summary.selectboost
 #'
 #' @details \code{plot.summary.selectboost} returns an invisible list and creates four graphics.
 #' Two plots the proportion of selection with respect to c0 (by step or according to real scale).
@@ -954,15 +918,11 @@ NULL
 #' Barplot of the confidence index (1-min(c0, such that proportion|c0>conf.threshold)).
 #'
 #' @examples
-#' layout(matrix(1:4,2,2))
-#'
 #' data(autoboost.res.x)
-#'
-#' plot.summary.selectboost(autoboost.res.x)
+#' plot(summary(autoboost.res.x))
 #'
 #' data(autoboost.res.x2)
-#'
-#' plot.summary.selectboost(autoboost.res.x2)
+#' plot(summary(autoboost.res.x2))
 #'
 #' @export
 plot.summary.selectboost <- function(x,...)
@@ -972,15 +932,73 @@ plot.summary.selectboost <- function(x,...)
   points(1:length(x$crit.func.values),x$crit.func.values,col=x$col.crit.func.values,pch=19)
 }
 
-plot.trajC0.selectboost <- function(selectboost_result,analyze.selectboost.res,lasso.coef.path,type.x.axis="noscale",type.graph="boost",threshold.level=(analyze.selectboost.res$crit.func.values.lim)["crit.func.values.lim.green"]) {
-  if(analyze.selectboost.res$force.dec){selectboost_result[,]<-analyze.selectboost.res$selectboost_result.dec}
-  c0.seq<-attr(selectboost_result,"c0.seq")
-  coul.traj<-rep("black",ncol(selectboost_result))
-  coul.traj[apply(selectboost_result[1:analyze.selectboost.res$index.lim["index.lim.red"],,drop=FALSE],2,min)>=threshold.level]<-"red"
-  coul.traj[apply(selectboost_result[1:analyze.selectboost.res$index.lim["index.lim.orange"],,drop=FALSE],2,min)>=threshold.level]<-"orange"
-  coul.traj[apply(selectboost_result[1:analyze.selectboost.res$index.lim["index.lim.green"],,drop=FALSE],2,min)>=threshold.level]<-"green"
-  llwd.traj<-rep(1,ncol(selectboost_result))
-  llwd.traj[apply(selectboost_result[1:analyze.selectboost.res$index.lim["index.lim.red"],,drop=FALSE],2,min)>=threshold.level]<-3
+
+#' @title Plot trajectories
+#'
+#' @description Plot trajectories.
+#'
+#' @name trajC0
+#'
+#' @param x Numerical matrix. Selectboost object.
+#' @param ... . Passed to the plotting functions.
+#'
+#' @return An invisible list.
+#' @family Selectboost analyze functions
+#' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+#' @seealso \code{\link{fastboost}}, \code{\link{autoboost}} and \code{\link{summary.selectboost}}
+NULL
+#> NULL
+
+#' @rdname trajC0
+#'
+#' @details \code{trajC0} returns an invisible list and creates four graphics.
+#'
+#' @export
+trajC0 = function(x, ...){
+  UseMethod("trajC0")
+}
+
+#' @return invisible list.
+#'
+#' @param summary.selectboost.res List. Summary of selectboost object.
+#' @param lasso.coef.path List. Result of \code{predict.lars}.
+#' @param type.x.axis Character value. "scale" or "noscale" for the X axis.
+#' @param type.graph Character value. Type of graphs: "bars", "lasso" and "boost".
+#' @param threshold.level Numeric value. Threshold for the graphs.
+#'
+#' @rdname trajC0
+#' @method trajC0 selectboost
+#' @S3method trajC0 selectboost
+#'
+#' @examples
+#'
+#' data(autoboost.res.x)
+#' data(diabetes, package="lars")
+#'
+#' ### With lasso trajectories
+#' m.x<-lars::lars(diabetes$x,diabetes$y)
+#' plot(m.x)
+#' mm.x<-predict(m.x,type="coef",mode="lambda")
+#' autoboost.res.x.mean = summary(autoboost.res.x)
+#'
+#' par(mfrow=c(2,2),mar=c(4,4,1,1))
+#' trajC0(autoboost.res.x,autoboost.res.x.mean,lasso.coef.path=mm.x,type.graph="lasso")
+#' trajC0(autoboost.res.x,autoboost.res.x.mean)
+#' trajC0(autoboost.res.x,autoboost.res.x.mean,type.graph="bars")
+#' trajC0(autoboost.res.x,autoboost.res.x.mean,type.x.axis ="scale")
+#'
+trajC0.selectboost <- function(x,summary.selectboost.res,lasso.coef.path,type.x.axis="noscale",type.graph="boost",
+                               threshold.level=NULL, ...) {
+  if(is.null(threshold.level)){threshold.level= (summary.selectboost.res$crit.func.values.lim)["crit.func.values.lim.green"]}
+  if(summary.selectboost.res$force.dec){x[,]<-summary.selectboost.res$selectboost_result.dec}
+  c0.seq<-attr(x,"c0.seq")
+  coul.traj<-rep("black",ncol(x))
+  coul.traj[apply(x[1:summary.selectboost.res$index.lim["index.lim.red"],,drop=FALSE],2,min)>=threshold.level]<-"red"
+  coul.traj[apply(x[1:summary.selectboost.res$index.lim["index.lim.orange"],,drop=FALSE],2,min)>=threshold.level]<-"orange"
+  coul.traj[apply(x[1:summary.selectboost.res$index.lim["index.lim.green"],,drop=FALSE],2,min)>=threshold.level]<-"green"
+  llwd.traj<-rep(1,ncol(x))
+  llwd.traj[apply(x[1:summary.selectboost.res$index.lim["index.lim.red"],,drop=FALSE],2,min)>=threshold.level]<-3
   if(type.graph=="bars"){
     barplot(table(factor(coul.traj[coul.traj!="black"],levels=c("green","orange","red"))),col=c("green","orange","red"))
   }
@@ -992,25 +1010,69 @@ plot.trajC0.selectboost <- function(selectboost_result,analyze.selectboost.res,l
   }
   if(type.graph=="boost"){
     if(type.x.axis=="noscale"){
-      matplot(selectboost_result,type="l",lty=1,col=coul.traj,lwd=llwd.traj,xaxt="n",xlab="confidence index",ylab="probability of being in the support")
+      matplot(x,type="l",lty=1,col=coul.traj,lwd=llwd.traj,xaxt="n",xlab="confidence index",ylab="probability of being in the support")
       axis(1,1:length(c0.seq),labels=signif(1-c0.seq,6))
       abline(h=threshold.level,col="black",lwd=4,lty=3)
-      points(1:length(c0.seq),rep(1.035,length(c0.seq)),col=analyze.selectboost.res$col.crit.func.values,pch=19)
+      points(1:length(c0.seq),rep(1.035,length(c0.seq)),col=summary.selectboost.res$col.crit.func.values,pch=19)
     }
 
     if(type.x.axis=="scale"){
-      matplot(x=1-c0.seq,y=selectboost_result,type="l",lty=1,col=coul.traj,lwd=llwd.traj,xaxt="n",xlab="confidence index",ylab="probability of being in the support")
+      matplot(x=1-c0.seq,y=x,type="l",lty=1,col=coul.traj,lwd=llwd.traj,xaxt="n",xlab="confidence index",ylab="probability of being in the support")
       axis(1,1-c0.seq,labels=signif(1-c0.seq,6))
       abline(h=threshold.level,col="black",lwd=4,lty=3)
-      points(1-c0.seq,rep(1.035,length(c0.seq)),col=analyze.selectboost.res$col.crit.func.values,pch=19)
+      points(1-c0.seq,rep(1.035,length(c0.seq)),col=summary.selectboost.res$col.crit.func.values,pch=19)
     }
   }
-  invisible(list(coul.traj=coul.traj,select.traj=selectboost_result[,coul.traj!="black"]))
+  invisible(list(coul.traj=coul.traj,select.traj=x[,coul.traj!="black"]))
 }
 
-auto.analyze.selectboost = function(selectboost_result,...){
-  selectboost_result.custom.findlim <- summary.selectboost(selectboost_result,force.dec=FALSE,...)
-  selectboost_result.custom.emplim <- summary.selectboost(selectboost_result,custom.values.lim=selectboost_result.custom.findlim$crit.func.values.lim,index.lim=selectboost_result.custom.findlim$index.lim,force.dec=TRUE,...)
+#' @title Find limits for selectboost analysis
+#'
+#' @description Find limits for selectboost analysis.
+#'
+#' @name auto.analyze
+#'
+#' @param x Numerical matrix. Selectboost object.
+#' @param ... . Passed to the summary.selectboost function.
+#'
+#' @family Selectboost analyze functions
+#'
+#' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
+#'
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+#' @seealso \code{\link{fastboost}} and \code{\link{autoboost}}
+NULL
+#> NULL
+
+#' @rdname auto.analyze
+#'
+#' @details \code{plot.summary.selectboost} returns an invisible list and creates four graphics.
+#' Two plots the proportion of selection with respect to c0 (by step or according to real scale).
+#' On the third graph, no bar means a proportion of selection less than prop.level.
+#' Confidence intervals are computed at the conf.int.level level.
+#' Barplot of the confidence index (1-min(c0, such that proportion|c0>conf.threshold)).
+#'
+#' @export
+auto.analyze = function(x, ...){
+  UseMethod("auto.analyze")
+}
+
+#' @return list of results.
+#'
+#' @rdname auto.analyze
+#' @method auto.analyze selectboost
+#' @S3method auto.analyze selectboost
+#'
+#' @examples
+#' data(autoboost.res.x)
+#' auto.analyze(autoboost.res.x)
+#'
+#' data(autoboost.res.x2)
+#' auto.analyze(autoboost.res.x2)
+#'
+auto.analyze.selectboost = function(x, ...) {
+  selectboost_result.custom.findlim <- summary.selectboost(x,force.dec=FALSE,...)
+  selectboost_result.custom.emplim <- summary.selectboost(x,custom.values.lim=selectboost_result.custom.findlim$crit.func.values.lim,index.lim=selectboost_result.custom.findlim$index.lim,force.dec=TRUE,...)
   return(selectboost_result.custom.emplim)
 }
 

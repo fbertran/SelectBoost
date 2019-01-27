@@ -5,6 +5,8 @@
 \alias{simulation_cor}
 \alias{simulation_X}
 \alias{simulation_DATA}
+\alias{compare}
+\alias{compare.simuls}
 \title{Miscellaneous simulation functions}
 \usage{
 simulation_cor(P, v = 1, group, cor_group)
@@ -12,6 +14,10 @@ simulation_cor(P, v = 1, group, cor_group)
 simulation_X(N, Cor)
 
 simulation_DATA(X, supp, minB, maxB, stn)
+
+compare(x, ...)
+
+\method{compare}{simuls}(x, result.boost, level = 1, ...)
 }
 \arguments{
 \item{P}{A numeric value. The number of variables.}
@@ -35,6 +41,14 @@ simulation_DATA(X, supp, minB, maxB, stn)
 \item{maxB}{A numeric value. Maximum absolute value for a beta coefficient.}
 
 \item{stn}{A numeric value. A scaling factor for the noise in the response.}
+
+\item{x}{List. Simulated dataset.}
+
+\item{...}{For compatibility issues.}
+
+\item{result.boost}{Row matrix of numerical value. Result of selecboost for a given c0.}
+
+\item{level}{List. Threshold for proportions of selected variables.}
 }
 \value{
 \code{simulation_cor} returns a numeric matrix.
@@ -42,6 +56,8 @@ simulation_DATA(X, supp, minB, maxB, stn)
 \code{simulation_X} returns a numeric matrix.
 
 \code{simulation_DATA} returns a list.
+
+\code{compare.simuls} returns a numerical vector.
 }
 \description{
 Define several simulation functions to be used in the demos of the package.
@@ -60,9 +76,10 @@ random samples generated according to the Cor matrix.
 
 \code{simulation_DATA} returns a list with the X matrix, the response vector Y,
 the true predictors, the beta coefficients, the scaling factor and the standard deviation.
+
+\code{compare.simuls} computes sensitivity (precision), specificity (recall), and several Fscores.
 }
 \examples{
-set.seed(314)
 P<-10
 N<-10
 group<-c(rep(1:2,5))
@@ -71,7 +88,6 @@ supp<-c(1,1,1,0,0,0,0,0,0,0)
 minB<-1
 maxB<-2
 stn<-5
-set.seed(314)
 C<-simulation_cor(P,1,group,cor_group)
 
 set.seed(314)
@@ -82,6 +98,11 @@ hist(G[lower.tri(G)])
 set.seed(314)
 DATA_exemple<-simulation_DATA(X,supp,1,2,stn)
 
+set.seed(314)
+result.boost = fastboost(DATA_exemple$X, DATA_exemple$Y, steps.seq = .7, c0lim = FALSE,
+use.parallel = FALSE, B=10)
+compare(DATA_exemple, result.boost, level=.7)
+
 }
 \references{
 \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
@@ -90,6 +111,6 @@ DATA_exemple<-simulation_DATA(X,supp,1,2,stn)
 \code{\link[glmnet]{glmnet}}, \code{\link[glmnet]{cv.glmnet}}, \code{\link{AICc_BIC_glmnetB}}, \code{\link[lars]{lars}}, \code{\link[lars]{cv.lars}}, \code{\link[msgps]{msgps}}
 }
 \author{
-Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}
+Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr} with contributions from Nicolas Jung.
 }
 \concept{Simulation functions}

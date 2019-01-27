@@ -5,21 +5,21 @@ if(exists("M")){rm(M)}
 BBB=1
 NNN=100
 {
-  sensibility_C<-matrix(rep(NA,200*NNN),nrow=NNN)
-  sensibility_PL<-matrix(rep(NA,200*NNN),nrow=NNN)
-  sensibility_PL2<-matrix(rep(NA,200*NNN),nrow=NNN)
-  sensibility_PL2_W<-matrix(rep(NA,200*NNN),nrow=NNN)
-  sensibility_PL2_tW<-matrix(rep(NA,200*NNN),nrow=NNN)
-  sensibility_PSel<-matrix(rep(NA,200*NNN),nrow=NNN)
-  sensibility_PSel_W<-matrix(rep(NA,200*NNN),nrow=NNN)
-  sensibility_PSel.5<-matrix(rep(NA,200*NNN),nrow=NNN)
-  sensibility_PSel.e2<-matrix(rep(NA,200*NNN),nrow=NNN)
-  sensibility_PSel.5.e2<-matrix(rep(NA,200*NNN),nrow=NNN)
-  sensibility_robust<-matrix(rep(NA,200*NNN),nrow=NNN)
-  sensibility_PB<-matrix(rep(NA,200*NNN),nrow=NNN)
-  sensibility_PB_095_075<-matrix(rep(NA,200*NNN),nrow=NNN)
-  sensibility_PB_075_075<-matrix(rep(NA,200*NNN),nrow=NNN)
-  sensibility_PB_W<-matrix(rep(NA,200*NNN),nrow=NNN)
+  sensitivity_C<-matrix(rep(NA,200*NNN),nrow=NNN)
+  sensitivity_PL<-matrix(rep(NA,200*NNN),nrow=NNN)
+  sensitivity_PL2<-matrix(rep(NA,200*NNN),nrow=NNN)
+  sensitivity_PL2_W<-matrix(rep(NA,200*NNN),nrow=NNN)
+  sensitivity_PL2_tW<-matrix(rep(NA,200*NNN),nrow=NNN)
+  sensitivity_PSel<-matrix(rep(NA,200*NNN),nrow=NNN)
+  sensitivity_PSel_W<-matrix(rep(NA,200*NNN),nrow=NNN)
+  sensitivity_PSel.5<-matrix(rep(NA,200*NNN),nrow=NNN)
+  sensitivity_PSel.e2<-matrix(rep(NA,200*NNN),nrow=NNN)
+  sensitivity_PSel.5.e2<-matrix(rep(NA,200*NNN),nrow=NNN)
+  sensitivity_robust<-matrix(rep(NA,200*NNN),nrow=NNN)
+  sensitivity_PB<-matrix(rep(NA,200*NNN),nrow=NNN)
+  sensitivity_PB_095_075<-matrix(rep(NA,200*NNN),nrow=NNN)
+  sensitivity_PB_075_075<-matrix(rep(NA,200*NNN),nrow=NNN)
+  sensitivity_PB_W<-matrix(rep(NA,200*NNN),nrow=NNN)
   predictive_positive_value_C<-matrix(rep(NA,200*NNN),nrow=NNN)
   predictive_positive_value_PL<-matrix(rep(NA,200*NNN),nrow=NNN)
   predictive_positive_value_PL2<-matrix(rep(NA,200*NNN),nrow=NNN)
@@ -353,7 +353,7 @@ for(iii in BBB:NNN){
   cat("Net_inf_C")
   for(i in test.seq_C[iii,]){
     u<-u+1
-    sensibility_C[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_C",iii,sep="_")),i)[1]
+    sensitivity_C[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_C",iii,sep="_")),i)[1]
     predictive_positive_value_C[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_C",iii,sep="_")),i)[2]
     F_score_C[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_C",iii,sep="_")),i)[3]
   }
@@ -361,7 +361,7 @@ for(iii in BBB:NNN){
   cat("Net_inf_PL")
   for(i in test.seq_PL[iii,]){
     u<-u+1
-    sensibility_PL[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PL",iii,sep="_")),i)[1]
+    sensitivity_PL[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PL",iii,sep="_")),i)[1]
     predictive_positive_value_PL[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PL",iii,sep="_")),i)[2]
     F_score_PL[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PL",iii,sep="_")),i)[3]
   }
@@ -369,7 +369,7 @@ for(iii in BBB:NNN){
   cat("Net_inf_PL2")
   for(i in test.seq_PL2[iii,]){
     u<-u+1
-    sensibility_PL2[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PL2",iii,sep="_")),i)[1]
+    sensitivity_PL2[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PL2",iii,sep="_")),i)[1]
     predictive_positive_value_PL2[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PL2",iii,sep="_")),i)[2]
     F_score_PL2[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PL2",iii,sep="_")),i)[3]
   }
@@ -377,7 +377,7 @@ for(iii in BBB:NNN){
   cat("Net_inf_PL2_W")
   for(i in test.seq_PL2_W[iii,]){
     u<-u+1
-    sensibility_PL2_W[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PL2_W",iii,sep="_")),i)[1]
+    sensitivity_PL2_W[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PL2_W",iii,sep="_")),i)[1]
     predictive_positive_value_PL2_W[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PL2_W",iii,sep="_")),i)[2]
     F_score_PL2_W[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PL2_W",iii,sep="_")),i)[3]
   }
@@ -385,7 +385,7 @@ for(iii in BBB:NNN){
   cat("Net_inf_PL2_tW")
   for(i in test.seq_PL2_tW[iii,]){
     u<-u+1
-    sensibility_PL2_tW[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PL2_tW",iii,sep="_")),i)[1]
+    sensitivity_PL2_tW[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PL2_tW",iii,sep="_")),i)[1]
     predictive_positive_value_PL2_tW[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PL2_tW",iii,sep="_")),i)[2]
     F_score_PL2_tW[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PL2_tW",iii,sep="_")),i)[3]
   }
@@ -393,7 +393,7 @@ for(iii in BBB:NNN){
   cat("Net_inf_PSel")
   for(i in test.seq_PSel[iii,]){
     u<-u+1
-    sensibility_PSel[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel",iii,sep="_")),i)[1]
+    sensitivity_PSel[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel",iii,sep="_")),i)[1]
     predictive_positive_value_PSel[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel",iii,sep="_")),i)[2]
     F_score_PSel[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel",iii,sep="_")),i)[3]
   }
@@ -401,7 +401,7 @@ for(iii in BBB:NNN){
   cat("Net_inf_PSel_W")
   for(i in test.seq_PSel_W[iii,]){
     u<-u+1
-    sensibility_PSel_W[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel_W",iii,sep="_")),i)[1]
+    sensitivity_PSel_W[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel_W",iii,sep="_")),i)[1]
     predictive_positive_value_PSel_W[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel_W",iii,sep="_")),i)[2]
     F_score_PSel_W[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel_W",iii,sep="_")),i)[3]
   }
@@ -409,7 +409,7 @@ for(iii in BBB:NNN){
   cat("Net_inf_PSel.5")
   for(i in test.seq_PSel.5[iii,]){
     u<-u+1
-    sensibility_PSel.5[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel.5",iii,sep="_")),i)[1]
+    sensitivity_PSel.5[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel.5",iii,sep="_")),i)[1]
     predictive_positive_value_PSel.5[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel.5",iii,sep="_")),i)[2]
     F_score_PSel.5[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel.5",iii,sep="_")),i)[3]
   }
@@ -417,7 +417,7 @@ for(iii in BBB:NNN){
   cat("Net_inf_PSel.e2")
   for(i in test.seq_PSel.e2[iii,]){
     u<-u+1
-    sensibility_PSel.e2[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel.e2",iii,sep="_")),i)[1]
+    sensitivity_PSel.e2[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel.e2",iii,sep="_")),i)[1]
     predictive_positive_value_PSel.e2[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel.e2",iii,sep="_")),i)[2]
     F_score_PSel.e2[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel.e2",iii,sep="_")),i)[3]
   }
@@ -425,7 +425,7 @@ for(iii in BBB:NNN){
   cat("Net_inf_PSel.5.e2")
   for(i in test.seq_PSel.5.e2[iii,]){
     u<-u+1
-    sensibility_PSel.5.e2[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel.5.e2",iii,sep="_")),i)[1]
+    sensitivity_PSel.5.e2[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel.5.e2",iii,sep="_")),i)[1]
     predictive_positive_value_PSel.5.e2[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel.5.e2",iii,sep="_")),i)[2]
     F_score_PSel.5.e2[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PSel.5.e2",iii,sep="_")),i)[3]
   }
@@ -433,7 +433,7 @@ for(iii in BBB:NNN){
   cat("Net_inf_robust")
   for(i in test.seq_robust[iii,]){
     u<-u+1
-    sensibility_robust[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_robust",iii,sep="_")),i)[1]
+    sensitivity_robust[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_robust",iii,sep="_")),i)[1]
     predictive_positive_value_robust[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_robust",iii,sep="_")),i)[2]
     F_score_robust[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_robust",iii,sep="_")),i)[3]
   }
@@ -441,7 +441,7 @@ for(iii in BBB:NNN){
   cat("Net_inf_PB")
   for(i in test.seq_PB[iii,]){
     u<-u+1
-    sensibility_PB[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PB",iii,sep="_")),i)[1]
+    sensitivity_PB[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PB",iii,sep="_")),i)[1]
     predictive_positive_value_PB[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PB",iii,sep="_")),i)[2]
     F_score_PB[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PB",iii,sep="_")),i)[3]
   }
@@ -449,7 +449,7 @@ for(iii in BBB:NNN){
   cat("Net_inf_PB_095_075")
   for(i in test.seq_PB_095_075[iii,]){
     u<-u+1
-    sensibility_PB_095_075[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PB_c095_limsel075",iii,sep="_")),i)[1]
+    sensitivity_PB_095_075[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PB_c095_limsel075",iii,sep="_")),i)[1]
     predictive_positive_value_PB_095_075[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PB_c095_limsel075",iii,sep="_")),i)[2]
     F_score_PB_095_075[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PB_c095_limsel075",iii,sep="_")),i)[3]
   }
@@ -457,7 +457,7 @@ for(iii in BBB:NNN){
   cat("Net_inf_PB_075_075")
   for(i in test.seq_PB[iii,]){
     u<-u+1
-    sensibility_PB_075_075[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PB_c075_limsel075",iii,sep="_")),i)[1]
+    sensitivity_PB_075_075[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PB_c075_limsel075",iii,sep="_")),i)[1]
     predictive_positive_value_PB_075_075[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PB_c075_limsel075",iii,sep="_")),i)[2]
     F_score_PB_075_075[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PB_c075_limsel075",iii,sep="_")),i)[3]
   }
@@ -465,7 +465,7 @@ for(iii in BBB:NNN){
   cat("Net_inf_PB_W\n")
   for(i in test.seq_PB_W[iii,]){
     u<-u+1
-    sensibility_PB_W[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PB_W",iii,sep="_")),i)[1]
+    sensitivity_PB_W[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PB_W",iii,sep="_")),i)[1]
     predictive_positive_value_PB_W[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PB_W",iii,sep="_")),i)[2]
     F_score_PB_W[iii,u]<-compare(get(paste("Net",iii,sep="_")),get(paste("Net_inf_PB_W",iii,sep="_")),i)[3]
   }
@@ -491,21 +491,21 @@ for(iii in BBB:NNN){
 
 
 save(
-  sensibility_C,
-  sensibility_PL,
-  sensibility_PL2,
-  sensibility_PL2_W,
-  sensibility_PL2_tW,
-  sensibility_PSel,
-  sensibility_PSel_W,
-  sensibility_PSel.5,
-  sensibility_PSel.e2,
-  sensibility_PSel.5.e2,
-  sensibility_robust,
-  sensibility_PB,
-  sensibility_PB_095_075,
-  sensibility_PB_075_075,
-  sensibility_PB_W,
+  sensitivity_C,
+  sensitivity_PL,
+  sensitivity_PL2,
+  sensitivity_PL2_W,
+  sensitivity_PL2_tW,
+  sensitivity_PSel,
+  sensitivity_PSel_W,
+  sensitivity_PSel.5,
+  sensitivity_PSel.e2,
+  sensitivity_PSel.5.e2,
+  sensitivity_robust,
+  sensitivity_PB,
+  sensitivity_PB_095_075,
+  sensitivity_PB_075_075,
+  sensitivity_PB_W,
   predictive_positive_value_C,
   predictive_positive_value_PL,
   predictive_positive_value_PL2,
@@ -566,11 +566,12 @@ save(
   nv_PB,
   nv_PB_095_075,
   nv_PB_075_075,
-  nv_PB_W,file="results_simuls_reverse_engineering_v2.RData")
+  nv_PB_W,file="results_simuls_reverse_engineering_v3.RData",
+  compress = "xz")
 
 
 
-rangeCPy_S=range(sensibility_C,sensibility_PL,sensibility_PL2,sensibility_PL2_W,sensibility_PL2_tW,sensibility_PSel,sensibility_PSel_W,sensibility_PSel.5,sensibility_PSel.e2,sensibility_PSel.5.e2,sensibility_robust,sensibility_PB,predictive_positive_value_PB_095_075,predictive_positive_value_PB_075_075,sensibility_PB_W)
+rangeCPy_S=range(sensitivity_C,sensitivity_PL,sensitivity_PL2,sensitivity_PL2_W,sensitivity_PL2_tW,sensitivity_PSel,sensitivity_PSel_W,sensitivity_PSel.5,sensitivity_PSel.e2,sensitivity_PSel.5.e2,sensitivity_robust,sensitivity_PB,predictive_positive_value_PB_095_075,predictive_positive_value_PB_075_075,sensitivity_PB_W)
 rangeCPy_PPV=range(predictive_positive_value_C,predictive_positive_value_PL,predictive_positive_value_PL2,predictive_positive_value_PL2_W,predictive_positive_value_PL2_tW,predictive_positive_value_PSel,predictive_positive_value_PSel_W,predictive_positive_value_PSel.5,predictive_positive_value_PSel.e2,predictive_positive_value_PSel.5.e2,predictive_positive_value_robust,predictive_positive_value_PB,predictive_positive_value_PB_095_075,predictive_positive_value_PB_075_075,predictive_positive_value_PB_W)
 rangeCPy_F=range(F_score_C,F_score_PL,F_score_PL2,F_score_PL2_W,F_score_PL2_tW,F_score_PSel,F_score_PSel_W,F_score_PSel.5,F_score_PSel.e2,F_score_PSel.5.e2,F_score_PB,F_score_PB_095_075,F_score_PB_075_075,F_score_PB_W)
 rangeCPx=range(test.seq_C,test.seq_PL,test.seq_PL2,test.seq_PL2_W,test.seq_PL2_tW,test.seq_PSel,test.seq_PSel_W,test.seq_PSel.5,test.seq_PSel.e2,test.seq_PSel.5.e2,test.seq_robust,test.seq_PB,test.seq_PB_095_075,test.seq_PB_075_075,test.seq_PB_W)
@@ -578,32 +579,32 @@ rangeCPx=range(test.seq_C,test.seq_PL,test.seq_PL2,test.seq_PL2_W,test.seq_PL2_t
 if(sav.graph){pdf("allres.pdf",height=8,width=12)}
 if(!sav.graph){dev.new()}
 layout(matrix(1:6,nrow=2))
-matplot(t(test.seq_C),t(sensibility_C),type="l",xlab="cutoff",ylab="Sensitivity",main="Cascade",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_C),t(sensitivity_C),type="l",xlab="cutoff",ylab="Sensitivity",main="Cascade",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_C,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PL),t(sensibility_PL),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Lasso",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PL),t(sensitivity_PL),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Lasso",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PL,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PL2_W),t(sensibility_PL2_W),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Lasso2_W",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PL2_W),t(sensitivity_PL2_W),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Lasso2_W",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PL2_W,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PSel),t(sensibility_PSel),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PSel),t(sensitivity_PSel),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PSel,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PSel_W),t(sensibility_PSel_W),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection_W",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PSel_W),t(sensitivity_PSel_W),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection_W",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PSel_W,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PL2_tW),t(sensibility_PL2_tW),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Lasso2_wrongW",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PL2_tW),t(sensitivity_PL2_tW),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Lasso2_wrongW",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PL2_tW,col=grey(.05,.5),lty=3)
 
 if(!sav.graph){dev.new()}
 layout(matrix(1:6,nrow=2))
-matplot(t(test.seq_PSel),t(sensibility_PSel),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PSel),t(sensitivity_PSel),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PSel,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PSel.5),t(sensibility_PSel.5),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection_.5",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PSel.5),t(sensitivity_PSel.5),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection_.5",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PSel.5,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PSel.e2),t(sensibility_PSel.e2),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection.e2",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PSel.e2),t(sensitivity_PSel.e2),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection.e2",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PSel.e2,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PSel.5.e2),t(sensibility_PSel.5.e2),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection_.5.e2",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PSel.5.e2),t(sensitivity_PSel.5.e2),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection_.5.e2",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PSel.5.e2,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PL2),t(sensibility_PL2),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Lasso2",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PL2),t(sensitivity_PL2),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Lasso2",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PL2,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PB),t(sensibility_PB),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Select_Boost",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PB),t(sensitivity_PB),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Select_Boost",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PB,col=grey(.05,.5),lty=3)
 
 
@@ -677,29 +678,29 @@ if(sav.graph){dev.off()}
 if(sav.graph){pdf("simulselectbioinfo_sensitivity.pdf",height=8,width=12)}
 if(!sav.graph){dev.new()}
 layout(matrix(1:6,nrow=2))
-matplot(t(test.seq_PL2),t(sensibility_PL2),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Lasso2",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PL2),t(sensitivity_PL2),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Lasso2",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PL2,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PL2_W),t(sensibility_PL2_W),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Lasso2_W",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PL2_W),t(sensitivity_PL2_W),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Lasso2_W",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PL2_W,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PSel),t(sensibility_PSel),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PSel),t(sensitivity_PSel),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PSel,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PSel_W),t(sensibility_PSel_W),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection_W",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PSel_W),t(sensitivity_PSel_W),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection_W",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PSel_W,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PB),t(sensibility_PB),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Select_Boost",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PB),t(sensitivity_PB),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Select_Boost",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PB,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PB_W),t(sensibility_PB_W),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Select_Boost_W",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PB_W),t(sensitivity_PB_W),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Select_Boost_W",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PB_W,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_robust),t(sensibility_robust),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Robust",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_robust),t(sensitivity_robust),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Robust",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_robust,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PB),t(sensibility_PB),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Select_Boost",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PB),t(sensitivity_PB),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Select_Boost",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PB,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PB_095_075),t(sensibility_PB_095_075),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Select_Boost_095_075",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PB_095_075),t(sensitivity_PB_095_075),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Select_Boost_095_075",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PB_095_075,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PB_075_075),t(sensibility_PB_075_075),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Select_Boost_075_075",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PB_075_075),t(sensitivity_PB_075_075),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Select_Boost_075_075",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PB_075_075,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PB_W),t(sensibility_PB_W),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Select_Boost_W",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PB_W),t(sensitivity_PB_W),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Select_Boost_W",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PB_W,col=grey(.05,.5),lty=3)
-matplot(t(test.seq_PSel),t(sensibility_PSel),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection",ylim=rangeCPy_S,col=grey(.05,.5))
+matplot(t(test.seq_PSel),t(sensitivity_PSel),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Stability_Selection",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_PSel,col=grey(.05,.5),lty=3)
 
 if(sav.graph){dev.off()}

@@ -9,44 +9,32 @@
   alpha.conf.level = 0.99, force.dec = TRUE, ...)
 }
 \arguments{
-\item{object}{Numerical matrix. Result of selectboost (autoboost, fastboost, ...).
+\item{object}{Numerical matrix. Result of selectboost (autoboost, fastboost, ...).}
 
-selectboost_result,crit.func=mean,crit.int="mean",custom.values.lim=NULL,index.lim=NULL,alpha.conf.level=0.99,force.dec=TRUE,...}
+\item{crit.func}{Function . Defaults to the \code{mean} function.}
 
-\item{...}{. Passed to the plotting functions.}
+\item{crit.int}{Character value. Mean or median based confidence intervals. Defaults to \code{"mean"} based confidence intervals.}
 
-\item{verbose}{Boolean.
-Defaults to \code{FALSE}.}
+\item{custom.values.lim}{Vector of numeric values. Defults to \code{NULL}.}
 
-\item{prop.level}{Numeric value. Used to compute the proportion of selection is
-greater than prop.level. Defaults to \code{.95}.}
+\item{index.lim}{Vector of numeric values. Defults to \code{NULL}.}
 
-\item{conf.int.level}{Numeric value. Confidence level for confidence intervals on estimated
-proportions of selection. Defaults to \code{.95}.}
+\item{alpha.conf.level}{Numeric value. Defults to \code{0.99}.}
 
-\item{conf.threshold}{Numeric value. Used to compute the number of steps (c0) for which
-the proportion of selection remains greater than conf.threshold. Defaults to \code{.95}.}
+\item{force.dec}{Boolean. Force trajectories to be non-increasing.}
+
+\item{...}{Additionnal arguments. Passed to the \code{crit.func} function.}
 }
 \value{
-An invisible list.
+A list with the results.
 }
 \description{
 Summarize a selectboost analysis.
 }
 \details{
-\code{summary.selectboost} returns an invisible list and creates four graphics.
-Two plots the proportion of selection with respect to c0 (by step or according to real scale).
-On the third graph, no bar means a proportion of selection less than prop.level.
-Confidence intervals are computed at the conf.int.level level.
-Barplot of the confidence index (1-min(c0, such that proportion|c0>conf.threshold)).
+\code{summary.selectboost} returns a list with the results.
 }
 \examples{
-set.seed(314)
-xran=matrix(rnorm(75),15,5)
-ybin=sample(0:1,15,replace=TRUE)
-yran=rnorm(15)
-layout(matrix(1:4,2,2))
-
 data(autoboost.res.x)
 summary(autoboost.res.x)
 summary(autoboost.res.x, force.dec=FALSE)

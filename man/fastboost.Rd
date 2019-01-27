@@ -103,7 +103,9 @@ fastboost(xran,ybin,func=lasso_cv_glmnet_bin_min)
 \code{\link{boost}}, \code{\link{autoboost}}, \code{\link{plot.selectboost}}
 
 Other Selectboost functions: \code{\link{autoboost}},
-  \code{\link{boost}}
+  \code{\link{boost}},
+  \code{\link{plot_selectboost_cascade}},
+  \code{\link{selectboost_cascade}}
 }
 \author{
 Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}

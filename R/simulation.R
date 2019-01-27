@@ -16,11 +16,10 @@
 #' @param stn A numeric value. A scaling factor for the noise in the response.
 #'
 #' @family Simulation functions
-#' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
+#' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr} with contributions from Nicolas Jung.
 #' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
 #' @seealso \code{\link[glmnet]{glmnet}}, \code{\link[glmnet]{cv.glmnet}}, \code{\link{AICc_BIC_glmnetB}}, \code{\link[lars]{lars}}, \code{\link[lars]{cv.lars}}, \code{\link[msgps]{msgps}}
 #' @examples
-#' set.seed(314)
 #' P<-10
 #' N<-10
 #' group<-c(rep(1:2,5))
@@ -44,7 +43,6 @@ NULL
 #' @return \code{simulation_cor} returns a numeric matrix.
 #'
 #' @examples
-#' set.seed(314)
 #' C<-simulation_cor(P,1,group,cor_group)
 #'
 #' @export
@@ -107,6 +105,56 @@ simulation_DATA<-function(X,supp,minB,maxB,stn){
 	Y<-apply(t(t(X)*beta),1,sum)+ rnorm(dim(X)[1],0,1)*c(sqrt(sigma2))
 
 	DATA<-list(X=X,Y=Y,support=supp,beta=beta,stn=stn,sigma=sqrt(sigma2))
+	class(DATA) <- "simuls"
+
 	return(DATA)
 }
 
+#' @rdname simulation
+#'
+#' @param x List. Simulated dataset.
+#'
+#' @export
+compare = function(x, ...){
+  UseMethod("compare")
+}
+
+#' @details \code{compare.simuls} computes sensitivity (precision), specificity (recall), and several Fscores.
+#'
+#' @return \code{compare.simuls} returns a numerical vector.
+#'
+#' @rdname simulation
+#' @method compare simuls
+#' @S3method compare simuls
+#'
+#' @param result.boost Row matrix of numerical value. Result of selecboost for a given c0.
+#' @param level List. Threshold for proportions of selected variables.
+#' @param ... For compatibility issues.
+#'
+#' @examples
+#' set.seed(314)
+#' result.boost = fastboost(DATA_exemple$X, DATA_exemple$Y, steps.seq = .7, c0lim = FALSE,
+#' use.parallel = FALSE, B=10)
+#' compare(DATA_exemple, result.boost, level=.7)
+#'
+compare.simuls<-function(x, result.boost, level=1, ...){
+
+  vp<-sum(result.boost[which(x$support==1)]>=level)
+  totp<-sum(x$support==1)
+  sens<-vp/totp
+
+  spe<-0
+  if(sum(result.boost>=level)!=0)	spe<-vp/sum(result.boost>=level)
+  Fscore<-0
+  Fscore2<-0
+  Fscore<-0
+  Fscore12<-0
+  if(sens !=0){
+    Fscore<-2*spe*sens/(spe+sens)
+    Fscore12<-(1+0.5^2)*spe*sens/(spe/4+sens)
+    Fscore2<-(1+2^2)*spe*sens/(spe*4+sens)
+  }
+  zeroz<-1
+  if(sum(result.boost)==0){zeroz<-0}
+  return(c(sens,spe,Fscore,Fscore12,Fscore2,zeroz))
+}

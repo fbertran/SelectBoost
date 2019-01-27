@@ -20,6 +20,7 @@
 \alias{enetf_msgps_AICc}
 \alias{enetf_msgps_GCV}
 \alias{enetf_msgps_BIC}
+\alias{lasso_cascade}
 \title{Variable selection functions}
 \usage{
 lasso_cv_glmnet_bin_min(X, Y)
@@ -57,6 +58,8 @@ enetf_msgps_AICc(X, Y, penalty = "enet", alpha = 0.5)
 enetf_msgps_GCV(X, Y, penalty = "enet", alpha = 0.5)
 
 enetf_msgps_BIC(X, Y, penalty = "enet", alpha = 0.5)
+
+lasso_cascade(M, Y, K, eps = 10^-5, cv.fun)
 }
 \arguments{
 \item{X}{A numeric matrix. The predictors matrix.}
@@ -77,6 +80,14 @@ which is a weighted version of the lasso.}
 
 \item{alpha}{A numeric value to set the value of α on "enet" and "genet" penalty in msgps
 (Model Selection Criteria via Generalized Path Seeking).}
+
+\item{M}{A numeric matrix. The transposed predictors matrix.}
+
+\item{K}{A numeric value. Number of folds to use.}
+
+\item{eps}{A numeric value. Threshold to set to 0 the inferred value of a parameter.}
+
+\item{cv.fun}{A function. Fonction used to create folds. Used to perform corss-validation subkectwise.}
 }
 \value{
 A vector of coefficients.
@@ -165,6 +176,10 @@ cross validation criterion. It uses the \code{msgps} function of the \code{msgps
 \code{enetf_msgps_BIC} returns the vector of coefficients
 for a linear model estimated by the elastic net selected according to the BIC criterion.
 It uses the \code{msgps} function of the \code{msgps} package.
+
+\code{lasso_cascade} returns the vector of coefficients
+for a linear model estimated by the lasso.
+It uses the \code{lars} function of the \code{lars} package.
 }
 \examples{
 set.seed(314)
@@ -224,6 +239,9 @@ enetf_msgps_GCV(xran,yran)
 
 set.seed(314)
 enetf_msgps_BIC(xran,yran)
+
+set.seed(314)
+lasso_cascade(t(xran),yran,5)
 
 }
 \references{

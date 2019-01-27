@@ -12,4 +12,5 @@ bysteps_huntington	Example of use of the SelectBoost algorithm applied step by s
 bysteps_huntington_community	Example of use of the SelectBoost algorithm applied step by step to the huntington dataset using community analysis.
 autoboost_huntington	Example of use of the SelectBoost algorithm applied to the huntington dataset.
 autoboost_diabetes_first_order	Example of use of the SelectBoost algorithm applied to the diabetes dataset: first order model.
-simuls_selectboost_network	Selectboost and reverser engineering of networks
+simuls_selectboost_network	Selectboost and reverserse engineering of networks
+network_reverse_engineering   Application of SelectBoost to Cascade network inference using the Cascade package

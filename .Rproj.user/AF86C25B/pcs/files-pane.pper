@@ -1,8 +1,8 @@
 {
-    "path" : "~/GitHub/SelectBoost/data",
+    "path" : "~/GitHub/SelectBoost/R",
     "sortOrder" : [
         {
-            "ascending" : true,
+            "ascending" : false,
             "columnIndex" : 2
         }
     ]

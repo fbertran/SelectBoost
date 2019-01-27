@@ -35,10 +35,6 @@ boost.apply(X, cols.simul, Y, func, verbose = FALSE,
 
 boost.select(Boost.coeffs, eps = 10^(-4), version = "lars",
   verbose = FALSE)
-
-boost(X, Y, group, func, corr = 1, B = 200, normalize = TRUE,
-  eps = 10^(-4), version = "lars", verbose = FALSE,
-  method = "boost", use.parallel = FALSE, ncores = 2)
 }
 \arguments{
 \item{X}{Numerical matrix. Matrix of the variables.}
@@ -93,17 +89,6 @@ Defaults to \code{4}.}
 \item{Boost.coeffs}{Numerical matrix. l2 normed matrix of predictors.}
 
 \item{version}{Character value. "lars" (no intercept value) or "glmnet" (first coefficient is the intercept value).}
-
-\item{normalize}{Boolean. Shall the X matrix be centered and scaled?
-Defaults to \code{TRUE}.}
-
-\item{method}{Character value.
-\itemize{
-\item \code{"Xarrays"}: returns resampled datasets.
-\item \code{"Xboost"}: returns coefficients of the models fitted to the resampled datasets.
-\item \code{"boost"}: Return proportion of selection for each variable.
-}
-Defaults to \code{"boost"}.}
 }
 \value{
 Various types depending on the function.
@@ -129,9 +114,6 @@ Step by step functions to apply the selectboost algorithm.
 \code{boost.apply} returns a matrix with the coefficients estimated using the resampled datasets.
 
 \code{boost.select} returns a vector with the proportion of times each variable was selected.
-
-\code{boost} returns a vector with the proportion of times each variable was selected. Much slower than
-\code{autoboost} or \code{fastboost}.
 }
 \examples{
 set.seed(314)
@@ -156,8 +138,6 @@ xran_apply <- boost.apply(xran_norm, xran_random, yran, lasso_msgps_AICc)
 
 xran_select <- boost.select(xran_apply)
 
-xran_select <- boost(xran, yran, group_func_1, lasso_msgps_AICc, corr=.3)
-
 }
 \references{
 \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
@@ -166,7 +146,9 @@ xran_select <- boost(xran, yran, group_func_1, lasso_msgps_AICc, corr=.3)
 \code{\link{fastboost}}, \code{\link{autoboost}}
 
 Other Selectboost functions: \code{\link{autoboost}},
-  \code{\link{fastboost}}
+  \code{\link{fastboost}},
+  \code{\link{plot_selectboost_cascade}},
+  \code{\link{selectboost_cascade}}
 }
 \author{
 Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}
