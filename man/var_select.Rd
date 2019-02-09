@@ -241,7 +241,7 @@ set.seed(314)
 enetf_msgps_BIC(xran,yran)
 
 set.seed(314)
-lasso_cascade(t(xran),yran,5)
+lasso_cascade(t(xran),yran,5,cv.fun=lars::cv.folds)
 
 }
 \references{

@@ -11,7 +11,8 @@ challenges in statistics. Although many methods have been proposed in the litera
 performance in terms of recall and precision are limited in a context where the number of
 variables by far exceeds the number of observations or in a high correlated setting.
 Results: This package implements a new general algorithm which improves the precision of any
-existing variable selection method. This algorithm is based on highly intensive simulations and #' takes into account the correlation structure of the data. Our algorithm can either produce a
+existing variable selection method. This algorithm is based on highly intensive simulations and
+takes into account the correlation structure of the data. Our algorithm can either produce a
 confidence index for variable selection or it can be used in an experimental design planning
 perspective.
 }

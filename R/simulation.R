@@ -3,10 +3,9 @@
 #' @description Define several simulation functions to be used in the demos of the package.
 #'
 #' @name simulation
-#' @param P A numeric value. The number of variables.
-#' @param v A numeric value. The diagonal value of the generated matrix.
 #' @param group A numeric vector. Group membership of each of the variables.
 #' @param cor_group A numeric vector. Intrag-roup Pearson correlation.
+#' @param v A numeric value. The diagonal value of the generated matrix.
 #' @param N A numeric value. The number of observations.
 #' @param Cor A numeric matrix. A correlation matrix to be used for random sampling.
 #' @param X A numeric matrix. Observations*variables.
@@ -43,10 +42,11 @@ NULL
 #' @return \code{simulation_cor} returns a numeric matrix.
 #'
 #' @examples
-#' C<-simulation_cor(P,1,group,cor_group)
+#' C<-simulation_cor(group,cor_group)
 #'
 #' @export
-simulation_cor<-function(P,v=1,group,cor_group){
+simulation_cor<-function(group,cor_group,v=1){
+  P=length(group)
 
 	Cor<-matrix(0,P,P)
 
@@ -119,7 +119,7 @@ compare = function(x, ...){
   UseMethod("compare")
 }
 
-#' @details \code{compare.simuls} computes sensitivity (precision), specificity (recall), and several Fscores.
+#' @details \code{compare.simuls} computes sensitivity (precision), specificity (recall), and several Fscores (non-weighted Fscore, F1/2 and F2 weighted Fscores).
 #'
 #' @return \code{compare.simuls} returns a numerical vector.
 #'

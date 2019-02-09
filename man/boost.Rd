@@ -132,7 +132,12 @@ xran_Xpass <- boost.Xpass(nrow(xran_norm),ncol(xran_norm))
 
 xran_adjust <- boost.adjust(xran_norm, xran_groups$groups, xran_corr_sign)
 
+#Not meaningful, should be run with B>=100
+xran_random <- boost.random(xran_norm, xran_Xpass, xran_adjust$vmf.params, B=5)
+
+\dontrun{
 xran_random <- boost.random(xran_norm, xran_Xpass, xran_adjust$vmf.params, B=100)
+}
 
 xran_apply <- boost.apply(xran_norm, xran_random, yran, lasso_msgps_AICc)
 

@@ -424,7 +424,7 @@ enetf_msgps_BIC<-function(X,Y,penalty="enet",alpha=0.5){
 #'
 #' @examples
 #' set.seed(314)
-#' lasso_cascade(t(xran),yran,5)
+#' lasso_cascade(t(xran),yran,5,cv.fun=lars::cv.folds)
 #'
 #' @export
 lasso_cascade<-function(M,Y,K,eps=10^-5,cv.fun#=lars::cv.folds

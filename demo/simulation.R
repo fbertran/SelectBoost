@@ -11,7 +11,7 @@ supp<-c(1,1,1,0,0,0,0,0,0,0)
 minB<-1
 maxB<-2
 stn<-5
-C<-simulation_cor(P,1,group,cor_group)
+C<-simulation_cor(group,cor_group)
 X<-simulation_X(10,C)
 assign(paste("DATA_exemple1_nb_",i,sep=""),simulation_DATA(X,supp,1,2,stn))
 }
@@ -34,7 +34,7 @@ supp<-c(1,1,1,1,1,rep(0,45))
 minB<-1
 maxB<-2
 stn<-5
-C<-simulation_cor(P,1,group,cor_group)
+C<-simulation_cor(group,cor_group)
 X<-simulation_X(N,C)
 assign(paste("DATA_exemple2_nb_",i,sep=""),simulation_DATA(X,supp,1,2,stn))
 }
@@ -115,7 +115,7 @@ for(i in 1:200){
   minB<-1
   maxB<-2
   stn<-5
-  C<-simulation_cor(P,1,group,cor_group)
+  C<-simulation_cor(group,cor_group)
   X<-simulation_X(N,C)
   assign(paste("DATA_exemple5_nb_",i,sep=""),simulation_DATA(X,supp,1,2,stn))
 }

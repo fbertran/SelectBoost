@@ -322,7 +322,7 @@ attr(result,"typeboost")<-"autoboost"
 attr(result,"limi_alea")<-NA
 attr(result,"B")<-B
 
-class(result) <- "autoboost"
+class(result) <- "selectboost"
 return(result)
 }
 
@@ -675,7 +675,7 @@ fastboost<-function(X,Y,ncores=4,group=group_func_1,func=lasso_msgps_AICc,corrfu
   attr(result,"limi_alea")<-NA
   attr(result,"B")<-B
 
-  class(result) <- "autoboost"
+  class(result) <- "selectboost"
   return(result)
 }
 

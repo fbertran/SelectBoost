@@ -1,5 +1,28 @@
-#Extending results from the Cascade package: reverse engineering with selectboost
-#Code to reproduce the datasets saved with the package
+#' ---
+#' title: Towards confidence estimates in Cascade networks
+#' author: "Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand"
+#' date: "27th January, 2019"
+#' output:
+#'   word_document:
+#'       fig_width: 7
+#'       fig_height: 6
+#'       fig_caption: true
+#'   pdf_document:
+#'       fig_width: 5
+#'       fig_height: 4
+#'       fig_caption: true
+#'   html_document:
+#'       fig_width: 7
+#'       fig_height: 6
+#'       fig_caption: true
+#'
+#' ---
+#'
+
+#Extending results from the Cascade package: reverse engineering with selectboost to
+#compute confidence indices on the inferred links.
+#Code to reproduce the datasets saved with the package and the figures of the
+#article Aouadi et al. (2018), <arXiv:1810.01670>
 
 #Reference for the Cascade modelling
 # Vallat, L., Kemper, C. a., Jung, N., Maumy-Bertrand, M., Bertrand, F.,
@@ -14,7 +37,6 @@
 # through a temporal gene network. Bioinformatics. ISSN 13674803.
 
 library(Cascade)
-sav.graph=TRUE
 
 #We change the array with the F matrices
 T<-4
@@ -52,18 +74,49 @@ M <- Cascade::gene_expr_simulation(
 #We infer the new network
 Net_inf_C <- Cascade::inference(M,cv.subjects=TRUE)
 
+#heatmap of the coefficients of the Omega matrix of the network
+stats::heatmap(Net_inf_C@network, Rowv = NA, Colv = NA, scale="none", revC=TRUE)
+
 Fab_inf_C <- Net_inf_C@F
 
+
+library(SelectBoost)
 set.seed(1)
-#by default the crossvalidation is made subjectwise according to a leave one out scheme
-net_confidence <- selectboost(M, Fab_inf_C)
+#by default the crossvalidation is made subjectwise according to a leave one out
+#scheme and the resampling analysis is made at the .95 c0 level
+net_pct_selected <- selectboost(M, Fab_inf_C)
+net_pct_selected_.5 <- selectboost(M, Fab_inf_C, c0value = .5)
+net_pct_selected_thr <- selectboost(M, Fab_inf_C, group = group_func_1)
 #use cv.subject=FALSE to use default crossvalidation
-net_confidence_cv <- selectboost(M, Fab_inf_C, cv.subject=FALSE)
-net_confidence_.5 <- selectboost(M, Fab_inf_C, c0value = .5)
-net_confidence_thr <- selectboost(M, Fab_inf_C, group = group_func_1)
-plot(net_confidence)
-plot(net_confidence_cv)
-plot(net_confidence_.5)
-plot(net_confidence_thr)
+net_pct_selected_cv <- selectboost(M, Fab_inf_C, cv.subject=FALSE)
+
+#use plot to display the result of the confidence analysis
+plot(net_pct_selected)
+plot(net_pct_selected_.5)
+plot(net_pct_selected_thr)
+plot(net_pct_selected_cv)
+
+#Distribution of non-zero (absolute value > 1e-5) coefficients
+hist(Net_inf_C@network[abs(Net_inf_C@network)>1e-5])
+
+#Plot of confidence at .95 resampling level versus coefficient value for non-zero (absolute value > 1e-5) coefficients
+plot(Net_inf_C@network[abs(Net_inf_C@network)>1e-5],net_pct_selected@network.confidence[abs(Net_inf_C@network)>1e-5])
+hist(net_pct_selected@network.confidence[abs(Net_inf_C@network)>1e-5])
+
+#Plot of confidence at .5 resampling level versus coefficient value for non-zero (absolute value > 1e-5) coefficients
+plot(Net_inf_C@network[abs(Net_inf_C@network)>1e-5],net_pct_selected_.5@network.confidence[abs(Net_inf_C@network)>1e-5])
+hist(net_pct_selected_.5@network.confidence[abs(Net_inf_C@network)>1e-5])
+
+#Plot of confidence at .95 resamling level with groups created by thresholding the correlation matrix
+#versus coefficient value for non-zero (absolute value > 1e-5) coefficients
+plot(Net_inf_C@network[abs(Net_inf_C@network)>1e-5],net_pct_selected_thr@network.confidence[abs(Net_inf_C@network)>1e-5])
+hist(net_pct_selected_thr@network.confidence[abs(Net_inf_C@network)>1e-5])
+
+#Plot of confidence at .95 resampling level versus coefficient value for non-zero (absolute value > 1e-5) coefficients using standard cross-validation
+plot(Net_inf_C@network[abs(Net_inf_C@network)>1e-5],net_pct_selected_cv@network.confidence[abs(Net_inf_C@network)>1e-5])
+hist(net_pct_selected_cv@network.confidence[abs(Net_inf_C@network)>1e-5])
+
+
+#either decrease pct selected or choose c0 with quantile.
 
 

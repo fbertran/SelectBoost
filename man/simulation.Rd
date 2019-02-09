@@ -9,7 +9,7 @@
 \alias{compare.simuls}
 \title{Miscellaneous simulation functions}
 \usage{
-simulation_cor(P, v = 1, group, cor_group)
+simulation_cor(group, cor_group, v = 1)
 
 simulation_X(N, Cor)
 
@@ -20,13 +20,11 @@ compare(x, ...)
 \method{compare}{simuls}(x, result.boost, level = 1, ...)
 }
 \arguments{
-\item{P}{A numeric value. The number of variables.}
-
-\item{v}{A numeric value. The diagonal value of the generated matrix.}
-
 \item{group}{A numeric vector. Group membership of each of the variables.}
 
 \item{cor_group}{A numeric vector. Intrag-roup Pearson correlation.}
+
+\item{v}{A numeric value. The diagonal value of the generated matrix.}
 
 \item{N}{A numeric value. The number of observations.}
 
@@ -77,7 +75,7 @@ random samples generated according to the Cor matrix.
 \code{simulation_DATA} returns a list with the X matrix, the response vector Y,
 the true predictors, the beta coefficients, the scaling factor and the standard deviation.
 
-\code{compare.simuls} computes sensitivity (precision), specificity (recall), and several Fscores.
+\code{compare.simuls} computes sensitivity (precision), specificity (recall), and several Fscores (non-weighted Fscore, F1/2 and F2 weighted Fscores).
 }
 \examples{
 P<-10
@@ -88,7 +86,7 @@ supp<-c(1,1,1,0,0,0,0,0,0,0)
 minB<-1
 maxB<-2
 stn<-5
-C<-simulation_cor(P,1,group,cor_group)
+C<-simulation_cor(group,cor_group)
 
 set.seed(314)
 X<-simulation_X(10,C)
