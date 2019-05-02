@@ -1,3 +1,5 @@
+^Meta$
+^doc$
 #All packages
 ^.*\.Rproj$
 ^\.Rproj\.user$
@@ -16,3 +18,10 @@
 ^fullrespdf*$
 ^inst/animation*$
 ^articles*$
+#Vignette cache
+^cran-comments[.].*$
+^vignettes/.*[.](pdf|PDF)$
+^vignettes/.*[.](r|R)$
+^vignettes/[.]install_extras$
+^vignettes/.*_cache$
+^vignettes/.*_files$

@@ -1,0 +1,182 @@
+---
+title: "Towards confidence estimates in Cascade Networks using the SelectBoost package"
+shorttitle: "SelectBoost: Confidence Estimates in Cascade Networks"
+author: 
+- name: "Frédéric Bertrand"
+  affiliation: 
+  - Université de Strasbourg and CNRS
+  - IRMA, labex IRMIA
+  email: frederic.bertrand@math.unistra.fr
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Towards confidence estimates in Cascade Networks using the SelectBoost package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+#Introduction
+
+## Aims of the vignette
+Extending results from the `Cascade` package: reverse engineering with selectboost to compute **confidence indices for a fitted model**. We first fit a model to a cascade network using the `Cascade` package `inference` function then we compute confidence indices for the inferred links using the `Selecboost` algorithm.
+
+## References
+* Reference for the Cascade modelling: Vallat, L., Kemper, C. a., Jung, N., Maumy-Bertrand, M., Bertrand, F., Meyer, N., Pocheville, A., Fisher, J. W., Gribben, J. G. et Bahram, S. (2013). Reverse-engineering the genetic circuitry of a cancer cell with predicted intervention in chronic lymphocytic leukemia. *Proceedings of the National Academy of Sciences of the United States of America*, 110(2), 459-64.
+
+* Reference for the Cascade package: Jung, N., Bertrand, F., Bahram, S., Vallat, L. et Maumy-Bertrand, M. (2014). Cascade : A R package to study, predict and simulate the diffusion of a signal through a temporal gene network. *Bioinformatics*.
+
+# Code
+Code to reproduce the datasets saved with the package and some the figures of the article Aouadi et al. (2018), <arXiv:1810.01670>
+
+## Data simulation
+```{r Cascade, cache= FALSE}
+library(Cascade)
+```
+
+We define the F array for the simulations.
+```{r, cache= FALSE}
+T<-4
+F<-array(0,c(T-1,T-1,T*(T-1)/2))
+
+for(i in 1:(T*(T-1)/2)){diag(F[,,i])<-1}
+F[,,2]<-F[,,2]*0.2
+F[2,1,2]<-1
+F[3,2,2]<-1
+F[,,4]<-F[,,2]*0.3
+F[3,1,4]<-1
+F[,,5]<-F[,,2]
+```
+
+We set the seed to make the results reproducible
+```{r, cache= TRUE}
+set.seed(1)
+Net<-Cascade::network_random(
+  nb=100,
+  time_label=rep(1:4,each=25),
+  exp=1,
+  init=1,
+  regul=round(rexp(100,1))+1,
+  min_expr=0.1,
+  max_expr=2,
+  casc.level=0.4
+)
+Net@F<-F
+```
+
+We simulate gene expression according to the network Net
+```{r message=FALSE, cache=}
+M <- Cascade::gene_expr_simulation(
+  network=Net,
+  time_label=rep(1:4,each=25),
+  subject=5,
+  level_peak=200)
+```
+
+## Network inference
+We infer the new network.
+```{r, cache= TRUE, fig.keep='none'}
+Net_inf_C <- Cascade::inference(M,cv.subjects=TRUE)
+```
+
+Heatmap of the coefficients of the Omega matrix of the network
+```{r, cache= TRUE}
+stats::heatmap(Net_inf_C@network, Rowv = NA, Colv = NA, scale="none", revC=TRUE)
+```
+
+```{r, cache= TRUE}
+Fab_inf_C <- Net_inf_C@F
+```
+
+## Compute the confidence indices for the inference
+```{r, cache= TRUE}
+library(SelectBoost)
+set.seed(1)
+```
+
+By default the crossvalidation is made subjectwise according to a leave one out scheme and the resampling analysis is made at the .95 `c0` level
+```{r, cache= TRUE}
+net_pct_selected <- selectboost(M, Fab_inf_C)
+```
+```{r, cache= TRUE}
+net_pct_selected_.5 <- selectboost(M, Fab_inf_C, c0value = .5)
+```
+```{r, cache= TRUE}
+net_pct_selected_thr <- selectboost(M, Fab_inf_C, group = group_func_1)
+```
+
+Use `cv.subject=FALSE` to use default crossvalidation
+```{r, cache= TRUE}
+net_pct_selected_cv <- selectboost(M, Fab_inf_C, cv.subject=FALSE)
+```
+
+## Analysis of the confidence indices
+Use plot to display the result of the confidence analysis.
+```{r, cache= TRUE}
+plot(net_pct_selected)
+```
+
+```{r, cache= TRUE}
+plot(net_pct_selected_.5)
+```
+
+```{r, cache= TRUE}
+plot(net_pct_selected_thr)
+```
+
+```{r, cache= TRUE}
+plot(net_pct_selected_cv)
+```
+
+Distribution of non-zero (absolute value > 1e-5) coefficients
+```{r, cache= TRUE}
+hist(Net_inf_C@network[abs(Net_inf_C@network)>1e-5])
+```
+
+Plot of confidence at .95 resampling level versus coefficient value for non-zero (absolute value > 1e-5) coefficients
+```{r, cache= TRUE}
+plot(Net_inf_C@network[abs(Net_inf_C@network)>1e-5],net_pct_selected@network.confidence[abs(Net_inf_C@network)>1e-5])
+```
+
+```{r, cache= TRUE}
+hist(net_pct_selected@network.confidence[abs(Net_inf_C@network)>1e-5])
+```
+
+Plot of confidence at .5 resampling level versus coefficient value for non-zero (absolute value > 1e-5) coefficients
+```{r, cache= TRUE}
+plot(Net_inf_C@network[abs(Net_inf_C@network)>1e-5],net_pct_selected_.5@network.confidence[abs(Net_inf_C@network)>1e-5])
+```
+
+```{r, cache= TRUE}
+hist(net_pct_selected_.5@network.confidence[abs(Net_inf_C@network)>1e-5])
+```
+
+Plot of confidence at .95 resamling level with groups created by thresholding the correlation matrix versus coefficient value for non-zero (absolute value > 1e-5) coefficients.
+```{r, cache= TRUE}
+plot(Net_inf_C@network[abs(Net_inf_C@network)>1e-5],net_pct_selected_thr@network.confidence[abs(Net_inf_C@network)>1e-5])
+```
+
+```{r, cache= TRUE}
+hist(net_pct_selected_thr@network.confidence[abs(Net_inf_C@network)>1e-5])
+```
+
+Plot of confidence at .95 resampling level versus coefficient value for non-zero (absolute value > 1e-5) coefficients using standard cross-validation.
+```{r, cache= TRUE}
+plot(Net_inf_C@network[abs(Net_inf_C@network)>1e-5],net_pct_selected_cv@network.confidence[abs(Net_inf_C@network)>1e-5])
+```
+
+```{r, cache= TRUE}
+hist(net_pct_selected_cv@network.confidence[abs(Net_inf_C@network)>1e-5])
+```
+
+## Further improvements
+Either decrease percent selected or choose `c0` as a quantile.
+
+
+

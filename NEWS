@@ -1,5 +1,8 @@
 This file documents software changes.
 
+1.3.0 Completed third vignette.
+1.2.0 Error handling in foreach. Completed second vignettes.
+1.1.0 First vignette added to the package
 1.0.0 Satisfying CRAN checks.
 0.9.0 Writing help and finalizing demos.
 0.8.0 Other examples dealing with -omics (gene or protein) networks reverse-engineering were added.

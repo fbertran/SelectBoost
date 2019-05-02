@@ -4,7 +4,7 @@
 #'
 #' @name simulation
 #' @param group A numeric vector. Group membership of each of the variables.
-#' @param cor_group A numeric vector. Intrag-roup Pearson correlation.
+#' @param cor_group A numeric vector. Intra-group Pearson correlation.
 #' @param v A numeric value. The diagonal value of the generated matrix.
 #' @param N A numeric value. The number of observations.
 #' @param Cor A numeric matrix. A correlation matrix to be used for random sampling.
@@ -12,14 +12,13 @@
 #' @param supp A numeric vector. The true predictors.
 #' @param minB A numeric value. Minimum absolute value for a beta coefficient.
 #' @param maxB A numeric value. Maximum absolute value for a beta coefficient.
-#' @param stn A numeric value. A scaling factor for the noise in the response.
+#' @param stn A numeric value. A scaling factor for the noise in the response. The higher, the smaller the noise.
 #'
 #' @family Simulation functions
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr} with contributions from Nicolas Jung.
 #' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
 #' @seealso \code{\link[glmnet]{glmnet}}, \code{\link[glmnet]{cv.glmnet}}, \code{\link{AICc_BIC_glmnetB}}, \code{\link[lars]{lars}}, \code{\link[lars]{cv.lars}}, \code{\link[msgps]{msgps}}
 #' @examples
-#' P<-10
 #' N<-10
 #' group<-c(rep(1:2,5))
 #' cor_group<-c(.8,.4)
@@ -102,7 +101,7 @@ simulation_DATA<-function(X,supp,minB,maxB,stn){
 
 	sigma2<-(t(beta)%*%var(X)%*%beta)/stn
 
-	Y<-apply(t(t(X)*beta),1,sum)+ rnorm(dim(X)[1],0,1)*c(sqrt(sigma2))
+	Y<-apply(t(t(X)*beta),1,sum) #+ rnorm(dim(X)[1],0,1)*c(sqrt(sigma2))
 
 	DATA<-list(X=X,Y=Y,support=supp,beta=beta,stn=stn,sigma=sqrt(sigma2))
 	class(DATA) <- "simuls"
@@ -115,17 +114,17 @@ simulation_DATA<-function(X,supp,minB,maxB,stn){
 #' @param x List. Simulated dataset.
 #'
 #' @export
-compare = function(x, ...){
-  UseMethod("compare")
+compsim = function(x, ...){
+  UseMethod("compsim")
 }
 
-#' @details \code{compare.simuls} computes sensitivity (precision), specificity (recall), and several Fscores (non-weighted Fscore, F1/2 and F2 weighted Fscores).
+#' @details \code{compsim.simuls} computes sensitivity (precision), specificity (recall), and several Fscores (non-weighted Fscore, F1/2 and F2 weighted Fscores).
 #'
-#' @return \code{compare.simuls} returns a numerical vector.
+#' @return \code{compsim.simuls} returns a numerical vector.
 #'
 #' @rdname simulation
-#' @method compare simuls
-#' @S3method compare simuls
+#' @method compsim simuls
+#' @S3method compsim simuls
 #'
 #' @param result.boost Row matrix of numerical value. Result of selecboost for a given c0.
 #' @param level List. Threshold for proportions of selected variables.
@@ -135,9 +134,9 @@ compare = function(x, ...){
 #' set.seed(314)
 #' result.boost = fastboost(DATA_exemple$X, DATA_exemple$Y, steps.seq = .7, c0lim = FALSE,
 #' use.parallel = FALSE, B=10)
-#' compare(DATA_exemple, result.boost, level=.7)
+#' compsim(DATA_exemple, result.boost, level=.7)
 #'
-compare.simuls<-function(x, result.boost, level=1, ...){
+compsim.simuls<-function(x, result.boost, level=1, ...){
 
   vp<-sum(result.boost[which(x$support==1)]>=level)
   totp<-sum(x$support==1)

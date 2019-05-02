@@ -5,8 +5,8 @@
 \alias{simulation_cor}
 \alias{simulation_X}
 \alias{simulation_DATA}
-\alias{compare}
-\alias{compare.simuls}
+\alias{compsim}
+\alias{compsim.simuls}
 \title{Miscellaneous simulation functions}
 \usage{
 simulation_cor(group, cor_group, v = 1)
@@ -15,14 +15,14 @@ simulation_X(N, Cor)
 
 simulation_DATA(X, supp, minB, maxB, stn)
 
-compare(x, ...)
+compsim(x, ...)
 
-\method{compare}{simuls}(x, result.boost, level = 1, ...)
+\method{compsim}{simuls}(x, result.boost, level = 1, ...)
 }
 \arguments{
 \item{group}{A numeric vector. Group membership of each of the variables.}
 
-\item{cor_group}{A numeric vector. Intrag-roup Pearson correlation.}
+\item{cor_group}{A numeric vector. Intra-group Pearson correlation.}
 
 \item{v}{A numeric value. The diagonal value of the generated matrix.}
 
@@ -38,7 +38,7 @@ compare(x, ...)
 
 \item{maxB}{A numeric value. Maximum absolute value for a beta coefficient.}
 
-\item{stn}{A numeric value. A scaling factor for the noise in the response.}
+\item{stn}{A numeric value. A scaling factor for the noise in the response. The higher, the smaller the noise.}
 
 \item{x}{List. Simulated dataset.}
 
@@ -55,7 +55,7 @@ compare(x, ...)
 
 \code{simulation_DATA} returns a list.
 
-\code{compare.simuls} returns a numerical vector.
+\code{compsim.simuls} returns a numerical vector.
 }
 \description{
 Define several simulation functions to be used in the demos of the package.
@@ -75,10 +75,9 @@ random samples generated according to the Cor matrix.
 \code{simulation_DATA} returns a list with the X matrix, the response vector Y,
 the true predictors, the beta coefficients, the scaling factor and the standard deviation.
 
-\code{compare.simuls} computes sensitivity (precision), specificity (recall), and several Fscores (non-weighted Fscore, F1/2 and F2 weighted Fscores).
+\code{compsim.simuls} computes sensitivity (precision), specificity (recall), and several Fscores (non-weighted Fscore, F1/2 and F2 weighted Fscores).
 }
 \examples{
-P<-10
 N<-10
 group<-c(rep(1:2,5))
 cor_group<-c(.8,.4)
@@ -99,7 +98,7 @@ DATA_exemple<-simulation_DATA(X,supp,1,2,stn)
 set.seed(314)
 result.boost = fastboost(DATA_exemple$X, DATA_exemple$Y, steps.seq = .7, c0lim = FALSE,
 use.parallel = FALSE, B=10)
-compare(DATA_exemple, result.boost, level=.7)
+compsim(DATA_exemple, result.boost, level=.7)
 
 }
 \references{

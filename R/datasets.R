@@ -3,6 +3,7 @@
 #' Result of autoboost analysis of diabetes data from \cite{lars} package with lasso
 #' and first order model
 #'
+#' @docType data
 #' @format A numerical matrix frame with 13 rows and 10 variables with attributes.
 "autoboost.res.x"
 #> [1] "autoboost.res.x"
@@ -12,6 +13,7 @@
 #' Result of autoboost analysis of diabetes data from \cite{lars} package with lasso
 #' and second order model
 #'
+#' @docType data
 #' @format A numerical matrix frame with 13 rows and 64 variables with attributes.
 "autoboost.res.x2"
 #> [1] "autoboost.res.x2"
@@ -21,6 +23,7 @@
 #' Result of autoboost analysis of diabetes data from \cite{lars} package with adaptative
 #' lasso and first order model
 #'
+#' @docType data
 #' @format A numerical matrix frame with 13 rows and 10 variables with attributes.
 "autoboost.res.x.adapt"
 #> [1] "autoboost.res.x"
@@ -30,6 +33,7 @@
 #' Result of autoboost analysis of diabetes data from \cite{lars} package with adaptative
 #' lasso and second order model
 #'
+#' @docType data
 #' @format A numerical matrix frame with 13 rows and 64 variables with attributes.
 "autoboost.res.x2.adapt"
 #> [1] "autoboost.res.x2"
@@ -39,6 +43,7 @@
 #' Result of fastboost analysis of diabetes data from \cite{lars} package with lasso
 #' and first order model
 #'
+#' @docType data
 #' @format A numerical matrix frame with 13 rows and 10 variables with attributes.
 "fastboost.res.x"
 #> [1] "autoboost.res.x"
@@ -48,6 +53,7 @@
 #' Result of fastboost analysis of diabetes data from \cite{lars} package with lasso
 #' and second order model
 #'
+#' @docType data
 #' @format A numerical matrix frame with 13 rows and 64 variables with attributes.
 "fastboost.res.x2"
 #> [1] "autoboost.res.x2"
@@ -57,6 +63,7 @@
 #' Result of fastboost analysis of diabetes data from \cite{lars} package with adaptative
 #' lasso and first order model
 #'
+#' @docType data
 #' @format A numerical matrix frame with 13 rows and 10 variables with attributes.
 "fastboost.res.x.adapt"
 #> [1] "autoboost.res.x"
@@ -66,6 +73,7 @@
 #' Result of fastboost analysis of diabetes data from \cite{lars} package with adaptative
 #' lasso and second order model
 #'
+#' @docType data
 #' @format A numerical matrix frame with 13 rows and 64 variables with attributes.
 "fastboost.res.x2.adapt"
 #> [1] "autoboost.res.x2"
@@ -75,7 +83,12 @@
 #'
 #' Result of fastboost analysis applied to biological network reverse engineering
 #'
+#' @docType data
 #' @format A numerical matrix frame with 100 rows and 200 variables or a numerical vector of length 100.
+#' @rdname reverse
+#' @name results_simuls_reverse_engineering_v3
+#' @docType data
+NULL
 #' @rdname reverse
 "test.seq_C"
 #> [1] "test.seq_C"
@@ -306,6 +319,7 @@
 #'
 #' Result for confidence indices derivation using the Cascade package
 #'
+#' @docType data
 #' @format A \code{network.confidence} object with four slots :
 #' \describe{
 #'   \item{network.confidence}{The confidence matrix}
@@ -328,6 +342,7 @@
 #' Simulated Cascade network and inference
 #'
 #' Result for the reverse engineering of a simulated Cascade network
+#' @docType data
 #' @format Three objects :
 #' \describe{
 #'   \item{M}{Simulated microarray}

@@ -26,4 +26,8 @@
 #' @importFrom doMC registerDoMC
 #' @importFrom foreach foreach "%dopar%"
 #' @importFrom igraph graph.adjacency infomap.community communities
+#' @importFrom grDevices rgb
+#' @importFrom graphics image layout
+
+
 NULL

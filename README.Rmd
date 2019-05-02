@@ -44,7 +44,7 @@ devtools::install_github("fbertran/SelectBoost")
 ### First example: Simulated dataset 
 
 #### Simulating data
-Create a correlation matrix for two groups of variable with an intragroup correlation value of $cor_group$.
+Create a correlation matrix for two groups of variable with an intragroup correlation value of $cor\_group$.
 ```{r datasetsimulation1}
 library(SelectBoost)
 group<-c(rep(1:2,5))
@@ -65,14 +65,14 @@ $supp$ set the predictors that will be used to simulate the response (=true pred
 supp<-c(1,1,1,0,0,0,0,0,0,0)
 minB<-1
 maxB<-2
-stn<-5
+stn<-500
 DATA_exemple<-simulation_DATA(X,supp,minB,maxB,stn)
 str(DATA_exemple)
 ```
 
 #### Selectboost analysis
 
-By default $fastboost$ performs $B=100$ resamplings of the model. As a result, we get a matrix with the proportions of selection of each variable at a given resampling level $c_0$. The resampling are designed to take into account the correlation structure of the predictors. The correlation used by default is the Pearson Correlation but any can be passed through the $corrfunc$ argument. The $c_0$ value sets the minimum level for which correlations between two predictors are kept in the resampling process. The correlation structure is used to group the variables. Two groups functions $group\_func\_1$, grouping by thresholding the correlation matrix, and $group\_func\_2$, grouping using community selection, are available but any can be provided using the $group$ argument of the function. The $func$ argument is the variable selection function that should be used to assess variable memberships. It  defaults to $lasso\_msgps\_AICc$ but many others, for instance for lasso, elastinet, logistic glmnet and network inference with the [Cascade package](http://fbertran.github.io/Cascade/), are provided:
+By default `fastboost` performs $B=100$ resamplings of the model. As a result, we get a matrix with the proportions of selection of each variable at a given resampling level $c_0$. The resampling are designed to take into account the correlation structure of the predictors. The correlation used by default is the Pearson Correlation but any can be passed through the `corrfunc` argument. The $c_0$ value sets the minimum level for which correlations between two predictors are kept in the resampling process. The correlation structure is used to group the variables. Two groups functions `group_func_1`, grouping by thresholding the correlation matrix, and `group_func_2`, grouping using community selection, are available but any can be provided using the `group` argument of the function. The `func` argument is the variable selection function that should be used to assess variable memberships. It  defaults to `lasso_msgps_AICc` but many others, for instance for lasso, elastinet, logistic glmnet and network inference with the [Cascade package](http://fbertran.github.io/Cascade/), are provided:
 
 * lasso_cv_glmnet_bin_min(X, Y)
 * lasso_cv_glmnet_bin_1se(X, Y)
@@ -94,7 +94,7 @@ By default $fastboost$ performs $B=100$ resamplings of the model. As a result, w
 * enetf_msgps_BIC(X, Y, penalty = "enet", alpha = 0.5)
 * lasso_cascade(M, Y, K, eps = 10^-5, cv.fun)
 
-User defined functions can alse be specified in the $func$ argument. See the vignette for an example of use with *adaptative* lasso.
+User defined functions can alse be specified in the `func` argument. See the vignette for an example of use with *adaptative* lasso.
 
 Default steps for $c_0$
 ```{r datasetsimulation4, cache=TRUE}
@@ -115,14 +115,14 @@ All_res=NULL
 for(lev in 20:10/20){
 F_score=NULL
 for(u in 1:nrow(result.boost)){
-	F_score<-rbind(F_score,SelectBoost::compare(DATA_exemple,result.boost[u,],
+	F_score<-rbind(F_score,SelectBoost::compsim(DATA_exemple,result.boost[u,],
 	                                            level=lev)[1:5])
 }
 All_res <- abind::abind(All_res,F_score,along=3)
 }
 ```
 
-For a selection threshold equal to $0.90$, all the c0 values and the 5 criteria.
+For a selection threshold equal to $0.90$, all the $c_0$ values and the 5 criteria.
 ```{r datasetsimulation6, cache=TRUE, fig.keep='last'}
 matplot(1:nrow(result.boost),All_res[,,3],type="l",ylab="criterion value",
         xlab="c0 value",xaxt="n",lwd=2)
@@ -133,7 +133,7 @@ legend(x="topright",legend=c("sensitivity (precision)",
       "F1/2 weighted Fscore","F2 weighted Fscore"),lty=1:5,col=1:5,lwd=2)
 ```
 
-Fscores for all selection thresholds and all the c0 values.
+Fscores for all selection thresholds and all the $c_0$ values.
 ```{r datasetsimulation7, cache=TRUE, fig.keep='last'}
 matplot(1:nrow(result.boost),All_res[,3,],type="l",ylab="Fscore",
         xlab="c0 value",xaxt="n",lwd=2,col=1:11,lty=1:11)
@@ -182,14 +182,14 @@ for(lev.45 in 20:10/20){
 F_score.45=NULL
 for(u.45 in 1:nrow(dec.result.boost.45
 )){
-	F_score.45<-rbind(F_score.45,SelectBoost::compare(DATA_exemple,
+	F_score.45<-rbind(F_score.45,SelectBoost::compsim(DATA_exemple,
 	           dec.result.boost.45[u.45,],level=lev.45)[1:5])
 }
 All_res.45 <- abind::abind(All_res.45,F_score.45,along=3)
 }
 ```
 
-For a selection threshold equal to $0.90$, all the c0 values and the 5 criteria.
+For a selection threshold equal to $0.90$, all the $c_0$ values and the 5 criteria.
 ```{r datasetsimulation6res45, cache=TRUE, fig.keep='last'}
 matplot(1:nrow(dec.result.boost.45),All_res.45[,,3],type="l",
         ylab="criterion value",xlab="c0 value",xaxt="n",lwd=2)
@@ -201,7 +201,7 @@ legend(x="topright",legend=c("sensitivity (precision)",
        lty=1:5,col=1:5,lwd=2)
 ```
 
-Fscores for all selection thresholds and all the c0 values.
+Fscores for all selection thresholds and all the $c_0$ values.
 ```{r datasetsimulation7res45, cache=TRUE, fig.keep='last'}
 matplot(1:nrow(dec.result.boost.45),All_res.45[,3,],type="l",
         ylab="Fscore",xlab="c0 value",xaxt="n",lwd=2,col=1:11,lty=1:11)
@@ -213,7 +213,7 @@ legend(x="topright",legend=(20:11)/20,lty=1:11,col=1:11,lwd=2,
 
 #### Confidence indices.
 
-First compute the highest c0 value for which the proportion of selection is under the threshold $thr$. In that analysis, we set $thr=1$.
+First compute the highest $c_0$ value for which the proportion of selection is under the threshold $thr$. In that analysis, we set $thr=1$.
 ```{r datasetsimulation8res45, cache=TRUE}
 thr=1
 index.last.c0=apply(dec.result.boost.45>=thr,2,which.min)-1
@@ -221,13 +221,29 @@ index.last.c0
 ```
 
 Define some colorRamp ranging from blue (high confidence) to red (low confidence).
-```{r datasetsimulation9res45, cache=TRUE}
+```{r datasetsimulation8res45color, cache=TRUE}
 jet.colors <-
   colorRamp(rev(c(
   "blue", "#007FFF", "#FF7F00", "red", "#7F0000")))
 ```
 
-```{r datasetsimulation9res45bis, cache=TRUE, fig.keep='all'}
+```{r datasetsimulation9res45, cache=TRUE, fig.keep='all'}
+rownames(dec.result.boost.45)[index.last.c0]
+attr(result.boost.45,"c0.seq")[index.last.c0]
+confidence.indices = c(0,1-attr(result.boost.45,"c0.seq"))[index.last.c0+1]
+confidence.indices
+barplot(confidence.indices,col=rgb(jet.colors(confidence.indices), maxColorValue = 255), 
+        names.arg=colnames(result.boost.45), ylim=c(0,1))
+```
+
+First compute the highest $c_0$ value for which the proportion of selection is under the threshold $thr$. In that analysis, we set $thr=1$.
+```{r datasetsimulation9res45bis, cache=TRUE}
+thr=.9
+index.last.c0=apply(dec.result.boost.45>=thr,2,which.min)-1
+index.last.c0
+```
+
+```{r datasetsimulation9res45bisbis, cache=TRUE, fig.keep='all'}
 rownames(dec.result.boost.45)[index.last.c0]
 attr(result.boost.45,"c0.seq")[index.last.c0]
 confidence.indices = c(0,1-attr(result.boost.45,"c0.seq"))[index.last.c0+1]
@@ -251,20 +267,16 @@ S<-Cascade::geneSelection(list(micro_S,micro_US),list("condition",c(1,2),1),-1)
 data(micro_S)
 Sel<-micro_S[S@name,]
 
-set.seed(3141)
-for(i in 1:1){
-X<-t(as.matrix(Sel[sample(1:1300 ,100),]))
-X2<-t(t(X)/sqrt(diag(t(X)%*%X)))
-#SSS<-cor(X2)
-#SS<-abs(SSS[row(SSS)>col(SSS)])
-#mean(SS)
-
-X<-X2
 supp<-c(1,1,1,1,1,rep(0,95))
 minB<-1
 maxB<-2
 stn<-5
-assign(paste("DATA_exemple3_nb_",i,sep=""),simulation_DATA(X,supp,1,2,stn))
+
+set.seed(3141)
+for(i in 1:1){
+X<-t(as.matrix(Sel[sample(1:1300 ,100),]))
+Xnorm<-t(t(X)/sqrt(diag(t(X)%*%X)))
+assign(paste("DATA_exemple3_nb_",i,sep=""),simulation_DATA(Xnorm,supp,minB,maxB,stn))
 }
 ```
 
@@ -283,7 +295,8 @@ c0seq.top10p.all.cors.micro
 ```
 
 ```{r CascadeDatafastboost, cache=TRUE, fig.keep='all'}
-result.boost.micro_nb1 = fastboost(DATA_exemple3_nb_1$X, DATA_exemple3_nb_1$Y, B=100, steps.seq=c0seq.top10p.all.cors.micro)
+result.boost.micro_nb1 = fastboost(DATA_exemple3_nb_1$X, DATA_exemple3_nb_1$Y, B=100, 
+                                   steps.seq=c0seq.top10p.all.cors.micro)
 result.boost.micro_nb1
 ```
 
@@ -294,14 +307,14 @@ dec.result.boost.micro_nb1
 
 #### Confidence indices.
 
-First compute the highest c0 value for which the proportion of selection is under the threshold $thr$. In that analysis, we set $thr=1$.
+First compute the highest $c_0$ value for which the proportion of selection is under the threshold $thr$. In that analysis, we set $thr=1$.
 ```{r CascadeDataconfindices, cache=TRUE}
 thr=1
 index.last.c0.micro_nb1=apply(dec.result.boost.micro_nb1>=thr,2,which.min)-1
 index.last.c0.micro_nb1
 ```
 
-We have to cap the confidence index value to the 1-smallest c0 that we specified in the c0 sequence and that was actually used for resampling. As a consequence, we have to exclude the c0=0 case since we do not know what happen between c0=quantile(cors,.9) and c0=0.
+We have to cap the confidence index value to the $1-\{\textrm{smallest } c_0\}$ that we specified in the $c_0$ sequence and that was actually used for resampling. As a consequence, we have to exclude the $c_0=0$ case since we do not know what happen between $c0=\verb+quantile+(cors,.9)$ and $c_0=0$.
 
 ```{r CascadeDataconfindicesindices, cache=TRUE}
 index.last.c0.micro_nb1 <- pmin(index.last.c0.micro_nb1,
@@ -321,6 +334,7 @@ confidence.indices.micro_nb1 = c(0,1-attr(result.boost.micro_nb1,"c0.seq"))[
 confidence.indices.micro_nb1
 barplot(confidence.indices.micro_nb1,col=rgb(jet.colors(confidence.indices.micro_nb1),
 maxColorValue = 255), names.arg=colnames(result.boost.micro_nb1), ylim=c(0,1))
+abline(h=)
 ```
 
 
@@ -332,7 +346,7 @@ for(lev.micro_nb1 in 20:10/20){
 F_score.micro_nb1=NULL
 for(u.micro_nb1 in 1:nrow(dec.result.boost.micro_nb1
 )){
-	F_score.micro_nb1<-rbind(F_score.micro_nb1,SelectBoost::compare(DATA_exemple,
+	F_score.micro_nb1<-rbind(F_score.micro_nb1,SelectBoost::compsim(DATA_exemple,
 	                                                                dec.result.boost.micro_nb1[u.micro_nb1,],level=lev.micro_nb1)[1:5])
 }
 All_micro_nb1 <- abind::abind(All_micro_nb1,F_score.micro_nb1,along=3)
@@ -351,7 +365,7 @@ legend(x="topright",legend=c("sensitivity (precision)",
        lty=1:5,col=1:5,lwd=2)
 ```
 
-Fscores for all selection thresholds and all the c0 values.
+Fscores for all selection thresholds and all the $c_0$ values.
 ```{r datasetsimulation7micro, cache=TRUE}
 matplot(1:nrow(dec.result.boost.micro_nb1),All_micro_nb1[,3,],type="l",
         ylab="Fscore",xlab="c0 value",xaxt="n",lwd=2,col=1:11,lty=1:11)
@@ -360,3 +374,4 @@ axis(1, at=1:length(attr(result.boost.micro_nb1,"c0.seq")),
 legend(x="bottomright",legend=(20:11)/20,lty=1:11,col=1:11,lwd=2,
        title="Threshold")
 ```
+

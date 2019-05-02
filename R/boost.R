@@ -225,7 +225,7 @@ boost.adjust<-function(X,groups,Correlation_sign,Xpass=boost.Xpass(nrowX,ncolX),
   if(use.parallel) {
     requireNamespace("doMC")
     registerDoMC(ncores)
-    vmf.params=foreach(iforeach=1:ngroups, .combine=c) %dopar% fit1(iforeach)
+    vmf.params=foreach(iforeach=1:ngroups, .combine=c, .errorhandling = 'remove', .verbose = verbose) %dopar% fit1(iforeach)
 
   } else {
     vmf.params=fit1(1:ngroups)
@@ -295,7 +295,7 @@ boost.random<-function(X,Xpass,vmf.params,verbose=FALSE,B=100,use.parallel=FALSE
     if(use.parallel & !is.null(colstosimul)) {
       requireNamespace("doMC")
       registerDoMC(ncores)
-      res<-foreach(iforeach=1:B, .combine=list, .multicombine=TRUE) %dopar% simul2()
+      res<-foreach(iforeach=1:B, .combine=list, .multicombine=TRUE, .errorhandling = 'remove', .verbose = verbose) %dopar% simul2()
       res<-simplify2array(res)
     } else {
       res<-replicate(B,simul2())
@@ -304,7 +304,7 @@ boost.random<-function(X,Xpass,vmf.params,verbose=FALSE,B=100,use.parallel=FALSE
     if(use.parallel & !is.null(colstosimul)) {
       requireNamespace("doMC")
       registerDoMC(ncores)
-      res<-foreach(iforeach=colstosimul, .combine=cbind) %dopar% simul1(iforeach)
+      res<-foreach(iforeach=colstosimul, .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% simul1(iforeach)
     } else {
       res<-simul1(colstosimul)
     }
@@ -318,10 +318,6 @@ boost.random<-function(X,Xpass,vmf.params,verbose=FALSE,B=100,use.parallel=FALSE
   attr(res,"colstosimul")<-colstosimul
   attr(res,"nsimul")<-B
   return(res)
-
-#  simul2<-function(){simul1(colstosimul)}
-#  Xret<-replicate(B,simul2())
-#  return(Xret)
 }
 
 #' @rdname boost
@@ -363,7 +359,7 @@ if(attr(cols.simul,"nosimul")) {
       if(use.parallel) {
         requireNamespace("doMC")
         registerDoMC(ncores)
-        return(foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind) %dopar% applyfunction(iforeach))
+        return(foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% applyfunction(iforeach))
       } else {
         return(sapply(1:attr(cols.simul,"nsimul"),applyfunction))
       }
@@ -380,7 +376,7 @@ if(attr(cols.simul,"nosimul")) {
       if(use.parallel) {
         requireNamespace("doMC")
         registerDoMC(ncores)
-        return(foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind) %dopar% applyfunction(iforeach))
+        return(foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% applyfunction(iforeach))
       } else {
         return(sapply(1:attr(cols.simul,"nsimul"),applyfunction))
       }

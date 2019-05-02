@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SelectBoost</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -78,13 +78,36 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/benchmarking-selectboost-networks.html">Simuls network</a>
+    </li>
+    <li>
+      <a href="../articles/confidence-indices-Cascade-networks.html">Towards confidence estimates in Cascade networks</a>
+    </li>
+    <li>
+      <a href="../articles/sim-with-sb.html">Simulation tools available in the Selectboost package</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/fbertran/SelectBoost">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -98,7 +121,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Miscellaneous simulation functions</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/fbertran/SelectBoost/blob/master/R/simulation.R'><code>R/simulation.R</code></a></small>
     <div class="hidden name"><code>simulation.Rd</code></div>
     </div>
 
@@ -114,10 +137,10 @@
 
 <span class='fu'>simulation_DATA</span>(<span class='no'>X</span>, <span class='no'>supp</span>, <span class='no'>minB</span>, <span class='no'>maxB</span>, <span class='no'>stn</span>)
 
-<span class='fu'>compare</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>compsim</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for simuls</span>
-<span class='fu'>compare</span>(<span class='no'>x</span>, <span class='no'>result.boost</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>compsim</span>(<span class='no'>x</span>, <span class='no'>result.boost</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -128,7 +151,7 @@
     </tr>
     <tr>
       <th>cor_group</th>
-      <td><p>A numeric vector. Intrag-roup Pearson correlation.</p></td>
+      <td><p>A numeric vector. Intra-group Pearson correlation.</p></td>
     </tr>
     <tr>
       <th>v</th>
@@ -160,7 +183,7 @@
     </tr>
     <tr>
       <th>stn</th>
-      <td><p>A numeric value. A scaling factor for the noise in the response.</p></td>
+      <td><p>A numeric value. A scaling factor for the noise in the response. The higher, the smaller the noise.</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -185,7 +208,7 @@
     <p><code>simulation_cor</code> returns a numeric matrix.</p>
 <p><code>simulation_X</code> returns a numeric matrix.</p>
 <p><code>simulation_DATA</code> returns a list.</p>
-<p><code>compare.simuls</code> returns a numerical vector.</p>
+<p><code>compsim.simuls</code> returns a numerical vector.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -199,7 +222,7 @@ is the number of variables. An entry \(c_{i,j}\) is equal to</p><ul>
 random samples generated according to the Cor matrix.</p>
 <p><code>simulation_DATA</code> returns a list with the X matrix, the response vector Y,
 the true predictors, the beta coefficients, the scaling factor and the standard deviation.</p>
-<p><code>compare.simuls</code> computes sensitivity (precision), specificity (recall), and several Fscores (non-weighted Fscore, F1/2 and F2 weighted Fscores).</p>
+<p><code>compsim.simuls</code> computes sensitivity (precision), specificity (recall), and several Fscores (non-weighted Fscore, F1/2 and F2 weighted Fscores).</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -211,9 +234,7 @@ the true predictors, the beta coefficients, the scaling factor and the standard 
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>P</span><span class='kw'>&lt;-</span><span class='fl'>10</span>
-<span class='no'>N</span><span class='kw'>&lt;-</span><span class='fl'>10</span>
+    <pre class="examples"><div class='input'><span class='no'>N</span><span class='kw'>&lt;-</span><span class='fl'>10</span>
 <span class='no'>group</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>,<span class='fl'>5</span>))
 <span class='no'>cor_group</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>.8</span>,<span class='fl'>.4</span>)
 <span class='no'>supp</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>)
@@ -225,17 +246,15 @@ the true predictors, the beta coefficients, the scaling factor and the standard 
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>314</span>)
 <span class='no'>X</span><span class='kw'>&lt;-</span><span class='fu'>simulation_X</span>(<span class='fl'>10</span>,<span class='no'>C</span>)
 <span class='no'>G</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/MathFun'>abs</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/cor'>cor</a></span>(<span class='no'>X</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/hist'>hist</a></span>(<span class='no'>G</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lower.tri'>lower.tri</a></span>(<span class='no'>G</span>)])
-
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/hist'>hist</a></span>(<span class='no'>G</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lower.tri'>lower.tri</a></span>(<span class='no'>G</span>)])</div><div class='img'><img src='simulation-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>314</span>)
 <span class='no'>DATA_exemple</span><span class='kw'>&lt;-</span><span class='fu'>simulation_DATA</span>(<span class='no'>X</span>,<span class='no'>supp</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='no'>stn</span>)
 
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>314</span>)
 <span class='no'>result.boost</span> <span class='kw'>=</span> <span class='fu'><a href='fastboost.html'>fastboost</a></span>(<span class='no'>DATA_exemple</span>$<span class='no'>X</span>, <span class='no'>DATA_exemple</span>$<span class='no'>Y</span>, <span class='kw'>steps.seq</span> <span class='kw'>=</span> <span class='fl'>.7</span>, <span class='kw'>c0lim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
 <span class='kw'>use.parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>B</span><span class='kw'>=</span><span class='fl'>10</span>)
-<span class='fu'>compare</span>(<span class='no'>DATA_exemple</span>, <span class='no'>result.boost</span>, <span class='kw'>level</span><span class='kw'>=</span><span class='fl'>.7</span>)
-
-<span class='co'># }</span></pre>
+<span class='fu'>compsim</span>(<span class='no'>DATA_exemple</span>, <span class='no'>result.boost</span>, <span class='kw'>level</span><span class='kw'>=</span><span class='fl'>.7</span>)</div><div class='output co'>#&gt; [1] 0.6666667 0.4000000 0.5000000 0.4347826 0.5882353 1.0000000</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

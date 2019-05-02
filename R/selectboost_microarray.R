@@ -105,18 +105,18 @@ setMethod(f="selectboost"
 
             u<-0
 
-            for(pic in 2:T){
+            for(peak in 2:T){
               cat("\n")
-              cat(paste("We are at peak : ", pic))
+              cat(paste("We are at peak : ", peak))
               cat("\n")
               #Peak is the number of the response group
 
-              IND<-which(gr %in% 1:(pic-1))
+              IND<-which(gr %in% 1:(peak-1))
               grIND<-gr[IND]
               pred<-mat[IND,sup_pred]
 
               #Building the predictor matrix
-              for(k in 1:(pic-1)) {
+              for(k in 1:(peak-1)) {
                 ind<-which(grIND %in% k)
                 u<-u+1
                 f<-function(x){(F[,,u]%*%(x))}
@@ -128,8 +128,8 @@ setMethod(f="selectboost"
               pred[is.na(pred)]<-0
 
               #Response matrix
-              Y<-mat[which(gr %in% pic),sup_pred+1]
-              Gamma[IND, which(gr %in% pic)]<-0 #Gamma[IND, which(gr %in% pic)]*0
+              Y<-mat[which(gr %in% peak),sup_pred+1]
+              Gamma[IND, which(gr %in% peak)]<-0 #Gamma[IND, which(gr %in% peak)]*0
 
               #Confidence
               if(cv.subjects==TRUE){
@@ -146,7 +146,7 @@ setMethod(f="selectboost"
               fun_lasso_selectboost<-function(x){cat(".");fastboost(X = pred, Y = x, ncores = ncores, group = group, func = lasso_cascade, corrfunc="cor", verbose= verbose, use.parallel = use.parallel, K=K, eps=eps, cv.fun=cv.folds1
                                                                     #, cv.fun.name=cv.fun.name
                                                                     , steps.seq = c0value, c0lim = FALSE)}
-              Gamma[IND, which(gr %in% pic)]<-apply(Y,1,fun_lasso_selectboost)
+              Gamma[IND, which(gr %in% peak)]<-apply(Y,1,fun_lasso_selectboost)
 
             }
 

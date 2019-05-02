@@ -37,7 +37,7 @@ devtools::install_github("fbertran/SelectBoost")
 ### First example: Simulated dataset 
 
 #### Simulating data
-Create a correlation matrix for two groups of variable with an intragroup correlation value of $cor_group$.
+Create a correlation matrix for two groups of variable with an intragroup correlation value of $cor\_group$.
 
 ```r
 library(SelectBoost)
@@ -86,22 +86,22 @@ $supp$ set the predictors that will be used to simulate the response (=true pred
 supp<-c(1,1,1,0,0,0,0,0,0,0)
 minB<-1
 maxB<-2
-stn<-5
+stn<-500
 DATA_exemple<-simulation_DATA(X,supp,minB,maxB,stn)
 str(DATA_exemple)
 #> List of 6
 #>  $ X      : num [1:100, 1:10] -0.44 1.31 1.454 0.607 -1.683 ...
-#>  $ Y      : num [1:100] 0.535 2.048 0.332 -2.465 -3.434 ...
+#>  $ Y      : num [1:100] -0.266 2.473 1.682 -2.036 -3.667 ...
 #>  $ support: num [1:10] 1 1 1 0 0 0 0 0 0 0
 #>  $ beta   : num [1:10] 1.85 1.53 -1.01 0 0 ...
-#>  $ stn    : num 5
-#>  $ sigma  : num [1, 1] 0.861
+#>  $ stn    : num 500
+#>  $ sigma  : num [1, 1] 0.0861
 #>  - attr(*, "class")= chr "simuls"
 ```
 
 #### Selectboost analysis
 
-By default $fastboost$ performs $B=100$ resamplings of the model. As a result, we get a matrix with the proportions of selection of each variable at a given resampling level $c_0$. The resampling are designed to take into account the correlation structure of the predictors. The correlation used by default is the Pearson Correlation but any can be passed through the $corrfunc$ argument. The $c_0$ value sets the minimum level for which correlations between two predictors are kept in the resampling process. The correlation structure is used to group the variables. Two groups functions $group\_func\_1$, grouping by thresholding the correlation matrix, and $group\_func\_2$, grouping using community selection, are available but any can be provided using the $group$ argument of the function. The $func$ argument is the variable selection function that should be used to assess variable memberships. It  defaults to $lasso\_msgps\_AICc$ but many others, for instance for lasso, elastinet, logistic glmnet and network inference with the [Cascade package](http://fbertran.github.io/Cascade/), are provided:
+By default `fastboost` performs $B=100$ resamplings of the model. As a result, we get a matrix with the proportions of selection of each variable at a given resampling level $c_0$. The resampling are designed to take into account the correlation structure of the predictors. The correlation used by default is the Pearson Correlation but any can be passed through the `corrfunc` argument. The $c_0$ value sets the minimum level for which correlations between two predictors are kept in the resampling process. The correlation structure is used to group the variables. Two groups functions `group_func_1`, grouping by thresholding the correlation matrix, and `group_func_2`, grouping using community selection, are available but any can be provided using the `group` argument of the function. The `func` argument is the variable selection function that should be used to assess variable memberships. It  defaults to `lasso_msgps_AICc` but many others, for instance for lasso, elastinet, logistic glmnet and network inference with the [Cascade package](http://fbertran.github.io/Cascade/), are provided:
 
 * lasso_cv_glmnet_bin_min(X, Y)
 * lasso_cv_glmnet_bin_1se(X, Y)
@@ -123,7 +123,7 @@ By default $fastboost$ performs $B=100$ resamplings of the model. As a result, w
 * enetf_msgps_BIC(X, Y, penalty = "enet", alpha = 0.5)
 * lasso_cascade(M, Y, K, eps = 10^-5, cv.fun)
 
-User defined functions can alse be specified in the $func$ argument. See the vignette for an example of use with *adaptative* lasso.
+User defined functions can alse be specified in the `func` argument. See the vignette for an example of use with *adaptative* lasso.
 
 Default steps for $c_0$
 
@@ -180,14 +180,14 @@ All_res=NULL
 for(lev in 20:10/20){
 F_score=NULL
 for(u in 1:nrow(result.boost)){
-	F_score<-rbind(F_score,SelectBoost::compare(DATA_exemple,result.boost[u,],
+	F_score<-rbind(F_score,SelectBoost::compsim(DATA_exemple,result.boost[u,],
 	                                            level=lev)[1:5])
 }
 All_res <- abind::abind(All_res,F_score,along=3)
 }
 ```
 
-For a selection threshold equal to $0.90$, all the c0 values and the 5 criteria.
+For a selection threshold equal to $0.90$, all the $c_0$ values and the 5 criteria.
 
 ```r
 matplot(1:nrow(result.boost),All_res[,,3],type="l",ylab="criterion value",
@@ -201,7 +201,7 @@ legend(x="topright",legend=c("sensitivity (precision)",
 
 <img src="man/figures/README-datasetsimulation6-1.png" title="plot of chunk datasetsimulation6" alt="plot of chunk datasetsimulation6" width="100%" />
 
-Fscores for all selection thresholds and all the c0 values.
+Fscores for all selection thresholds and all the $c_0$ values.
 
 ```r
 matplot(1:nrow(result.boost),All_res[,3,],type="l",ylab="Fscore",
@@ -411,14 +411,14 @@ for(lev.45 in 20:10/20){
 F_score.45=NULL
 for(u.45 in 1:nrow(dec.result.boost.45
 )){
-	F_score.45<-rbind(F_score.45,SelectBoost::compare(DATA_exemple,
+	F_score.45<-rbind(F_score.45,SelectBoost::compsim(DATA_exemple,
 	           dec.result.boost.45[u.45,],level=lev.45)[1:5])
 }
 All_res.45 <- abind::abind(All_res.45,F_score.45,along=3)
 }
 ```
 
-For a selection threshold equal to $0.90$, all the c0 values and the 5 criteria.
+For a selection threshold equal to $0.90$, all the $c_0$ values and the 5 criteria.
 
 ```r
 matplot(1:nrow(dec.result.boost.45),All_res.45[,,3],type="l",
@@ -433,7 +433,7 @@ legend(x="topright",legend=c("sensitivity (precision)",
 
 <img src="man/figures/README-datasetsimulation6res45-1.png" title="plot of chunk datasetsimulation6res45" alt="plot of chunk datasetsimulation6res45" width="100%" />
 
-Fscores for all selection thresholds and all the c0 values.
+Fscores for all selection thresholds and all the $c_0$ values.
 
 ```r
 matplot(1:nrow(dec.result.boost.45),All_res.45[,3,],type="l",
@@ -448,7 +448,7 @@ legend(x="topright",legend=(20:11)/20,lty=1:11,col=1:11,lwd=2,
 
 #### Confidence indices.
 
-First compute the highest c0 value for which the proportion of selection is under the threshold $thr$. In that analysis, we set $thr=1$.
+First compute the highest $c_0$ value for which the proportion of selection is under the threshold $thr$. In that analysis, we set $thr=1$.
 
 ```r
 thr=1
@@ -482,7 +482,35 @@ barplot(confidence.indices,col=rgb(jet.colors(confidence.indices), maxColorValue
         names.arg=colnames(result.boost.45), ylim=c(0,1))
 ```
 
-<img src="man/figures/README-datasetsimulation9res45bis-1.png" title="plot of chunk datasetsimulation9res45bis" alt="plot of chunk datasetsimulation9res45bis" width="100%" />
+<img src="man/figures/README-datasetsimulation9res45-1.png" title="plot of chunk datasetsimulation9res45" alt="plot of chunk datasetsimulation9res45" width="100%" />
+
+First compute the highest $c_0$ value for which the proportion of selection is under the threshold $thr$. In that analysis, we set $thr=1$.
+
+```r
+thr=.9
+index.last.c0=apply(dec.result.boost.45>=thr,2,which.min)-1
+index.last.c0
+#>  1  2  3  4  5  6  7  8  9 10 
+#>  9 20  6 11  2  6  2  5  0  6
+```
+
+
+```r
+rownames(dec.result.boost.45)[index.last.c0]
+#> [1] "c0 = 0.729" "c0 = 0.299" "c0 = 0.764" "c0 = 0.717" "c0 = 0.787"
+#> [6] "c0 = 0.764" "c0 = 0.787" "c0 = 0.768" "c0 = 0.764"
+attr(result.boost.45,"c0.seq")[index.last.c0]
+#> [1] 0.729431 0.299159 0.763721 0.716944 0.786647 0.763721 0.786647 0.768247
+#> [9] 0.763721
+confidence.indices = c(0,1-attr(result.boost.45,"c0.seq"))[index.last.c0+1]
+confidence.indices
+#>  [1] 0.270569 0.700841 0.236279 0.283056 0.213353 0.236279 0.213353
+#>  [8] 0.231753 0.000000 0.236279
+barplot(confidence.indices,col=rgb(jet.colors(confidence.indices), maxColorValue = 255), 
+        names.arg=colnames(result.boost.45), ylim=c(0,1))
+```
+
+<img src="man/figures/README-datasetsimulation9res45bisbis-1.png" title="plot of chunk datasetsimulation9res45bisbis" alt="plot of chunk datasetsimulation9res45bisbis" width="100%" />
 
 
 ### Second example: biological network data
@@ -500,20 +528,16 @@ S<-Cascade::geneSelection(list(micro_S,micro_US),list("condition",c(1,2),1),-1)
 data(micro_S)
 Sel<-micro_S[S@name,]
 
-set.seed(3141)
-for(i in 1:1){
-X<-t(as.matrix(Sel[sample(1:1300 ,100),]))
-X2<-t(t(X)/sqrt(diag(t(X)%*%X)))
-#SSS<-cor(X2)
-#SS<-abs(SSS[row(SSS)>col(SSS)])
-#mean(SS)
-
-X<-X2
 supp<-c(1,1,1,1,1,rep(0,95))
 minB<-1
 maxB<-2
 stn<-5
-assign(paste("DATA_exemple3_nb_",i,sep=""),simulation_DATA(X,supp,1,2,stn))
+
+set.seed(3141)
+for(i in 1:1){
+X<-t(as.matrix(Sel[sample(1:1300 ,100),]))
+Xnorm<-t(t(X)/sqrt(diag(t(X)%*%X)))
+assign(paste("DATA_exemple3_nb_",i,sep=""),simulation_DATA(Xnorm,supp,minB,maxB,stn))
 }
 ```
 
@@ -554,108 +578,109 @@ c0seq.top10p.all.cors.micro
 
 
 ```r
-result.boost.micro_nb1 = fastboost(DATA_exemple3_nb_1$X, DATA_exemple3_nb_1$Y, B=100, steps.seq=c0seq.top10p.all.cors.micro)
+result.boost.micro_nb1 = fastboost(DATA_exemple3_nb_1$X, DATA_exemple3_nb_1$Y, B=100, 
+                                   steps.seq=c0seq.top10p.all.cors.micro)
 result.boost.micro_nb1
 #>               1    2    3    4    5    6    7    8    9   10   11   12
-#> c0 = 1     1.00 1.00 1.00 1.00 1.00 1.00 1.00 0.00 0.00 0.00 0.00 0.00
-#> c0 = 0.932 1.00 1.00 1.00 1.00 1.00 1.00 1.00 0.00 0.00 0.00 0.00 0.00
-#> c0 = 0.882 0.33 1.00 0.95 0.88 0.72 0.75 0.55 0.32 0.23 0.10 0.00 0.29
-#> c0 = 0.852 0.72 1.00 0.47 0.53 0.79 0.73 0.59 0.06 0.20 0.24 0.00 0.23
-#> c0 = 0.832 0.45 1.00 0.42 0.67 0.78 0.62 0.55 0.28 0.32 0.11 0.00 0.31
-#> c0 = 0.818 0.50 1.00 0.50 0.30 0.72 0.56 0.46 0.20 0.34 0.20 0.06 0.48
-#> c0 = 0.804 0.50 1.00 0.64 0.48 0.65 0.64 0.44 0.20 0.30 0.10 0.30 0.55
-#> c0 = 0.797 0.44 1.00 0.38 0.43 0.80 0.57 0.43 0.18 0.27 0.29 0.32 0.45
-#> c0 = 0.785 0.52 1.00 0.36 0.41 0.71 0.38 0.41 0.20 0.22 0.17 0.14 0.27
-#> c0 = 0.777 0.44 1.00 0.22 0.38 0.74 0.59 0.36 0.09 0.35 0.13 0.07 0.37
+#> c0 = 1     1.00 1.00 1.00 1.00 1.00 1.00 0.00 0.00 0.00 0.00 0.00 1.00
+#> c0 = 0.932 1.00 1.00 1.00 1.00 1.00 1.00 0.00 0.00 0.00 0.00 0.00 1.00
+#> c0 = 0.882 0.45 1.00 1.00 0.92 1.00 0.88 0.28 0.07 0.38 0.14 0.01 0.67
+#> c0 = 0.852 0.78 1.00 0.74 0.54 1.00 0.95 0.29 0.03 0.10 0.14 0.00 0.24
+#> c0 = 0.832 0.58 1.00 0.72 0.84 1.00 0.81 0.25 0.00 0.16 0.05 0.00 0.48
+#> c0 = 0.818 0.61 1.00 0.83 0.49 1.00 0.70 0.24 0.00 0.33 0.08 0.00 0.48
+#> c0 = 0.804 0.46 1.00 0.80 0.52 1.00 0.64 0.18 0.00 0.18 0.15 0.13 0.56
+#> c0 = 0.797 0.53 1.00 0.62 0.54 1.00 0.69 0.16 0.01 0.23 0.10 0.06 0.52
+#> c0 = 0.785 0.56 1.00 0.63 0.60 1.00 0.44 0.15 0.00 0.21 0.20 0.04 0.30
+#> c0 = 0.777 0.51 1.00 0.44 0.63 0.99 0.48 0.23 0.03 0.19 0.20 0.13 0.38
 #>              13   14   15   16   17   18   19   20   21   22   23   24
-#> c0 = 1     0.00 0.00 0.00 1.00 0.00 0.00 1.00 1.00 0.00 0.00 0.00 0.00
-#> c0 = 0.932 0.00 0.00 0.00 1.00 0.00 0.00 1.00 1.00 0.00 0.00 0.00 0.00
-#> c0 = 0.882 0.02 0.09 0.71 1.00 0.00 0.00 1.00 0.96 0.10 0.05 0.05 0.26
-#> c0 = 0.852 0.00 0.10 0.37 0.94 0.03 0.02 1.00 0.77 0.08 0.28 0.20 0.22
-#> c0 = 0.832 0.01 0.11 0.52 0.86 0.00 0.20 1.00 0.82 0.36 0.31 0.07 0.25
-#> c0 = 0.818 0.01 0.22 0.47 0.86 0.03 0.20 0.98 0.75 0.22 0.20 0.14 0.18
-#> c0 = 0.804 0.12 0.15 0.55 0.80 0.04 0.20 1.00 0.70 0.38 0.37 0.14 0.26
-#> c0 = 0.797 0.23 0.12 0.49 0.88 0.05 0.25 1.00 0.60 0.27 0.16 0.19 0.29
-#> c0 = 0.785 0.17 0.33 0.48 0.84 0.01 0.24 1.00 0.40 0.31 0.31 0.17 0.09
-#> c0 = 0.777 0.22 0.29 0.49 0.83 0.08 0.37 0.95 0.34 0.36 0.36 0.25 0.27
+#> c0 = 1     0.00 0.00 1.00 1.00 0.00 0.00 1.00 0.00 0.00 1.00 0.00 1.00
+#> c0 = 0.932 0.00 0.00 1.00 1.00 0.00 0.00 1.00 0.00 0.00 1.00 0.00 1.00
+#> c0 = 0.882 0.02 0.23 0.76 0.65 0.11 0.01 0.81 0.35 0.17 0.52 0.30 0.07
+#> c0 = 0.852 0.00 0.09 0.64 0.40 0.10 0.01 0.85 0.21 0.10 0.39 0.25 0.14
+#> c0 = 0.832 0.01 0.36 0.62 0.35 0.07 0.14 1.00 0.51 0.21 0.36 0.46 0.16
+#> c0 = 0.818 0.00 0.30 0.63 0.43 0.09 0.06 0.97 0.53 0.18 0.15 0.15 0.16
+#> c0 = 0.804 0.14 0.36 0.64 0.48 0.07 0.09 0.94 0.43 0.23 0.41 0.31 0.12
+#> c0 = 0.797 0.18 0.34 0.60 0.43 0.10 0.18 0.86 0.30 0.24 0.17 0.27 0.26
+#> c0 = 0.785 0.20 0.23 0.64 0.32 0.07 0.15 0.88 0.23 0.34 0.54 0.11 0.20
+#> c0 = 0.777 0.34 0.24 0.58 0.45 0.07 0.12 0.82 0.28 0.20 0.62 0.27 0.18
 #>              25   26   27   28   29   30   31   32   33   34   35   36
-#> c0 = 1     0.00 1.00 1.00 0.00 0.00 0.00 1.00 0.00 0.00 1.00 0.00 0.00
-#> c0 = 0.932 0.00 1.00 1.00 0.00 0.00 0.00 1.00 0.00 0.00 1.00 0.00 0.00
-#> c0 = 0.882 0.00 1.00 0.65 0.15 0.00 0.01 0.92 0.00 0.00 0.96 0.10 0.00
-#> c0 = 0.852 0.01 1.00 0.77 0.25 0.26 0.08 0.93 0.06 0.00 0.71 0.16 0.01
-#> c0 = 0.832 0.05 1.00 0.24 0.43 0.14 0.19 0.23 0.08 0.00 0.69 0.12 0.09
-#> c0 = 0.818 0.20 1.00 0.27 0.39 0.48 0.12 0.31 0.07 0.02 0.58 0.17 0.09
-#> c0 = 0.804 0.31 0.98 0.29 0.36 0.39 0.15 0.30 0.08 0.00 0.62 0.07 0.03
-#> c0 = 0.797 0.32 0.98 0.19 0.45 0.46 0.24 0.28 0.18 0.01 0.54 0.12 0.06
-#> c0 = 0.785 0.20 1.00 0.30 0.30 0.33 0.14 0.28 0.11 0.00 0.77 0.21 0.04
-#> c0 = 0.777 0.33 1.00 0.34 0.43 0.42 0.25 0.35 0.20 0.02 0.71 0.10 0.09
+#> c0 = 1     0.00 0.00 1.00 0.00 0.00 0.00 1.00 1.00 0.00 0.00 1.00 0.00
+#> c0 = 0.932 0.00 0.00 1.00 0.00 0.00 0.00 1.00 1.00 0.00 0.00 1.00 0.00
+#> c0 = 0.882 0.11 0.62 0.40 0.15 0.27 0.35 0.40 0.54 0.15 0.17 0.25 0.16
+#> c0 = 0.852 0.05 0.43 0.28 0.19 0.57 0.44 0.23 0.56 0.05 0.21 0.15 0.06
+#> c0 = 0.832 0.08 0.29 0.66 0.32 0.48 0.31 0.15 0.45 0.01 0.20 0.34 0.16
+#> c0 = 0.818 0.24 0.36 0.79 0.45 0.70 0.22 0.15 0.27 0.02 0.09 0.30 0.16
+#> c0 = 0.804 0.14 0.46 0.80 0.31 0.64 0.08 0.30 0.49 0.01 0.14 0.28 0.11
+#> c0 = 0.797 0.28 0.45 0.83 0.35 0.67 0.17 0.11 0.37 0.08 0.13 0.11 0.17
+#> c0 = 0.785 0.15 0.44 0.89 0.35 0.63 0.21 0.13 0.46 0.01 0.18 0.21 0.18
+#> c0 = 0.777 0.15 0.45 0.72 0.43 0.67 0.21 0.20 0.37 0.03 0.07 0.23 0.09
 #>              37   38   39   40   41   42   43   44   45   46   47   48
-#> c0 = 1     0.00 0.00 0.00 0.00 0.00 0.00 0.00 1.00 0.00 0.00 0.00 1.00
-#> c0 = 0.932 0.00 0.00 0.00 0.00 0.00 0.00 0.00 1.00 0.00 0.00 0.00 1.00
-#> c0 = 0.882 0.00 0.00 0.01 0.10 0.00 0.04 0.01 0.53 0.00 0.44 0.00 0.56
-#> c0 = 0.852 0.04 0.01 0.04 0.12 0.00 0.14 0.04 0.65 0.00 0.29 0.28 0.33
-#> c0 = 0.832 0.04 0.02 0.06 0.18 0.03 0.09 0.03 0.71 0.02 0.48 0.46 0.75
-#> c0 = 0.818 0.05 0.00 0.08 0.14 0.00 0.29 0.10 0.64 0.16 0.62 0.34 0.59
-#> c0 = 0.804 0.06 0.00 0.06 0.14 0.02 0.35 0.10 0.80 0.10 0.06 0.24 0.70
-#> c0 = 0.797 0.02 0.01 0.10 0.17 0.01 0.14 0.23 0.75 0.20 0.22 0.19 0.52
-#> c0 = 0.785 0.10 0.05 0.22 0.16 0.05 0.17 0.14 0.76 0.17 0.23 0.29 0.72
-#> c0 = 0.777 0.17 0.05 0.12 0.30 0.02 0.37 0.10 0.67 0.11 0.26 0.26 0.60
+#> c0 = 1     0.00 0.00 1.00 0.00 0.00 1.00 0.00 1.00 0.00 0.00 1.00 1.00
+#> c0 = 0.932 0.00 0.00 1.00 0.00 0.00 1.00 0.00 1.00 0.00 0.00 1.00 1.00
+#> c0 = 0.882 0.27 0.20 0.30 0.08 0.04 0.44 0.04 0.58 0.01 0.39 0.26 0.60
+#> c0 = 0.852 0.29 0.10 0.14 0.08 0.02 0.59 0.13 0.53 0.00 0.20 0.65 0.35
+#> c0 = 0.832 0.16 0.28 0.10 0.12 0.02 0.50 0.00 0.74 0.09 0.16 0.76 0.61
+#> c0 = 0.818 0.25 0.20 0.16 0.15 0.01 0.20 0.12 0.75 0.20 0.12 0.62 0.70
+#> c0 = 0.804 0.26 0.32 0.13 0.19 0.03 0.10 0.14 0.84 0.17 0.09 0.50 0.64
+#> c0 = 0.797 0.17 0.08 0.08 0.10 0.02 0.10 0.10 0.73 0.18 0.15 0.68 0.43
+#> c0 = 0.785 0.33 0.19 0.24 0.14 0.09 0.21 0.10 0.65 0.10 0.11 0.48 0.60
+#> c0 = 0.777 0.42 0.13 0.17 0.24 0.06 0.24 0.10 0.81 0.12 0.23 0.47 0.48
 #>              49   50   51   52   53   54   55   56   57   58   59   60
-#> c0 = 1     0.00 0.00 0.00 0.00 1.00 1.00 1.00 0.00 0.00 0.00 0.00 1.00
-#> c0 = 0.932 0.00 0.00 0.00 0.00 1.00 1.00 1.00 0.00 0.00 0.00 0.00 1.00
-#> c0 = 0.882 0.00 0.17 0.14 0.00 0.99 0.47 0.88 0.00 0.58 0.03 0.00 1.00
-#> c0 = 0.852 0.00 0.12 0.32 0.01 1.00 0.08 0.74 0.00 0.28 0.01 0.02 1.00
-#> c0 = 0.832 0.02 0.25 0.33 0.04 0.96 0.13 0.66 0.00 0.47 0.03 0.00 1.00
-#> c0 = 0.818 0.05 0.34 0.47 0.08 0.93 0.20 0.79 0.01 0.33 0.09 0.10 1.00
-#> c0 = 0.804 0.13 0.16 0.62 0.00 0.93 0.17 0.54 0.00 0.42 0.05 0.04 1.00
-#> c0 = 0.797 0.27 0.23 0.51 0.07 0.99 0.18 0.67 0.01 0.36 0.08 0.09 1.00
-#> c0 = 0.785 0.14 0.16 0.56 0.01 0.96 0.27 0.62 0.34 0.28 0.07 0.18 1.00
-#> c0 = 0.777 0.17 0.23 0.58 0.10 0.96 0.33 0.50 0.37 0.19 0.10 0.24 1.00
+#> c0 = 1     0.00 0.00 0.00 1.00 1.00 0.00 1.00 1.00 0.00 0.00 0.00 0.00
+#> c0 = 0.932 0.00 0.00 0.00 1.00 1.00 0.00 1.00 1.00 0.00 0.00 0.00 0.00
+#> c0 = 0.882 0.04 0.58 0.52 0.14 0.42 0.16 0.50 0.34 0.15 0.13 0.04 0.36
+#> c0 = 0.852 0.15 0.53 0.64 0.17 0.25 0.08 0.40 0.42 0.18 0.08 0.01 0.64
+#> c0 = 0.832 0.16 0.62 0.74 0.16 0.44 0.08 0.27 0.26 0.24 0.09 0.07 0.44
+#> c0 = 0.818 0.15 0.55 0.66 0.10 0.41 0.21 0.41 0.30 0.31 0.16 0.01 0.56
+#> c0 = 0.804 0.31 0.64 0.74 0.12 0.19 0.09 0.36 0.19 0.09 0.21 0.02 0.46
+#> c0 = 0.797 0.46 0.54 0.61 0.17 0.30 0.15 0.56 0.35 0.31 0.12 0.02 0.52
+#> c0 = 0.785 0.45 0.58 0.70 0.13 0.46 0.20 0.52 0.28 0.20 0.03 0.22 0.74
+#> c0 = 0.777 0.41 0.56 0.60 0.12 0.48 0.23 0.44 0.18 0.30 0.28 0.18 0.59
 #>              61   62   63   64   65   66   67   68   69   70   71   72
-#> c0 = 1     0.00 0.00 0.00 0.00 0.00 1.00 0.00 0.00 0.00 0.00 0.00 1.00
-#> c0 = 0.932 0.00 0.00 0.00 0.00 0.00 1.00 0.00 0.00 0.00 0.00 0.00 1.00
-#> c0 = 0.882 0.00 0.03 0.67 0.01 0.06 0.00 0.13 0.00 0.00 0.07 0.01 0.90
-#> c0 = 0.852 0.06 0.02 0.54 0.04 0.18 0.07 0.21 0.03 0.00 0.16 0.01 0.53
-#> c0 = 0.832 0.00 0.09 0.82 0.02 0.14 0.04 0.29 0.00 0.29 0.21 0.05 0.66
-#> c0 = 0.818 0.09 0.08 0.65 0.05 0.10 0.10 0.56 0.04 0.21 0.23 0.02 0.62
-#> c0 = 0.804 0.10 0.11 0.93 0.06 0.21 0.05 0.54 0.00 0.24 0.21 0.19 0.61
-#> c0 = 0.797 0.17 0.17 0.69 0.05 0.39 0.02 0.35 0.09 0.38 0.39 0.10 0.64
-#> c0 = 0.785 0.29 0.19 0.80 0.12 0.29 0.12 0.52 0.02 0.24 0.39 0.16 0.73
-#> c0 = 0.777 0.17 0.23 0.73 0.10 0.29 0.02 0.62 0.05 0.40 0.27 0.23 0.86
+#> c0 = 1     0.00 0.00 1.00 0.00 0.00 1.00 1.00 1.00 0.00 0.00 0.00 1.00
+#> c0 = 0.932 0.00 0.00 1.00 0.00 0.00 1.00 1.00 1.00 0.00 0.00 0.00 1.00
+#> c0 = 0.882 0.16 0.35 0.93 0.29 0.64 0.16 0.31 0.10 0.11 0.04 0.11 1.00
+#> c0 = 0.852 0.16 0.28 0.94 0.27 0.74 0.31 0.53 0.22 0.10 0.31 0.45 0.92
+#> c0 = 0.832 0.18 0.45 0.95 0.44 0.49 0.34 0.63 0.14 0.14 0.43 0.21 0.96
+#> c0 = 0.818 0.22 0.35 0.95 0.35 0.50 0.24 0.61 0.26 0.31 0.35 0.11 0.96
+#> c0 = 0.804 0.23 0.47 1.00 0.42 0.37 0.22 0.77 0.21 0.25 0.27 0.42 0.96
+#> c0 = 0.797 0.24 0.44 0.96 0.45 0.52 0.35 0.49 0.14 0.15 0.36 0.26 0.96
+#> c0 = 0.785 0.16 0.38 0.98 0.35 0.46 0.45 0.67 0.15 0.20 0.35 0.12 0.95
+#> c0 = 0.777 0.19 0.38 0.97 0.28 0.36 0.50 0.69 0.23 0.32 0.40 0.16 0.92
 #>              73   74   75   76   77   78   79   80   81   82   83   84
-#> c0 = 1     1.00 0.00 0.00 0.00 1.00 0.00 0.00 0.00 1.00 1.00 0.00 0.00
-#> c0 = 0.932 1.00 0.00 0.00 0.00 1.00 0.00 0.00 0.00 1.00 1.00 0.00 0.00
-#> c0 = 0.882 1.00 0.29 0.01 0.04 0.68 0.00 0.00 0.02 1.00 0.98 0.21 0.04
-#> c0 = 0.852 1.00 0.25 0.02 0.10 0.66 0.07 0.02 0.06 0.99 0.83 0.29 0.12
-#> c0 = 0.832 0.96 0.39 0.02 0.20 0.72 0.02 0.00 0.04 0.96 0.94 0.24 0.11
-#> c0 = 0.818 0.99 0.35 0.13 0.14 0.47 0.05 0.03 0.08 0.96 0.85 0.18 0.24
-#> c0 = 0.804 1.00 0.36 0.09 0.14 0.40 0.14 0.06 0.08 0.97 0.86 0.18 0.18
-#> c0 = 0.797 1.00 0.31 0.23 0.14 0.64 0.11 0.25 0.08 1.00 0.76 0.26 0.27
-#> c0 = 0.785 1.00 0.28 0.07 0.14 0.44 0.16 0.23 0.12 0.99 0.74 0.16 0.18
-#> c0 = 0.777 1.00 0.45 0.21 0.19 0.36 0.13 0.44 0.09 0.98 0.68 0.15 0.28
+#> c0 = 1     1.00 1.00 0.00 0.00 1.00 0.00 0.00 0.00 1.00 1.00 0.00 0.00
+#> c0 = 0.932 1.00 1.00 0.00 0.00 1.00 0.00 0.00 0.00 1.00 1.00 0.00 0.00
+#> c0 = 0.882 0.93 0.52 0.04 0.47 0.56 0.23 0.02 0.25 0.56 0.61 0.21 0.40
+#> c0 = 0.852 0.97 0.58 0.07 0.27 0.26 0.19 0.05 0.18 0.34 0.60 0.16 0.24
+#> c0 = 0.832 0.98 0.62 0.08 0.49 0.27 0.19 0.03 0.12 0.51 0.82 0.11 0.41
+#> c0 = 0.818 1.00 0.53 0.21 0.34 0.27 0.14 0.06 0.29 0.36 0.68 0.11 0.49
+#> c0 = 0.804 1.00 0.37 0.16 0.26 0.40 0.12 0.14 0.09 0.55 0.54 0.08 0.49
+#> c0 = 0.797 1.00 0.38 0.24 0.31 0.30 0.26 0.18 0.13 0.44 0.65 0.13 0.37
+#> c0 = 0.785 0.97 0.43 0.14 0.24 0.35 0.22 0.22 0.14 0.60 0.69 0.02 0.46
+#> c0 = 0.777 1.00 0.39 0.22 0.19 0.28 0.17 0.30 0.16 0.55 0.52 0.20 0.39
 #>              85   86   87   88   89   90   91   92   93   94   95   96
-#> c0 = 1     0.00 1.00 0.00 0.00 0.00 0.00 0.00 0.00 1.00 0.00 0.00 0.00
-#> c0 = 0.932 0.00 1.00 0.00 0.00 0.00 0.00 0.00 0.00 1.00 0.00 0.00 0.00
-#> c0 = 0.882 0.02 0.89 0.00 0.14 0.56 0.00 0.25 0.00 1.00 0.05 0.59 0.01
-#> c0 = 0.852 0.00 0.87 0.00 0.06 0.53 0.00 0.22 0.07 0.98 0.12 0.71 0.10
-#> c0 = 0.832 0.00 0.97 0.00 0.18 0.59 0.15 0.13 0.22 1.00 0.10 0.72 0.03
-#> c0 = 0.818 0.02 0.88 0.02 0.23 0.52 0.21 0.14 0.12 0.99 0.18 0.70 0.12
-#> c0 = 0.804 0.00 0.79 0.00 0.16 0.45 0.31 0.16 0.10 1.00 0.16 0.61 0.13
-#> c0 = 0.797 0.00 0.85 0.00 0.26 0.63 0.24 0.20 0.13 0.99 0.21 0.61 0.14
-#> c0 = 0.785 0.01 0.92 0.04 0.21 0.65 0.32 0.09 0.07 1.00 0.24 0.62 0.15
-#> c0 = 0.777 0.00 0.82 0.00 0.20 0.58 0.03 0.12 0.09 1.00 0.18 0.70 0.19
+#> c0 = 1     0.00 0.00 0.00 1.00 0.00 0.00 0.00 1.00 0.00 1.00 1.00 0.00
+#> c0 = 0.932 0.00 0.00 0.00 1.00 0.00 0.00 0.00 1.00 0.00 1.00 1.00 0.00
+#> c0 = 0.882 0.05 0.34 0.01 0.49 0.14 0.00 0.05 0.18 0.76 0.44 0.57 0.63
+#> c0 = 0.852 0.13 0.16 0.03 0.78 0.20 0.00 0.00 0.17 0.86 0.47 0.48 0.77
+#> c0 = 0.832 0.07 0.39 0.02 0.46 0.09 0.20 0.01 0.24 0.91 0.53 0.55 0.45
+#> c0 = 0.818 0.09 0.30 0.02 0.69 0.08 0.21 0.02 0.22 0.84 0.56 0.58 0.43
+#> c0 = 0.804 0.10 0.26 0.02 0.68 0.16 0.17 0.00 0.19 1.00 0.42 0.39 0.41
+#> c0 = 0.797 0.19 0.26 0.00 0.64 0.13 0.19 0.02 0.31 0.90 0.35 0.35 0.46
+#> c0 = 0.785 0.02 0.19 0.00 0.57 0.23 0.28 0.03 0.20 0.92 0.66 0.43 0.44
+#> c0 = 0.777 0.08 0.29 0.00 0.56 0.43 0.22 0.05 0.30 0.89 0.34 0.51 0.42
 #>              97   98   99  100
-#> c0 = 1     0.00 0.00 0.00 0.00
-#> c0 = 0.932 0.00 0.00 0.00 0.00
-#> c0 = 0.882 0.00 0.27 0.36 0.12
-#> c0 = 0.852 0.16 0.22 0.49 0.05
-#> c0 = 0.832 0.17 0.41 0.59 0.17
-#> c0 = 0.818 0.12 0.45 0.48 0.21
-#> c0 = 0.804 0.14 0.59 0.53 0.17
-#> c0 = 0.797 0.10 0.48 0.43 0.23
-#> c0 = 0.785 0.35 0.52 0.51 0.18
-#> c0 = 0.777 0.23 0.48 0.49 0.18
-#>  [ reached getOption("max.print") -- omitted 42 rows ]
+#> c0 = 1     0.00 0.00 1.00 0.00
+#> c0 = 0.932 0.00 0.00 1.00 0.00
+#> c0 = 0.882 0.00 0.36 0.89 0.19
+#> c0 = 0.852 0.08 0.34 0.74 0.14
+#> c0 = 0.832 0.27 0.46 0.82 0.02
+#> c0 = 0.818 0.14 0.49 0.73 0.03
+#> c0 = 0.804 0.15 0.64 0.86 0.10
+#> c0 = 0.797 0.07 0.59 0.73 0.08
+#> c0 = 0.785 0.31 0.84 0.82 0.12
+#> c0 = 0.777 0.23 0.76 0.80 0.12
+#>  [ getOption("max.print") est atteint -- 42 lignes omises ]
 #> attr(,"c0.seq")
 #>  [1] 1.000000 0.932478 0.881700 0.851676 0.832218 0.817683 0.803735
 #>  [8] 0.797426 0.784552 0.777326 0.763736 0.756069 0.749276 0.742963
@@ -759,7 +784,7 @@ dec.result.boost.micro_nb1
 
 #### Confidence indices.
 
-First compute the highest c0 value for which the proportion of selection is under the threshold $thr$. In that analysis, we set $thr=1$.
+First compute the highest $c_0$ value for which the proportion of selection is under the threshold $thr$. In that analysis, we set $thr=1$.
 
 ```r
 thr=1
@@ -779,7 +804,7 @@ index.last.c0.micro_nb1
 #>   0   0   3   0   0   0   0   0   0   0
 ```
 
-We have to cap the confidence index value to the 1-smallest c0 that we specified in the c0 sequence and that was actually used for resampling. As a consequence, we have to exclude the c0=0 case since we do not know what happen between c0=quantile(cors,.9) and c0=0.
+We have to cap the confidence index value to the $1-\{\textrm{smallest } c_0\}$ that we specified in the $c_0$ sequence and that was actually used for resampling. As a consequence, we have to exclude the $c_0=0$ case since we do not know what happen between $c0=\verb+quantile+(cors,.9)$ and $c_0=0$.
 
 
 ```r
@@ -827,6 +852,7 @@ confidence.indices.micro_nb1
 #>  [99] 0.000000 0.000000
 barplot(confidence.indices.micro_nb1,col=rgb(jet.colors(confidence.indices.micro_nb1),
 maxColorValue = 255), names.arg=colnames(result.boost.micro_nb1), ylim=c(0,1))
+abline(h=)
 ```
 
 <img src="man/figures/README-CascadeDatabarplot-1.png" title="plot of chunk CascadeDatabarplot" alt="plot of chunk CascadeDatabarplot" width="100%" />
@@ -841,7 +867,7 @@ for(lev.micro_nb1 in 20:10/20){
 F_score.micro_nb1=NULL
 for(u.micro_nb1 in 1:nrow(dec.result.boost.micro_nb1
 )){
-	F_score.micro_nb1<-rbind(F_score.micro_nb1,SelectBoost::compare(DATA_exemple,
+	F_score.micro_nb1<-rbind(F_score.micro_nb1,SelectBoost::compsim(DATA_exemple,
 	                                                                dec.result.boost.micro_nb1[u.micro_nb1,],level=lev.micro_nb1)[1:5])
 }
 All_micro_nb1 <- abind::abind(All_micro_nb1,F_score.micro_nb1,along=3)
@@ -863,7 +889,7 @@ legend(x="topright",legend=c("sensitivity (precision)",
 
 <img src="man/figures/README-datasetsimulation6micro-1.png" title="plot of chunk datasetsimulation6micro" alt="plot of chunk datasetsimulation6micro" width="100%" />
 
-Fscores for all selection thresholds and all the c0 values.
+Fscores for all selection thresholds and all the $c_0$ values.
 
 ```r
 matplot(1:nrow(dec.result.boost.micro_nb1),All_micro_nb1[,3,],type="l",
@@ -885,3 +911,4 @@ legend(x="bottomright",legend=(20:11)/20,lty=1:11,col=1:11,lwd=2,
 ```
 
 <img src="man/figures/README-datasetsimulation7micro-3.png" title="plot of chunk datasetsimulation7micro" alt="plot of chunk datasetsimulation7micro" width="100%" />
+
