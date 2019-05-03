@@ -6,15 +6,16 @@ vers <- paste("R package version", meta$Version)
 
 citEntry(entry="Manual",
          title = titl,
-         author = personList(as.person("F. Bertrand"), 
-                             as.person("M. Maumy-Bertrand"), 
+         author = personList(as.person("F. Bertrand"),
+                             as.person("M. Maumy-Bertrand"),
+                             as.person("N. Jung"),
                              as.person("I. Aouadi")),
 	 publisher = "manual",
          year         = year,
          note         = vers,
          url          = "http://www-irma.u-strasbg.fr/~fbertran/",
-         textVersion = 
-         paste("Frederic Bertrand, Myriam Maumy-Bertrand and Ismail Aouadi (",year ,"). ", 
+         textVersion =
+         paste("Frederic Bertrand, Myriam Maumy-Bertrand, Nicolas Jung and Ismail Aouadi (",year ,"). ",
                titl, ", ", vers, ".", sep=""
                )
 )
