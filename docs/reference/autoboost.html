@@ -64,7 +64,7 @@ and saves some memory." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SelectBoost</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
       </span>
     </div>
 
@@ -79,13 +79,36 @@ and saves some memory." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/benchmarking-selectboost-networks.html">Benchmarking the SelectBoost Package for Network Reverse Engineering</a>
+    </li>
+    <li>
+      <a href="../articles/confidence-indices-Cascade-networks.html">Towards confidence estimates in Cascade Networks using the SelectBoost package</a>
+    </li>
+    <li>
+      <a href="../articles/sim-with-sb.html">Simulation Tools Provided With the Selectboost Package</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/fbertran/SelectBoost">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -99,7 +122,7 @@ and saves some memory." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Autoboost</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/fbertran/SelectBoost/blob/master/R/autoboost.R'><code>R/autoboost.R</code></a></small>
     <div class="hidden name"><code>autoboost.Rd</code></div>
     </div>
 
@@ -242,18 +265,18 @@ the algorithm.</p>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>314</span>)
 <span class='co'>#For quick test purpose, not meaningful, should be run with greater value of B</span>
 <span class='co'>#and disabling parallel computing as well</span>
-<span class='no'>res.autoboost</span> <span class='kw'>&lt;-</span> <span class='fu'>autoboost</span>(<span class='no'>xran</span>,<span class='no'>yran</span>,<span class='kw'>B</span><span class='kw'>=</span><span class='fl'>5</span>,<span class='kw'>use.parallel</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='input'><span class='fu'>autoboost</span>(<span class='no'>xran</span>,<span class='no'>yran</span>)</div><div class='output co'>#&gt;               1    2    3    4    5
+<span class='no'>res.autoboost</span> <span class='kw'>&lt;-</span> <span class='fu'>autoboost</span>(<span class='no'>xran</span>,<span class='no'>yran</span>,<span class='kw'>B</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>use.parallel</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='input'><span class='fu'>autoboost</span>(<span class='no'>xran</span>,<span class='no'>yran</span>)</div><div class='output co'>#&gt;               1    2    3    4    5
 #&gt; c0 = 1     0.00 0.00 1.00 1.00 1.00
 #&gt; c0 = 0.566 0.00 0.00 1.00 1.00 1.00
-#&gt; c0 = 0.439 0.53 0.08 0.97 0.95 0.43
-#&gt; c0 = 0.354 0.62 0.25 0.22 0.89 0.41
-#&gt; c0 = 0.198 0.36 0.38 0.18 0.68 0.53
-#&gt; c0 = 0.185 0.28 0.23 0.20 0.58 0.57
-#&gt; c0 = 0.164 0.28 0.20 0.11 0.61 0.59
-#&gt; c0 = 0.104 0.29 0.18 0.14 0.56 0.49
-#&gt; c0 = 0.023 0.30 0.23 0.17 0.59 0.50
-#&gt; c0 = 0.009 0.31 0.26 0.15 0.57 0.51
-#&gt; c0 = 0     0.21 0.38 0.25 0.40 0.36
+#&gt; c0 = 0.439 0.46 0.03 0.96 0.92 0.26
+#&gt; c0 = 0.354 0.60 0.17 0.06 0.73 0.31
+#&gt; c0 = 0.198 0.30 0.20 0.06 0.62 0.42
+#&gt; c0 = 0.185 0.10 0.26 0.23 0.56 0.52
+#&gt; c0 = 0.164 0.08 0.24 0.24 0.57 0.58
+#&gt; c0 = 0.104 0.14 0.23 0.27 0.54 0.43
+#&gt; c0 = 0.023 0.17 0.25 0.25 0.54 0.46
+#&gt; c0 = 0.009 0.16 0.23 0.26 0.55 0.41
+#&gt; c0 = 0     0.12 0.36 0.34 0.13 0.33
 #&gt; attr(,"c0.seq")
 #&gt;              100%    87.5%      75%    62.5%      50%    37.5%      25% 
 #&gt; 1.000000 0.566382 0.439093 0.353778 0.197544 0.184814 0.163711 0.104148 
@@ -268,13 +291,13 @@ the algorithm.</p>
 #&gt; attr(,"B")
 #&gt; [1] 100
 #&gt; attr(,"class")
-#&gt; [1] "autoboost"</div><div class='input'><span class='co'>#Customize resampling levels</span>
-<span class='fu'>autoboost</span>(<span class='no'>xran</span>,<span class='no'>yran</span>,<span class='kw'>steps.seq</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>.99</span>,<span class='fl'>.95</span>,<span class='fl'>.9</span>))</div><div class='output co'>#&gt;              1   2   3    4    5
-#&gt; c0 = 1    0.00 0.0 1.0 1.00 1.00
-#&gt; c0 = 0.99 0.00 0.0 1.0 1.00 1.00
-#&gt; c0 = 0.95 0.00 0.0 1.0 1.00 1.00
-#&gt; c0 = 0.9  0.00 0.0 1.0 1.00 1.00
-#&gt; c0 = 0    0.23 0.4 0.2 0.38 0.37
+#&gt; [1] "selectboost"</div><div class='input'><span class='co'>#Customize resampling levels</span>
+<span class='fu'>autoboost</span>(<span class='no'>xran</span>,<span class='no'>yran</span>,<span class='kw'>steps.seq</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>.99</span>,<span class='fl'>.95</span>,<span class='fl'>.9</span>))</div><div class='output co'>#&gt;              1    2    3    4    5
+#&gt; c0 = 1    0.00 0.00 1.00 1.00 1.00
+#&gt; c0 = 0.99 0.00 0.00 1.00 1.00 1.00
+#&gt; c0 = 0.95 0.00 0.00 1.00 1.00 1.00
+#&gt; c0 = 0.9  0.00 0.00 1.00 1.00 1.00
+#&gt; c0 = 0    0.12 0.36 0.32 0.13 0.38
 #&gt; attr(,"c0.seq")
 #&gt; [1] 1.00 0.99 0.95 0.90 0.00
 #&gt; attr(,"steps.seq")
@@ -286,20 +309,20 @@ the algorithm.</p>
 #&gt; attr(,"B")
 #&gt; [1] 100
 #&gt; attr(,"class")
-#&gt; [1] "autoboost"</div><div class='input'>
+#&gt; [1] "selectboost"</div><div class='input'>
 <span class='co'>#Binary logistic regression</span>
 <span class='fu'>autoboost</span>(<span class='no'>xran</span>,<span class='no'>ybin</span>,<span class='kw'>func</span><span class='kw'>=</span><span class='no'>lasso_cv_glmnet_bin_min</span>)</div><div class='output co'>#&gt;            [,1] [,2] [,3] [,4] [,5] [,6]
-#&gt; c0 = 1        1 0.03 0.00 0.00 0.03 0.00
-#&gt; c0 = 0.566    1 0.06 0.02 0.02 0.06 0.05
-#&gt; c0 = 0.439    1 0.07 0.02 0.02 0.09 0.06
-#&gt; c0 = 0.354    1 0.19 0.24 0.22 0.27 0.21
-#&gt; c0 = 0.198    1 0.21 0.25 0.19 0.26 0.23
-#&gt; c0 = 0.185    1 0.17 0.19 0.25 0.21 0.13
-#&gt; c0 = 0.164    1 0.25 0.25 0.35 0.33 0.30
-#&gt; c0 = 0.104    1 0.18 0.18 0.25 0.21 0.22
-#&gt; c0 = 0.023    1 0.13 0.12 0.20 0.15 0.20
-#&gt; c0 = 0.009    1 0.20 0.22 0.28 0.20 0.27
-#&gt; c0 = 0        1 0.25 0.25 0.25 0.29 0.23
+#&gt; c0 = 1        1 0.05 0.01 0.01 0.05 0.03
+#&gt; c0 = 0.566    1 0.03 0.02 0.02 0.03 0.03
+#&gt; c0 = 0.439    1 0.12 0.10 0.06 0.14 0.13
+#&gt; c0 = 0.354    1 0.13 0.13 0.15 0.17 0.18
+#&gt; c0 = 0.198    1 0.10 0.15 0.16 0.17 0.16
+#&gt; c0 = 0.185    1 0.10 0.18 0.18 0.16 0.09
+#&gt; c0 = 0.164    1 0.17 0.22 0.27 0.22 0.17
+#&gt; c0 = 0.104    1 0.18 0.20 0.26 0.16 0.23
+#&gt; c0 = 0.023    1 0.20 0.21 0.25 0.17 0.22
+#&gt; c0 = 0.009    1 0.20 0.22 0.25 0.19 0.19
+#&gt; c0 = 0        1 0.38 0.33 0.35 0.37 0.38
 #&gt; attr(,"c0.seq")
 #&gt;              100%    87.5%      75%    62.5%      50%    37.5%      25% 
 #&gt; 1.000000 0.566382 0.439093 0.353778 0.197544 0.184814 0.163711 0.104148 
@@ -314,7 +337,7 @@ the algorithm.</p>
 #&gt; attr(,"B")
 #&gt; [1] 100
 #&gt; attr(,"class")
-#&gt; [1] "autoboost"</div><div class='input'>
+#&gt; [1] "selectboost"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

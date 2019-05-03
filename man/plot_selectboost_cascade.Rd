@@ -7,8 +7,8 @@
 \alias{plot,network.confidence,network.confidence-method}
 \title{plot_Selectboost_cascade}
 \usage{
-\S4method{plot}{network.confidence,ANY}(x, col = paste("gray", 1:99, sep
-  = ""), ...)
+\S4method{plot}{network.confidence,ANY}(x, col = gray((1:99)/100, alpha =
+  NULL), ...)
 }
 \arguments{
 \item{x}{A \code{network.confidence} object to be plotted.}

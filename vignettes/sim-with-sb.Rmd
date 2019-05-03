@@ -89,7 +89,7 @@ corr_mean=corr_sum/NDatasets
 ```
 
 Then we display and plot that the mean correlation matrix. 
-```{r, fig.width=4.5}
+```{r, fig.width=7}
 corr_mean
 plot(abs(corr_mean))
 ```

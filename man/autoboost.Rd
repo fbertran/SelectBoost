@@ -85,7 +85,7 @@ yran=rnorm(15)
 set.seed(314)
 #For quick test purpose, not meaningful, should be run with greater value of B
 #and disabling parallel computing as well
-res.autoboost <- autoboost(xran,yran,B=5,use.parallel=FALSE)
+res.autoboost <- autoboost(xran,yran,B=3,use.parallel=FALSE)
 
 \donttest{
 autoboost(xran,yran)

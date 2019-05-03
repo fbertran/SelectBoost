@@ -43,7 +43,7 @@ NULL
 setMethod(f="plot"
           ,signature=c("network.confidence")
           ,definition=function(x,
-                               col=paste("gray",1:99,sep="")
+                               col=gray((1:99)/100, alpha = NULL)
                                ,...
           ){
             stats::heatmap(x@network.confidence, Rowv = NA, Colv = NA, col=col, scale="none", revC=TRUE,...)

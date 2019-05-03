@@ -65,7 +65,7 @@ NULL
 #' set.seed(314)
 #' #For quick test purpose, not meaningful, should be run with greater value of B
 #' #and disabling parallel computing as well
-#' res.autoboost <- autoboost(xran,yran,B=5,use.parallel=FALSE)
+#' res.autoboost <- autoboost(xran,yran,B=3,use.parallel=FALSE)
 #'
 #' \donttest{
 #' autoboost(xran,yran)
@@ -276,9 +276,9 @@ for(iii in c(1,0,c0.seq)){#,rev(steps)
     ppp<-max(apply(result[,which(result_sans==1),drop=FALSE],2,min))
     if(length(which(result_sans==1))>1){
       if(custom.steps){
-        tempcond=(result[dim(result)[1],which(result_sans==1)]>limi_alea[which(result_sans==1)] ||  ppp>min(limi_alea))&&(kk<=length(steps.seq)+1)
+        tempcond=(any(mapply('>', result[dim(result)[1],which(result_sans==1)], limi_alea[which(result_sans==1)])) ||  ppp>min(limi_alea))&&(kk<=length(steps.seq)+1)
       } else {
-        tempcond=(result[dim(result)[1],which(result_sans==1)]>limi_alea[which(result_sans==1)] ||  ppp>min(limi_alea))&&(kk<=length(steps.seq)+1)&&(qq-etape>=0)
+        tempcond=(any(mapply('>', result[dim(result)[1],which(result_sans==1)], limi_alea[which(result_sans==1)])) ||  ppp>min(limi_alea))&&(kk<=length(steps.seq)+1)&&(qq-etape>=0)
         qq<-qq-etape
       }
       if(verbose){
@@ -395,7 +395,7 @@ NULL
 #' set.seed(314)
 #' #For quick test purpose, not meaningful, should be run with greater value of B
 #' #and disabling parallel computing as well
-#' res.fastboost <- fastboost(xran,yran,B=5,use.parallel=FALSE)
+#' res.fastboost <- fastboost(xran,yran,B=3,use.parallel=FALSE)
 #'
 #' \donttest{
 #' fastboost(xran,yran)
