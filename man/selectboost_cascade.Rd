@@ -30,7 +30,7 @@ selectboost(M, ...)
 \item{ncores}{Numerical value. Number of cores for parallel computing.
 Defaults to \code{4}.}
 
-\item{use.parallel}{Boolean. Use parallel computing (doMC).
+\item{use.parallel}{Boolean. Use parallel computing (doParallel).
 Defaults to \code{TRUE}.}
 
 \item{verbose}{Boolean.

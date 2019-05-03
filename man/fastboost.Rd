@@ -27,7 +27,7 @@ Defaults to \code{lasso_msgps_AICc}.}
 \item{corrfunc}{Character value or function. Used to compute associations between
 the variables. Defaults to \code{"cor"}.}
 
-\item{use.parallel}{Boolean. Use parallel computing (doMC).
+\item{use.parallel}{Boolean. Use parallel computing (doParallel).
 Defaults to \code{TRUE}.}
 
 \item{B}{Numerical value. Number of resampled fits of the model.
@@ -65,7 +65,7 @@ Defaults to \code{TRUE}}
 A numeric matrix with attributes.
 }
 \description{
-All in one use of selectboost that avoids redondant fitting of distributions
+All in one use of selectboost that prevents redondant fitting of distributions
 and saves some memory.
 }
 \details{

@@ -11,7 +11,7 @@
 #' @param cv.subjects Crossvalidation is made subjectwise using leave one out. Discards the K option.
 #' @param ncores Numerical value. Number of cores for parallel computing.
 #' Defaults to \code{4}.
-#' @param use.parallel Boolean. Use parallel computing (doMC).
+#' @param use.parallel Boolean. Use parallel computing (doParallel).
 #' Defaults to \code{TRUE}.
 #' @param verbose Boolean.
 #' Defaults to \code{FALSE}.

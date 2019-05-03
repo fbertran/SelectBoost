@@ -1,3 +1,8 @@
+# SelectBoost 1.4.0
+
+* doMC not on CRAN for windows -> replaced by doParallel
+* Fixes for ... and foreach when using doParallel
+
 # SelectBoost 1.3.0
 
 * Completed third vignette.

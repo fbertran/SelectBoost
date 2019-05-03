@@ -223,9 +223,16 @@ boost.adjust<-function(X,groups,Correlation_sign,Xpass=boost.Xpass(nrowX,ncolX),
   fit1<-Vectorize(fit1, SIMPLIFY = FALSE)
 
   if(use.parallel) {
-    requireNamespace("doMC")
-    registerDoMC(ncores)
+    requireNamespace("doParallel")
+    if (.Platform$OS.type != "windows") {
+      workers=parallel::makeForkCluster(nnodes = ncores)
+    }
+    else {
+      workers=parallel::makePSOCKcluster(names = ncores)
+    }
+    doParallel::registerDoParallel(workers)
     vmf.params=foreach(iforeach=1:ngroups, .combine=c, .errorhandling = 'remove', .verbose = verbose) %dopar% fit1(iforeach)
+    parallel::stopCluster(workers)
 
   } else {
     vmf.params=fit1(1:ngroups)
@@ -293,18 +300,32 @@ boost.random<-function(X,Xpass,vmf.params,verbose=FALSE,B=100,use.parallel=FALSE
   if(B>1){
     simul2<-function(){simul1(colstosimul)}
     if(use.parallel & !is.null(colstosimul)) {
-      requireNamespace("doMC")
-      registerDoMC(ncores)
+      requireNamespace("doParallel")
+      if (.Platform$OS.type != "windows") {
+        workers=parallel::makeForkCluster(nnodes = ncores)
+      }
+      else {
+        workers=parallel::makePSOCKcluster(names = ncores)
+      }
+      registerDoParallel(workers)
       res<-foreach(iforeach=1:B, .combine=list, .multicombine=TRUE, .errorhandling = 'remove', .verbose = verbose) %dopar% simul2()
+      parallel::stopCluster(workers)
       res<-simplify2array(res)
     } else {
       res<-replicate(B,simul2())
     }
   } else {
     if(use.parallel & !is.null(colstosimul)) {
-      requireNamespace("doMC")
-      registerDoMC(ncores)
+      requireNamespace("doParallel")
+      if (.Platform$OS.type != "windows") {
+        workers=parallel::makeForkCluster(nnodes = ncores)
+      }
+      else {
+        workers=parallel::makePSOCKcluster(names = ncores)
+      }
+      registerDoParallel(workers)
       res<-foreach(iforeach=colstosimul, .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% simul1(iforeach)
+      parallel::stopCluster(workers)
     } else {
       res<-simul1(colstosimul)
     }
@@ -342,6 +363,8 @@ boost.random<-function(X,Xpass,vmf.params,verbose=FALSE,B=100,use.parallel=FALSE
 #' @export
 boost.apply<-function(X,cols.simul,Y,func,verbose=FALSE,use.parallel=FALSE,ncores=4,...){
 
+dots <- eval(substitute(alist(...)))
+
 if (is.character(func)){
   funcgroup <- get(func, mode = "function", envir = parent.frame())
 }
@@ -351,15 +374,23 @@ if (is.function(func)){
 
 if(attr(cols.simul,"nosimul")) {
     if(attr(cols.simul,"nsimul")==1) {
-      return(funcgroup(X,Y,...))
+      return(do.call(what=funcgroup, args=c(X=list(X),Y=list(Y), dots)))
     } else {
       applyfunction<-function(k){
-        return(funcgroup(X,Y,...))
+        return(do.call(what=funcgroup, args=c(X=list(X),Y=list(Y), dots)))
       }
       if(use.parallel) {
-        requireNamespace("doMC")
-        registerDoMC(ncores)
-        return(foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% applyfunction(iforeach))
+        requireNamespace("doParallel")
+        if (.Platform$OS.type != "windows") {
+          workers=parallel::makeForkCluster(nnodes = ncores)
+        }
+        else {
+          workers=parallel::makePSOCKcluster(names = ncores)
+        }
+        registerDoParallel(workers)
+        resres <- foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% applyfunction(iforeach)
+        parallel::stopCluster(workers)
+        return(resres)
       } else {
         return(sapply(1:attr(cols.simul,"nsimul"),applyfunction))
       }
@@ -367,16 +398,24 @@ if(attr(cols.simul,"nosimul")) {
   } else {
     if(attr(cols.simul,"nsimul")==1) {
       X[,attr(cols.simul,"colstosimul")] <-cols.simul
-      return(funcgroup(X,Y,...))
+      return(do.call(what=funcgroup, args=c(X=list(X),Y=list(Y),dots)))
     } else {
       applyfunction<-function(k){
         X[,attr(cols.simul,"colstosimul")] <-cols.simul[,,k]
-        return(funcgroup(X,Y,...))
+        return(do.call(what=funcgroup, args=c(X=list(X),Y=list(Y),dots)))
       }
       if(use.parallel) {
-        requireNamespace("doMC")
-        registerDoMC(ncores)
-        return(foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% applyfunction(iforeach))
+        requireNamespace("doParallel")
+        if (.Platform$OS.type != "windows") {
+          workers=parallel::makeForkCluster(nnodes = ncores)
+        }
+        else {
+          workers=parallel::makePSOCKcluster(names = ncores)
+        }
+        registerDoParallel(workers)
+        resres <- foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind, .errorhandling = 'remove', .verbose = verbose, .export=c("X")) %dopar% applyfunction(iforeach)
+        parallel::stopCluster(workers)
+        return(resres)
       } else {
         return(sapply(1:attr(cols.simul,"nsimul"),applyfunction))
       }
