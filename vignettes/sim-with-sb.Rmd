@@ -215,7 +215,7 @@ corr_mean=corr_sum/NDatasets
 ```
 
 Then we display and plot that the mean correlation matrix. 
-```{r, fig.width=4.5}
+```{r, fig.keep='none', fig.width=4.5}
 corr_mean[1:10,1:10]
 plot(abs(corr_mean))
 ```
@@ -279,8 +279,8 @@ The simulation process looks sucessfull: the lasso estimates retrives mostly the
 We want to creates $NDatasets=200$ datasets with $\textrm{length}(supp)=100$ variables and $N=24$ observations. In that example we use real data for the `X` variables that we sample from all the $1650$ probesets that are differentially expressed between the two conditions US and S. The main interest of that simulation is that the correlation structure of the `X` dataset  will be a real one.
 
 ## Data and response generations
-First retrieve the datasets and get the differentially expressed probesets.
-```{r, fig.keep='all', cache=TRUE}
+First retrieve the datasets and get the differentially expressed probesets. Run the code to get additionnal plots.
+```{r, fig.keep='none', cache=TRUE}
 require(CascadeData)
 data(micro_S)
 data(micro_US)
@@ -289,13 +289,17 @@ micro_US<-as.micro_array(micro_US,c(60,90,240,390),6)
 micro_S<-as.micro_array(micro_S,c(60,90,240,390),6)
 S<-geneSelection(list(micro_S,micro_US),list("condition",c(1,2),1),-1)
 Sel<-micro_S@microarray[S@name,]
+```
+```{r, fig.keep='none', cache=TRUE}
 summary(S)
+```
+```{r, fig.keep='last', cache=TRUE}
 plot(S)
 ```
 
 
 Generates the datasets sampling for each of them 100 probesets expressions among the 1650 that were selected and linking the response to the expressions of the first five probesets.
-```{r}
+```{r, cache=TRUE}
 set.seed(3141)
 supp<-c(1,1,1,1,1,rep(0,95))
 minB<-1
@@ -376,8 +380,8 @@ The simulation process looks sucessfull: the lasso estimates retrives mostly the
 We want to creates $NDatasets=101$ datasets with $\textrm{length}(supp)=100$ variables and $N=18$ observations. In that example we use real data for the variables that are the $101$ probesets that are the more differentially expressed between the two conditions US and S. We create $101$ datasets by leaving one of the variables out each time and using it as the response that shall be predicted. We also only use for the explanatory variables the observations that are the measurements for the 1st, 2nd and 3rd timepoints and for the responses the observations that are the measurements of the same variables for the 2nd, 3rd and 4th timepoints. The main interest of that simulation is that the correlation structure of the `X` dataset  will be a real one and that it is a typical setting for cascade network reverse-engineering in genomics or proteomics, see the `Cascade` package for more details.
 
 ## Data and response generations
-First retrieve the datasets and get the differentially expressed probesets.
-```{r, fig.keep='all', cache=TRUE}
+First retrieve the datasets and get the differentially expressed probesets. Run the code to get additionnal plots.
+```{r, fig.keep='none', cache=TRUE}
 require(CascadeData)
 data(micro_S)
 data(micro_US)
@@ -386,7 +390,11 @@ micro_US<-as.micro_array(micro_US,c(60,90,240,390),6)
 micro_S<-as.micro_array(micro_S,c(60,90,240,390),6)
 S<-geneSelection(list(micro_S,micro_US),list("condition",c(1,2),1),101)
 Sel<-micro_S@microarray[S@name,]
+```
+```{r, fig.keep='none', cache=TRUE}
 summary(S)
+```
+```{r, fig.keep='last', cache=TRUE}
 plot(S)
 ```
 
@@ -510,8 +518,8 @@ corr_mean=corr_sum/NDatasets
 ```
 
 Then we display and plot that the mean correlation matrix. 
-```{r, fig.width=4.5}
-corr_mean[1:6,1:6]
+```{r, fig.keep='none', fig.width=4.5}
+corr_mean[1:10,1:10]
 plot(abs(corr_mean))
 ```
 

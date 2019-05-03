@@ -64,7 +64,8 @@ matplot(t(test.seq_PB_W),t(sensitivity_PB_W),type="l",xlab="cutoff",ylab="Sensit
 abline(v=nv_PB_W,col=grey(.05,.5),lty=3)
 ```
 
-```{r artgraphs2, cache= FALSE, fig.width=6}
+Run the code to plot the graph.
+```{r artgraphs2, cache= FALSE, fig.width=6, fig.keep='none'}
 layout(matrix(1:6,nrow=2))
 matplot(t(test.seq_robust),t(sensitivity_robust),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Robust",ylim=rangeCPy_S,col=grey(.05,.5))
 abline(v=nv_robust,col=grey(.05,.5),lty=3)
@@ -97,7 +98,8 @@ matplot(t(test.seq_PB_W),t(predictive_positive_value_PB_W),type="l",xlab="cutoff
 abline(v=nv_PB_W,col=grey(.05,.5),lty=3)
 ```
 
-```{r artgraphs4, cache= FALSE, fig.width=6}
+Run the code to plot the graph.
+```{r artgraphs4, cache= FALSE, fig.width=6, fig.keep='none'}
 layout(matrix(1:6,nrow=2))
 matplot(t(test.seq_robust),t(predictive_positive_value_robust),type="l",xlab="cutoff",ylab="Predictive Positive Value",main="Patterns_Robust",ylim=rangeCPy_PPV,col=grey(.05,.5))
 abline(v=nv_robust,col=grey(.05,.5),lty=3)
@@ -130,7 +132,8 @@ matplot(t(test.seq_PB_W),t(F_score_PB_W),type="l",xlab="cutoff",ylab="Fscore",ma
 abline(v=nv_PB_W,col=grey(.05,.5),lty=3)
 ```
 
-```{r artgraphs6, cache= FALSE, fig.width=6}
+Run the code to plot the graph.
+```{r artgraphs6, cache= FALSE, fig.width=6, fig.keep='none'}
 layout(matrix(1:6,nrow=2))
 matplot(t(test.seq_robust),t(F_score_robust),type="l",xlab="cutoff",ylab="Fscore",main="Patterns_Robust",ylim=rangeCPy_F,col=grey(.05,.5))
 abline(v=nv_robust,col=grey(.05,.5),lty=3)
