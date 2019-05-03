@@ -1,4 +1,4 @@
-# SelectBoost 1.2.0
+# SelectBoost 1.3.0
 
 * Completed third vignette.
 
