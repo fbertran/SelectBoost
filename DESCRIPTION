@@ -1,10 +1,10 @@
 Package: SelectBoost
 Type: Package
 Title: A General Algorithm to Enhance the Performance of Variable Selection Methods in Correlated Datasets
-Version: 1.4.0
+Version: 1.3.0
 Date: 2019-05-03
 Depends: R (>= 2.10)
-Imports: lars, glmnet, igraph, parallel, msgps, Rfast, doParallel, parallel, foreach, methods, Cascade, graphics, grDevices
+Imports: lars, glmnet, igraph, parallel, msgps, Rfast, doMC, foreach, methods, Cascade, graphics, grDevices
 Suggests: 
     knitr,
     rmarkdown,

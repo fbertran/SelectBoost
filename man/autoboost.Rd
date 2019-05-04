@@ -27,7 +27,7 @@ Defaults to \code{lasso_msgps_AICc}.}
 \item{corrfunc}{Character value or function. Used to compute associations between
 the variables. Defaults to \code{"cor"}.}
 
-\item{use.parallel}{Boolean. Use parallel computing (doParallel).
+\item{use.parallel}{Boolean. Use parallel computing (doMC).
 Defaults to \code{TRUE}.}
 
 \item{B}{Numerical value. Number of resampled fits of the model.
@@ -83,7 +83,7 @@ xran=matrix(rnorm(75),15,5)
 ybin=sample(0:1,15,replace=TRUE)
 yran=rnorm(15)
 set.seed(314)
-#For quick test purposes, not meaningful, should be run with greater value of B
+#For quick test purpose, not meaningful, should be run with greater value of B
 #and disabling parallel computing as well
 res.autoboost <- autoboost(xran,yran,B=3,use.parallel=FALSE)
 
