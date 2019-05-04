@@ -11,7 +11,7 @@
 selectboost(M, ...)
 
 \S4method{selectboost}{micro_array}(M, Fabhat, K = 5, eps = 10^-5,
-  cv.subjects = TRUE, ncores = 4, use.parallel = TRUE,
+  cv.subjects = TRUE, ncores = 4, use.parallel = FALSE,
   verbose = FALSE, group = group_func_2, c0value = 0.95)
 }
 \arguments{
@@ -30,8 +30,8 @@ selectboost(M, ...)
 \item{ncores}{Numerical value. Number of cores for parallel computing.
 Defaults to \code{4}.}
 
-\item{use.parallel}{Boolean. Use parallel computing (doMC).
-Defaults to \code{TRUE}.}
+\item{use.parallel}{Boolean. To use parallel computing (doMC) download the extended package from Github.
+Set to \code{FALSE}.}
 
 \item{verbose}{Boolean.
 Defaults to \code{FALSE}.}

@@ -39,6 +39,13 @@ You can install the development version of SelectBoost from [github](https://git
 devtools::install_github("fbertran/SelectBoost")
 ```
 
+If you are a Linux/Unix or a Macos user, you can install a version of SelectBoost with support for `doMC` from [github](https://github.com) with:
+
+```{r, eval = FALSE}
+devtools::install_github("fbertran/SelectBoost", ref = "doMC")
+```
+
+
 ## Examples
 
 ### First example: Simulated dataset 

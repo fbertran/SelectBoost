@@ -5,7 +5,7 @@
 \title{Fastboost}
 \usage{
 fastboost(X, Y, ncores = 4, group = group_func_1,
-  func = lasso_msgps_AICc, corrfunc = "cor", use.parallel = TRUE,
+  func = lasso_msgps_AICc, corrfunc = "cor", use.parallel = FALSE,
   B = 100, step.num = 0.1, step.limit = "none", verbose = FALSE,
   step.scale = "quantile", normalize = TRUE, steps.seq = NULL,
   debug = FALSE, version = "lars", c0lim = TRUE, ...)
@@ -27,8 +27,8 @@ Defaults to \code{lasso_msgps_AICc}.}
 \item{corrfunc}{Character value or function. Used to compute associations between
 the variables. Defaults to \code{"cor"}.}
 
-\item{use.parallel}{Boolean. Use parallel computing (doMC).
-Defaults to \code{TRUE}.}
+\item{use.parallel}{Boolean. To use parallel computing (doMC) download the extended package from Github.
+Set to \code{FALSE}.}
 
 \item{B}{Numerical value. Number of resampled fits of the model.
 Defaults to \code{100}.}

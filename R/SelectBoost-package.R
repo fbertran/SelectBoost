@@ -22,9 +22,9 @@
 #' @importFrom graphics abline axis barplot matplot mtext par plot points segments
 #' @importFrom stats binom.test median plogis pt qbinom quantile rbinom rnorm runif sd t.test wilcox.test
 #' @importFrom Rfast vmf.mle rvmf
-#' @importFrom parallel detectCores makeCluster clusterEvalQ clusterExport parLapply stopCluster
-#' @importFrom doMC registerDoMC
-#' @importFrom foreach foreach "%dopar%"
+# #' @importFrom parallel detectCores makeCluster clusterEvalQ clusterExport parLapply stopCluster
+# #' @importFrom doMC registerDoMC
+# #' @importFrom foreach foreach "%dopar%"
 #' @importFrom igraph graph.adjacency infomap.community communities
 #' @importFrom grDevices rgb gray
 #' @importFrom graphics image layout

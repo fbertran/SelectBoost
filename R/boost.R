@@ -191,6 +191,10 @@ boost.adjust<-function(X,groups,Correlation_sign,Xpass=boost.Xpass(nrowX,ncolX),
     groups$communities <- NULL
     listnames=vector("list",length(groups))
   }
+
+  if(use.parallel){
+    use.parallel=FALSE
+  }
   ngroups=length(groups)
   nrowX=nrow(X)
   ncolX=ncol(X)
@@ -223,9 +227,9 @@ boost.adjust<-function(X,groups,Correlation_sign,Xpass=boost.Xpass(nrowX,ncolX),
   fit1<-Vectorize(fit1, SIMPLIFY = FALSE)
 
   if(use.parallel) {
-    requireNamespace("doMC")
-    registerDoMC(ncores)
-    vmf.params=foreach(iforeach=1:ngroups, .combine=c, .errorhandling = 'remove', .verbose = verbose) %dopar% fit1(iforeach)
+    #requireNamespace("doMC")
+    #registerDoMC(ncores)
+    #vmf.params=foreach(iforeach=1:ngroups, .combine=c, .errorhandling = 'remove', .verbose = verbose) %dopar% fit1(iforeach)
 
   } else {
     vmf.params=fit1(1:ngroups)
@@ -270,7 +274,9 @@ boost.random<-function(X,Xpass,vmf.params,verbose=FALSE,B=100,use.parallel=FALSE
   nvmf.params=length(vmf.params)
   nrowX=nrow(X)
   ncolX=ncol(X)
-
+  if(use.parallel){
+    use.parallel=FALSE
+  }
   func_passage2<-function(x){
     return(Xpass%*%t(x)) #tcrossprod(Xpass,x)
   }
@@ -293,18 +299,18 @@ boost.random<-function(X,Xpass,vmf.params,verbose=FALSE,B=100,use.parallel=FALSE
   if(B>1){
     simul2<-function(){simul1(colstosimul)}
     if(use.parallel & !is.null(colstosimul)) {
-      requireNamespace("doMC")
-      registerDoMC(ncores)
-      res<-foreach(iforeach=1:B, .combine=list, .multicombine=TRUE, .errorhandling = 'remove', .verbose = verbose) %dopar% simul2()
-      res<-simplify2array(res)
+      #requireNamespace("doMC")
+      #registerDoMC(ncores)
+      #res<-foreach(iforeach=1:B, .combine=list, .multicombine=TRUE, .errorhandling = 'remove', .verbose = verbose) %dopar% simul2()
+      #res<-simplify2array(res)
     } else {
       res<-replicate(B,simul2())
     }
   } else {
     if(use.parallel & !is.null(colstosimul)) {
-      requireNamespace("doMC")
-      registerDoMC(ncores)
-      res<-foreach(iforeach=colstosimul, .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% simul1(iforeach)
+      #requireNamespace("doMC")
+      #registerDoMC(ncores)
+      #res<-foreach(iforeach=colstosimul, .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% simul1(iforeach)
     } else {
       res<-simul1(colstosimul)
     }
@@ -341,6 +347,9 @@ boost.random<-function(X,Xpass,vmf.params,verbose=FALSE,B=100,use.parallel=FALSE
 #'
 #' @export
 boost.apply<-function(X,cols.simul,Y,func,verbose=FALSE,use.parallel=FALSE,ncores=4,...){
+  if(use.parallel){
+    use.parallel=FALSE
+  }
 
 if (is.character(func)){
   funcgroup <- get(func, mode = "function", envir = parent.frame())
@@ -357,9 +366,9 @@ if(attr(cols.simul,"nosimul")) {
         return(funcgroup(X,Y,...))
       }
       if(use.parallel) {
-        requireNamespace("doMC")
-        registerDoMC(ncores)
-        return(foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% applyfunction(iforeach))
+        #requireNamespace("doMC")
+        #registerDoMC(ncores)
+        #return(foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% applyfunction(iforeach))
       } else {
         return(sapply(1:attr(cols.simul,"nsimul"),applyfunction))
       }
@@ -374,9 +383,9 @@ if(attr(cols.simul,"nosimul")) {
         return(funcgroup(X,Y,...))
       }
       if(use.parallel) {
-        requireNamespace("doMC")
-        registerDoMC(ncores)
-        return(foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% applyfunction(iforeach))
+        #requireNamespace("doMC")
+        #registerDoMC(ncores)
+        #return(foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% applyfunction(iforeach))
       } else {
         return(sapply(1:attr(cols.simul,"nsimul"),applyfunction))
       }

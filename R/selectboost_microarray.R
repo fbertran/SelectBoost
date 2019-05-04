@@ -11,8 +11,8 @@
 #' @param cv.subjects Crossvalidation is made subjectwise using leave one out. Discards the K option.
 #' @param ncores Numerical value. Number of cores for parallel computing.
 #' Defaults to \code{4}.
-#' @param use.parallel Boolean. Use parallel computing (doMC).
-#' Defaults to \code{TRUE}.
+#' @param use.parallel Boolean. To use parallel computing (doMC) download the extended package from Github.
+#' Set to \code{FALSE}.
 #' @param verbose Boolean.
 #' Defaults to \code{FALSE}.
 #' @param group Function. The grouping function.
@@ -80,12 +80,15 @@ setMethod(f="selectboost"
                      ,eps=10^-5
                      ,cv.subjects=TRUE
                      ,ncores=4
-                     ,use.parallel=TRUE
+                     ,use.parallel=FALSE
                      ,verbose=FALSE
                      ,group = group_func_2
                      ,c0value = .95
           ){
-  mat<-M@microarray
+  if(use.parallel){
+    use.parallel=FALSE
+  }
+    mat<-M@microarray
             #Data matrix
             gr<-M@group
             #Group vector

@@ -15,8 +15,8 @@
 #' Defaults to \code{lasso_msgps_AICc}.
 #' @param corrfunc Character value or function. Used to compute associations between
 #' the variables. Defaults to \code{"cor"}.
-#' @param use.parallel Boolean. Use parallel computing (doMC).
-#' Defaults to \code{TRUE}.
+#' @param use.parallel Boolean. To use parallel computing (doMC) download the extended package from Github.
+#' Set to \code{FALSE}.
 #' @param B Numerical value. Number of resampled fits of the model.
 #' Defaults to \code{100}.
 #' @param step.num Numerical value. Step value for the c0 sequence.
@@ -77,11 +77,12 @@ NULL
 #'}
 #'
 #' @export
-autoboost<-function(X,Y,ncores=4,group=group_func_1,func=lasso_msgps_AICc,corrfunc="cor",use.parallel=TRUE,B=100,step.num=0.1,step.limit="none",risk=0.05,verbose=FALSE,step.scale="quantile",normalize=TRUE,steps.seq=NULL,debug=FALSE,version="lars",...){
+autoboost<-function(X,Y,ncores=4,group=group_func_1,func=lasso_msgps_AICc,corrfunc="cor",use.parallel=FALSE,B=100,step.num=0.1,step.limit="none",risk=0.05,verbose=FALSE,step.scale="quantile",normalize=TRUE,steps.seq=NULL,debug=FALSE,version="lars",...){
 
 if(use.parallel){
-  requireNamespace("doMC")
-  registerDoMC(ncores)
+    use.parallel=FALSE
+#  requireNamespace("doMC")
+#  registerDoMC(ncores)
 }
 
 if(normalize){
@@ -344,8 +345,8 @@ return(result)
 #' Defaults to \code{lasso_msgps_AICc}.
 #' @param corrfunc Character value or function. Used to compute associations between
 #' the variables. Defaults to \code{"cor"}.
-#' @param use.parallel Boolean. Use parallel computing (doMC).
-#' Defaults to \code{TRUE}.
+#' @param use.parallel Boolean. To use parallel computing (doMC) download the extended package from Github.
+#' Set to \code{FALSE}.
 #' @param B Numerical value. Number of resampled fits of the model.
 #' Defaults to \code{100}.
 #' @param step.num Numerical value. Step value for the c0 sequence.
@@ -407,7 +408,7 @@ NULL
 #'}
 #'
 #' @export
-fastboost<-function(X,Y,ncores=4,group=group_func_1,func=lasso_msgps_AICc,corrfunc="cor",use.parallel=TRUE,B=100,step.num=0.1,step.limit="none",verbose=FALSE,step.scale="quantile",normalize=TRUE,steps.seq=NULL,debug=FALSE,version="lars",c0lim=TRUE,...){
+fastboost<-function(X,Y,ncores=4,group=group_func_1,func=lasso_msgps_AICc,corrfunc="cor",use.parallel=FALSE,B=100,step.num=0.1,step.limit="none",verbose=FALSE,step.scale="quantile",normalize=TRUE,steps.seq=NULL,debug=FALSE,version="lars",c0lim=TRUE,...){
   # ncores=4
   # group=group_func_1
   # func=lasso_msgps_AICc
@@ -422,8 +423,9 @@ fastboost<-function(X,Y,ncores=4,group=group_func_1,func=lasso_msgps_AICc,corrfu
   # normalize=TRUE
 
   if(use.parallel){
-    requireNamespace("doMC")
-    registerDoMC(ncores)
+     use.parallel=FALSE
+#    requireNamespace("doMC")
+#    registerDoMC(ncores)
   }
 
   if(normalize){
