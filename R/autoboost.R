@@ -15,7 +15,7 @@
 #' Defaults to \code{lasso_msgps_AICc}.
 #' @param corrfunc Character value or function. Used to compute associations between
 #' the variables. Defaults to \code{"cor"}.
-#' @param use.parallel Boolean. Use parallel computing (doParallel).
+#' @param use.parallel Boolean. Use parallel computing (doMC).
 #' Defaults to \code{TRUE}.
 #' @param B Numerical value. Number of resampled fits of the model.
 #' Defaults to \code{100}.
@@ -63,7 +63,7 @@ NULL
 #'
 #' @examples
 #' set.seed(314)
-#' #For quick test purposes, not meaningful, should be run with greater value of B
+#' #For quick test purpose, not meaningful, should be run with greater value of B
 #' #and disabling parallel computing as well
 #' res.autoboost <- autoboost(xran,yran,B=3,use.parallel=FALSE)
 #'
@@ -80,14 +80,8 @@ NULL
 autoboost<-function(X,Y,ncores=4,group=group_func_1,func=lasso_msgps_AICc,corrfunc="cor",use.parallel=TRUE,B=100,step.num=0.1,step.limit="none",risk=0.05,verbose=FALSE,step.scale="quantile",normalize=TRUE,steps.seq=NULL,debug=FALSE,version="lars",...){
 
 if(use.parallel){
-  requireNamespace("doParallel")
-  if (.Platform$OS.type != "windows") {
-    workers=parallel::makeForkCluster(nnodes = ncores)
-  }
-  else {
-    workers=parallel::makePSOCKcluster(names = ncores)
-  }
-  registerDoParallel(workers)
+  requireNamespace("doMC")
+  registerDoMC(ncores)
 }
 
 if(normalize){
@@ -315,10 +309,6 @@ if(nrow(result)>2){
   result<-result[c(c(1,3:nrow(result)),2),]
 }
 
-if(use.parallel){
-  parallel::stopCluster(workers)
-}
-
 if(debug){
   attr(result,"dimX")<-dim(X)
   attr(result,"Xrandom")<-Xrandom
@@ -339,7 +329,7 @@ return(result)
 
 #' @title Fastboost
 #'
-#' @description All in one use of selectboost that prevents redondant fitting of distributions
+#' @description All in one use of selectboost that avoids redondant fitting of distributions
 #' and saves some memory.
 #'
 #' @name fastboost
@@ -354,7 +344,7 @@ return(result)
 #' Defaults to \code{lasso_msgps_AICc}.
 #' @param corrfunc Character value or function. Used to compute associations between
 #' the variables. Defaults to \code{"cor"}.
-#' @param use.parallel Boolean. Use parallel computing (doParallel).
+#' @param use.parallel Boolean. Use parallel computing (doMC).
 #' Defaults to \code{TRUE}.
 #' @param B Numerical value. Number of resampled fits of the model.
 #' Defaults to \code{100}.
@@ -432,14 +422,8 @@ fastboost<-function(X,Y,ncores=4,group=group_func_1,func=lasso_msgps_AICc,corrfu
   # normalize=TRUE
 
   if(use.parallel){
-    requireNamespace("doParallel")
-    if (.Platform$OS.type != "windows") {
-      workers=parallel::makeForkCluster(nnodes = ncores)
-    }
-    else {
-      workers=parallel::makePSOCKcluster(names = ncores)
-    }
-    registerDoParallel(workers)
+    requireNamespace("doMC")
+    registerDoMC(ncores)
   }
 
   if(normalize){
@@ -676,10 +660,6 @@ fastboost<-function(X,Y,ncores=4,group=group_func_1,func=lasso_msgps_AICc,corrfu
   }
   if(nrow(result)>2){
     result<-result[c(c(1,3:nrow(result)),2),]
-  }
-
-  if(use.parallel){
-    parallel::stopCluster(workers)
   }
 
   if(debug){
