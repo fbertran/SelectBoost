@@ -1,0 +1,39 @@
+AICc_BIC_glmnetB        AICc and BIC for glmnet logistic models
+M                       Simulated Cascade network and inference
+SelectBoost             SelectBoost
+auto.analyze            Find limits for selectboost analysis
+autoboost               Autoboost
+autoboost.res.x         Autoboost lasso diabetes first order.
+autoboost.res.x.adapt   Autoboost adaptative lasso diabetes first
+                        order.
+autoboost.res.x2        Autoboost lasso diabetes second order.
+autoboost.res.x2.adapt
+                        Autoboost adaptative lasso diabetes second
+                        order.
+boost                   Boost step by step functions
+fastboost               Fastboost
+fastboost.res.x         Fastboost lasso diabetes first order.
+fastboost.res.x.adapt   Fastboost adaptative lasso diabetes first
+                        order.
+fastboost.res.x2        Fastboost lasso diabetes second order.
+fastboost.res.x2.adapt
+                        Fastboost adaptative lasso diabetes second
+                        order.
+group_func_1            Generate groups by thresholding.
+group_func_2            Generate groups using community analysis.
+miscplot                Miscellaneous plot functions
+net_confidence          Confidence indices
+network.confidence-class
+                        Network confidence class.
+plot.selectboost        Plot selectboost object
+plot.summary.selectboost
+                        Plot a summary of selectboost results
+plot_selectboost_cascade
+                        plot_Selectboost_cascade
+results_simuls_reverse_engineering_v3
+                        Simulations for reverse-engineering
+selectboost_cascade     Selectboost_cascade
+simulation              Miscellaneous simulation functions
+summary.selectboost     Summarize a selectboost analysis
+trajC0                  Plot trajectories
+var_select              Variable selection functions

@@ -11,7 +11,7 @@
 #' @param cv.subjects Crossvalidation is made subjectwise using leave one out. Discards the K option.
 #' @param ncores Numerical value. Number of cores for parallel computing.
 #' Defaults to \code{4}.
-#' @param use.parallel Boolean. Use parallel computing (doParallel).
+#' @param use.parallel Boolean. Use parallel computing. Work in progress to adapt from doMC to doParallel.
 #' Defaults to \code{TRUE}.
 #' @param verbose Boolean.
 #' Defaults to \code{FALSE}.
@@ -71,7 +71,6 @@ setGeneric("selectboost",package="SelectBoost",def = function(M,... ){standardGe
 #' net_confidence_thr <- selectboost(M, Fab_inf_C, group = group_func_1)
 #'}
 #'
-
 setMethod(f="selectboost"
 ,signature=c("micro_array")
 ,definition=function(M
@@ -85,6 +84,20 @@ setMethod(f="selectboost"
                      ,group = group_func_2
                      ,c0value = .95
           ){
+  if(use.parallel) {use.parallel=FALSE}
+
+  if(use.parallel) {
+    requireNamespace("doParallel")
+    if (.Platform$OS.type != "windows") {
+      workers=parallel::makeForkCluster(nnodes = ncores)
+    }
+    else {
+      workers=parallel::makePSOCKcluster(names = ncores)
+    }
+    registerDoParallel(workers)
+  }
+
+
   mat<-M@microarray
             #Data matrix
             gr<-M@group
@@ -141,13 +154,25 @@ setMethod(f="selectboost"
                 cv.folds1=lars::cv.folds
 #                cv.fun.name="lars::cv.folds"
               }
-#                         cat(cv.fun.name)
 
-              fun_lasso_selectboost<-function(x){cat(".");fastboost(X = pred, Y = x, ncores = ncores, group = group, func = lasso_cascade, corrfunc="cor", verbose= verbose, use.parallel = use.parallel, K=K, eps=eps, cv.fun=cv.folds1
+#              eval(expression(cv.folds1),envir = sys.frame(sys.nframe()))
+#              eval(expression(eps),envir = sys.frame(sys.nframe()))
+
+              fun_lasso_selectboost<-function(x){cat(".");fastboost(X = pred, Y = x, ncores = 1, group = group, func = lasso_cascade,
+                                                                    corrfunc="cor", verbose= verbose, use.parallel = FALSE, K=K, eps=eps, cv.fun=cv.folds1
                                                                     #, cv.fun.name=cv.fun.name
                                                                     , steps.seq = c0value, c0lim = FALSE)}
-              Gamma[IND, which(gr %in% peak)]<-apply(Y,1,fun_lasso_selectboost)
 
+              if(use.parallel) {
+                Gamma[IND, which(gr %in% peak)]<-foreach(iforeach=1:nrow(Y), .combine=cbind, .errorhandling = 'remove', .export=ls(sys.frame(sys.nframe())), .verbose = verbose, .packages = "SelectBoost") %dopar% fun_lasso_selectboost(Y[iforeach,])
+              } else {
+                Gamma[IND, which(gr %in% peak)]<-apply(Y,1,fun_lasso_selectboost)
+              }
+
+            }
+
+            if(use.parallel) {
+              parallel::stopCluster(workers)
             }
 
             result<-methods::new("network.confidence"

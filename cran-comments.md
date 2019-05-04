@@ -1,5 +1,5 @@
 ## Test environments
-* local OS X install, R 3.5.2
+* local OS X install, R 3.6.0
 * ubuntu 18.04, x86_64-pc-linux-gnu (64-bit), R Under development (unstable) (2019-05-02 r76454)
 * win-builder (devel and release)
 

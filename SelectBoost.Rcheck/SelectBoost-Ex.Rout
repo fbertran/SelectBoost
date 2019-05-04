@@ -1,0 +1,2046 @@
+
+R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "SelectBoost"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> base::assign(".ExTimings", "SelectBoost-Ex.timings", pos = 'CheckExEnv')
+> base::cat("name\tuser\tsystem\telapsed\n", file=base::get(".ExTimings", pos = 'CheckExEnv'))
+> base::assign(".format_ptime",
++ function(x) {
++   if(!is.na(x[4L])) x[1L] <- x[1L] + x[4L]
++   if(!is.na(x[5L])) x[2L] <- x[2L] + x[5L]
++   options(OutDec = '.')
++   format(x[1L:3L], digits = 7L)
++ },
++ pos = 'CheckExEnv')
+> 
+> ### * </HEADER>
+> library('SelectBoost')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("AICc_BIC_glmnetB")
+> ### * AICc_BIC_glmnetB
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: AICc_BIC_glmnetB
+> ### Title: AICc and BIC for glmnet logistic models
+> ### Aliases: AICc_BIC_glmnetB rerr ridge_logistic BIC_glmnetB AICc_glmnetB
+> 
+> ### ** Examples
+> 
+> set.seed(314)
+> xran=matrix(rnorm(150),30,5)
+> ybin=sample(0:1,30,replace=TRUE)
+> glmnet.fit <- glmnet.fit <- glmnet::glmnet(xran,ybin,family="binomial",standardize=FALSE)
+> set.seed(314)
+> rerr(1:10,10:1)
+[1] 4.5
+> 
+> set.seed(314)
+> ridge_logistic(xran,ybin,lambda=.5,beta0=rnorm(5),beta=rnorm(5,1))
+$b0
+[1] -1.0960525  0.9196443 -0.6407416 -0.5114932  0.3194314
+
+$beta
+           [,1]
+[1,] 0.23919027
+[2,] 0.67464504
+[3,] 0.23926363
+[4,] 0.01414993
+[5,] 1.43243321
+
+$iters
+[1] 33
+
+> 
+> set.seed(314)
+> if(is.factor(ybin)){ynum=unclass(ybin)-1} else {ynum=ybin}
+> subSample <- 1:min(ncol(xran),100)
+> BIC_glmnetB(xran,ynum,glmnet.fit,alpha=1,subSample, reducer='median')
+$BIC
+[1] 1.257217 1.116147 1.116147 1.116147 1.116147
+
+$minBIC
+[1] 1.116147
+
+$dof
+[1] 0 1 1 1 1
+
+$activeSets
+$activeSets[[1]]
+named integer(0)
+
+$activeSets[[2]]
+V5 
+ 5 
+
+$activeSets[[3]]
+V5 
+ 5 
+
+$activeSets[[4]]
+V5 
+ 5 
+
+$activeSets[[5]]
+V5 
+ 5 
+
+
+$bestSet
+V5 
+ 5 
+
+$model
+$model$a0
+        s4 
+-0.1697716 
+
+$model$beta
+         [,1]
+[1,] 1.138298
+
+$model$df
+[1] 1
+
+$model$lambda
+[1] 0
+
+
+> 
+> set.seed(314)
+> if(is.factor(ybin)){ynum=unclass(ybin)-1} else {ynum=ybin}
+> subSample <- 1:min(ncol(xran),100)
+> AICc_glmnetB(xran,ynum,glmnet.fit,alpha=1,subSample, reducer='median')
+$AICc
+[1] 1.257217 1.071819 1.071819 1.071819 1.071819
+
+$minAICc
+[1] 1.071819
+
+$dof
+[1] 0 1 1 1 1
+
+$activeSets
+$activeSets[[1]]
+named integer(0)
+
+$activeSets[[2]]
+V5 
+ 5 
+
+$activeSets[[3]]
+V5 
+ 5 
+
+$activeSets[[4]]
+V5 
+ 5 
+
+$activeSets[[5]]
+V5 
+ 5 
+
+
+$bestSet
+V5 
+ 5 
+
+$model
+$model$a0
+        s4 
+-0.1697716 
+
+$model$beta
+         [,1]
+[1,] 1.138298
+
+$model$df
+[1] 1
+
+$model$lambda
+[1] 0
+
+
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("AICc_BIC_glmnetB", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("auto.analyze")
+> ### * auto.analyze
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: auto.analyze
+> ### Title: Find limits for selectboost analysis
+> ### Aliases: auto.analyze auto.analyze.selectboost
+> 
+> ### ** Examples
+> 
+> data(autoboost.res.x)
+> auto.analyze(autoboost.res.x)
+$crit.func.values
+           c0 = 0.897 c0 = 0.532 c0 = 0.414  c0 = 0.39 c0 = 0.333 c0 = 0.291 
+     0.800      0.800      0.757      0.697      0.697      0.658      0.612 
+c0 = 0.259 c0 = 0.224 c0 = 0.185 c0 = 0.146 c0 = 0.035     c0 = 0 
+     0.594      0.532      0.524      0.511      0.499      0.471 
+
+$crit.func.values.lim
+   crit.func.values.lim.red crit.func.values.lim.orange 
+                  0.8101635                   0.8539231 
+ crit.func.values.lim.green 
+                  0.8976827 
+
+$force.dec
+[1] TRUE
+
+$index.lim
+   index.lim.red index.lim.orange  index.lim.green 
+               2                4                4 
+
+$col.crit.func.values
+ [1] "red"    "red"    "orange" "orange" NA       NA       NA       NA      
+ [9] NA       NA       NA       NA       NA      
+
+$selectboost_result.dec
+           1    2    3    4    5 6    7    8    9   10
+           0 1.00 1.00 1.00 1.00 0 1.00 1.00 1.00 1.00
+c0 = 0.897 0 1.00 1.00 1.00 1.00 0 1.00 1.00 1.00 1.00
+c0 = 0.532 0 1.00 1.00 1.00 0.89 0 1.00 0.68 1.00 1.00
+c0 = 0.414 0 1.00 1.00 1.00 0.37 0 1.00 0.68 0.92 1.00
+c0 = 0.39  0 1.00 1.00 1.00 0.37 0 1.00 0.68 0.92 1.00
+c0 = 0.333 0 1.00 1.00 1.00 0.13 0 1.00 0.53 0.92 1.00
+c0 = 0.291 0 0.92 1.00 1.00 0.13 0 1.00 0.48 0.75 0.84
+c0 = 0.259 0 0.92 1.00 1.00 0.11 0 1.00 0.47 0.60 0.84
+c0 = 0.224 0 0.40 1.00 1.00 0.11 0 1.00 0.47 0.55 0.79
+c0 = 0.185 0 0.40 1.00 1.00 0.11 0 1.00 0.45 0.55 0.73
+c0 = 0.146 0 0.40 1.00 1.00 0.11 0 1.00 0.45 0.45 0.70
+c0 = 0.035 0 0.40 0.96 0.93 0.10 0 1.00 0.45 0.45 0.70
+c0 = 0     0 0.37 0.93 0.90 0.06 0 0.96 0.40 0.45 0.64
+
+$freq.dec
+             0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 1    2 0 2 1 0 0 2 0 0 0  0  2  1  0
+thres = 0.95 2 0 2 1 0 0 2 0 0 0  0  1  1  1
+thres = 0.9  2 0 2 0 0 0 2 0 1 0  0  0  0  3
+thres = 0.85 2 0 1 1 0 0 2 0 1 0  0  0  0  3
+thres = 0.8  2 0 1 1 0 0 1 0 2 0  0  0  0  3
+thres = 0.75 2 0 1 1 0 0 0 1 1 1  0  0  0  3
+thres = 0.7  2 0 1 1 0 0 0 1 1 0  0  0  1  3
+thres = 0.65 2 0 0 1 0 1 0 1 1 0  0  0  1  3
+thres = 0.6  2 0 0 1 0 1 0 0 2 0  0  0  0  4
+thres = 0.55 2 0 0 1 0 1 0 0 1 0  1  0  0  4
+thres = 0.5  2 0 0 1 0 0 1 0 1 0  1  0  0  4
+thres = 0.45 2 0 0 1 0 0 0 0 1 0  0  0  1  5
+thres = 0.4  2 0 0 1 0 0 0 0 0 0  0  0  1  6
+thres = 0.35 2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.3  2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.25 2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.2  2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.15 2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.1  2 0 0 0 0 0 0 0 0 0  0  0  1  7
+thres = 0.05 2 0 0 0 0 0 0 0 0 0  0  0  0  8
+thres = 0    0 0 0 0 0 0 0 0 0 0  0  0  0 10
+
+$freq.dec.lims
+                 0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 0.810163 2 0 1 1 0 0 1 0 2 0  0  0  0  3
+thres = 0.853923 2 0 1 1 0 0 2 0 1 0  0  0  0  3
+thres = 0.897683 2 0 2 0 0 0 2 0 1 0  0  0  0  3
+
+attr(,"class")
+[1] "summary.selectboost"
+> 
+> data(autoboost.res.x2)
+> auto.analyze(autoboost.res.x2)
+$crit.func.values
+           c0 = 0.959  c0 = 0.37 c0 = 0.242 c0 = 0.171 c0 = 0.127 c0 = 0.097 
+ 0.4218750  0.4218750  0.2706250  0.2281250  0.2212500  0.2104688  0.1923438 
+c0 = 0.073 c0 = 0.047 c0 = 0.031 c0 = 0.014     c0 = 0     c0 = 0 
+ 0.1829688  0.1737500  0.1576562  0.1423438  0.1265625  0.0678125 
+
+$crit.func.values.lim
+   crit.func.values.lim.red crit.func.values.lim.orange 
+                  0.4759949                   0.5263101 
+ crit.func.values.lim.green 
+                  0.5766253 
+
+$force.dec
+[1] TRUE
+
+$index.lim
+   index.lim.red index.lim.orange  index.lim.green 
+               2                2                5 
+
+$col.crit.func.values
+ [1] "red"   "red"   "green" "green" "green" NA      NA      NA      NA     
+[10] NA      NA      NA      NA     
+
+$selectboost_result.dec
+           1    2    3    4    5 6    7 8    9   10   11   12 13 14 15 16 17
+           0 1.00 1.00 1.00 1.00 0 1.00 0 1.00 1.00 1.00 1.00  0  0  0  0  0
+c0 = 0.959 0 1.00 1.00 1.00 1.00 0 1.00 0 1.00 1.00 1.00 1.00  0  0  0  0  0
+c0 = 0.37  0 1.00 0.97 1.00 0.88 0 0.92 0 1.00 1.00 0.32 0.97  0  0  0  0  0
+c0 = 0.242 0 0.60 0.97 1.00 0.88 0 0.92 0 1.00 0.90 0.32 0.97  0  0  0  0  0
+c0 = 0.171 0 0.60 0.97 0.91 0.78 0 0.92 0 1.00 0.90 0.32 0.97  0  0  0  0  0
+c0 = 0.127 0 0.60 0.97 0.91 0.78 0 0.84 0 1.00 0.83 0.08 0.91  0  0  0  0  0
+c0 = 0.097 0 0.60 0.97 0.88 0.78 0 0.84 0 1.00 0.83 0.00 0.73  0  0  0  0  0
+c0 = 0.073 0 0.60 0.96 0.88 0.68 0 0.75 0 0.96 0.81 0.00 0.71  0  0  0  0  0
+c0 = 0.047 0 0.53 0.96 0.88 0.65 0 0.46 0 0.96 0.81 0.00 0.70  0  0  0  0  0
+c0 = 0.031 0 0.47 0.96 0.88 0.55 0 0.43 0 0.95 0.78 0.00 0.70  0  0  0  0  0
+c0 = 0.014 0 0.34 0.95 0.88 0.55 0 0.37 0 0.89 0.78 0.00 0.61  0  0  0  0  0
+c0 = 0     0 0.29 0.92 0.81 0.52 0 0.34 0 0.89 0.78 0.00 0.61  0  0  0  0  0
+c0 = 0     0 0.08 0.39 0.28 0.41 0 0.34 0 0.38 0.31 0.00 0.37  0  0  0  0  0
+             18   19   20 21   22 23   24 25 26   27   28   29   30 31   32
+           1.00 1.00 1.00  0 1.00  0 1.00  0  0 1.00 1.00 1.00 1.00  0 1.00
+c0 = 0.959 1.00 1.00 1.00  0 1.00  0 1.00  0  0 1.00 1.00 1.00 1.00  0 1.00
+c0 = 0.37  0.28 0.56 1.00  0 0.72  0 0.48  0  0 0.67 0.36 0.28 0.60  0 0.52
+c0 = 0.242 0.28 0.42 0.47  0 0.60  0 0.39  0  0 0.44 0.36 0.28 0.32  0 0.29
+c0 = 0.171 0.28 0.42 0.47  0 0.60  0 0.39  0  0 0.36 0.36 0.28 0.24  0 0.29
+c0 = 0.127 0.28 0.42 0.46  0 0.60  0 0.39  0  0 0.36 0.33 0.28 0.24  0 0.29
+c0 = 0.097 0.27 0.36 0.46  0 0.59  0 0.15  0  0 0.36 0.16 0.21 0.24  0 0.29
+c0 = 0.073 0.27 0.36 0.38  0 0.59  0 0.15  0  0 0.36 0.07 0.21 0.24  0 0.28
+c0 = 0.047 0.26 0.36 0.38  0 0.56  0 0.15  0  0 0.36 0.01 0.20 0.16  0 0.28
+c0 = 0.031 0.25 0.31 0.38  0 0.56  0 0.04  0  0 0.36 0.01 0.09 0.16  0 0.25
+c0 = 0.014 0.25 0.31 0.38  0 0.56  0 0.00  0  0 0.36 0.01 0.09 0.16  0 0.22
+c0 = 0     0.25 0.30 0.37  0 0.55  0 0.00  0  0 0.27 0.01 0.09 0.03  0 0.08
+c0 = 0     0.25 0.28 0.07  0 0.55  0 0.00  0  0 0.02 0.01 0.00 0.03  0 0.08
+             33   34 35 36   37 38 39 40 41 42 43 44 45   46 47 48 49 50   51
+           1.00 1.00  0  0 1.00  0  0  0  0  0  0  0  0 1.00  0  0  0  0 1.00
+c0 = 0.959 1.00 1.00  0  0 1.00  0  0  0  0  0  0  0  0 1.00  0  0  0  0 1.00
+c0 = 0.37  0.36 0.55  0  0 0.44  0  0  0  0  0  0  0  0 0.77  0  0  0  0 0.72
+c0 = 0.242 0.36 0.55  0  0 0.44  0  0  0  0  0  0  0  0 0.52  0  0  0  0 0.44
+c0 = 0.171 0.36 0.55  0  0 0.39  0  0  0  0  0  0  0  0 0.52  0  0  0  0 0.44
+c0 = 0.127 0.36 0.46  0  0 0.39  0  0  0  0  0  0  0  0 0.44  0  0  0  0 0.44
+c0 = 0.097 0.32 0.43  0  0 0.36  0  0  0  0  0  0  0  0 0.44  0  0  0  0 0.44
+c0 = 0.073 0.32 0.32  0  0 0.36  0  0  0  0  0  0  0  0 0.44  0  0  0  0 0.41
+c0 = 0.047 0.32 0.32  0  0 0.36  0  0  0  0  0  0  0  0 0.44  0  0  0  0 0.41
+c0 = 0.031 0.05 0.32  0  0 0.25  0  0  0  0  0  0  0  0 0.41  0  0  0  0 0.38
+c0 = 0.014 0.05 0.32  0  0 0.10  0  0  0  0  0  0  0  0 0.19  0  0  0  0 0.26
+c0 = 0     0.00 0.21  0  0 0.03  0  0  0  0  0  0  0  0 0.19  0  0  0  0 0.14
+c0 = 0     0.00 0.00  0  0 0.03  0  0  0  0  0  0  0  0 0.00  0  0  0  0 0.14
+             52 53 54 55 56   57 58 59   60 61 62 63 64
+           1.00  0  0  0  0 1.00  0  0 1.00  0  0  0  0
+c0 = 0.959 1.00  0  0  0  0 1.00  0  0 1.00  0  0  0  0
+c0 = 0.37  0.16  0  0  0  0 0.47  0  0 0.32  0  0  0  0
+c0 = 0.242 0.16  0  0  0  0 0.40  0  0 0.32  0  0  0  0
+c0 = 0.171 0.16  0  0  0  0 0.40  0  0 0.28  0  0  0  0
+c0 = 0.127 0.15  0  0  0  0 0.38  0  0 0.28  0  0  0  0
+c0 = 0.097 0.00  0  0  0  0 0.33  0  0 0.27  0  0  0  0
+c0 = 0.073 0.00  0  0  0  0 0.33  0  0 0.27  0  0  0  0
+c0 = 0.047 0.00  0  0  0  0 0.33  0  0 0.27  0  0  0  0
+c0 = 0.031 0.00  0  0  0  0 0.33  0  0 0.22  0  0  0  0
+c0 = 0.014 0.00  0  0  0  0 0.26  0  0 0.22  0  0  0  0
+c0 = 0     0.00  0  0  0  0 0.20  0  0 0.22  0  0  0  0
+c0 = 0     0.00  0  0  0  0 0.20  0  0 0.12  0  0  0  0
+
+$freq.dec
+              0 1  2 3 4 5 6 7 8 9 10 11 12 13
+thres = 1    37 0 22 3 1 0 0 1 0 0  0  0  0  0
+thres = 0.95 37 0 20 3 1 1 0 0 0 0  1  1  0  0
+thres = 0.9  37 0 19 2 0 2 2 0 0 0  1  0  1  0
+thres = 0.85 37 0 18 2 1 2 1 0 0 0  0  1  2  0
+thres = 0.8  37 0 18 2 1 0 1 1 0 1  0  0  3  0
+thres = 0.75 37 0 17 3 0 0 1 1 1 0  0  0  4  0
+thres = 0.7  37 0 15 5 0 0 0 1 1 0  1  0  4  0
+thres = 0.65 37 0 14 6 0 0 0 0 1 1  1  0  4  0
+thres = 0.6  37 0 13 5 0 0 1 0 2 1  0  0  5  0
+thres = 0.55 37 0 11 6 0 1 0 0 2 1  0  0  5  1
+thres = 0.5  37 0 10 6 0 2 0 0 1 1  0  0  6  1
+thres = 0.45 37 0  8 7 0 1 1 1 0 1  1  0  6  1
+thres = 0.4  37 0  7 3 2 1 1 2 0 1  3  0  5  2
+thres = 0.35 37 0  5 2 0 1 3 1 0 2  3  2  3  5
+thres = 0.3  37 0  3 1 2 1 2 0 0 2  3  3  3  7
+thres = 0.25 37 0  1 0 1 1 3 0 0 2  3  3  3 10
+thres = 0.2  37 0  1 0 0 1 2 0 1 2  2  2  5 11
+thres = 0.15 37 0  0 0 0 1 1 1 0 3  1  3  6 11
+thres = 0.1  37 0  0 0 0 1 1 1 0 3  0  3  5 13
+thres = 0.05 37 0  0 0 0 0 2 0 1 1  0  3  4 16
+thres = 0     0 0  0 0 0 0 0 0 0 0  0  0  0 64
+
+$freq.dec.lims
+                  0 1  2 3 4 5 6 7 8 9 10 11 12 13
+thres = 0.475995 37 0  9 7 0 2 0 0 1 1  0  0  6  1
+thres = 0.52631  37 0 11 6 0 1 0 0 1 1  0  1  5  1
+thres = 0.576625 37 0 13 5 0 0 0 0 3 1  0  0  5  0
+
+attr(,"class")
+[1] "summary.selectboost"
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("auto.analyze", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("autoboost")
+> ### * autoboost
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: autoboost
+> ### Title: Autoboost
+> ### Aliases: autoboost
+> 
+> ### ** Examples
+> 
+> set.seed(314)
+> xran=matrix(rnorm(75),15,5)
+> ybin=sample(0:1,15,replace=TRUE)
+> yran=rnorm(15)
+> set.seed(314)
+> #For quick test purposes, not meaningful, should be run with greater value of B
+> #and disabling parallel computing as well
+> res.autoboost <- autoboost(xran,yran,B=3,use.parallel=FALSE)
+> 
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("autoboost", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("boost")
+> ### * boost
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: boost
+> ### Title: Boost step by step functions
+> ### Aliases: boost boost.normalize boost.compcorrs boost.correlation_sign
+> ###   boost.findgroups boost.Xpass boost.adjust boost.random boost.apply
+> ###   boost.select
+> 
+> ### ** Examples
+> 
+> set.seed(314)
+> xran=matrix(rnorm(200),20,10)
+> yran=rnorm(20)
+> xran_norm <- boost.normalize(xran)
+> 
+> xran_corr<- boost.compcorrs(xran_norm)
+> 
+> xran_corr_sign <- boost.correlation_sign(xran_corr)
+> 
+> xran_groups <- boost.findgroups(xran_corr, group=group_func_1, .3)
+> xran_groups_2 <- boost.findgroups(xran_corr, group=group_func_2, .3)
+> 
+> xran_Xpass <- boost.Xpass(nrow(xran_norm),ncol(xran_norm))
+> 
+> xran_adjust <- boost.adjust(xran_norm, xran_groups$groups, xran_corr_sign)
+> 
+> #Not meaningful, should be run with B>=100
+> xran_random <- boost.random(xran_norm, xran_Xpass, xran_adjust$vmf.params, B=5)
+> 
+> ## Not run: 
+> ##D xran_random <- boost.random(xran_norm, xran_Xpass, xran_adjust$vmf.params, B=100)
+> ## End(Not run)
+> 
+> xran_apply <- boost.apply(xran_norm, xran_random, yran, lasso_msgps_AICc)
+> 
+> xran_select <- boost.select(xran_apply)
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("boost", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("fastboost")
+> ### * fastboost
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: fastboost
+> ### Title: Fastboost
+> ### Aliases: fastboost
+> 
+> ### ** Examples
+> 
+> set.seed(314)
+> xran=matrix(rnorm(75),15,5)
+> ybin=sample(0:1,15,replace=TRUE)
+> yran=rnorm(15)
+> set.seed(314)
+> #For quick test purpose, not meaningful, should be run with greater value of B
+> #and disabling parallel computing as well
+> res.fastboost <- fastboost(xran,yran,B=3,use.parallel=FALSE)
+> 
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("fastboost", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("group_func_1")
+> ### * group_func_1
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: group_func_1
+> ### Title: Generate groups by thresholding.
+> ### Aliases: group_func_1
+> 
+> ### ** Examples
+> 
+> set.seed(314)
+> group_func_1(cor(matrix(rnorm(50),10,5)),.4)
+[[1]]
+[1] 1 5
+
+[[2]]
+[1] 2
+
+[[3]]
+[1] 3
+
+[[4]]
+[1] 4
+
+[[5]]
+[1] 1 5
+
+attr(,"type")
+[1] "normal"
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("group_func_1", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("group_func_2")
+> ### * group_func_2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: group_func_2
+> ### Title: Generate groups using community analysis.
+> ### Aliases: group_func_2
+> 
+> ### ** Examples
+> 
+> set.seed(314)
+> group_func_2(cor(matrix(rnorm(100),10,10)),.5)
+$communities
+$communities$`1`
+[1] 4 5 7 8
+
+$communities$`2`
+[1] 3
+
+$communities$`3`
+[1] 10
+
+$communities$`4`
+[1] 9
+
+$communities$`5`
+[1] 6
+
+$communities$`6`
+[1] 2
+
+$communities$`7`
+[1] 1
+
+
+attr(,"type")
+[1] "compact"
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("group_func_2", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("miscplot")
+> ### * miscplot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: miscplot
+> ### Title: Miscellaneous plot functions
+> ### Aliases: miscplot plot.matrix
+> 
+> ### ** Examples
+> 
+> set.seed(3141)
+> randmat=matrix(rnorm(360),60,60)
+> plot(randmat)
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("miscplot", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("plot.selectboost")
+> ### * plot.selectboost
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: plot.selectboost
+> ### Title: Plot selectboost object
+> ### Aliases: plot.selectboost
+> 
+> ### ** Examples
+> 
+> set.seed(314)
+> xran=matrix(rnorm(75),15,5)
+> ybin=sample(0:1,15,replace=TRUE)
+> yran=rnorm(15)
+> layout(matrix(1:4,2,2))
+> 
+> data(autoboost.res.x)
+> plot(autoboost.res.x)
+> 
+> data(autoboost.res.x2)
+> plot(autoboost.res.x2)
+Warning in matplot(x = 1 - c0.seq, y = x, type = "b", lty = 1, col = result_c1 +  :
+  default 'pch' is smaller than number of columns and hence recycled
+Warning in matplot(x, type = "b", lty = 1, col = result_c1 + 2, ylim = 0:1,  :
+  default 'pch' is smaller than number of columns and hence recycled
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("plot.selectboost", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("plot.summary.selectboost")
+> ### * plot.summary.selectboost
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: plot.summary.selectboost
+> ### Title: Plot a summary of selectboost results
+> ### Aliases: plot.summary.selectboost
+> 
+> ### ** Examples
+> 
+> data(autoboost.res.x)
+> plot(summary(autoboost.res.x))
+> 
+> data(autoboost.res.x2)
+> plot(summary(autoboost.res.x2))
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("plot.summary.selectboost", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("plot_selectboost_cascade")
+> ### * plot_selectboost_cascade
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: plot_selectboost_cascade
+> ### Title: plot_Selectboost_cascade
+> ### Aliases: plot_selectboost_cascade plot,network.confidence,ANY-method
+> ###   plot,network.confidence,network.confidence-method
+> 
+> ### ** Examples
+> 
+> data(net_confidences)
+> plot(net_confidence)
+> plot(net_confidence_.5)
+> plot(net_confidence_thr)
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("plot_selectboost_cascade", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("selectboost_cascade")
+> ### * selectboost_cascade
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: selectboost_cascade
+> ### Title: Selectboost_cascade
+> ### Aliases: selectboost_cascade selectboost selectboost,micro_array-method
+> ###   selectboost,micro_array,micro_array-method
+> 
+> ### ** Examples
+> 
+> set.seed(314)
+> set.seed(314)
+> 
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("selectboost_cascade", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("simulation")
+> ### * simulation
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: simulation
+> ### Title: Miscellaneous simulation functions
+> ### Aliases: simulation simulation_cor simulation_X simulation_DATA compsim
+> ###   compsim.simuls
+> 
+> ### ** Examples
+> 
+> N<-10
+> group<-c(rep(1:2,5))
+> cor_group<-c(.8,.4)
+> supp<-c(1,1,1,0,0,0,0,0,0,0)
+> minB<-1
+> maxB<-2
+> stn<-5
+> C<-simulation_cor(group,cor_group)
+> 
+> set.seed(314)
+> X<-simulation_X(10,C)
+> G<-abs(cor(X))
+> hist(G[lower.tri(G)])
+> 
+> set.seed(314)
+> DATA_exemple<-simulation_DATA(X,supp,1,2,stn)
+> 
+> set.seed(314)
+> result.boost = fastboost(DATA_exemple$X, DATA_exemple$Y, steps.seq = .7, c0lim = FALSE,
++ use.parallel = FALSE, B=10)
+> compsim(DATA_exemple, result.boost, level=.7)
+[1] 0.6666667 0.4000000 0.5000000 0.4347826 0.5882353 1.0000000
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("simulation", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("summary.selectboost")
+> ### * summary.selectboost
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: summary.selectboost
+> ### Title: Summarize a selectboost analysis
+> ### Aliases: summary.selectboost
+> 
+> ### ** Examples
+> 
+> data(autoboost.res.x)
+> summary(autoboost.res.x)
+$crit.func.values
+           c0 = 0.897 c0 = 0.532 c0 = 0.414  c0 = 0.39 c0 = 0.333 c0 = 0.291 
+     0.800      0.800      0.757      0.697      0.697      0.658      0.612 
+c0 = 0.259 c0 = 0.224 c0 = 0.185 c0 = 0.146 c0 = 0.035     c0 = 0 
+     0.594      0.532      0.524      0.511      0.499      0.471 
+
+$crit.func.values.lim
+   crit.func.values.lim.red crit.func.values.lim.orange 
+                  0.5284487                   0.6270769 
+ crit.func.values.lim.green 
+                  0.7257051 
+
+$force.dec
+[1] TRUE
+
+$index.lim
+   index.lim.red index.lim.orange  index.lim.green 
+               1                2                3 
+
+$col.crit.func.values
+ [1] "red"    "orange" "green"  NA       NA       NA       NA       NA      
+ [9] NA       NA       NA       NA       NA      
+
+$selectboost_result.dec
+           1    2    3    4    5 6    7    8    9   10
+           0 1.00 1.00 1.00 1.00 0 1.00 1.00 1.00 1.00
+c0 = 0.897 0 1.00 1.00 1.00 1.00 0 1.00 1.00 1.00 1.00
+c0 = 0.532 0 1.00 1.00 1.00 0.89 0 1.00 0.68 1.00 1.00
+c0 = 0.414 0 1.00 1.00 1.00 0.37 0 1.00 0.68 0.92 1.00
+c0 = 0.39  0 1.00 1.00 1.00 0.37 0 1.00 0.68 0.92 1.00
+c0 = 0.333 0 1.00 1.00 1.00 0.13 0 1.00 0.53 0.92 1.00
+c0 = 0.291 0 0.92 1.00 1.00 0.13 0 1.00 0.48 0.75 0.84
+c0 = 0.259 0 0.92 1.00 1.00 0.11 0 1.00 0.47 0.60 0.84
+c0 = 0.224 0 0.40 1.00 1.00 0.11 0 1.00 0.47 0.55 0.79
+c0 = 0.185 0 0.40 1.00 1.00 0.11 0 1.00 0.45 0.55 0.73
+c0 = 0.146 0 0.40 1.00 1.00 0.11 0 1.00 0.45 0.45 0.70
+c0 = 0.035 0 0.40 0.96 0.93 0.10 0 1.00 0.45 0.45 0.70
+c0 = 0     0 0.37 0.93 0.90 0.06 0 0.96 0.40 0.45 0.64
+
+$freq.dec
+             0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 1    2 0 2 1 0 0 2 0 0 0  0  2  1  0
+thres = 0.95 2 0 2 1 0 0 2 0 0 0  0  1  1  1
+thres = 0.9  2 0 2 0 0 0 2 0 1 0  0  0  0  3
+thres = 0.85 2 0 1 1 0 0 2 0 1 0  0  0  0  3
+thres = 0.8  2 0 1 1 0 0 1 0 2 0  0  0  0  3
+thres = 0.75 2 0 1 1 0 0 0 1 1 1  0  0  0  3
+thres = 0.7  2 0 1 1 0 0 0 1 1 0  0  0  1  3
+thres = 0.65 2 0 0 1 0 1 0 1 1 0  0  0  1  3
+thres = 0.6  2 0 0 1 0 1 0 0 2 0  0  0  0  4
+thres = 0.55 2 0 0 1 0 1 0 0 1 0  1  0  0  4
+thres = 0.5  2 0 0 1 0 0 1 0 1 0  1  0  0  4
+thres = 0.45 2 0 0 1 0 0 0 0 1 0  0  0  1  5
+thres = 0.4  2 0 0 1 0 0 0 0 0 0  0  0  1  6
+thres = 0.35 2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.3  2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.25 2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.2  2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.15 2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.1  2 0 0 0 0 0 0 0 0 0  0  0  1  7
+thres = 0.05 2 0 0 0 0 0 0 0 0 0  0  0  0  8
+thres = 0    0 0 0 0 0 0 0 0 0 0  0  0  0 10
+
+$freq.dec.lims
+                 0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 0.528449 2 0 0 1 0 0 1 0 1 0  1  0  0  4
+thres = 0.627077 2 0 0 1 0 1 0 1 1 0  0  0  0  4
+thres = 0.725705 2 0 1 1 0 0 0 1 1 0  1  0  0  3
+
+attr(,"class")
+[1] "summary.selectboost"
+> summary(autoboost.res.x, force.dec=FALSE)
+$crit.func.values
+    c0 = 1 c0 = 0.897 c0 = 0.532 c0 = 0.414  c0 = 0.39 c0 = 0.333 c0 = 0.291 
+     0.800      0.800      0.833      0.762      0.918      0.889      0.827 
+c0 = 0.259 c0 = 0.224 c0 = 0.185 c0 = 0.146 c0 = 0.035     c0 = 0 
+     0.878      0.854      0.842      0.848      0.939      0.911 
+
+$crit.func.values.lim
+   crit.func.values.lim.red crit.func.values.lim.orange 
+                  0.8101635                   0.8539231 
+ crit.func.values.lim.green 
+                  0.8976827 
+
+$force.dec
+[1] FALSE
+
+$index.lim
+   index.lim.red index.lim.orange  index.lim.green 
+               2                4                4 
+
+$col.crit.func.values
+ [1] "red"    "red"    "orange" "orange" NA       NA       NA       NA      
+ [9] NA       NA       NA       NA       NA      
+
+$selectboost_result.dec
+           1    2    3    4    5 6    7    8    9   10
+           0 1.00 1.00 1.00 1.00 0 1.00 1.00 1.00 1.00
+c0 = 0.897 0 1.00 1.00 1.00 1.00 0 1.00 1.00 1.00 1.00
+c0 = 0.532 0 1.00 1.00 1.00 0.89 0 1.00 0.68 1.00 1.00
+c0 = 0.414 0 1.00 1.00 1.00 0.37 0 1.00 0.68 0.92 1.00
+c0 = 0.39  0 1.00 1.00 1.00 0.37 0 1.00 0.68 0.92 1.00
+c0 = 0.333 0 1.00 1.00 1.00 0.13 0 1.00 0.53 0.92 1.00
+c0 = 0.291 0 0.92 1.00 1.00 0.13 0 1.00 0.48 0.75 0.84
+c0 = 0.259 0 0.92 1.00 1.00 0.11 0 1.00 0.47 0.60 0.84
+c0 = 0.224 0 0.40 1.00 1.00 0.11 0 1.00 0.47 0.55 0.79
+c0 = 0.185 0 0.40 1.00 1.00 0.11 0 1.00 0.45 0.55 0.73
+c0 = 0.146 0 0.40 1.00 1.00 0.11 0 1.00 0.45 0.45 0.70
+c0 = 0.035 0 0.40 0.96 0.93 0.10 0 1.00 0.45 0.45 0.70
+c0 = 0     0 0.37 0.93 0.90 0.06 0 0.96 0.40 0.45 0.64
+
+$freq.dec
+             0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 1    2 0 2 1 0 0 2 0 0 0  0  2  1  0
+thres = 0.95 2 0 2 1 0 0 2 0 0 0  0  1  1  1
+thres = 0.9  2 0 2 0 0 0 2 0 1 0  0  0  0  3
+thres = 0.85 2 0 1 1 0 0 2 0 1 0  0  0  0  3
+thres = 0.8  2 0 1 1 0 0 1 0 2 0  0  0  0  3
+thres = 0.75 2 0 1 1 0 0 0 1 1 1  0  0  0  3
+thres = 0.7  2 0 1 1 0 0 0 1 1 0  0  0  1  3
+thres = 0.65 2 0 0 1 0 1 0 1 1 0  0  0  1  3
+thres = 0.6  2 0 0 1 0 1 0 0 2 0  0  0  0  4
+thres = 0.55 2 0 0 1 0 1 0 0 1 0  1  0  0  4
+thres = 0.5  2 0 0 1 0 0 1 0 1 0  1  0  0  4
+thres = 0.45 2 0 0 1 0 0 0 0 1 0  0  0  1  5
+thres = 0.4  2 0 0 1 0 0 0 0 0 0  0  0  1  6
+thres = 0.35 2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.3  2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.25 2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.2  2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.15 2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.1  2 0 0 0 0 0 0 0 0 0  0  0  1  7
+thres = 0.05 2 0 0 0 0 0 0 0 0 0  0  0  0  8
+thres = 0    0 0 0 0 0 0 0 0 0 0  0  0  0 10
+
+$freq.dec.lims
+                 0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 0.810163 2 0 1 1 0 0 1 0 2 0  0  0  0  3
+thres = 0.853923 2 0 1 1 0 0 2 0 1 0  0  0  0  3
+thres = 0.897683 2 0 2 0 0 0 2 0 1 0  0  0  0  3
+
+attr(,"class")
+[1] "summary.selectboost"
+> 
+> data(autoboost.res.x.adapt)
+> summary(autoboost.res.x.adapt)
+$crit.func.values
+           c0 = 0.897 c0 = 0.532 c0 = 0.414  c0 = 0.39 c0 = 0.333 c0 = 0.291 
+     0.800      0.800      0.695      0.552      0.552      0.486      0.378 
+c0 = 0.259 c0 = 0.224 c0 = 0.185 c0 = 0.146 c0 = 0.035     c0 = 0 
+     0.359      0.286      0.242      0.227      0.219      0.196 
+
+$crit.func.values.lim
+   crit.func.values.lim.red crit.func.values.lim.orange 
+                  0.2595931                   0.4455385 
+ crit.func.values.lim.green 
+                  0.6314838 
+
+$force.dec
+[1] TRUE
+
+$index.lim
+   index.lim.red index.lim.orange  index.lim.green 
+               1                2                3 
+
+$col.crit.func.values
+ [1] "red"    "orange" "green"  NA       NA       NA       NA       NA      
+ [9] NA       NA       NA       NA       NA      
+
+$selectboost_result.dec
+           1    2    3    4    5    6 7    8    9   10
+           0 1.00 1.00 1.00 1.00 1.00 0 1.00 1.00 1.00
+c0 = 0.897 0 1.00 1.00 1.00 1.00 1.00 0 1.00 1.00 1.00
+c0 = 0.532 0 1.00 1.00 1.00 0.68 0.70 0 0.57 1.00 1.00
+c0 = 0.414 0 1.00 1.00 1.00 0.36 0.37 0 0.23 0.92 0.64
+c0 = 0.39  0 1.00 1.00 1.00 0.36 0.37 0 0.23 0.92 0.64
+c0 = 0.333 0 1.00 0.91 1.00 0.13 0.16 0 0.10 0.92 0.64
+c0 = 0.291 0 0.92 0.91 1.00 0.13 0.00 0 0.00 0.57 0.25
+c0 = 0.259 0 0.92 0.91 1.00 0.00 0.00 0 0.00 0.51 0.25
+c0 = 0.224 0 0.27 0.87 0.97 0.00 0.00 0 0.00 0.51 0.24
+c0 = 0.185 0 0.27 0.87 0.70 0.00 0.00 0 0.00 0.51 0.07
+c0 = 0.146 0 0.27 0.83 0.70 0.00 0.00 0 0.00 0.44 0.03
+c0 = 0.035 0 0.27 0.75 0.70 0.00 0.00 0 0.00 0.44 0.03
+c0 = 0     0 0.21 0.75 0.69 0.00 0.00 0 0.00 0.31 0.00
+
+$freq.dec
+             0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 1    2 0 3 2 0 1 1 0 1 0  0  0  0  0
+thres = 0.95 2 0 3 2 0 1 1 0 0 1  0  0  0  0
+thres = 0.9  2 0 3 1 0 0 1 0 2 1  0  0  0  0
+thres = 0.85 2 0 3 1 0 0 1 0 1 1  1  0  0  0
+thres = 0.8  2 0 3 1 0 0 1 0 1 1  0  1  0  0
+thres = 0.75 2 0 3 1 0 0 1 0 1 1  0  0  0  1
+thres = 0.7  2 0 2 2 0 0 1 0 1 0  0  0  1  1
+thres = 0.65 2 0 1 3 0 0 1 0 1 0  0  0  0  2
+thres = 0.6  2 0 1 2 0 0 2 0 1 0  0  0  0  2
+thres = 0.55 2 0 0 3 0 0 1 1 1 0  0  0  0  2
+thres = 0.5  2 0 0 3 0 0 1 0 1 0  1  0  0  2
+thres = 0.45 2 0 0 3 0 0 1 0 1 0  1  0  0  2
+thres = 0.4  2 0 0 3 0 0 1 0 1 0  0  0  1  2
+thres = 0.35 2 0 0 1 0 2 1 0 1 0  0  0  1  2
+thres = 0.3  2 0 0 1 0 2 1 0 1 0  0  0  0  3
+thres = 0.25 2 0 0 1 0 2 0 0 1 0  0  0  1  3
+thres = 0.2  2 0 0 0 0 3 0 0 0 1  0  0  0  4
+thres = 0.15 2 0 0 0 0 2 1 0 0 1  0  0  0  4
+thres = 0.1  2 0 0 0 0 0 2 1 0 1  0  0  0  4
+thres = 0.05 2 0 0 0 0 0 2 1 0 0  1  0  0  4
+thres = 0    0 0 0 0 0 0 0 0 0 0  0  0  0 10
+
+$freq.dec.lims
+                 0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 0.259593 2 0 0 1 0 2 1 0 0 0  0  0  1  3
+thres = 0.445538 2 0 0 3 0 0 1 0 1 0  1  0  0  2
+thres = 0.631484 2 0 1 2 0 0 2 0 1 0  0  0  0  2
+
+attr(,"class")
+[1] "summary.selectboost"
+> 
+> data(autoboost.res.x2)
+> summary(autoboost.res.x2)
+$crit.func.values
+           c0 = 0.959  c0 = 0.37 c0 = 0.242 c0 = 0.171 c0 = 0.127 c0 = 0.097 
+ 0.4218750  0.4218750  0.2706250  0.2281250  0.2212500  0.2104688  0.1923438 
+c0 = 0.073 c0 = 0.047 c0 = 0.031 c0 = 0.014     c0 = 0     c0 = 0 
+ 0.1829688  0.1737500  0.1576562  0.1423438  0.1265625  0.0678125 
+
+$crit.func.values.lim
+   crit.func.values.lim.red crit.func.values.lim.orange 
+                  0.1285067                   0.2167428 
+ crit.func.values.lim.green 
+                  0.3049789 
+
+$force.dec
+[1] TRUE
+
+$index.lim
+   index.lim.red index.lim.orange  index.lim.green 
+               1                2                3 
+
+$col.crit.func.values
+ [1] "red"    "orange" "green"  NA       NA       NA       NA       NA      
+ [9] NA       NA       NA       NA       NA      
+
+$selectboost_result.dec
+           1    2    3    4    5 6    7 8    9   10   11   12 13 14 15 16 17
+           0 1.00 1.00 1.00 1.00 0 1.00 0 1.00 1.00 1.00 1.00  0  0  0  0  0
+c0 = 0.959 0 1.00 1.00 1.00 1.00 0 1.00 0 1.00 1.00 1.00 1.00  0  0  0  0  0
+c0 = 0.37  0 1.00 0.97 1.00 0.88 0 0.92 0 1.00 1.00 0.32 0.97  0  0  0  0  0
+c0 = 0.242 0 0.60 0.97 1.00 0.88 0 0.92 0 1.00 0.90 0.32 0.97  0  0  0  0  0
+c0 = 0.171 0 0.60 0.97 0.91 0.78 0 0.92 0 1.00 0.90 0.32 0.97  0  0  0  0  0
+c0 = 0.127 0 0.60 0.97 0.91 0.78 0 0.84 0 1.00 0.83 0.08 0.91  0  0  0  0  0
+c0 = 0.097 0 0.60 0.97 0.88 0.78 0 0.84 0 1.00 0.83 0.00 0.73  0  0  0  0  0
+c0 = 0.073 0 0.60 0.96 0.88 0.68 0 0.75 0 0.96 0.81 0.00 0.71  0  0  0  0  0
+c0 = 0.047 0 0.53 0.96 0.88 0.65 0 0.46 0 0.96 0.81 0.00 0.70  0  0  0  0  0
+c0 = 0.031 0 0.47 0.96 0.88 0.55 0 0.43 0 0.95 0.78 0.00 0.70  0  0  0  0  0
+c0 = 0.014 0 0.34 0.95 0.88 0.55 0 0.37 0 0.89 0.78 0.00 0.61  0  0  0  0  0
+c0 = 0     0 0.29 0.92 0.81 0.52 0 0.34 0 0.89 0.78 0.00 0.61  0  0  0  0  0
+c0 = 0     0 0.08 0.39 0.28 0.41 0 0.34 0 0.38 0.31 0.00 0.37  0  0  0  0  0
+             18   19   20 21   22 23   24 25 26   27   28   29   30 31   32
+           1.00 1.00 1.00  0 1.00  0 1.00  0  0 1.00 1.00 1.00 1.00  0 1.00
+c0 = 0.959 1.00 1.00 1.00  0 1.00  0 1.00  0  0 1.00 1.00 1.00 1.00  0 1.00
+c0 = 0.37  0.28 0.56 1.00  0 0.72  0 0.48  0  0 0.67 0.36 0.28 0.60  0 0.52
+c0 = 0.242 0.28 0.42 0.47  0 0.60  0 0.39  0  0 0.44 0.36 0.28 0.32  0 0.29
+c0 = 0.171 0.28 0.42 0.47  0 0.60  0 0.39  0  0 0.36 0.36 0.28 0.24  0 0.29
+c0 = 0.127 0.28 0.42 0.46  0 0.60  0 0.39  0  0 0.36 0.33 0.28 0.24  0 0.29
+c0 = 0.097 0.27 0.36 0.46  0 0.59  0 0.15  0  0 0.36 0.16 0.21 0.24  0 0.29
+c0 = 0.073 0.27 0.36 0.38  0 0.59  0 0.15  0  0 0.36 0.07 0.21 0.24  0 0.28
+c0 = 0.047 0.26 0.36 0.38  0 0.56  0 0.15  0  0 0.36 0.01 0.20 0.16  0 0.28
+c0 = 0.031 0.25 0.31 0.38  0 0.56  0 0.04  0  0 0.36 0.01 0.09 0.16  0 0.25
+c0 = 0.014 0.25 0.31 0.38  0 0.56  0 0.00  0  0 0.36 0.01 0.09 0.16  0 0.22
+c0 = 0     0.25 0.30 0.37  0 0.55  0 0.00  0  0 0.27 0.01 0.09 0.03  0 0.08
+c0 = 0     0.25 0.28 0.07  0 0.55  0 0.00  0  0 0.02 0.01 0.00 0.03  0 0.08
+             33   34 35 36   37 38 39 40 41 42 43 44 45   46 47 48 49 50   51
+           1.00 1.00  0  0 1.00  0  0  0  0  0  0  0  0 1.00  0  0  0  0 1.00
+c0 = 0.959 1.00 1.00  0  0 1.00  0  0  0  0  0  0  0  0 1.00  0  0  0  0 1.00
+c0 = 0.37  0.36 0.55  0  0 0.44  0  0  0  0  0  0  0  0 0.77  0  0  0  0 0.72
+c0 = 0.242 0.36 0.55  0  0 0.44  0  0  0  0  0  0  0  0 0.52  0  0  0  0 0.44
+c0 = 0.171 0.36 0.55  0  0 0.39  0  0  0  0  0  0  0  0 0.52  0  0  0  0 0.44
+c0 = 0.127 0.36 0.46  0  0 0.39  0  0  0  0  0  0  0  0 0.44  0  0  0  0 0.44
+c0 = 0.097 0.32 0.43  0  0 0.36  0  0  0  0  0  0  0  0 0.44  0  0  0  0 0.44
+c0 = 0.073 0.32 0.32  0  0 0.36  0  0  0  0  0  0  0  0 0.44  0  0  0  0 0.41
+c0 = 0.047 0.32 0.32  0  0 0.36  0  0  0  0  0  0  0  0 0.44  0  0  0  0 0.41
+c0 = 0.031 0.05 0.32  0  0 0.25  0  0  0  0  0  0  0  0 0.41  0  0  0  0 0.38
+c0 = 0.014 0.05 0.32  0  0 0.10  0  0  0  0  0  0  0  0 0.19  0  0  0  0 0.26
+c0 = 0     0.00 0.21  0  0 0.03  0  0  0  0  0  0  0  0 0.19  0  0  0  0 0.14
+c0 = 0     0.00 0.00  0  0 0.03  0  0  0  0  0  0  0  0 0.00  0  0  0  0 0.14
+             52 53 54 55 56   57 58 59   60 61 62 63 64
+           1.00  0  0  0  0 1.00  0  0 1.00  0  0  0  0
+c0 = 0.959 1.00  0  0  0  0 1.00  0  0 1.00  0  0  0  0
+c0 = 0.37  0.16  0  0  0  0 0.47  0  0 0.32  0  0  0  0
+c0 = 0.242 0.16  0  0  0  0 0.40  0  0 0.32  0  0  0  0
+c0 = 0.171 0.16  0  0  0  0 0.40  0  0 0.28  0  0  0  0
+c0 = 0.127 0.15  0  0  0  0 0.38  0  0 0.28  0  0  0  0
+c0 = 0.097 0.00  0  0  0  0 0.33  0  0 0.27  0  0  0  0
+c0 = 0.073 0.00  0  0  0  0 0.33  0  0 0.27  0  0  0  0
+c0 = 0.047 0.00  0  0  0  0 0.33  0  0 0.27  0  0  0  0
+c0 = 0.031 0.00  0  0  0  0 0.33  0  0 0.22  0  0  0  0
+c0 = 0.014 0.00  0  0  0  0 0.26  0  0 0.22  0  0  0  0
+c0 = 0     0.00  0  0  0  0 0.20  0  0 0.22  0  0  0  0
+c0 = 0     0.00  0  0  0  0 0.20  0  0 0.12  0  0  0  0
+
+$freq.dec
+              0 1  2 3 4 5 6 7 8 9 10 11 12 13
+thres = 1    37 0 22 3 1 0 0 1 0 0  0  0  0  0
+thres = 0.95 37 0 20 3 1 1 0 0 0 0  1  1  0  0
+thres = 0.9  37 0 19 2 0 2 2 0 0 0  1  0  1  0
+thres = 0.85 37 0 18 2 1 2 1 0 0 0  0  1  2  0
+thres = 0.8  37 0 18 2 1 0 1 1 0 1  0  0  3  0
+thres = 0.75 37 0 17 3 0 0 1 1 1 0  0  0  4  0
+thres = 0.7  37 0 15 5 0 0 0 1 1 0  1  0  4  0
+thres = 0.65 37 0 14 6 0 0 0 0 1 1  1  0  4  0
+thres = 0.6  37 0 13 5 0 0 1 0 2 1  0  0  5  0
+thres = 0.55 37 0 11 6 0 1 0 0 2 1  0  0  5  1
+thres = 0.5  37 0 10 6 0 2 0 0 1 1  0  0  6  1
+thres = 0.45 37 0  8 7 0 1 1 1 0 1  1  0  6  1
+thres = 0.4  37 0  7 3 2 1 1 2 0 1  3  0  5  2
+thres = 0.35 37 0  5 2 0 1 3 1 0 2  3  2  3  5
+thres = 0.3  37 0  3 1 2 1 2 0 0 2  3  3  3  7
+thres = 0.25 37 0  1 0 1 1 3 0 0 2  3  3  3 10
+thres = 0.2  37 0  1 0 0 1 2 0 1 2  2  2  5 11
+thres = 0.15 37 0  0 0 0 1 1 1 0 3  1  3  6 11
+thres = 0.1  37 0  0 0 0 1 1 1 0 3  0  3  5 13
+thres = 0.05 37 0  0 0 0 0 2 0 1 1  0  3  4 16
+thres = 0     0 0  0 0 0 0 0 0 0 0  0  0  0 64
+
+$freq.dec.lims
+                  0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 0.128507 37 0 0 0 0 1 1 1 0 3  1  2  6 12
+thres = 0.216743 37 0 1 0 0 1 3 0 1 1  2  4  4 10
+thres = 0.304979 37 0 3 1 2 1 2 0 0 2  3  4  2  7
+
+attr(,"class")
+[1] "summary.selectboost"
+> summary(autoboost.res.x2, force.dec=FALSE)
+$crit.func.values
+    c0 = 1 c0 = 0.959  c0 = 0.37 c0 = 0.242 c0 = 0.171 c0 = 0.127 c0 = 0.097 
+ 0.4218750  0.4218750  0.5395313  0.5632812  0.5737500  0.5803125  0.5656250 
+c0 = 0.073 c0 = 0.047 c0 = 0.031 c0 = 0.014     c0 = 0     c0 = 0 
+ 0.5607813  0.5665625  0.5521875  0.5410938  0.5212500  0.4339062 
+
+$crit.func.values.lim
+   crit.func.values.lim.red crit.func.values.lim.orange 
+                  0.4759949                   0.5263101 
+ crit.func.values.lim.green 
+                  0.5766253 
+
+$force.dec
+[1] FALSE
+
+$index.lim
+   index.lim.red index.lim.orange  index.lim.green 
+               2                2                5 
+
+$col.crit.func.values
+ [1] "red"   "red"   "green" "green" "green" NA      NA      NA      NA     
+[10] NA      NA      NA      NA     
+
+$selectboost_result.dec
+           1    2    3    4    5 6    7 8    9   10   11   12 13 14 15 16 17
+           0 1.00 1.00 1.00 1.00 0 1.00 0 1.00 1.00 1.00 1.00  0  0  0  0  0
+c0 = 0.959 0 1.00 1.00 1.00 1.00 0 1.00 0 1.00 1.00 1.00 1.00  0  0  0  0  0
+c0 = 0.37  0 1.00 0.97 1.00 0.88 0 0.92 0 1.00 1.00 0.32 0.97  0  0  0  0  0
+c0 = 0.242 0 0.60 0.97 1.00 0.88 0 0.92 0 1.00 0.90 0.32 0.97  0  0  0  0  0
+c0 = 0.171 0 0.60 0.97 0.91 0.78 0 0.92 0 1.00 0.90 0.32 0.97  0  0  0  0  0
+c0 = 0.127 0 0.60 0.97 0.91 0.78 0 0.84 0 1.00 0.83 0.08 0.91  0  0  0  0  0
+c0 = 0.097 0 0.60 0.97 0.88 0.78 0 0.84 0 1.00 0.83 0.00 0.73  0  0  0  0  0
+c0 = 0.073 0 0.60 0.96 0.88 0.68 0 0.75 0 0.96 0.81 0.00 0.71  0  0  0  0  0
+c0 = 0.047 0 0.53 0.96 0.88 0.65 0 0.46 0 0.96 0.81 0.00 0.70  0  0  0  0  0
+c0 = 0.031 0 0.47 0.96 0.88 0.55 0 0.43 0 0.95 0.78 0.00 0.70  0  0  0  0  0
+c0 = 0.014 0 0.34 0.95 0.88 0.55 0 0.37 0 0.89 0.78 0.00 0.61  0  0  0  0  0
+c0 = 0     0 0.29 0.92 0.81 0.52 0 0.34 0 0.89 0.78 0.00 0.61  0  0  0  0  0
+c0 = 0     0 0.08 0.39 0.28 0.41 0 0.34 0 0.38 0.31 0.00 0.37  0  0  0  0  0
+             18   19   20 21   22 23   24 25 26   27   28   29   30 31   32
+           1.00 1.00 1.00  0 1.00  0 1.00  0  0 1.00 1.00 1.00 1.00  0 1.00
+c0 = 0.959 1.00 1.00 1.00  0 1.00  0 1.00  0  0 1.00 1.00 1.00 1.00  0 1.00
+c0 = 0.37  0.28 0.56 1.00  0 0.72  0 0.48  0  0 0.67 0.36 0.28 0.60  0 0.52
+c0 = 0.242 0.28 0.42 0.47  0 0.60  0 0.39  0  0 0.44 0.36 0.28 0.32  0 0.29
+c0 = 0.171 0.28 0.42 0.47  0 0.60  0 0.39  0  0 0.36 0.36 0.28 0.24  0 0.29
+c0 = 0.127 0.28 0.42 0.46  0 0.60  0 0.39  0  0 0.36 0.33 0.28 0.24  0 0.29
+c0 = 0.097 0.27 0.36 0.46  0 0.59  0 0.15  0  0 0.36 0.16 0.21 0.24  0 0.29
+c0 = 0.073 0.27 0.36 0.38  0 0.59  0 0.15  0  0 0.36 0.07 0.21 0.24  0 0.28
+c0 = 0.047 0.26 0.36 0.38  0 0.56  0 0.15  0  0 0.36 0.01 0.20 0.16  0 0.28
+c0 = 0.031 0.25 0.31 0.38  0 0.56  0 0.04  0  0 0.36 0.01 0.09 0.16  0 0.25
+c0 = 0.014 0.25 0.31 0.38  0 0.56  0 0.00  0  0 0.36 0.01 0.09 0.16  0 0.22
+c0 = 0     0.25 0.30 0.37  0 0.55  0 0.00  0  0 0.27 0.01 0.09 0.03  0 0.08
+c0 = 0     0.25 0.28 0.07  0 0.55  0 0.00  0  0 0.02 0.01 0.00 0.03  0 0.08
+             33   34 35 36   37 38 39 40 41 42 43 44 45   46 47 48 49 50   51
+           1.00 1.00  0  0 1.00  0  0  0  0  0  0  0  0 1.00  0  0  0  0 1.00
+c0 = 0.959 1.00 1.00  0  0 1.00  0  0  0  0  0  0  0  0 1.00  0  0  0  0 1.00
+c0 = 0.37  0.36 0.55  0  0 0.44  0  0  0  0  0  0  0  0 0.77  0  0  0  0 0.72
+c0 = 0.242 0.36 0.55  0  0 0.44  0  0  0  0  0  0  0  0 0.52  0  0  0  0 0.44
+c0 = 0.171 0.36 0.55  0  0 0.39  0  0  0  0  0  0  0  0 0.52  0  0  0  0 0.44
+c0 = 0.127 0.36 0.46  0  0 0.39  0  0  0  0  0  0  0  0 0.44  0  0  0  0 0.44
+c0 = 0.097 0.32 0.43  0  0 0.36  0  0  0  0  0  0  0  0 0.44  0  0  0  0 0.44
+c0 = 0.073 0.32 0.32  0  0 0.36  0  0  0  0  0  0  0  0 0.44  0  0  0  0 0.41
+c0 = 0.047 0.32 0.32  0  0 0.36  0  0  0  0  0  0  0  0 0.44  0  0  0  0 0.41
+c0 = 0.031 0.05 0.32  0  0 0.25  0  0  0  0  0  0  0  0 0.41  0  0  0  0 0.38
+c0 = 0.014 0.05 0.32  0  0 0.10  0  0  0  0  0  0  0  0 0.19  0  0  0  0 0.26
+c0 = 0     0.00 0.21  0  0 0.03  0  0  0  0  0  0  0  0 0.19  0  0  0  0 0.14
+c0 = 0     0.00 0.00  0  0 0.03  0  0  0  0  0  0  0  0 0.00  0  0  0  0 0.14
+             52 53 54 55 56   57 58 59   60 61 62 63 64
+           1.00  0  0  0  0 1.00  0  0 1.00  0  0  0  0
+c0 = 0.959 1.00  0  0  0  0 1.00  0  0 1.00  0  0  0  0
+c0 = 0.37  0.16  0  0  0  0 0.47  0  0 0.32  0  0  0  0
+c0 = 0.242 0.16  0  0  0  0 0.40  0  0 0.32  0  0  0  0
+c0 = 0.171 0.16  0  0  0  0 0.40  0  0 0.28  0  0  0  0
+c0 = 0.127 0.15  0  0  0  0 0.38  0  0 0.28  0  0  0  0
+c0 = 0.097 0.00  0  0  0  0 0.33  0  0 0.27  0  0  0  0
+c0 = 0.073 0.00  0  0  0  0 0.33  0  0 0.27  0  0  0  0
+c0 = 0.047 0.00  0  0  0  0 0.33  0  0 0.27  0  0  0  0
+c0 = 0.031 0.00  0  0  0  0 0.33  0  0 0.22  0  0  0  0
+c0 = 0.014 0.00  0  0  0  0 0.26  0  0 0.22  0  0  0  0
+c0 = 0     0.00  0  0  0  0 0.20  0  0 0.22  0  0  0  0
+c0 = 0     0.00  0  0  0  0 0.20  0  0 0.12  0  0  0  0
+
+$freq.dec
+              0 1  2 3 4 5 6 7 8 9 10 11 12 13
+thres = 1    37 0 22 3 1 0 0 1 0 0  0  0  0  0
+thres = 0.95 37 0 20 3 1 1 0 0 0 0  1  1  0  0
+thres = 0.9  37 0 19 2 0 2 2 0 0 0  1  0  1  0
+thres = 0.85 37 0 18 2 1 2 1 0 0 0  0  1  2  0
+thres = 0.8  37 0 18 2 1 0 1 1 0 1  0  0  3  0
+thres = 0.75 37 0 17 3 0 0 1 1 1 0  0  0  4  0
+thres = 0.7  37 0 15 5 0 0 0 1 1 0  1  0  4  0
+thres = 0.65 37 0 14 6 0 0 0 0 1 1  1  0  4  0
+thres = 0.6  37 0 13 5 0 0 1 0 2 1  0  0  5  0
+thres = 0.55 37 0 11 6 0 1 0 0 2 1  0  0  5  1
+thres = 0.5  37 0 10 6 0 2 0 0 1 1  0  0  6  1
+thres = 0.45 37 0  8 7 0 1 1 1 0 1  1  0  6  1
+thres = 0.4  37 0  7 3 2 1 1 2 0 1  3  0  5  2
+thres = 0.35 37 0  5 2 0 1 3 1 0 2  3  2  3  5
+thres = 0.3  37 0  3 1 2 1 2 0 0 2  3  3  3  7
+thres = 0.25 37 0  1 0 1 1 3 0 0 2  3  3  3 10
+thres = 0.2  37 0  1 0 0 1 2 0 1 2  2  2  5 11
+thres = 0.15 37 0  0 0 0 1 1 1 0 3  1  3  6 11
+thres = 0.1  37 0  0 0 0 1 1 1 0 3  0  3  5 13
+thres = 0.05 37 0  0 0 0 0 2 0 1 1  0  3  4 16
+thres = 0     0 0  0 0 0 0 0 0 0 0  0  0  0 64
+
+$freq.dec.lims
+                  0 1  2 3 4 5 6 7 8 9 10 11 12 13
+thres = 0.475995 37 0  9 7 0 2 0 0 1 1  0  0  6  1
+thres = 0.52631  37 0 11 6 0 1 0 0 1 1  0  1  5  1
+thres = 0.576625 37 0 13 5 0 0 0 0 3 1  0  0  5  0
+
+attr(,"class")
+[1] "summary.selectboost"
+> 
+> data(autoboost.res.x2.adapt)
+> summary(autoboost.res.x2.adapt)
+$crit.func.values
+           c0 = 0.959  c0 = 0.37 c0 = 0.242 c0 = 0.171 c0 = 0.127 c0 = 0.097 
+0.43750000 0.43750000 0.20125000 0.16343750 0.14015625 0.12671875 0.11203125 
+c0 = 0.073 c0 = 0.047 c0 = 0.031 c0 = 0.014     c0 = 0     c0 = 0 
+0.09640625 0.08906250 0.07390625 0.06234375 0.04781250 0.01328125 
+
+$crit.func.values.lim
+   crit.func.values.lim.red crit.func.values.lim.orange 
+                 0.03945721                  0.15395433 
+ crit.func.values.lim.green 
+                 0.26845145 
+
+$force.dec
+[1] TRUE
+
+$index.lim
+   index.lim.red index.lim.orange  index.lim.green 
+               1                2                3 
+
+$col.crit.func.values
+ [1] "red"    "orange" "green"  NA       NA       NA       NA       NA      
+ [9] NA       NA       NA       NA       NA      
+
+$selectboost_result.dec
+           1    2    3    4    5 6    7 8    9 10   11 12 13 14 15 16   17   18
+           0 1.00 1.00 1.00 1.00 0 1.00 0 1.00  0 1.00  0  0  0  0  0 1.00 1.00
+c0 = 0.959 0 1.00 1.00 1.00 1.00 0 1.00 0 1.00  0 1.00  0  0  0  0  0 1.00 1.00
+c0 = 0.37  0 1.00 0.86 1.00 0.76 0 0.70 0 1.00  0 0.23  0  0  0  0  0 0.22 0.28
+c0 = 0.242 0 0.40 0.86 0.94 0.76 0 0.70 0 0.99  0 0.23  0  0  0  0  0 0.22 0.28
+c0 = 0.171 0 0.40 0.86 0.55 0.53 0 0.70 0 0.93  0 0.23  0  0  0  0  0 0.22 0.27
+c0 = 0.127 0 0.40 0.86 0.55 0.53 0 0.41 0 0.85  0 0.06  0  0  0  0  0 0.22 0.26
+c0 = 0.097 0 0.40 0.86 0.50 0.53 0 0.41 0 0.85  0 0.00  0  0  0  0  0 0.22 0.22
+c0 = 0.073 0 0.40 0.79 0.50 0.33 0 0.22 0 0.79  0 0.00  0  0  0  0  0 0.07 0.22
+c0 = 0.047 0 0.30 0.79 0.50 0.31 0 0.10 0 0.79  0 0.00  0  0  0  0  0 0.07 0.22
+c0 = 0.031 0 0.11 0.73 0.50 0.26 0 0.05 0 0.79  0 0.00  0  0  0  0  0 0.00 0.22
+c0 = 0.014 0 0.05 0.68 0.48 0.26 0 0.04 0 0.75  0 0.00  0  0  0  0  0 0.00 0.22
+c0 = 0     0 0.00 0.53 0.29 0.23 0 0.00 0 0.75  0 0.00  0  0  0  0  0 0.00 0.22
+c0 = 0     0 0.00 0.11 0.00 0.06 0 0.00 0 0.25  0 0.00  0  0  0  0  0 0.00 0.22
+             19   20 21 22   23 24   25 26   27 28 29   30 31   32   33 34 35
+           1.00 1.00  0  0 1.00  0 1.00  0 1.00  0  0 1.00  0 1.00 1.00  0  0
+c0 = 0.959 1.00 1.00  0  0 1.00  0 1.00  0 1.00  0  0 1.00  0 1.00 1.00  0  0
+c0 = 0.37  0.32 1.00  0  0 0.28  0 0.55  0 0.48  0  0 0.46  0 0.48 0.23  0  0
+c0 = 0.242 0.32 0.30  0  0 0.20  0 0.54  0 0.36  0  0 0.32  0 0.16 0.23  0  0
+c0 = 0.171 0.32 0.30  0  0 0.13  0 0.24  0 0.28  0  0 0.24  0 0.16 0.20  0  0
+c0 = 0.127 0.32 0.19  0  0 0.13  0 0.16  0 0.26  0  0 0.24  0 0.16 0.20  0  0
+c0 = 0.097 0.24 0.19  0  0 0.13  0 0.16  0 0.26  0  0 0.24  0 0.16 0.20  0  0
+c0 = 0.073 0.24 0.19  0  0 0.11  0 0.14  0 0.26  0  0 0.24  0 0.16 0.20  0  0
+c0 = 0.047 0.24 0.19  0  0 0.05  0 0.14  0 0.26  0  0 0.16  0 0.10 0.20  0  0
+c0 = 0.031 0.22 0.19  0  0 0.05  0 0.14  0 0.26  0  0 0.08  0 0.07 0.00  0  0
+c0 = 0.014 0.22 0.19  0  0 0.00  0 0.00  0 0.26  0  0 0.08  0 0.07 0.00  0  0
+c0 = 0     0.22 0.19  0  0 0.00  0 0.00  0 0.05  0  0 0.04  0 0.07 0.00  0  0
+c0 = 0     0.17 0.01  0  0 0.00  0 0.00  0 0.00  0  0 0.00  0 0.00 0.00  0  0
+           36   37 38 39 40 41   42 43   44 45   46 47 48 49 50 51  52   53 54
+            0 1.00  0  0  0  0 1.00  0 1.00  0 1.00  0  0  0  0  0 1.0 1.00  0
+c0 = 0.959  0 1.00  0  0  0  0 1.00  0 1.00  0 1.00  0  0  0  0  0 1.0 1.00  0
+c0 = 0.37   0 0.31  0  0  0  0 0.62  0 0.31  0 0.24  0  0  0  0  0 0.2 0.39  0
+c0 = 0.242  0 0.31  0  0  0  0 0.33  0 0.31  0 0.24  0  0  0  0  0 0.2 0.32  0
+c0 = 0.171  0 0.16  0  0  0  0 0.24  0 0.31  0 0.24  0  0  0  0  0 0.2 0.32  0
+c0 = 0.127  0 0.16  0  0  0  0 0.24  0 0.23  0 0.24  0  0  0  0  0 0.2 0.32  0
+c0 = 0.097  0 0.14  0  0  0  0 0.11  0 0.15  0 0.24  0  0  0  0  0 0.0 0.30  0
+c0 = 0.073  0 0.03  0  0  0  0 0.11  0 0.14  0 0.23  0  0  0  0  0 0.0 0.18  0
+c0 = 0.047  0 0.03  0  0  0  0 0.09  0 0.13  0 0.23  0  0  0  0  0 0.0 0.18  0
+c0 = 0.031  0 0.00  0  0  0  0 0.09  0 0.06  0 0.23  0  0  0  0  0 0.0 0.17  0
+c0 = 0.014  0 0.00  0  0  0  0 0.08  0 0.06  0 0.01  0  0  0  0  0 0.0 0.08  0
+c0 = 0      0 0.00  0  0  0  0 0.02  0 0.00  0 0.01  0  0  0  0  0 0.0 0.03  0
+c0 = 0      0 0.00  0  0  0  0 0.00  0 0.00  0 0.00  0  0  0  0  0 0.0 0.03  0
+           55 56   57 58   59   60 61 62   63 64
+            0  0 1.00  0 1.00 1.00  1  0 1.00  0
+c0 = 0.959  0  0 1.00  0 1.00 1.00  1  0 1.00  0
+c0 = 0.37   0  0 0.26  0 0.20 0.27  0  0 0.23  0
+c0 = 0.242  0  0 0.26  0 0.20 0.25  0  0 0.23  0
+c0 = 0.171  0  0 0.26  0 0.20 0.25  0  0 0.23  0
+c0 = 0.127  0  0 0.26  0 0.20 0.23  0  0 0.23  0
+c0 = 0.097  0  0 0.19  0 0.12 0.18  0  0 0.17  0
+c0 = 0.073  0  0 0.19  0 0.08 0.18  0  0 0.17  0
+c0 = 0.047  0  0 0.19  0 0.08 0.18  0  0 0.17  0
+c0 = 0.031  0  0 0.19  0 0.08 0.13  0  0 0.11  0
+c0 = 0.014  0  0 0.17  0 0.08 0.10  0  0 0.11  0
+c0 = 0      0  0 0.12  0 0.08 0.10  0  0 0.11  0
+c0 = 0      0  0 0.00  0 0.00 0.00  0  0 0.00  0
+
+$freq.dec
+              0 1  2 3 4 5 6 7 8 9 10 11 12 13
+thres = 1    36 0 24 4 0 0 0 0 0 0  0  0  0  0
+thres = 0.95 36 0 24 3 1 0 0 0 0 0  0  0  0  0
+thres = 0.9  36 0 24 2 1 1 0 0 0 0  0  0  0  0
+thres = 0.85 36 0 23 2 1 0 0 2 0 0  0  0  0  0
+thres = 0.8  36 0 23 2 1 0 0 2 0 0  0  0  0  0
+thres = 0.75 36 0 22 2 2 0 0 0 0 1  0  0  1  0
+thres = 0.7  36 0 21 2 2 1 0 0 0 0  1  0  1  0
+thres = 0.65 36 0 21 2 2 1 0 0 0 0  0  1  1  0
+thres = 0.6  36 0 20 3 2 1 0 0 0 0  0  1  1  0
+thres = 0.55 36 0 19 4 1 1 1 0 0 0  0  1  1  0
+thres = 0.5  36 0 19 3 1 1 0 1 0 0  1  0  2  0
+thres = 0.45 36 0 16 6 1 1 0 1 0 0  0  1  2  0
+thres = 0.4  36 0 16 5 1 0 0 2 1 0  0  1  2  0
+thres = 0.35 36 0 15 5 2 0 0 2 1 0  0  1  2  0
+thres = 0.3  36 0 12 1 5 2 1 2 0 2  0  1  2  0
+thres = 0.25 36 0  8 2 4 3 3 2 0 1  0  2  2  1
+thres = 0.2  36 0  1 1 2 3 7 2 2 2  1  1  4  2
+thres = 0.15 36 0  1 0 1 1 4 3 2 5  2  2  4  3
+thres = 0.1  36 0  1 0 0 1 1 3 2 5  4  1  6  4
+thres = 0.05 36 0  1 0 0 0 2 1 0 2  4  5  8  5
+thres = 0     0 0  0 0 0 0 0 0 0 0  0  0  0 64
+
+$freq.dec.lims
+                  0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 0.039457 36 0 1 0 0 0 2 1 0 2  3  5  9  5
+thres = 0.153954 36 0 1 0 1 1 5 2 2 5  2  2  4  3
+thres = 0.268451 36 0 9 3 4 4 1 2 0 2  0  0  3  0
+
+attr(,"class")
+[1] "summary.selectboost"
+> 
+> data(fastboost.res.x)
+> summary(fastboost.res.x)
+$crit.func.values
+           c0 = 0.897 c0 = 0.532 c0 = 0.414  c0 = 0.39 c0 = 0.333 c0 = 0.291 
+     0.800      0.800      0.756      0.696      0.696      0.655      0.606 
+c0 = 0.259 c0 = 0.224 c0 = 0.185 c0 = 0.146 c0 = 0.035     c0 = 0 
+     0.588      0.525      0.516      0.504      0.490      0.462 
+
+$crit.func.values.lim
+   crit.func.values.lim.red crit.func.values.lim.orange 
+                  0.5210822                   0.6226154 
+ crit.func.values.lim.green 
+                  0.7241486 
+
+$force.dec
+[1] TRUE
+
+$index.lim
+   index.lim.red index.lim.orange  index.lim.green 
+               1                2                3 
+
+$col.crit.func.values
+ [1] "red"    "orange" "green"  NA       NA       NA       NA       NA      
+ [9] NA       NA       NA       NA       NA      
+
+$selectboost_result.dec
+           1    2    3    4    5 6 7    8    9   10
+           0 1.00 1.00 1.00 1.00 0 1 1.00 1.00 1.00
+c0 = 0.897 0 1.00 1.00 1.00 1.00 0 1 1.00 1.00 1.00
+c0 = 0.532 0 1.00 1.00 1.00 0.88 0 1 0.68 1.00 1.00
+c0 = 0.414 0 1.00 1.00 1.00 0.36 0 1 0.68 0.92 1.00
+c0 = 0.39  0 1.00 1.00 1.00 0.36 0 1 0.68 0.92 1.00
+c0 = 0.333 0 1.00 1.00 1.00 0.11 0 1 0.52 0.92 1.00
+c0 = 0.291 0 0.92 1.00 1.00 0.11 0 1 0.45 0.74 0.84
+c0 = 0.259 0 0.92 1.00 1.00 0.09 0 1 0.41 0.62 0.84
+c0 = 0.224 0 0.40 1.00 1.00 0.09 0 1 0.41 0.55 0.80
+c0 = 0.185 0 0.40 1.00 1.00 0.09 0 1 0.39 0.55 0.73
+c0 = 0.146 0 0.40 1.00 1.00 0.09 0 1 0.38 0.46 0.71
+c0 = 0.035 0 0.40 0.97 0.91 0.07 0 1 0.38 0.46 0.71
+c0 = 0     0 0.34 0.93 0.87 0.02 0 1 0.35 0.46 0.65
+
+$freq.dec
+             0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 1    2 0 2 1 0 0 2 0 0 0  0  2  0  1
+thres = 0.95 2 0 2 1 0 0 2 0 0 0  0  1  1  1
+thres = 0.9  2 0 2 0 0 0 2 0 1 0  0  0  1  2
+thres = 0.85 2 0 1 1 0 0 2 0 1 0  0  0  0  3
+thres = 0.8  2 0 1 1 0 0 1 0 1 1  0  0  0  3
+thres = 0.75 2 0 1 1 0 0 1 0 1 1  0  0  0  3
+thres = 0.7  2 0 1 1 0 0 0 1 1 0  0  0  1  3
+thres = 0.65 2 0 0 1 0 1 0 1 1 0  0  0  0  4
+thres = 0.6  2 0 0 1 0 1 0 0 2 0  0  0  0  4
+thres = 0.55 2 0 0 1 0 1 0 0 1 0  1  0  0  4
+thres = 0.5  2 0 0 1 0 0 1 0 1 0  1  0  0  4
+thres = 0.45 2 0 0 1 0 0 0 1 1 0  0  0  0  5
+thres = 0.4  2 0 0 1 0 0 0 0 0 1  0  0  1  5
+thres = 0.35 2 0 0 0 0 1 0 0 0 0  0  0  1  6
+thres = 0.3  2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.25 2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.2  2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.15 2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.1  2 0 0 0 0 0 0 1 0 0  0  0  0  7
+thres = 0.05 2 0 0 0 0 0 0 0 0 0  0  0  1  7
+thres = 0    0 0 0 0 0 0 0 0 0 0  0  0  0 10
+
+$freq.dec.lims
+                 0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 0.521082 2 0 0 1 0 1 0 0 1 0  1  0  0  4
+thres = 0.622615 2 0 0 1 0 1 0 1 1 0  0  0  0  4
+thres = 0.724149 2 0 1 1 0 0 0 1 1 0  1  0  0  3
+
+attr(,"class")
+[1] "summary.selectboost"
+> summary(fastboost.res.x, force.dec=FALSE)
+$crit.func.values
+    c0 = 1 c0 = 0.897 c0 = 0.532 c0 = 0.414  c0 = 0.39 c0 = 0.333 c0 = 0.291 
+     0.800      0.800      0.832      0.757      0.918      0.892      0.819 
+c0 = 0.259 c0 = 0.224 c0 = 0.185 c0 = 0.146 c0 = 0.035     c0 = 0 
+     0.874      0.855      0.843      0.851      0.942      0.913 
+
+$crit.func.values.lim
+   crit.func.values.lim.red crit.func.values.lim.orange 
+                  0.8082830                   0.8535385 
+ crit.func.values.lim.green 
+                  0.8987939 
+
+$force.dec
+[1] FALSE
+
+$index.lim
+   index.lim.red index.lim.orange  index.lim.green 
+               2                4                4 
+
+$col.crit.func.values
+ [1] "red"    "red"    "orange" "orange" NA       NA       NA       NA      
+ [9] NA       NA       NA       NA       NA      
+
+$selectboost_result.dec
+           1    2    3    4    5 6 7    8    9   10
+           0 1.00 1.00 1.00 1.00 0 1 1.00 1.00 1.00
+c0 = 0.897 0 1.00 1.00 1.00 1.00 0 1 1.00 1.00 1.00
+c0 = 0.532 0 1.00 1.00 1.00 0.88 0 1 0.68 1.00 1.00
+c0 = 0.414 0 1.00 1.00 1.00 0.36 0 1 0.68 0.92 1.00
+c0 = 0.39  0 1.00 1.00 1.00 0.36 0 1 0.68 0.92 1.00
+c0 = 0.333 0 1.00 1.00 1.00 0.11 0 1 0.52 0.92 1.00
+c0 = 0.291 0 0.92 1.00 1.00 0.11 0 1 0.45 0.74 0.84
+c0 = 0.259 0 0.92 1.00 1.00 0.09 0 1 0.41 0.62 0.84
+c0 = 0.224 0 0.40 1.00 1.00 0.09 0 1 0.41 0.55 0.80
+c0 = 0.185 0 0.40 1.00 1.00 0.09 0 1 0.39 0.55 0.73
+c0 = 0.146 0 0.40 1.00 1.00 0.09 0 1 0.38 0.46 0.71
+c0 = 0.035 0 0.40 0.97 0.91 0.07 0 1 0.38 0.46 0.71
+c0 = 0     0 0.34 0.93 0.87 0.02 0 1 0.35 0.46 0.65
+
+$freq.dec
+             0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 1    2 0 2 1 0 0 2 0 0 0  0  2  0  1
+thres = 0.95 2 0 2 1 0 0 2 0 0 0  0  1  1  1
+thres = 0.9  2 0 2 0 0 0 2 0 1 0  0  0  1  2
+thres = 0.85 2 0 1 1 0 0 2 0 1 0  0  0  0  3
+thres = 0.8  2 0 1 1 0 0 1 0 1 1  0  0  0  3
+thres = 0.75 2 0 1 1 0 0 1 0 1 1  0  0  0  3
+thres = 0.7  2 0 1 1 0 0 0 1 1 0  0  0  1  3
+thres = 0.65 2 0 0 1 0 1 0 1 1 0  0  0  0  4
+thres = 0.6  2 0 0 1 0 1 0 0 2 0  0  0  0  4
+thres = 0.55 2 0 0 1 0 1 0 0 1 0  1  0  0  4
+thres = 0.5  2 0 0 1 0 0 1 0 1 0  1  0  0  4
+thres = 0.45 2 0 0 1 0 0 0 1 1 0  0  0  0  5
+thres = 0.4  2 0 0 1 0 0 0 0 0 1  0  0  1  5
+thres = 0.35 2 0 0 0 0 1 0 0 0 0  0  0  1  6
+thres = 0.3  2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.25 2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.2  2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.15 2 0 0 0 0 1 0 0 0 0  0  0  0  7
+thres = 0.1  2 0 0 0 0 0 0 1 0 0  0  0  0  7
+thres = 0.05 2 0 0 0 0 0 0 0 0 0  0  0  1  7
+thres = 0    0 0 0 0 0 0 0 0 0 0  0  0  0 10
+
+$freq.dec.lims
+                 0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 0.808283 2 0 1 1 0 0 1 0 2 0  0  0  0  3
+thres = 0.853538 2 0 1 1 0 0 2 0 1 0  0  0  0  3
+thres = 0.898794 2 0 2 0 0 0 2 0 1 0  0  0  1  2
+
+attr(,"class")
+[1] "summary.selectboost"
+> 
+> data(fastboost.res.x.adapt)
+> summary(fastboost.res.x.adapt)
+$crit.func.values
+           c0 = 0.897 c0 = 0.532 c0 = 0.414  c0 = 0.39 c0 = 0.333 c0 = 0.291 
+     0.800      0.800      0.696      0.553      0.553      0.491      0.384 
+c0 = 0.259 c0 = 0.224 c0 = 0.185 c0 = 0.146 c0 = 0.035     c0 = 0 
+     0.355      0.286      0.241      0.228      0.222      0.204 
+
+$crit.func.values.lim
+   crit.func.values.lim.red crit.func.values.lim.orange 
+                  0.2618609                   0.4471538 
+ crit.func.values.lim.green 
+                  0.6324468 
+
+$force.dec
+[1] TRUE
+
+$index.lim
+   index.lim.red index.lim.orange  index.lim.green 
+               1                2                3 
+
+$col.crit.func.values
+ [1] "red"    "orange" "green"  NA       NA       NA       NA       NA      
+ [9] NA       NA       NA       NA       NA      
+
+$selectboost_result.dec
+           1    2    3    4    5    6 7    8    9   10
+           0 1.00 1.00 1.00 1.00 1.00 0 1.00 1.00 1.00
+c0 = 0.897 0 1.00 1.00 1.00 1.00 1.00 0 1.00 1.00 1.00
+c0 = 0.532 0 1.00 1.00 1.00 0.68 0.71 0 0.57 1.00 1.00
+c0 = 0.414 0 1.00 1.00 1.00 0.36 0.34 0 0.24 0.92 0.67
+c0 = 0.39  0 1.00 1.00 1.00 0.36 0.34 0 0.24 0.92 0.67
+c0 = 0.333 0 1.00 0.93 1.00 0.12 0.13 0 0.14 0.92 0.67
+c0 = 0.291 0 0.92 0.93 1.00 0.12 0.00 0 0.00 0.57 0.30
+c0 = 0.259 0 0.92 0.93 1.00 0.00 0.00 0 0.00 0.50 0.20
+c0 = 0.224 0 0.28 0.89 0.99 0.00 0.00 0 0.00 0.50 0.20
+c0 = 0.185 0 0.28 0.89 0.72 0.00 0.00 0 0.00 0.50 0.02
+c0 = 0.146 0 0.28 0.83 0.71 0.00 0.00 0 0.00 0.44 0.02
+c0 = 0.035 0 0.28 0.77 0.71 0.00 0.00 0 0.00 0.44 0.02
+c0 = 0     0 0.20 0.77 0.71 0.00 0.00 0 0.00 0.34 0.02
+
+$freq.dec
+             0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 1    2 0 3 2 0 1 1 0 1 0  0  0  0  0
+thres = 0.95 2 0 3 2 0 1 1 0 0 1  0  0  0  0
+thres = 0.9  2 0 3 1 0 0 1 0 2 1  0  0  0  0
+thres = 0.85 2 0 3 1 0 0 1 0 1 1  1  0  0  0
+thres = 0.8  2 0 3 1 0 0 1 0 1 1  0  1  0  0
+thres = 0.75 2 0 3 1 0 0 1 0 1 1  0  0  0  1
+thres = 0.7  2 0 2 2 0 0 1 0 1 0  0  0  0  2
+thres = 0.65 2 0 1 2 0 0 2 0 1 0  0  0  0  2
+thres = 0.6  2 0 1 2 0 0 2 0 1 0  0  0  0  2
+thres = 0.55 2 0 0 3 0 0 1 1 1 0  0  0  0  2
+thres = 0.5  2 0 0 3 0 0 1 0 1 0  1  0  0  2
+thres = 0.45 2 0 0 3 0 0 1 0 1 0  1  0  0  2
+thres = 0.4  2 0 0 3 0 0 1 0 1 0  0  0  1  2
+thres = 0.35 2 0 0 2 0 1 1 0 1 0  0  0  1  2
+thres = 0.3  2 0 0 1 0 2 0 1 1 0  0  0  0  3
+thres = 0.25 2 0 0 1 0 2 0 1 0 0  0  0  1  3
+thres = 0.2  2 0 0 0 0 3 0 0 0 1  0  0  0  4
+thres = 0.15 2 0 0 0 0 3 0 0 0 1  0  0  0  4
+thres = 0.1  2 0 0 0 0 0 2 1 0 1  0  0  0  4
+thres = 0.05 2 0 0 0 0 0 2 1 0 1  0  0  0  4
+thres = 0    0 0 0 0 0 0 0 0 0 0  0  0  0 10
+
+$freq.dec.lims
+                 0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 0.261861 2 0 0 1 0 2 0 1 0 0  0  0  1  3
+thres = 0.447154 2 0 0 3 0 0 1 0 1 0  1  0  0  2
+thres = 0.632447 2 0 1 2 0 0 2 0 1 0  0  0  0  2
+
+attr(,"class")
+[1] "summary.selectboost"
+> 
+> data(fastboost.res.x2)
+> summary(fastboost.res.x2)
+$crit.func.values
+           c0 = 0.959  c0 = 0.37 c0 = 0.242 c0 = 0.171 c0 = 0.127 c0 = 0.097 
+0.42187500 0.42187500 0.26953125 0.22750000 0.22062500 0.20843750 0.19187500 
+c0 = 0.073 c0 = 0.047 c0 = 0.031 c0 = 0.014     c0 = 0     c0 = 0 
+0.18265625 0.17328125 0.15656250 0.14078125 0.12500000 0.06859375 
+
+$crit.func.values.lim
+   crit.func.values.lim.red crit.func.values.lim.orange 
+                  0.1276775                   0.2160457 
+ crit.func.values.lim.green 
+                  0.3044138 
+
+$force.dec
+[1] TRUE
+
+$index.lim
+   index.lim.red index.lim.orange  index.lim.green 
+               1                2                3 
+
+$col.crit.func.values
+ [1] "red"    "orange" "green"  NA       NA       NA       NA       NA      
+ [9] NA       NA       NA       NA       NA      
+
+$selectboost_result.dec
+           1    2    3    4    5 6    7 8    9   10   11   12 13 14 15 16 17
+           0 1.00 1.00 1.00 1.00 0 1.00 0 1.00 1.00 1.00 1.00  0  0  0  0  0
+c0 = 0.959 0 1.00 1.00 1.00 1.00 0 1.00 0 1.00 1.00 1.00 1.00  0  0  0  0  0
+c0 = 0.37  0 1.00 0.96 1.00 0.88 0 0.92 0 1.00 1.00 0.32 0.98  0  0  0  0  0
+c0 = 0.242 0 0.59 0.96 1.00 0.88 0 0.92 0 1.00 0.87 0.32 0.98  0  0  0  0  0
+c0 = 0.171 0 0.59 0.96 0.93 0.78 0 0.92 0 1.00 0.87 0.32 0.98  0  0  0  0  0
+c0 = 0.127 0 0.59 0.96 0.93 0.78 0 0.85 0 1.00 0.77 0.09 0.92  0  0  0  0  0
+c0 = 0.097 0 0.59 0.96 0.92 0.77 0 0.85 0 1.00 0.77 0.00 0.74  0  0  0  0  0
+c0 = 0.073 0 0.59 0.96 0.92 0.70 0 0.75 0 0.95 0.75 0.00 0.70  0  0  0  0  0
+c0 = 0.047 0 0.55 0.96 0.92 0.66 0 0.50 0 0.95 0.74 0.00 0.70  0  0  0  0  0
+c0 = 0.031 0 0.43 0.96 0.92 0.53 0 0.43 0 0.94 0.73 0.00 0.70  0  0  0  0  0
+c0 = 0.014 0 0.33 0.94 0.90 0.53 0 0.37 0 0.88 0.73 0.00 0.61  0  0  0  0  0
+c0 = 0     0 0.27 0.93 0.84 0.51 0 0.34 0 0.88 0.73 0.00 0.59  0  0  0  0  0
+c0 = 0     0 0.07 0.39 0.31 0.40 0 0.34 0 0.38 0.27 0.00 0.38  0  0  0  0  0
+             18   19   20 21   22 23   24 25 26   27   28   29   30 31   32
+           1.00 1.00 1.00  0 1.00  0 1.00  0  0 1.00 1.00 1.00 1.00  0 1.00
+c0 = 0.959 1.00 1.00 1.00  0 1.00  0 1.00  0  0 1.00 1.00 1.00 1.00  0 1.00
+c0 = 0.37  0.28 0.56 1.00  0 0.72  0 0.48  0  0 0.64 0.36 0.28 0.61  0 0.54
+c0 = 0.242 0.28 0.43 0.44  0 0.60  0 0.38  0  0 0.45 0.36 0.28 0.32  0 0.28
+c0 = 0.171 0.28 0.41 0.44  0 0.60  0 0.38  0  0 0.37 0.36 0.28 0.24  0 0.28
+c0 = 0.127 0.28 0.41 0.44  0 0.60  0 0.38  0  0 0.36 0.35 0.28 0.24  0 0.28
+c0 = 0.097 0.21 0.37 0.44  0 0.59  0 0.22  0  0 0.36 0.19 0.23 0.24  0 0.28
+c0 = 0.073 0.21 0.37 0.37  0 0.59  0 0.22  0  0 0.36 0.11 0.18 0.24  0 0.28
+c0 = 0.047 0.15 0.37 0.37  0 0.57  0 0.22  0  0 0.36 0.03 0.18 0.17  0 0.25
+c0 = 0.031 0.15 0.36 0.37  0 0.57  0 0.16  0  0 0.36 0.01 0.09 0.17  0 0.21
+c0 = 0.014 0.15 0.36 0.37  0 0.54  0 0.04  0  0 0.36 0.01 0.09 0.17  0 0.21
+c0 = 0     0.13 0.36 0.37  0 0.54  0 0.00  0  0 0.28 0.01 0.09 0.05  0 0.07
+c0 = 0     0.13 0.33 0.05  0 0.54  0 0.00  0  0 0.04 0.01 0.00 0.05  0 0.07
+             33   34 35 36   37 38 39 40 41 42 43 44 45   46 47 48 49 50   51
+           1.00 1.00  0  0 1.00  0  0  0  0  0  0  0  0 1.00  0  0  0  0 1.00
+c0 = 0.959 1.00 1.00  0  0 1.00  0  0  0  0  0  0  0  0 1.00  0  0  0  0 1.00
+c0 = 0.37  0.36 0.54  0  0 0.44  0  0  0  0  0  0  0  0 0.70  0  0  0  0 0.72
+c0 = 0.242 0.36 0.54  0  0 0.44  0  0  0  0  0  0  0  0 0.56  0  0  0  0 0.44
+c0 = 0.171 0.36 0.54  0  0 0.39  0  0  0  0  0  0  0  0 0.56  0  0  0  0 0.44
+c0 = 0.127 0.30 0.46  0  0 0.37  0  0  0  0  0  0  0  0 0.48  0  0  0  0 0.44
+c0 = 0.097 0.29 0.36  0  0 0.37  0  0  0  0  0  0  0  0 0.48  0  0  0  0 0.44
+c0 = 0.073 0.29 0.28  0  0 0.34  0  0  0  0  0  0  0  0 0.48  0  0  0  0 0.44
+c0 = 0.047 0.29 0.28  0  0 0.34  0  0  0  0  0  0  0  0 0.48  0  0  0  0 0.44
+c0 = 0.031 0.00 0.28  0  0 0.25  0  0  0  0  0  0  0  0 0.44  0  0  0  0 0.38
+c0 = 0.014 0.00 0.28  0  0 0.09  0  0  0  0  0  0  0  0 0.24  0  0  0  0 0.29
+c0 = 0     0.00 0.18  0  0 0.00  0  0  0  0  0  0  0  0 0.20  0  0  0  0 0.18
+c0 = 0     0.00 0.00  0  0 0.00  0  0  0  0  0  0  0  0 0.07  0  0  0  0 0.18
+             52 53 54 55 56   57 58 59   60 61 62 63 64
+           1.00  0  0  0  0 1.00  0  0 1.00  0  0  0  0
+c0 = 0.959 1.00  0  0  0  0 1.00  0  0 1.00  0  0  0  0
+c0 = 0.37  0.16  0  0  0  0 0.48  0  0 0.32  0  0  0  0
+c0 = 0.242 0.16  0  0  0  0 0.40  0  0 0.32  0  0  0  0
+c0 = 0.171 0.16  0  0  0  0 0.40  0  0 0.28  0  0  0  0
+c0 = 0.127 0.14  0  0  0  0 0.36  0  0 0.28  0  0  0  0
+c0 = 0.097 0.00  0  0  0  0 0.33  0  0 0.28  0  0  0  0
+c0 = 0.073 0.00  0  0  0  0 0.33  0  0 0.28  0  0  0  0
+c0 = 0.047 0.00  0  0  0  0 0.33  0  0 0.28  0  0  0  0
+c0 = 0.031 0.00  0  0  0  0 0.33  0  0 0.25  0  0  0  0
+c0 = 0.014 0.00  0  0  0  0 0.27  0  0 0.25  0  0  0  0
+c0 = 0     0.00  0  0  0  0 0.22  0  0 0.23  0  0  0  0
+c0 = 0     0.00  0  0  0  0 0.22  0  0 0.16  0  0  0  0
+
+$freq.dec
+              0 1  2 3 4 5 6 7 8 9 10 11 12 13
+thres = 1    37 0 22 3 1 0 0 1 0 0  0  0  0  0
+thres = 0.95 37 0 20 3 1 1 0 0 0 1  1  0  0  0
+thres = 0.9  37 0 19 3 0 1 1 0 0 0  1  1  1  0
+thres = 0.85 37 0 18 2 1 1 1 1 0 0  0  1  2  0
+thres = 0.8  37 0 18 2 1 1 1 1 0 0  0  0  3  0
+thres = 0.75 37 0 18 2 0 0 1 1 2 0  0  0  3  0
+thres = 0.7  37 0 15 5 0 0 0 0 2 0  1  0  4  0
+thres = 0.65 37 0 15 5 0 0 0 0 1 1  1  0  4  0
+thres = 0.6  37 0 13 6 0 0 1 0 1 1  0  1  4  0
+thres = 0.55 37 0 12 5 0 1 0 0 2 1  1  0  5  0
+thres = 0.5  37 0 10 6 0 2 0 0 0 2  0  0  6  1
+thres = 0.45 37 0  8 7 1 0 1 0 0 3  0  0  6  1
+thres = 0.4  37 0  7 3 2 1 2 1 0 1  3  0  5  2
+thres = 0.35 37 0  5 2 0 1 3 2 0 0  3  2  4  5
+thres = 0.3  37 0  3 1 2 1 3 1 0 1  3  2  2  8
+thres = 0.25 37 0  1 0 1 1 4 0 0 2  2  4  3  9
+thres = 0.2  37 0  1 0 0 1 1 1 2 2  1  3  5 10
+thres = 0.15 37 0  0 0 0 2 0 1 0 2  2  3  5 12
+thres = 0.1  37 0  0 0 0 1 1 0 1 2  2  2  5 13
+thres = 0.05 37 0  0 0 0 0 2 0 1 1  1  1  3 18
+thres = 0     0 0  0 0 0 0 0 0 0 0  0  0  0 64
+
+$freq.dec.lims
+                  0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 0.127677 37 0 0 0 0 1 1 1 0 2  2  2  5 13
+thres = 0.216046 37 0 1 0 0 1 2 1 1 3  1  3  4 10
+thres = 0.304414 37 0 3 1 2 2 2 1 0 1  3  2  2  8
+
+attr(,"class")
+[1] "summary.selectboost"
+> summary(fastboost.res.x2, force.dec=FALSE)
+$crit.func.values
+    c0 = 1 c0 = 0.959  c0 = 0.37 c0 = 0.242 c0 = 0.171 c0 = 0.127 c0 = 0.097 
+ 0.4218750  0.4218750  0.5365625  0.5621875  0.5754687  0.5803125  0.5650000 
+c0 = 0.073 c0 = 0.047 c0 = 0.031 c0 = 0.014     c0 = 0     c0 = 0 
+ 0.5617188  0.5668750  0.5507812  0.5367188  0.5204688  0.4312500 
+
+$crit.func.values.lim
+   crit.func.values.lim.red crit.func.values.lim.orange 
+                  0.4749312                   0.5254688 
+ crit.func.values.lim.green 
+                  0.5760063 
+
+$force.dec
+[1] FALSE
+
+$index.lim
+   index.lim.red index.lim.orange  index.lim.green 
+               2                2                5 
+
+$col.crit.func.values
+ [1] "red"   "red"   "green" "green" "green" NA      NA      NA      NA     
+[10] NA      NA      NA      NA     
+
+$selectboost_result.dec
+           1    2    3    4    5 6    7 8    9   10   11   12 13 14 15 16 17
+           0 1.00 1.00 1.00 1.00 0 1.00 0 1.00 1.00 1.00 1.00  0  0  0  0  0
+c0 = 0.959 0 1.00 1.00 1.00 1.00 0 1.00 0 1.00 1.00 1.00 1.00  0  0  0  0  0
+c0 = 0.37  0 1.00 0.96 1.00 0.88 0 0.92 0 1.00 1.00 0.32 0.98  0  0  0  0  0
+c0 = 0.242 0 0.59 0.96 1.00 0.88 0 0.92 0 1.00 0.87 0.32 0.98  0  0  0  0  0
+c0 = 0.171 0 0.59 0.96 0.93 0.78 0 0.92 0 1.00 0.87 0.32 0.98  0  0  0  0  0
+c0 = 0.127 0 0.59 0.96 0.93 0.78 0 0.85 0 1.00 0.77 0.09 0.92  0  0  0  0  0
+c0 = 0.097 0 0.59 0.96 0.92 0.77 0 0.85 0 1.00 0.77 0.00 0.74  0  0  0  0  0
+c0 = 0.073 0 0.59 0.96 0.92 0.70 0 0.75 0 0.95 0.75 0.00 0.70  0  0  0  0  0
+c0 = 0.047 0 0.55 0.96 0.92 0.66 0 0.50 0 0.95 0.74 0.00 0.70  0  0  0  0  0
+c0 = 0.031 0 0.43 0.96 0.92 0.53 0 0.43 0 0.94 0.73 0.00 0.70  0  0  0  0  0
+c0 = 0.014 0 0.33 0.94 0.90 0.53 0 0.37 0 0.88 0.73 0.00 0.61  0  0  0  0  0
+c0 = 0     0 0.27 0.93 0.84 0.51 0 0.34 0 0.88 0.73 0.00 0.59  0  0  0  0  0
+c0 = 0     0 0.07 0.39 0.31 0.40 0 0.34 0 0.38 0.27 0.00 0.38  0  0  0  0  0
+             18   19   20 21   22 23   24 25 26   27   28   29   30 31   32
+           1.00 1.00 1.00  0 1.00  0 1.00  0  0 1.00 1.00 1.00 1.00  0 1.00
+c0 = 0.959 1.00 1.00 1.00  0 1.00  0 1.00  0  0 1.00 1.00 1.00 1.00  0 1.00
+c0 = 0.37  0.28 0.56 1.00  0 0.72  0 0.48  0  0 0.64 0.36 0.28 0.61  0 0.54
+c0 = 0.242 0.28 0.43 0.44  0 0.60  0 0.38  0  0 0.45 0.36 0.28 0.32  0 0.28
+c0 = 0.171 0.28 0.41 0.44  0 0.60  0 0.38  0  0 0.37 0.36 0.28 0.24  0 0.28
+c0 = 0.127 0.28 0.41 0.44  0 0.60  0 0.38  0  0 0.36 0.35 0.28 0.24  0 0.28
+c0 = 0.097 0.21 0.37 0.44  0 0.59  0 0.22  0  0 0.36 0.19 0.23 0.24  0 0.28
+c0 = 0.073 0.21 0.37 0.37  0 0.59  0 0.22  0  0 0.36 0.11 0.18 0.24  0 0.28
+c0 = 0.047 0.15 0.37 0.37  0 0.57  0 0.22  0  0 0.36 0.03 0.18 0.17  0 0.25
+c0 = 0.031 0.15 0.36 0.37  0 0.57  0 0.16  0  0 0.36 0.01 0.09 0.17  0 0.21
+c0 = 0.014 0.15 0.36 0.37  0 0.54  0 0.04  0  0 0.36 0.01 0.09 0.17  0 0.21
+c0 = 0     0.13 0.36 0.37  0 0.54  0 0.00  0  0 0.28 0.01 0.09 0.05  0 0.07
+c0 = 0     0.13 0.33 0.05  0 0.54  0 0.00  0  0 0.04 0.01 0.00 0.05  0 0.07
+             33   34 35 36   37 38 39 40 41 42 43 44 45   46 47 48 49 50   51
+           1.00 1.00  0  0 1.00  0  0  0  0  0  0  0  0 1.00  0  0  0  0 1.00
+c0 = 0.959 1.00 1.00  0  0 1.00  0  0  0  0  0  0  0  0 1.00  0  0  0  0 1.00
+c0 = 0.37  0.36 0.54  0  0 0.44  0  0  0  0  0  0  0  0 0.70  0  0  0  0 0.72
+c0 = 0.242 0.36 0.54  0  0 0.44  0  0  0  0  0  0  0  0 0.56  0  0  0  0 0.44
+c0 = 0.171 0.36 0.54  0  0 0.39  0  0  0  0  0  0  0  0 0.56  0  0  0  0 0.44
+c0 = 0.127 0.30 0.46  0  0 0.37  0  0  0  0  0  0  0  0 0.48  0  0  0  0 0.44
+c0 = 0.097 0.29 0.36  0  0 0.37  0  0  0  0  0  0  0  0 0.48  0  0  0  0 0.44
+c0 = 0.073 0.29 0.28  0  0 0.34  0  0  0  0  0  0  0  0 0.48  0  0  0  0 0.44
+c0 = 0.047 0.29 0.28  0  0 0.34  0  0  0  0  0  0  0  0 0.48  0  0  0  0 0.44
+c0 = 0.031 0.00 0.28  0  0 0.25  0  0  0  0  0  0  0  0 0.44  0  0  0  0 0.38
+c0 = 0.014 0.00 0.28  0  0 0.09  0  0  0  0  0  0  0  0 0.24  0  0  0  0 0.29
+c0 = 0     0.00 0.18  0  0 0.00  0  0  0  0  0  0  0  0 0.20  0  0  0  0 0.18
+c0 = 0     0.00 0.00  0  0 0.00  0  0  0  0  0  0  0  0 0.07  0  0  0  0 0.18
+             52 53 54 55 56   57 58 59   60 61 62 63 64
+           1.00  0  0  0  0 1.00  0  0 1.00  0  0  0  0
+c0 = 0.959 1.00  0  0  0  0 1.00  0  0 1.00  0  0  0  0
+c0 = 0.37  0.16  0  0  0  0 0.48  0  0 0.32  0  0  0  0
+c0 = 0.242 0.16  0  0  0  0 0.40  0  0 0.32  0  0  0  0
+c0 = 0.171 0.16  0  0  0  0 0.40  0  0 0.28  0  0  0  0
+c0 = 0.127 0.14  0  0  0  0 0.36  0  0 0.28  0  0  0  0
+c0 = 0.097 0.00  0  0  0  0 0.33  0  0 0.28  0  0  0  0
+c0 = 0.073 0.00  0  0  0  0 0.33  0  0 0.28  0  0  0  0
+c0 = 0.047 0.00  0  0  0  0 0.33  0  0 0.28  0  0  0  0
+c0 = 0.031 0.00  0  0  0  0 0.33  0  0 0.25  0  0  0  0
+c0 = 0.014 0.00  0  0  0  0 0.27  0  0 0.25  0  0  0  0
+c0 = 0     0.00  0  0  0  0 0.22  0  0 0.23  0  0  0  0
+c0 = 0     0.00  0  0  0  0 0.22  0  0 0.16  0  0  0  0
+
+$freq.dec
+              0 1  2 3 4 5 6 7 8 9 10 11 12 13
+thres = 1    37 0 22 3 1 0 0 1 0 0  0  0  0  0
+thres = 0.95 37 0 20 3 1 1 0 0 0 1  1  0  0  0
+thres = 0.9  37 0 19 3 0 1 1 0 0 0  1  1  1  0
+thres = 0.85 37 0 18 2 1 1 1 1 0 0  0  1  2  0
+thres = 0.8  37 0 18 2 1 1 1 1 0 0  0  0  3  0
+thres = 0.75 37 0 18 2 0 0 1 1 2 0  0  0  3  0
+thres = 0.7  37 0 15 5 0 0 0 0 2 0  1  0  4  0
+thres = 0.65 37 0 15 5 0 0 0 0 1 1  1  0  4  0
+thres = 0.6  37 0 13 6 0 0 1 0 1 1  0  1  4  0
+thres = 0.55 37 0 12 5 0 1 0 0 2 1  1  0  5  0
+thres = 0.5  37 0 10 6 0 2 0 0 0 2  0  0  6  1
+thres = 0.45 37 0  8 7 1 0 1 0 0 3  0  0  6  1
+thres = 0.4  37 0  7 3 2 1 2 1 0 1  3  0  5  2
+thres = 0.35 37 0  5 2 0 1 3 2 0 0  3  2  4  5
+thres = 0.3  37 0  3 1 2 1 3 1 0 1  3  2  2  8
+thres = 0.25 37 0  1 0 1 1 4 0 0 2  2  4  3  9
+thres = 0.2  37 0  1 0 0 1 1 1 2 2  1  3  5 10
+thres = 0.15 37 0  0 0 0 2 0 1 0 2  2  3  5 12
+thres = 0.1  37 0  0 0 0 1 1 0 1 2  2  2  5 13
+thres = 0.05 37 0  0 0 0 0 2 0 1 1  1  1  3 18
+thres = 0     0 0  0 0 0 0 0 0 0 0  0  0  0 64
+
+$freq.dec.lims
+                  0 1  2 3 4 5 6 7 8 9 10 11 12 13
+thres = 0.474931 37 0  8 8 0 1 0 0 0 3  0  0  6  1
+thres = 0.525469 37 0 10 6 0 2 0 0 1 1  0  1  5  1
+thres = 0.576006 37 0 13 5 0 0 0 0 3 1  0  0  5  0
+
+attr(,"class")
+[1] "summary.selectboost"
+> 
+> data(fastboost.res.x2.adapt)
+> summary(fastboost.res.x2.adapt)
+$crit.func.values
+           c0 = 0.959  c0 = 0.37 c0 = 0.242 c0 = 0.171 c0 = 0.127 c0 = 0.097 
+0.42187500 0.42187500 0.26968750 0.22859375 0.22218750 0.21140625 0.19421875 
+c0 = 0.073 c0 = 0.047 c0 = 0.031 c0 = 0.014     c0 = 0     c0 = 0 
+0.18562500 0.17593750 0.16109375 0.14656250 0.12953125 0.07109375 
+
+$crit.func.values.lim
+   crit.func.values.lim.red crit.func.values.lim.orange 
+                  0.1312478                   0.2184375 
+ crit.func.values.lim.green 
+                  0.3056272 
+
+$force.dec
+[1] TRUE
+
+$index.lim
+   index.lim.red index.lim.orange  index.lim.green 
+               1                2                3 
+
+$col.crit.func.values
+ [1] "red"    "orange" "green"  NA       NA       NA       NA       NA      
+ [9] NA       NA       NA       NA       NA      
+
+$selectboost_result.dec
+           1    2    3    4    5 6    7 8    9   10   11   12 13 14 15 16 17
+           0 1.00 1.00 1.00 1.00 0 1.00 0 1.00 1.00 1.00 1.00  0  0  0  0  0
+c0 = 0.959 0 1.00 1.00 1.00 1.00 0 1.00 0 1.00 1.00 1.00 1.00  0  0  0  0  0
+c0 = 0.37  0 1.00 0.95 1.00 0.88 0 0.92 0 1.00 1.00 0.32 0.98  0  0  0  0  0
+c0 = 0.242 0 0.60 0.95 1.00 0.88 0 0.92 0 1.00 0.88 0.32 0.98  0  0  0  0  0
+c0 = 0.171 0 0.60 0.95 0.91 0.78 0 0.92 0 1.00 0.88 0.32 0.98  0  0  0  0  0
+c0 = 0.127 0 0.60 0.95 0.91 0.78 0 0.84 0 1.00 0.81 0.08 0.90  0  0  0  0  0
+c0 = 0.097 0 0.60 0.95 0.86 0.77 0 0.84 0 1.00 0.81 0.00 0.74  0  0  0  0  0
+c0 = 0.073 0 0.60 0.95 0.86 0.65 0 0.78 0 0.97 0.77 0.00 0.73  0  0  0  0  0
+c0 = 0.047 0 0.55 0.95 0.85 0.64 0 0.45 0 0.97 0.75 0.00 0.73  0  0  0  0  0
+c0 = 0.031 0 0.47 0.94 0.85 0.57 0 0.40 0 0.95 0.75 0.00 0.73  0  0  0  0  0
+c0 = 0.014 0 0.33 0.94 0.84 0.54 0 0.36 0 0.90 0.72 0.00 0.69  0  0  0  0  0
+c0 = 0     0 0.33 0.92 0.75 0.54 0 0.32 0 0.90 0.72 0.00 0.66  0  0  0  0  0
+c0 = 0     0 0.08 0.37 0.24 0.42 0 0.32 0 0.38 0.27 0.00 0.43  0  0  0  0  0
+             18   19   20 21   22 23   24 25 26   27   28   29   30 31   32
+           1.00 1.00 1.00  0 1.00  0 1.00  0  0 1.00 1.00 1.00 1.00  0 1.00
+c0 = 0.959 1.00 1.00 1.00  0 1.00  0 1.00  0  0 1.00 1.00 1.00 1.00  0 1.00
+c0 = 0.37  0.28 0.56 1.00  0 0.72  0 0.48  0  0 0.66 0.36 0.28 0.62  0 0.53
+c0 = 0.242 0.28 0.43 0.47  0 0.60  0 0.40  0  0 0.44 0.36 0.28 0.32  0 0.30
+c0 = 0.171 0.28 0.43 0.45  0 0.60  0 0.40  0  0 0.37 0.36 0.28 0.24  0 0.30
+c0 = 0.127 0.26 0.43 0.45  0 0.60  0 0.40  0  0 0.36 0.36 0.28 0.24  0 0.30
+c0 = 0.097 0.25 0.39 0.45  0 0.60  0 0.21  0  0 0.36 0.19 0.21 0.24  0 0.30
+c0 = 0.073 0.25 0.39 0.38  0 0.60  0 0.21  0  0 0.36 0.12 0.20 0.24  0 0.29
+c0 = 0.047 0.22 0.39 0.38  0 0.59  0 0.21  0  0 0.36 0.04 0.20 0.16  0 0.29
+c0 = 0.031 0.22 0.38 0.38  0 0.59  0 0.10  0  0 0.36 0.04 0.12 0.16  0 0.23
+c0 = 0.014 0.22 0.38 0.38  0 0.59  0 0.06  0  0 0.36 0.02 0.10 0.16  0 0.23
+c0 = 0     0.19 0.38 0.38  0 0.56  0 0.00  0  0 0.29 0.02 0.10 0.05  0 0.08
+c0 = 0     0.19 0.35 0.07  0 0.56  0 0.00  0  0 0.03 0.02 0.00 0.05  0 0.08
+             33   34 35 36   37 38 39 40 41 42 43 44 45   46 47 48 49 50   51
+           1.00 1.00  0  0 1.00  0  0  0  0  0  0  0  0 1.00  0  0  0  0 1.00
+c0 = 0.959 1.00 1.00  0  0 1.00  0  0  0  0  0  0  0  0 1.00  0  0  0  0 1.00
+c0 = 0.37  0.36 0.54  0  0 0.44  0  0  0  0  0  0  0  0 0.71  0  0  0  0 0.72
+c0 = 0.242 0.36 0.54  0  0 0.44  0  0  0  0  0  0  0  0 0.55  0  0  0  0 0.44
+c0 = 0.171 0.36 0.54  0  0 0.43  0  0  0  0  0  0  0  0 0.55  0  0  0  0 0.44
+c0 = 0.127 0.34 0.48  0  0 0.43  0  0  0  0  0  0  0  0 0.47  0  0  0  0 0.44
+c0 = 0.097 0.31 0.41  0  0 0.38  0  0  0  0  0  0  0  0 0.47  0  0  0  0 0.44
+c0 = 0.073 0.31 0.28  0  0 0.38  0  0  0  0  0  0  0  0 0.47  0  0  0  0 0.44
+c0 = 0.047 0.31 0.28  0  0 0.38  0  0  0  0  0  0  0  0 0.47  0  0  0  0 0.44
+c0 = 0.031 0.06 0.28  0  0 0.25  0  0  0  0  0  0  0  0 0.45  0  0  0  0 0.39
+c0 = 0.014 0.06 0.28  0  0 0.13  0  0  0  0  0  0  0  0 0.25  0  0  0  0 0.30
+c0 = 0     0.00 0.17  0  0 0.05  0  0  0  0  0  0  0  0 0.20  0  0  0  0 0.17
+c0 = 0     0.00 0.00  0  0 0.05  0  0  0  0  0  0  0  0 0.06  0  0  0  0 0.17
+             52 53 54 55 56   57 58 59   60 61 62 63 64
+           1.00  0  0  0  0 1.00  0  0 1.00  0  0  0  0
+c0 = 0.959 1.00  0  0  0  0 1.00  0  0 1.00  0  0  0  0
+c0 = 0.37  0.16  0  0  0  0 0.47  0  0 0.32  0  0  0  0
+c0 = 0.242 0.16  0  0  0  0 0.41  0  0 0.32  0  0  0  0
+c0 = 0.171 0.16  0  0  0  0 0.41  0  0 0.28  0  0  0  0
+c0 = 0.127 0.13  0  0  0  0 0.41  0  0 0.28  0  0  0  0
+c0 = 0.097 0.00  0  0  0  0 0.37  0  0 0.28  0  0  0  0
+c0 = 0.073 0.00  0  0  0  0 0.37  0  0 0.28  0  0  0  0
+c0 = 0.047 0.00  0  0  0  0 0.37  0  0 0.28  0  0  0  0
+c0 = 0.031 0.00  0  0  0  0 0.37  0  0 0.27  0  0  0  0
+c0 = 0.014 0.00  0  0  0  0 0.29  0  0 0.25  0  0  0  0
+c0 = 0     0.00  0  0  0  0 0.26  0  0 0.25  0  0  0  0
+c0 = 0     0.00  0  0  0  0 0.26  0  0 0.15  0  0  0  0
+
+$freq.dec
+              0 1  2 3 4 5 6 7 8 9 10 11 12 13
+thres = 1    37 0 22 3 1 0 0 1 0 0  0  0  0  0
+thres = 0.95 37 0 20 3 1 1 0 0 0 1  1  0  0  0
+thres = 0.9  37 0 19 3 0 1 2 0 0 0  0  0  2  0
+thres = 0.85 37 0 18 2 1 2 1 0 0 0  1  0  2  0
+thres = 0.8  37 0 18 2 1 0 1 2 0 0  0  1  2  0
+thres = 0.75 37 0 18 2 0 0 1 1 1 0  1  0  3  0
+thres = 0.7  37 0 15 5 0 0 0 1 1 0  1  0  4  0
+thres = 0.65 37 0 14 6 0 0 0 0 2 0  0  0  5  0
+thres = 0.6  37 0 13 5 0 0 0 0 3 1  0  0  5  0
+thres = 0.55 37 0 12 5 0 1 0 0 2 0  1  0  5  1
+thres = 0.5  37 0 10 6 0 2 0 0 1 1  0  0  6  1
+thres = 0.45 37 0  8 7 0 0 1 1 0 1  2  0  6  1
+thres = 0.4  37 0  7 2 1 0 4 2 0 1  3  0  4  3
+thres = 0.35 37 0  5 2 0 1 2 1 0 1  4  2  3  6
+thres = 0.3  37 0  3 0 2 1 2 2 0 2  2  2  4  7
+thres = 0.25 37 0  1 0 1 1 3 0 1 2  1  3  5  9
+thres = 0.2  37 0  1 0 0 1 1 0 1 3  1  4  5 10
+thres = 0.15 37 0  0 0 0 2 0 1 0 3  1  2  5 13
+thres = 0.1  37 0  0 0 0 1 1 0 1 1  2  3  5 13
+thres = 0.05 37 0  0 0 0 0 2 0 1 0  0  2  3 19
+thres = 0     0 0  0 0 0 0 0 0 0 0  0  0  0 64
+
+$freq.dec.lims
+                  0 1 2 3 4 5 6 7 8 9 10 11 12 13
+thres = 0.131248 37 0 0 0 0 2 0 1 0 3  1  2  5 13
+thres = 0.218438 37 0 1 0 0 1 3 0 1 1  1  5  4 10
+thres = 0.305627 37 0 3 1 2 1 2 1 0 2  3  1  4  7
+
+attr(,"class")
+[1] "summary.selectboost"
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("summary.selectboost", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("trajC0")
+> ### * trajC0
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: trajC0
+> ### Title: Plot trajectories
+> ### Aliases: trajC0 trajC0.selectboost
+> 
+> ### ** Examples
+> 
+> 
+> data(autoboost.res.x)
+> data(diabetes, package="lars")
+> 
+> ### With lasso trajectories
+> m.x<-lars::lars(diabetes$x,diabetes$y)
+> plot(m.x)
+> mm.x<-predict(m.x,type="coef",mode="lambda")
+> autoboost.res.x.mean = summary(autoboost.res.x)
+> 
+> par(mfrow=c(2,2),mar=c(4,4,1,1))
+> trajC0(autoboost.res.x,autoboost.res.x.mean,lasso.coef.path=mm.x,type.graph="lasso")
+> trajC0(autoboost.res.x,autoboost.res.x.mean)
+> trajC0(autoboost.res.x,autoboost.res.x.mean,type.graph="bars")
+> trajC0(autoboost.res.x,autoboost.res.x.mean,type.x.axis ="scale")
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("trajC0", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("var_select")
+> ### * var_select
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: var_select
+> ### Title: Variable selection functions
+> ### Aliases: var_select lasso_cv_glmnet_bin_min lasso_cv_glmnet_bin_1se
+> ###   lasso_glmnet_bin_AICc lasso_glmnet_bin_BIC lasso_cv_lars_min
+> ###   lasso_cv_lars_1se lasso_cv_glmnet_min lasso_cv_glmnet_min_weighted
+> ###   lasso_cv_glmnet_1se lasso_cv_glmnet_1se_weighted lasso_msgps_Cp
+> ###   lasso_msgps_AICc lasso_msgps_GCV lasso_msgps_BIC enetf_msgps_Cp
+> ###   enetf_msgps_AICc enetf_msgps_GCV enetf_msgps_BIC lasso_cascade
+> 
+> ### ** Examples
+> 
+> set.seed(314)
+> xran=matrix(rnorm(150),30,5)
+> ybin=sample(0:1,30,replace=TRUE)
+> yran=rnorm(30)
+> set.seed(314)
+> lasso_cv_glmnet_bin_min(xran,ybin)
+[1] -0.2541407  0.0000000  0.1191938  0.0000000  0.0000000  0.4885167
+> 
+> set.seed(314)
+> lasso_cv_glmnet_bin_1se(xran,ybin)
+[1] -0.23703995  0.00000000  0.06427661  0.00000000  0.00000000  0.42415945
+> 
+> set.seed(314)
+> lasso_glmnet_bin_AICc(xran,ybin)
+[1] 0.000000 0.000000 0.000000 0.000000 1.138298
+> 
+> set.seed(314)
+> lasso_glmnet_bin_BIC(xran,ybin)
+[1] 0.000000 0.000000 0.000000 0.000000 1.138298
+> 
+> set.seed(314)
+> lasso_cv_lars_min(xran,yran)
+[1] 0 0 0 0 0
+> 
+> set.seed(314)
+> lasso_cv_lars_1se(xran,yran)
+[1] 0 0 0 0 0
+> 
+> set.seed(314)
+> lasso_cv_glmnet_min(xran,yran)
+[1] 0 0 0 0 0
+> 
+> set.seed(314)
+> lasso_cv_glmnet_min_weighted(xran,yran,c(1000,0,0,1,1))
+[1]  0.00000000 -0.05593766 -0.12916707  0.00000000  0.00000000
+> 
+> set.seed(314)
+> lasso_cv_glmnet_1se(xran,yran)
+[1] 0 0 0 0 0
+> 
+> set.seed(314)
+> lasso_cv_glmnet_1se_weighted(xran,yran,c(1000,0,0,1,1))
+[1]  0.00000000 -0.05593766 -0.12916707  0.00000000  0.00000000
+> 
+> set.seed(314)
+> lasso_msgps_Cp(xran,yran)
+V1 V2 V3 V4 V5 
+ 0  0  0  0  0 
+> 
+> set.seed(314)
+> lasso_msgps_AICc(xran,yran)
+V1 V2 V3 V4 V5 
+ 0  0  0  0  0 
+> 
+> set.seed(314)
+> lasso_msgps_GCV(xran,yran)
+V1 V2 V3 V4 V5 
+ 0  0  0  0  0 
+> 
+> set.seed(314)
+> lasso_msgps_BIC(xran,yran)
+V1 V2 V3 V4 V5 
+ 0  0  0  0  0 
+> 
+> set.seed(314)
+> enetf_msgps_Cp(xran,yran)
+V1 V2 V3 V4 V5 
+ 0  0  0  0  0 
+> 
+> set.seed(314)
+> enetf_msgps_AICc(xran,yran)
+V1 V2 V3 V4 V5 
+ 0  0  0  0  0 
+> 
+> set.seed(314)
+> enetf_msgps_GCV(xran,yran)
+V1 V2 V3 V4 V5 
+ 0  0  0  0  0 
+> 
+> set.seed(314)
+> enetf_msgps_BIC(xran,yran)
+V1 V2 V3 V4 V5 
+ 0  0  0  0  0 
+> 
+> set.seed(314)
+> lasso_cascade(t(xran),yran,5,cv.fun=lars::cv.folds)
+Error in sys.frame(sys.nframe() - 12) : not that many frames on the stack
+Calls: lasso_cascade -> eval -> sys.frame
+Execution halted

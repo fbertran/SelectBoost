@@ -1,0 +1,219 @@
+* using log directory ‘/Users/fbertran/Github/SelectBoost/SelectBoost.Rcheck’
+* using R version 3.6.0 (2019-04-26)
+* using platform: x86_64-apple-darwin15.6.0 (64-bit)
+* using session charset: UTF-8
+* using option ‘--as-cran’
+* checking for file ‘SelectBoost/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘SelectBoost’ version ‘1.4.0’
+* package encoding: UTF-8
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: ‘Frederic Bertrand <frederic.bertrand@math.unistra.fr>’
+
+New submission
+
+Possibly mis-spelled words in DESCRIPTION:
+  Aouadi (18:43)
+  al (18:53)
+  et (18:50)
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking serialization versions ... OK
+* checking whether package ‘SelectBoost’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking for future file timestamps ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking use of S3 registration ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+lasso_cascade: no visible binding for global variable ‘M’
+selectboost,micro_array : fun_lasso_selectboost: no visible binding for
+  global variable ‘cvfolds1’
+Undefined global functions or variables:
+  M cvfolds1
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... WARNING
+Undocumented arguments in documentation object 'boost'
+  ‘exportlist’
+
+Undocumented arguments in documentation object 'var_select'
+  ‘cv.subjects’
+Documented arguments not in \usage in documentation object 'var_select':
+  ‘M’
+
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘SelectBoost-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: var_select
+> ### Title: Variable selection functions
+> ### Aliases: var_select lasso_cv_glmnet_bin_min lasso_cv_glmnet_bin_1se
+> ###   lasso_glmnet_bin_AICc lasso_glmnet_bin_BIC lasso_cv_lars_min
+> ###   lasso_cv_lars_1se lasso_cv_glmnet_min lasso_cv_glmnet_min_weighted
+> ###   lasso_cv_glmnet_1se lasso_cv_glmnet_1se_weighted lasso_msgps_Cp
+> ###   lasso_msgps_AICc lasso_msgps_GCV lasso_msgps_BIC enetf_msgps_Cp
+> ###   enetf_msgps_AICc enetf_msgps_GCV enetf_msgps_BIC lasso_cascade
+> 
+> ### ** Examples
+> 
+> set.seed(314)
+> xran=matrix(rnorm(150),30,5)
+> ybin=sample(0:1,30,replace=TRUE)
+> yran=rnorm(30)
+> set.seed(314)
+> lasso_cv_glmnet_bin_min(xran,ybin)
+[1] -0.2541407  0.0000000  0.1191938  0.0000000  0.0000000  0.4885167
+> 
+> set.seed(314)
+> lasso_cv_glmnet_bin_1se(xran,ybin)
+[1] -0.23703995  0.00000000  0.06427661  0.00000000  0.00000000  0.42415945
+> 
+> set.seed(314)
+> lasso_glmnet_bin_AICc(xran,ybin)
+[1] 0.000000 0.000000 0.000000 0.000000 1.138298
+> 
+> set.seed(314)
+> lasso_glmnet_bin_BIC(xran,ybin)
+[1] 0.000000 0.000000 0.000000 0.000000 1.138298
+> 
+> set.seed(314)
+> lasso_cv_lars_min(xran,yran)
+[1] 0 0 0 0 0
+> 
+> set.seed(314)
+> lasso_cv_lars_1se(xran,yran)
+[1] 0 0 0 0 0
+> 
+> set.seed(314)
+> lasso_cv_glmnet_min(xran,yran)
+[1] 0 0 0 0 0
+> 
+> set.seed(314)
+> lasso_cv_glmnet_min_weighted(xran,yran,c(1000,0,0,1,1))
+[1]  0.00000000 -0.05593766 -0.12916707  0.00000000  0.00000000
+> 
+> set.seed(314)
+> lasso_cv_glmnet_1se(xran,yran)
+[1] 0 0 0 0 0
+> 
+> set.seed(314)
+> lasso_cv_glmnet_1se_weighted(xran,yran,c(1000,0,0,1,1))
+[1]  0.00000000 -0.05593766 -0.12916707  0.00000000  0.00000000
+> 
+> set.seed(314)
+> lasso_msgps_Cp(xran,yran)
+V1 V2 V3 V4 V5 
+ 0  0  0  0  0 
+> 
+> set.seed(314)
+> lasso_msgps_AICc(xran,yran)
+V1 V2 V3 V4 V5 
+ 0  0  0  0  0 
+> 
+> set.seed(314)
+> lasso_msgps_GCV(xran,yran)
+V1 V2 V3 V4 V5 
+ 0  0  0  0  0 
+> 
+> set.seed(314)
+> lasso_msgps_BIC(xran,yran)
+V1 V2 V3 V4 V5 
+ 0  0  0  0  0 
+> 
+> set.seed(314)
+> enetf_msgps_Cp(xran,yran)
+V1 V2 V3 V4 V5 
+ 0  0  0  0  0 
+> 
+> set.seed(314)
+> enetf_msgps_AICc(xran,yran)
+V1 V2 V3 V4 V5 
+ 0  0  0  0  0 
+> 
+> set.seed(314)
+> enetf_msgps_GCV(xran,yran)
+V1 V2 V3 V4 V5 
+ 0  0  0  0  0 
+> 
+> set.seed(314)
+> enetf_msgps_BIC(xran,yran)
+V1 V2 V3 V4 V5 
+ 0  0  0  0  0 
+> 
+> set.seed(314)
+> lasso_cascade(t(xran),yran,5,cv.fun=lars::cv.folds)
+Error in sys.frame(sys.nframe() - 12) : not that many frames on the stack
+Calls: lasso_cascade -> eval -> sys.frame
+Execution halted
+** found \donttest examples: check also with --run-donttest
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking re-building of vignette outputs ... WARNING
+Error(s) in re-building vignettes:
+  ...
+--- re-building ‘benchmarking-selectboost-networks.Rmd’ using rmarkdown
+--- finished re-building ‘benchmarking-selectboost-networks.Rmd’
+
+--- re-building ‘confidence-indices-Cascade-networks.Rmd’ using rmarkdown
+Loading required package: VGAM
+Loading required package: stats4
+Loading required package: splines
+Loading required package: magic
+Loading required package: abind
+
+Exécution arrêtée
+
+Exécution arrêtée
+SUMMARY: processing the following files failed:
+  ‘confidence-indices-Cascade-networks.Rmd’ ‘sim-with-sb.Rmd’
+
+Erreur : Vignette re-building failed.
+Exécution arrêtée
+
+* checking PDF version of manual ... WARNING
+LaTeX errors when creating PDF version.
+This typically indicates Rd problems.
+* checking PDF version of manual without hyperrefs or index ... ERROR
+Re-running with no redirection of stdout/stderr.
+* DONE
+Status: 2 ERRORs, 3 WARNINGs, 2 NOTEs

@@ -1,0 +1,18 @@
+--- re-building ‘benchmarking-selectboost-networks.Rmd’ using rmarkdown
+--- finished re-building ‘benchmarking-selectboost-networks.Rmd’
+
+--- re-building ‘confidence-indices-Cascade-networks.Rmd’ using rmarkdown
+Loading required package: VGAM
+Loading required package: stats4
+Loading required package: splines
+Loading required package: magic
+Loading required package: abind
+
+Exécution arrêtée
+
+Exécution arrêtée
+SUMMARY: processing the following files failed:
+  ‘confidence-indices-Cascade-networks.Rmd’ ‘sim-with-sb.Rmd’
+
+Erreur : Vignette re-building failed.
+Exécution arrêtée

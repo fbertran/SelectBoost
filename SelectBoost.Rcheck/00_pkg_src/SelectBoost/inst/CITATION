@@ -1,0 +1,21 @@
+citHeader("To cite the SelectBoost package in publications use:")
+
+titl <- meta$Title
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
+vers <- paste("R package version", meta$Version)
+
+citEntry(entry="Manual",
+         title = titl,
+         author = personList(as.person("F. Bertrand"),
+                             as.person("M. Maumy-Bertrand"),
+                             as.person("N. Jung"),
+                             as.person("I. Aouadi")),
+	 publisher = "manual",
+         year         = year,
+         note         = vers,
+         url          = "http://www-irma.u-strasbg.fr/~fbertran/",
+         textVersion =
+         paste("Frederic Bertrand, Myriam Maumy-Bertrand, Nicolas Jung and Ismail Aouadi (",year ,"). ",
+               titl, ", ", vers, ".", sep=""
+               )
+)

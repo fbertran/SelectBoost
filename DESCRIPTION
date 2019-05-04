@@ -4,7 +4,7 @@ Title: A General Algorithm to Enhance the Performance of Variable Selection Meth
 Version: 1.4.0
 Date: 2019-05-03
 Depends: R (>= 2.10)
-Imports: lars, glmnet, igraph, parallel, msgps, Rfast, doParallel, parallel, foreach, methods, Cascade, graphics, grDevices
+Imports: lars, glmnet, igraph, parallel, msgps, Rfast, doParallel, foreach, methods, Cascade, graphics, grDevices
 Suggests: 
     knitr,
     rmarkdown,

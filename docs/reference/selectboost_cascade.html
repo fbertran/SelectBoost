@@ -230,12 +230,24 @@ through a temporal gene network. Bioinformatics. ISSN 13674803..</p>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
 <span class='no'>net_confidence</span> <span class='kw'>&lt;-</span> <span class='fu'>selectboost</span>(<span class='no'>M</span>, <span class='no'>Fab_inf_C</span>)</div><div class='output co'>#&gt; 
 #&gt; We are at peak :  2
-#&gt; .</div><div class='output co'>#&gt; <span class='warning'>Warning: already exporting variable(s): X</span></div><div class='output co'>#&gt; <span class='error'>Error in array(x, c(length(x), 1L), if (!is.null(names(x))) list(names(x),     NULL) else NULL): 'data' doit être de type vecteur, il était 'NULL'</span></div><div class='input'><span class='no'>net_confidence_.5</span> <span class='kw'>&lt;-</span> <span class='fu'>selectboost</span>(<span class='no'>M</span>, <span class='no'>Fab_inf_C</span>, <span class='kw'>c0value</span> <span class='kw'>=</span> <span class='fl'>.5</span>)</div><div class='output co'>#&gt; 
+#&gt; .........................
+#&gt; We are at peak :  3
+#&gt; .........................
+#&gt; We are at peak :  4
+#&gt; .........................</div><div class='input'><span class='no'>net_confidence_.5</span> <span class='kw'>&lt;-</span> <span class='fu'>selectboost</span>(<span class='no'>M</span>, <span class='no'>Fab_inf_C</span>, <span class='kw'>c0value</span> <span class='kw'>=</span> <span class='fl'>.5</span>)</div><div class='output co'>#&gt; 
 #&gt; We are at peak :  2
-#&gt; .</div><div class='output co'>#&gt; <span class='error'>Error in array(x, c(length(x), 1L), if (!is.null(names(x))) list(names(x),     NULL) else NULL): 'data' doit être de type vecteur, il était 'NULL'</span></div><div class='input'><span class='co'>#With group_func_1, variables are grouped by thresholding the correlation matrix</span>
+#&gt; .........................
+#&gt; We are at peak :  3
+#&gt; .........................
+#&gt; We are at peak :  4
+#&gt; .........................</div><div class='input'><span class='co'>#With group_func_1, variables are grouped by thresholding the correlation matrix</span>
 <span class='no'>net_confidence_thr</span> <span class='kw'>&lt;-</span> <span class='fu'>selectboost</span>(<span class='no'>M</span>, <span class='no'>Fab_inf_C</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group_func_1</span>)</div><div class='output co'>#&gt; 
 #&gt; We are at peak :  2
-#&gt; .</div><div class='output co'>#&gt; <span class='warning'>Warning: already exporting variable(s): X</span></div><div class='output co'>#&gt; <span class='error'>Error in array(x, c(length(x), 1L), if (!is.null(names(x))) list(names(x),     NULL) else NULL): 'data' doit être de type vecteur, il était 'NULL'</span></div><div class='input'>
+#&gt; .........................
+#&gt; We are at peak :  3
+#&gt; .........................
+#&gt; We are at peak :  4
+#&gt; .........................</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
