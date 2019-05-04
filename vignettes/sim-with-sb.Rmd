@@ -16,6 +16,8 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
+LOCAL <- identical(Sys.getenv("LOCAL"), "TRUE")
+knitr::opts_chunk$set(purl = LOCAL)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -44,7 +46,7 @@ We want to creates $NDatasets=200$ datasets with $\textrm{length}(group)=10$ var
 ## Correlation structure
 The correlation structure of the explanatory variables of the dataset is provided by `group` and the intra-group Pearson correlation value for each of the groups by `cor_group`. A value must be provided even for single variable groups and the number of variables is length of the `group` vector. Use the `simulation_cor` function to create the correlation matrix (`CM`).
 
-```{r}
+```{r, eval = LOCAL}
 library(SelectBoost)
 group<-c(1:9,1) #10 variables
 cor_group<-rep(0.95,9)
@@ -54,7 +56,7 @@ CM
 
 ## Explanatory dataset generation
 Then generation of an explanatory dataset with $N=10$ observations is made by the `simulation_X` function.
-```{r}
+```{r, eval = LOCAL}
 set.seed(3141)
 N<-10
 X<-simulation_X(N,CM)
@@ -63,7 +65,7 @@ X
 
 ## Response derivation
 A response can now be added to the dataset by the `simulation_Data` function. We have to specifiy the support of the response, i.e. the explanatory variables that will be used in the linear model created to compute the response. The support is given by the `supp` vector whose entries are either $0$ or $1$. The length of the `supp` vector must be equal to the number of explanatory variables and if the $i$\th entry is equal to $1$, it means that the $i$\th variable will be used to derive the response value, whereas if the $i$\th entry is equal to $0$, it means that the $i$\th variable will not be used to derive the response value (`beta<-rep(0,length(supp))`). The values of the coefficients for the explanatory variables that are in the support of the response are random (either absolute value and sign) and given by `beta[which(supp==1)]<-runif(sum(supp),minB,maxB)*(rbinom(sum(supp),1,.5)*2-1)`. Hence, the user can specify their minimal absolute value with the `minB` option and their maximal absolute value with the `maxB` option. The `stn` option is a scaling factor for the noise added to the response vector (`(t(beta)%*%var(X)%*%beta)/stn`, with `X` the matrix of explanatory variables). The higher the `stn` value, the smaller the noise: for instance for a given `X` dataset, an `stn` value $\alpha$ times larger will result in a noise exactly $\sqrt{\alpha}$ times smaller.
-```{r}
+```{r, eval = LOCAL}
 set.seed(3141)
 supp<-c(1,1,1,0,0,0,0,0,0,0)
 minB<-1
@@ -76,7 +78,7 @@ firstdataset
 ## Multiple datasets and checks
 
 To generate multiple datasets, repeat steps 2 and 3, for instance use a `for` loop. We create $NDatasets=200$ datasets and assign them to the objects `DATA_exemple1_nb_1` to `DATA_exemple1_nb_200`.
-```{r, cache=TRUE}
+```{r, cache=TRUE, eval = LOCAL}
 set.seed(3141)
 NDatasets=200
 for(i in 1:NDatasets){
@@ -86,7 +88,7 @@ assign(paste("DATA_exemple1_nb_",i,sep=""),simulation_DATA(X,supp,minB,maxB,stn)
 ```
 
 We now check the correlation structure of the explanatory variable. First we compute the mean correlation matrix.
-```{r, cache=TRUE}
+```{r, cache=TRUE, eval = LOCAL}
 corr_sum=matrix(0,length(group),length(group))
 for(i in 1:NDatasets){
 corr_sum=corr_sum+cor(get(paste("DATA_exemple1_nb_",i,sep=""))$X)
@@ -95,12 +97,12 @@ corr_mean=corr_sum/NDatasets
 ```
 
 Then we display and plot that the mean correlation matrix. 
-```{r, fig.width=7}
+```{r, fig.width=7, eval = LOCAL}
 corr_mean
 plot(abs(corr_mean))
 ```
 
-```{r}
+```{r, eval = LOCAL}
 coef_sum=rep(0,length(group))
 names(coef_sum)<-paste("x",1:length(group),sep="")
 error_counter=0
@@ -120,7 +122,7 @@ coef_mean=coef_sum/NDatasets
 ```
 
 All fits were sucessful. Then we display and plot that the mean coefficient vector values. 
-```{r}
+```{r, eval = LOCAL}
 coef_mean
 barplot(coef_mean)
 abline(h=(minB+maxB)/2,lwd=2,lty=2,col="blue")
@@ -130,7 +132,7 @@ abline(h=(minB+maxB)/2,lwd=2,lty=2,col="blue")
 Reduce the noise in the response for the new responses by a factor $\sqrt{5000/50}=10$.
 $1/stn\cdot \beta_{support}^t\mathrm{Var}(X)\beta_{support}$ where $\beta_{support}$ is the vector of coefficients wh
 
-```{r, cache=TRUE}
+```{r, cache=TRUE, eval = LOCAL}
 set.seed(3141)
 stn <- 5000
 for(i in 1:NDatasets){
@@ -140,7 +142,7 @@ assign(paste("DATA_exemple1_bis_nb_",i,sep=""),simulation_DATA(X,supp,minB,maxB,
 ```
 
 Since it is the same explanatory dataset for response generation, we can compare the $\sigma$ between those $NDatasets=200$ datasets.
-```{r, cache=TRUE}
+```{r, cache=TRUE, eval = LOCAL}
 stn_ratios=rep(0,NDatasets)
 for(i in 1:NDatasets){
 stn_ratios[i]<-get(paste("DATA_exemple1_nb_",i,sep=""))$sigma/
@@ -152,7 +154,7 @@ All the ratios are equal to 10 as anticipated.
 
 
 Since, the correlation structure is the same as before, we do not need to check it again. As befor, we infer the coefficients values of a linear model using the `lm` function.
-```{r, cache=TRUE}
+```{r, cache=TRUE, eval = LOCAL}
 coef_sum_bis=rep(0,length(group))
 names(coef_sum_bis)<-paste("x",1:length(group),sep="")
 error_counter_bis=0
@@ -172,7 +174,7 @@ coef_mean_bis=coef_sum_bis/NDatasets
 ```
 
 All fits were sucessful. Then we display and plot that the mean coefficient vector values. As expected, the noise reduction enhances the retrieval of the `true` mean coefficient absolute values by the models.
-```{r}
+```{r, eval = LOCAL}
 coef_mean_bis
 barplot(coef_mean_bis)
 abline(h=(minB+maxB)/2,lwd=2,lty=2,col="blue")
@@ -190,13 +192,13 @@ We want to creates $NDatasets=200$ datasets with $\textrm{length}(group)=50$ var
 - only the first five variables $x_1$, \dots, $x_{5}$ are explanatory variables for the response.
 
 ## Correlation structure
-```{r}
+```{r, eval = LOCAL}
 group<-rep(1,50) #50 variables
 cor_group<-rep(0.5,1)
 ```
 
 ## Explanatory variables and response
-```{r, cache=TRUE}
+```{r, cache=TRUE, eval = LOCAL}
 set.seed(3141)
 N<-20
 supp<-c(1,1,1,1,1,rep(0,45))
@@ -212,7 +214,7 @@ assign(paste("DATA_exemple2_nb_",i,sep=""),simulation_DATA(X,supp,minB,maxB,stn)
 
 ## Checks
 We now check the correlation structure of the explanatory variable. First we compute the mean correlation matrix.
-```{r}
+```{r, eval = LOCAL}
 corr_sum=matrix(0,length(group),length(group))
 for(i in 1:NDatasets){
 corr_sum=corr_sum+cor(get(paste("DATA_exemple2_nb_",i,sep=""))$X)
@@ -221,12 +223,12 @@ corr_mean=corr_sum/NDatasets
 ```
 
 Then we display and plot that the mean correlation matrix. 
-```{r, fig.keep='none', fig.width=7}
+```{r, fig.keep='none', fig.width=7, eval = LOCAL}
 corr_mean[1:10,1:10]
 plot(abs(corr_mean))
 ```
 
-```{r, cache=TRUE}
+```{r, cache=TRUE, eval = LOCAL}
 coef_sum=rep(0,length(group))
 coef_lasso_sum=rep(0,length(group))
 names(coef_sum)<-paste("x",1:length(group),sep="")
@@ -264,13 +266,13 @@ coef_lasso_mean=coef_lasso_sum/NDatasets
 ```
 
 With regular least squares and lasso estimators all fits were sucessful, yet only 20 variables coefficients could be estimated with regular least squares estimates for the linear model. Then we display and plot that the mean coefficient vector values for the least squares estimates.
-```{r}
+```{r, eval = LOCAL}
 coef_mean
 barplot(coef_mean)
 abline(h=(minB+maxB)/2,lwd=2,lty=2,col="blue")
 ```
 
-```{r}
+```{r, eval = LOCAL}
 coef_lasso_mean
 barplot(coef_lasso_mean,ylim=c(0,1.5))
 abline(h=(minB+maxB)/2,lwd=2,lty=2,col="blue")
@@ -286,7 +288,7 @@ We want to creates $NDatasets=200$ datasets with $\textrm{length}(supp)=100$ var
 
 ## Data and response generations
 First retrieve the datasets and get the differentially expressed probesets. Run the code to get additionnal plots.
-```{r, fig.keep='none', cache=TRUE}
+```{r, fig.keep='none', cache=TRUE, eval = LOCAL}
 require(CascadeData)
 data(micro_S)
 data(micro_US)
@@ -296,16 +298,16 @@ micro_S<-as.micro_array(micro_S,c(60,90,240,390),6)
 S<-geneSelection(list(micro_S,micro_US),list("condition",c(1,2),1),-1)
 Sel<-micro_S@microarray[S@name,]
 ```
-```{r, fig.keep='none', cache=TRUE}
+```{r, fig.keep='none', cache=TRUE, eval = LOCAL}
 summary(S)
 ```
-```{r, fig.keep='last', cache=TRUE}
+```{r, fig.keep='last', cache=TRUE, eval = LOCAL}
 plot(S)
 ```
 
 
 Generates the datasets sampling for each of them 100 probesets expressions among the 1650 that were selected and linking the response to the expressions of the first five probesets.
-```{r, cache=TRUE}
+```{r, cache=TRUE, eval = LOCAL}
 set.seed(3141)
 supp<-c(1,1,1,1,1,rep(0,95))
 minB<-1
@@ -327,7 +329,7 @@ plot(cor(Xnorm))
 mixOmics::cim(cor(Xnorm))
 ```
 
-```{r, cache=TRUE}
+```{r, cache=TRUE, eval = LOCAL}
 coef_sum=rep(0,length(supp))
 coef_lasso_sum=rep(0,length(supp))
 names(coef_sum)<-paste("x",1:length(supp),sep="")
@@ -365,13 +367,13 @@ coef_lasso_mean=coef_lasso_sum/NDatasets
 ```
 
 With regular least squares and lasso estimators all fits were sucessful, yet only 20 variables coefficients could be estimated with regular least squares estimates for the linear model. Then we display and plot that the mean coefficient vector values for the least squares estimates.
-```{r}
+```{r, eval = LOCAL}
 coef_mean
 barplot(coef_mean)
 abline(h=(minB+maxB)/2,lwd=2,lty=2,col="blue")
 ```
 
-```{r}
+```{r, eval = LOCAL}
 coef_lasso_mean
 barplot(coef_lasso_mean,ylim=c(0,1.5))
 abline(h=(minB+maxB)/2,lwd=2,lty=2,col="blue")
@@ -387,7 +389,7 @@ We want to creates $NDatasets=101$ datasets with $\textrm{length}(supp)=100$ var
 
 ## Data and response generations
 First retrieve the datasets and get the differentially expressed probesets. Run the code to get additionnal plots.
-```{r, fig.keep='none', cache=TRUE}
+```{r, fig.keep='none', cache=TRUE, eval = LOCAL}
 require(CascadeData)
 data(micro_S)
 data(micro_US)
@@ -397,15 +399,15 @@ micro_S<-as.micro_array(micro_S,c(60,90,240,390),6)
 S<-geneSelection(list(micro_S,micro_US),list("condition",c(1,2),1),101)
 Sel<-micro_S@microarray[S@name,]
 ```
-```{r, fig.keep='none', cache=TRUE}
+```{r, fig.keep='none', cache=TRUE, eval = LOCAL}
 summary(S)
 ```
-```{r, fig.keep='last', cache=TRUE}
+```{r, fig.keep='last', cache=TRUE, eval = LOCAL}
 plot(S)
 ```
 
 
-```{r, cache=TRUE}
+```{r, cache=TRUE, eval = LOCAL}
 suppt<-rep(1:4,6)
 supp<-c(1,1,1,1,1,rep(0,95)) #not used since we use one of the probeset expressions as response
 minB<-1 #not used since we use one of the probeset expressions as response
@@ -433,7 +435,7 @@ plot(cor(Xnorm))
 mixOmics::cim(cor(Xnorm))
 ```
 
-```{r, cache=TRUE}
+```{r, cache=TRUE, eval = LOCAL}
 coef_sum=rep(0,length(supp)+1)
 coef_lasso_sum=rep(0,length(supp)+1)
 names(coef_sum)<-paste("x",1:(length(supp)+1),sep="")
@@ -471,13 +473,13 @@ coef_lasso_mean=coef_lasso_sum/NDatasets
 ```
 
 With regular least squares and lasso estimators all fits were sucessful, yet only 20 variables coefficients could be estimated with regular least squares estimates for the linear model. Then we display and plot that the mean coefficient vector values for the least squares estimates.
-```{r}
+```{r, eval = LOCAL}
 head(coef_mean, 40)
 barplot(coef_mean)
 abline(h=(minB+maxB)/2,lwd=2,lty=2,col="blue")
 ```
 
-```{r}
+```{r, eval = LOCAL}
 head(coef_lasso_mean, 40)
 barplot(coef_lasso_mean)
 ```
@@ -493,13 +495,13 @@ We want to creates $NDatasets=200$ datasets with $\textrm{length}(group)=500$ va
 - only the first five variables $x_1$, \dots, $x_{5}$ are explanatory variables for the response.
 
 ## Correlation structure
-```{r, cache=TRUE}
+```{r, cache=TRUE, eval = LOCAL}
   group<-rep(1,500) #500 variables
   cor_group<-rep(0.5,1)
 ```
 
 ## Explanatory variables and response
-```{r, cache=TRUE}
+```{r, cache=TRUE, eval = LOCAL}
 set.seed(3141)
 N<-25
 supp<-c(1,1,1,1,1,rep(0,495))
@@ -515,7 +517,7 @@ for(i in 1:NDatasets){
 
 ## Checks
 We now check the correlation structure of the explanatory variable. First we compute the mean correlation matrix.
-```{r}
+```{r, eval = LOCAL}
 corr_sum=matrix(0,length(group),length(group))
 for(i in 1:NDatasets){
 corr_sum=corr_sum+cor(get(paste("DATA_exemple5_nb_",i,sep=""))$X)
@@ -524,12 +526,12 @@ corr_mean=corr_sum/NDatasets
 ```
 
 Then we display and plot that the mean correlation matrix. 
-```{r, fig.keep='none', fig.width=7}
+```{r, fig.keep='none', fig.width=7, eval = LOCAL}
 corr_mean[1:10,1:10]
 plot(abs(corr_mean))
 ```
 
-```{r, cache=TRUE}
+```{r, cache=TRUE, eval = LOCAL}
 coef_sum=rep(0,length(group))
 coef_lasso_sum=rep(0,length(group))
 names(coef_sum)<-paste("x",1:length(group),sep="")
@@ -567,13 +569,13 @@ coef_lasso_mean=coef_lasso_sum/NDatasets
 ```
 
 With regular least squares and lasso estimators all fits were sucessful, yet only 20 variables coefficients could be estimated with regular least squares estimates for the linear model. Then we display and plot that the mean coefficient vector values for the least squares estimates.
-```{r}
+```{r, eval = LOCAL}
 head(coef_mean, 40)
 barplot(coef_mean)
 abline(h=(minB+maxB)/2,lwd=2,lty=2,col="blue")
 ```
 
-```{r}
+```{r, eval = LOCAL}
 head(coef_lasso_mean, 40)
 barplot(coef_lasso_mean,ylim=c(0,1.5))
 abline(h=(minB+maxB)/2,lwd=2,lty=2,col="blue")
