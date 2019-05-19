@@ -28,5 +28,23 @@
 #' @importFrom igraph graph.adjacency infomap.community communities
 #' @importFrom grDevices rgb gray
 #' @importFrom graphics image layout
+#' @examples
+#' set.seed(314)
+#' xran=matrix(rnorm(75),15,5)
+#' ybin=sample(0:1,15,replace=TRUE)
+#' yran=rnorm(15)
+#'
+#' #For quick test purpose, not meaningful, should be run with greater value of B
+#' #(disabling parallel computing as well)
+#' res.fastboost <- fastboost(xran,yran,B=3,use.parallel=FALSE)
+#'
+#' \donttest{
+#' fastboost(xran,yran)
+#' #Customize resampling levels
+#' fastboost(xran,yran,steps.seq=c(.99,.95,.9),c0lim=FALSE)
+#'
+#' #Binary logistic regression
+#' fastboost(xran,ybin,func=lasso_cv_glmnet_bin_min)
+#'}
 
 NULL

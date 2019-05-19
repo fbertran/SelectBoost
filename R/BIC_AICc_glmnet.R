@@ -9,7 +9,7 @@
 #' @name AICc_BIC_glmnetB
 #'
 #' @return A list relevant to model selection.
-#' @author Eric C. Chi, slightly modified by Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
+#' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
 #' @references \emph{Robust Parametric Classification and Variable Selection by a Minimum Distance Criterion}, Chi and Scott, Journal of Computational and Graphical Statistics, \bold{23}(1), 2014, p111--128, \url{https://doi.org/10.1080/10618600.2012.737296}.
 #' @seealso \code{\link{var_select}}
 #' @examples

@@ -135,7 +135,7 @@ xran_adjust <- boost.adjust(xran_norm, xran_groups$groups, xran_corr_sign)
 #Not meaningful, should be run with B>=100
 xran_random <- boost.random(xran_norm, xran_Xpass, xran_adjust$vmf.params, B=5)
 
-\dontrun{
+\donttest{
 xran_random <- boost.random(xran_norm, xran_Xpass, xran_adjust$vmf.params, B=100)
 }
 

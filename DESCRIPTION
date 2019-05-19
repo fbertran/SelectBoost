@@ -17,7 +17,7 @@ Authors@R: c(
 	person(given = "Nicolas", family= "Jung", role = c("ctb"), email = "nicolas.jung@unistra.fr"))
 Author: Frederic Bertrand [cre, aut] (<https://orcid.org/0000-0002-0837-8281>), Myriam Maumy-Bertrand [aut] (<https://orcid.org/0000-0002-4615-1512>), Ismail Aouadi [ctb], Nicolas Jung [ctb]
 Maintainer: Frederic Bertrand <frederic.bertrand@math.unistra.fr>
-Description: The 'selectboost' algorithm (Aouadi et al. 2018, <arXiv:1810.01670>) is a general algorithm which improves the precision of any existing variable selection method. This algorithm is based on highly intensive simulations and takes into account the correlation structure of the data. It can either produce a confidence index for variable selection or it can be used in an experimental design planning perspective.
+Description: An implementation of the selectboost algorithm (Aouadi et al. 2018, <arXiv:1810.01670>), which is a general algorithm that improves the precision of any existing variable selection method. This algorithm is based on highly intensive simulations and takes into account the correlation structure of the data. It can either produce a confidence index for variable selection or it can be used in an experimental design planning perspective.
 License: GPL-3
 Encoding: UTF-8
 Classification/MSC: 62H11, 62J12, 62J99

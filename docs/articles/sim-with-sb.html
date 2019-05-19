@@ -92,7 +92,7 @@
       Université de Strasbourg and CNRS<br><a class="author_email" href="mailto:#"></a><a href="mailto:frederic.bertrand@math.unistra.fr" class="email">frederic.bertrand@math.unistra.fr</a>
       </address>
                   
-            <h4 class="date">2019-05-04</h4>
+            <h4 class="date">2019-05-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/fbertran/SelectBoost/blob/master/vignettes/sim-with-sb.Rmd"><code>vignettes/sim-with-sb.Rmd</code></a></small>
       <div class="hidden name"><code>sim-with-sb.Rmd</code></div>
@@ -448,12 +448,10 @@
 <a class="sourceLine" id="cb18-29" title="29">coef_sum=coef_sum<span class="op">+</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(tempcoef)</a>
 <a class="sourceLine" id="cb18-30" title="30">}</a>
 <a class="sourceLine" id="cb18-31" title="31">}</a>
-<a class="sourceLine" id="cb18-32" title="32"><span class="co">#&gt; Le chargement a nécessité le package : lars</span></a>
-<a class="sourceLine" id="cb18-33" title="33"><span class="co">#&gt; Loaded lars 1.2</span></a>
-<a class="sourceLine" id="cb18-34" title="34">error_counter</a>
-<a class="sourceLine" id="cb18-35" title="35"><span class="co">#&gt; [1] 0</span></a>
-<a class="sourceLine" id="cb18-36" title="36">coef_mean=coef_sum<span class="op">/</span>NDatasets</a>
-<a class="sourceLine" id="cb18-37" title="37">coef_lasso_mean=coef_lasso_sum<span class="op">/</span>NDatasets</a></code></pre></div>
+<a class="sourceLine" id="cb18-32" title="32">error_counter</a>
+<a class="sourceLine" id="cb18-33" title="33"><span class="co">#&gt; [1] 0</span></a>
+<a class="sourceLine" id="cb18-34" title="34">coef_mean=coef_sum<span class="op">/</span>NDatasets</a>
+<a class="sourceLine" id="cb18-35" title="35">coef_lasso_mean=coef_lasso_sum<span class="op">/</span>NDatasets</a></code></pre></div>
 <p>With regular least squares and lasso estimators all fits were sucessful, yet only 20 variables coefficients could be estimated with regular least squares estimates for the linear model. Then we display and plot that the mean coefficient vector values for the least squares estimates.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">coef_mean</a>
 <a class="sourceLine" id="cb19-2" title="2"><span class="co">#&gt;           x1           x2           x3           x4           x5 </span></a>
@@ -517,74 +515,70 @@
 <a href="#data-and-response-generations" class="anchor"></a>Data and response generations</h2>
 <p>First retrieve the datasets and get the differentially expressed probesets. Run the code to get additionnal plots.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(CascadeData)</a>
-<a class="sourceLine" id="cb21-2" title="2"><span class="co">#&gt; Le chargement a nécessité le package : CascadeData</span></a>
-<a class="sourceLine" id="cb21-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(micro_S)</a>
-<a class="sourceLine" id="cb21-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(micro_US)</a>
-<a class="sourceLine" id="cb21-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(Cascade)</a>
-<a class="sourceLine" id="cb21-6" title="6"><span class="co">#&gt; Le chargement a nécessité le package : Cascade</span></a>
-<a class="sourceLine" id="cb21-7" title="7">micro_US&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/Cascade/topics/as.micro_array">as.micro_array</a></span>(micro_US,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">60</span>,<span class="dv">90</span>,<span class="dv">240</span>,<span class="dv">390</span>),<span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb21-8" title="8">micro_S&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/Cascade/topics/as.micro_array">as.micro_array</a></span>(micro_S,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">60</span>,<span class="dv">90</span>,<span class="dv">240</span>,<span class="dv">390</span>),<span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb21-9" title="9">S&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/Cascade/topics/genePeakSelection-methods">geneSelection</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(micro_S,micro_US),<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"condition"</span>,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="dv">1</span>),<span class="op">-</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb21-10" title="10"><span class="co">#&gt; Le chargement a nécessité le package : limma</span></a>
-<a class="sourceLine" id="cb21-11" title="11">Sel&lt;-micro_S<span class="op">@</span>microarray[S<span class="op">@</span>name,]</a></code></pre></div>
+<a class="sourceLine" id="cb21-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(micro_S)</a>
+<a class="sourceLine" id="cb21-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(micro_US)</a>
+<a class="sourceLine" id="cb21-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(Cascade)</a>
+<a class="sourceLine" id="cb21-5" title="5">micro_US&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/Cascade/topics/as.micro_array">as.micro_array</a></span>(micro_US,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">60</span>,<span class="dv">90</span>,<span class="dv">240</span>,<span class="dv">390</span>),<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb21-6" title="6">micro_S&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/Cascade/topics/as.micro_array">as.micro_array</a></span>(micro_S,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">60</span>,<span class="dv">90</span>,<span class="dv">240</span>,<span class="dv">390</span>),<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb21-7" title="7">S&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/Cascade/topics/genePeakSelection-methods">geneSelection</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(micro_S,micro_US),<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"condition"</span>,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="dv">1</span>),<span class="op">-</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb21-8" title="8">Sel&lt;-micro_S<span class="op">@</span>microarray[S<span class="op">@</span>name,]</a></code></pre></div>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(S)</a>
-<a class="sourceLine" id="cb22-2" title="2"><span class="co">#&gt; Le chargement a nécessité le package : cluster</span></a>
-<a class="sourceLine" id="cb22-3" title="3"><span class="co">#&gt;    N1_US_T60          N1_US_T90           N1_US_T210       </span></a>
-<a class="sourceLine" id="cb22-4" title="4"><span class="co">#&gt;  Min.   :-3.24588   Min.   :-2.740840   Min.   :-4.056378  </span></a>
-<a class="sourceLine" id="cb22-5" title="5"><span class="co">#&gt;  1st Qu.:-0.13240   1st Qu.:-0.116239   1st Qu.:-0.298263  </span></a>
-<a class="sourceLine" id="cb22-6" title="6"><span class="co">#&gt;  Median :-0.04406   Median : 0.007188   Median :-0.002423  </span></a>
-<a class="sourceLine" id="cb22-7" title="7"><span class="co">#&gt;  Mean   : 0.02723   Mean   : 0.008828   Mean   :-0.062663  </span></a>
-<a class="sourceLine" id="cb22-8" title="8"><span class="co">#&gt;  3rd Qu.: 0.07049   3rd Qu.: 0.143812   3rd Qu.: 0.218037  </span></a>
-<a class="sourceLine" id="cb22-9" title="9"><span class="co">#&gt;  Max.   : 3.00403   Max.   : 2.581014   Max.   : 3.068053  </span></a>
-<a class="sourceLine" id="cb22-10" title="10"><span class="co">#&gt;    N1_US_T390        N2_US_T60         N2_US_T90          N2_US_T210      </span></a>
-<a class="sourceLine" id="cb22-11" title="11"><span class="co">#&gt;  Min.   :-4.6843   Min.   :-3.1490   Min.   :-3.26105   Min.   :-3.69272  </span></a>
-<a class="sourceLine" id="cb22-12" title="12"><span class="co">#&gt;  1st Qu.:-0.4123   1st Qu.: 0.1957   1st Qu.:-0.20630   1st Qu.:-0.18419  </span></a>
-<a class="sourceLine" id="cb22-13" title="13"><span class="co">#&gt;  Median :-0.1167   Median : 0.3917   Median :-0.10981   Median : 0.03299  </span></a>
-<a class="sourceLine" id="cb22-14" title="14"><span class="co">#&gt;  Mean   :-0.1144   Mean   : 0.4016   Mean   :-0.13583   Mean   : 0.01174  </span></a>
-<a class="sourceLine" id="cb22-15" title="15"><span class="co">#&gt;  3rd Qu.: 0.1270   3rd Qu.: 0.5908   3rd Qu.:-0.02678   3rd Qu.: 0.22894  </span></a>
-<a class="sourceLine" id="cb22-16" title="16"><span class="co">#&gt;  Max.   : 3.1434   Max.   : 3.7878   Max.   : 3.54337   Max.   : 2.46752  </span></a>
-<a class="sourceLine" id="cb22-17" title="17"><span class="co">#&gt;    N2_US_T390         N3_US_T60          N3_US_T90       </span></a>
-<a class="sourceLine" id="cb22-18" title="18"><span class="co">#&gt;  Min.   :-4.61130   Min.   :-3.66185   Min.   :-3.44746  </span></a>
-<a class="sourceLine" id="cb22-19" title="19"><span class="co">#&gt;  1st Qu.:-0.21195   1st Qu.:-0.16978   1st Qu.:-0.07454  </span></a>
-<a class="sourceLine" id="cb22-20" title="20"><span class="co">#&gt;  Median :-0.01994   Median :-0.03868   Median : 0.04864  </span></a>
-<a class="sourceLine" id="cb22-21" title="21"><span class="co">#&gt;  Mean   :-0.04728   Mean   :-0.05892   Mean   : 0.01881  </span></a>
-<a class="sourceLine" id="cb22-22" title="22"><span class="co">#&gt;  3rd Qu.: 0.16975   3rd Qu.: 0.07801   3rd Qu.: 0.15696  </span></a>
-<a class="sourceLine" id="cb22-23" title="23"><span class="co">#&gt;  Max.   : 2.36837   Max.   : 3.17208   Max.   : 2.22462  </span></a>
-<a class="sourceLine" id="cb22-24" title="24"><span class="co">#&gt;    N3_US_T210        N3_US_T390         N4_US_T60       </span></a>
-<a class="sourceLine" id="cb22-25" title="25"><span class="co">#&gt;  Min.   :-4.2709   Min.   :-4.73460   Min.   :-1.80952  </span></a>
-<a class="sourceLine" id="cb22-26" title="26"><span class="co">#&gt;  1st Qu.:-0.6869   1st Qu.:-0.21676   1st Qu.:-0.08733  </span></a>
-<a class="sourceLine" id="cb22-27" title="27"><span class="co">#&gt;  Median :-0.2507   Median : 0.04391   Median :-0.03024  </span></a>
-<a class="sourceLine" id="cb22-28" title="28"><span class="co">#&gt;  Mean   :-0.2593   Mean   : 0.02288   Mean   :-0.02583  </span></a>
-<a class="sourceLine" id="cb22-29" title="29"><span class="co">#&gt;  3rd Qu.: 0.1073   3rd Qu.: 0.28173   3rd Qu.: 0.02099  </span></a>
-<a class="sourceLine" id="cb22-30" title="30"><span class="co">#&gt;  Max.   : 3.2871   Max.   : 3.67975   Max.   : 2.20727  </span></a>
-<a class="sourceLine" id="cb22-31" title="31"><span class="co">#&gt;    N4_US_T90           N4_US_T210         N4_US_T390      </span></a>
-<a class="sourceLine" id="cb22-32" title="32"><span class="co">#&gt;  Min.   :-3.555348   Min.   :-2.95869   Min.   :-3.21158  </span></a>
-<a class="sourceLine" id="cb22-33" title="33"><span class="co">#&gt;  1st Qu.: 0.001517   1st Qu.:-0.23332   1st Qu.:-0.17235  </span></a>
-<a class="sourceLine" id="cb22-34" title="34"><span class="co">#&gt;  Median : 0.076508   Median :-0.09978   Median :-0.05177  </span></a>
-<a class="sourceLine" id="cb22-35" title="35"><span class="co">#&gt;  Mean   : 0.055968   Mean   :-0.11058   Mean   :-0.06072  </span></a>
-<a class="sourceLine" id="cb22-36" title="36"><span class="co">#&gt;  3rd Qu.: 0.147247   3rd Qu.: 0.02792   3rd Qu.: 0.05336  </span></a>
-<a class="sourceLine" id="cb22-37" title="37"><span class="co">#&gt;  Max.   : 1.719786   Max.   : 2.91531   Max.   : 2.15722  </span></a>
-<a class="sourceLine" id="cb22-38" title="38"><span class="co">#&gt;    N5_US_T60          N5_US_T90          N5_US_T210      </span></a>
-<a class="sourceLine" id="cb22-39" title="39"><span class="co">#&gt;  Min.   :-2.04861   Min.   :-2.14086   Min.   :-3.61826  </span></a>
-<a class="sourceLine" id="cb22-40" title="40"><span class="co">#&gt;  1st Qu.: 0.01025   1st Qu.:-0.10201   1st Qu.:-0.22499  </span></a>
-<a class="sourceLine" id="cb22-41" title="41"><span class="co">#&gt;  Median : 0.09644   Median :-0.01021   Median :-0.06266  </span></a>
-<a class="sourceLine" id="cb22-42" title="42"><span class="co">#&gt;  Mean   : 0.06829   Mean   :-0.02281   Mean   :-0.08268  </span></a>
-<a class="sourceLine" id="cb22-43" title="43"><span class="co">#&gt;  3rd Qu.: 0.17637   3rd Qu.: 0.06101   3rd Qu.: 0.08834  </span></a>
-<a class="sourceLine" id="cb22-44" title="44"><span class="co">#&gt;  Max.   : 2.23614   Max.   : 2.62104   Max.   : 2.81091  </span></a>
-<a class="sourceLine" id="cb22-45" title="45"><span class="co">#&gt;    N5_US_T390         N6_US_T60           N6_US_T90       </span></a>
-<a class="sourceLine" id="cb22-46" title="46"><span class="co">#&gt;  Min.   :-3.42995   Min.   :-2.814716   Min.   :-2.46213  </span></a>
-<a class="sourceLine" id="cb22-47" title="47"><span class="co">#&gt;  1st Qu.:-0.11192   1st Qu.:-0.054682   1st Qu.:-0.10794  </span></a>
-<a class="sourceLine" id="cb22-48" title="48"><span class="co">#&gt;  Median : 0.05497   Median : 0.008866   Median :-0.01223  </span></a>
-<a class="sourceLine" id="cb22-49" title="49"><span class="co">#&gt;  Mean   : 0.02813   Mean   : 0.008599   Mean   : 0.01019  </span></a>
-<a class="sourceLine" id="cb22-50" title="50"><span class="co">#&gt;  3rd Qu.: 0.20603   3rd Qu.: 0.077924   3rd Qu.: 0.09869  </span></a>
-<a class="sourceLine" id="cb22-51" title="51"><span class="co">#&gt;  Max.   : 3.38922   Max.   : 2.789490   Max.   : 2.58776  </span></a>
-<a class="sourceLine" id="cb22-52" title="52"><span class="co">#&gt;    N6_US_T210         N6_US_T390      </span></a>
-<a class="sourceLine" id="cb22-53" title="53"><span class="co">#&gt;  Min.   :-2.89696   Min.   :-4.15575  </span></a>
-<a class="sourceLine" id="cb22-54" title="54"><span class="co">#&gt;  1st Qu.:-0.17750   1st Qu.:-0.24111  </span></a>
-<a class="sourceLine" id="cb22-55" title="55"><span class="co">#&gt;  Median : 0.02146   Median :-0.03612  </span></a>
-<a class="sourceLine" id="cb22-56" title="56"><span class="co">#&gt;  Mean   :-0.01274   Mean   :-0.06744  </span></a>
-<a class="sourceLine" id="cb22-57" title="57"><span class="co">#&gt;  3rd Qu.: 0.19801   3rd Qu.: 0.14960  </span></a>
-<a class="sourceLine" id="cb22-58" title="58"><span class="co">#&gt;  Max.   : 2.08709   Max.   : 2.97212</span></a></code></pre></div>
+<a class="sourceLine" id="cb22-2" title="2"><span class="co">#&gt;    N1_US_T60          N1_US_T90           N1_US_T210       </span></a>
+<a class="sourceLine" id="cb22-3" title="3"><span class="co">#&gt;  Min.   :-3.24588   Min.   :-2.740840   Min.   :-4.056378  </span></a>
+<a class="sourceLine" id="cb22-4" title="4"><span class="co">#&gt;  1st Qu.:-0.13240   1st Qu.:-0.116239   1st Qu.:-0.298263  </span></a>
+<a class="sourceLine" id="cb22-5" title="5"><span class="co">#&gt;  Median :-0.04406   Median : 0.007188   Median :-0.002423  </span></a>
+<a class="sourceLine" id="cb22-6" title="6"><span class="co">#&gt;  Mean   : 0.02723   Mean   : 0.008828   Mean   :-0.062663  </span></a>
+<a class="sourceLine" id="cb22-7" title="7"><span class="co">#&gt;  3rd Qu.: 0.07049   3rd Qu.: 0.143812   3rd Qu.: 0.218037  </span></a>
+<a class="sourceLine" id="cb22-8" title="8"><span class="co">#&gt;  Max.   : 3.00403   Max.   : 2.581014   Max.   : 3.068053  </span></a>
+<a class="sourceLine" id="cb22-9" title="9"><span class="co">#&gt;    N1_US_T390        N2_US_T60         N2_US_T90          N2_US_T210      </span></a>
+<a class="sourceLine" id="cb22-10" title="10"><span class="co">#&gt;  Min.   :-4.6843   Min.   :-3.1490   Min.   :-3.26105   Min.   :-3.69272  </span></a>
+<a class="sourceLine" id="cb22-11" title="11"><span class="co">#&gt;  1st Qu.:-0.4123   1st Qu.: 0.1957   1st Qu.:-0.20630   1st Qu.:-0.18419  </span></a>
+<a class="sourceLine" id="cb22-12" title="12"><span class="co">#&gt;  Median :-0.1167   Median : 0.3917   Median :-0.10981   Median : 0.03299  </span></a>
+<a class="sourceLine" id="cb22-13" title="13"><span class="co">#&gt;  Mean   :-0.1144   Mean   : 0.4016   Mean   :-0.13583   Mean   : 0.01174  </span></a>
+<a class="sourceLine" id="cb22-14" title="14"><span class="co">#&gt;  3rd Qu.: 0.1270   3rd Qu.: 0.5908   3rd Qu.:-0.02678   3rd Qu.: 0.22894  </span></a>
+<a class="sourceLine" id="cb22-15" title="15"><span class="co">#&gt;  Max.   : 3.1434   Max.   : 3.7878   Max.   : 3.54337   Max.   : 2.46752  </span></a>
+<a class="sourceLine" id="cb22-16" title="16"><span class="co">#&gt;    N2_US_T390         N3_US_T60          N3_US_T90       </span></a>
+<a class="sourceLine" id="cb22-17" title="17"><span class="co">#&gt;  Min.   :-4.61130   Min.   :-3.66185   Min.   :-3.44746  </span></a>
+<a class="sourceLine" id="cb22-18" title="18"><span class="co">#&gt;  1st Qu.:-0.21195   1st Qu.:-0.16978   1st Qu.:-0.07454  </span></a>
+<a class="sourceLine" id="cb22-19" title="19"><span class="co">#&gt;  Median :-0.01994   Median :-0.03868   Median : 0.04864  </span></a>
+<a class="sourceLine" id="cb22-20" title="20"><span class="co">#&gt;  Mean   :-0.04728   Mean   :-0.05892   Mean   : 0.01881  </span></a>
+<a class="sourceLine" id="cb22-21" title="21"><span class="co">#&gt;  3rd Qu.: 0.16975   3rd Qu.: 0.07801   3rd Qu.: 0.15696  </span></a>
+<a class="sourceLine" id="cb22-22" title="22"><span class="co">#&gt;  Max.   : 2.36837   Max.   : 3.17208   Max.   : 2.22462  </span></a>
+<a class="sourceLine" id="cb22-23" title="23"><span class="co">#&gt;    N3_US_T210        N3_US_T390         N4_US_T60       </span></a>
+<a class="sourceLine" id="cb22-24" title="24"><span class="co">#&gt;  Min.   :-4.2709   Min.   :-4.73460   Min.   :-1.80952  </span></a>
+<a class="sourceLine" id="cb22-25" title="25"><span class="co">#&gt;  1st Qu.:-0.6869   1st Qu.:-0.21676   1st Qu.:-0.08733  </span></a>
+<a class="sourceLine" id="cb22-26" title="26"><span class="co">#&gt;  Median :-0.2507   Median : 0.04391   Median :-0.03024  </span></a>
+<a class="sourceLine" id="cb22-27" title="27"><span class="co">#&gt;  Mean   :-0.2593   Mean   : 0.02288   Mean   :-0.02583  </span></a>
+<a class="sourceLine" id="cb22-28" title="28"><span class="co">#&gt;  3rd Qu.: 0.1073   3rd Qu.: 0.28173   3rd Qu.: 0.02099  </span></a>
+<a class="sourceLine" id="cb22-29" title="29"><span class="co">#&gt;  Max.   : 3.2871   Max.   : 3.67975   Max.   : 2.20727  </span></a>
+<a class="sourceLine" id="cb22-30" title="30"><span class="co">#&gt;    N4_US_T90           N4_US_T210         N4_US_T390      </span></a>
+<a class="sourceLine" id="cb22-31" title="31"><span class="co">#&gt;  Min.   :-3.555348   Min.   :-2.95869   Min.   :-3.21158  </span></a>
+<a class="sourceLine" id="cb22-32" title="32"><span class="co">#&gt;  1st Qu.: 0.001517   1st Qu.:-0.23332   1st Qu.:-0.17235  </span></a>
+<a class="sourceLine" id="cb22-33" title="33"><span class="co">#&gt;  Median : 0.076508   Median :-0.09978   Median :-0.05177  </span></a>
+<a class="sourceLine" id="cb22-34" title="34"><span class="co">#&gt;  Mean   : 0.055968   Mean   :-0.11058   Mean   :-0.06072  </span></a>
+<a class="sourceLine" id="cb22-35" title="35"><span class="co">#&gt;  3rd Qu.: 0.147247   3rd Qu.: 0.02792   3rd Qu.: 0.05336  </span></a>
+<a class="sourceLine" id="cb22-36" title="36"><span class="co">#&gt;  Max.   : 1.719786   Max.   : 2.91531   Max.   : 2.15722  </span></a>
+<a class="sourceLine" id="cb22-37" title="37"><span class="co">#&gt;    N5_US_T60          N5_US_T90          N5_US_T210      </span></a>
+<a class="sourceLine" id="cb22-38" title="38"><span class="co">#&gt;  Min.   :-2.04861   Min.   :-2.14086   Min.   :-3.61826  </span></a>
+<a class="sourceLine" id="cb22-39" title="39"><span class="co">#&gt;  1st Qu.: 0.01025   1st Qu.:-0.10201   1st Qu.:-0.22499  </span></a>
+<a class="sourceLine" id="cb22-40" title="40"><span class="co">#&gt;  Median : 0.09644   Median :-0.01021   Median :-0.06266  </span></a>
+<a class="sourceLine" id="cb22-41" title="41"><span class="co">#&gt;  Mean   : 0.06829   Mean   :-0.02281   Mean   :-0.08268  </span></a>
+<a class="sourceLine" id="cb22-42" title="42"><span class="co">#&gt;  3rd Qu.: 0.17637   3rd Qu.: 0.06101   3rd Qu.: 0.08834  </span></a>
+<a class="sourceLine" id="cb22-43" title="43"><span class="co">#&gt;  Max.   : 2.23614   Max.   : 2.62104   Max.   : 2.81091  </span></a>
+<a class="sourceLine" id="cb22-44" title="44"><span class="co">#&gt;    N5_US_T390         N6_US_T60           N6_US_T90       </span></a>
+<a class="sourceLine" id="cb22-45" title="45"><span class="co">#&gt;  Min.   :-3.42995   Min.   :-2.814716   Min.   :-2.46213  </span></a>
+<a class="sourceLine" id="cb22-46" title="46"><span class="co">#&gt;  1st Qu.:-0.11192   1st Qu.:-0.054682   1st Qu.:-0.10794  </span></a>
+<a class="sourceLine" id="cb22-47" title="47"><span class="co">#&gt;  Median : 0.05497   Median : 0.008866   Median :-0.01223  </span></a>
+<a class="sourceLine" id="cb22-48" title="48"><span class="co">#&gt;  Mean   : 0.02813   Mean   : 0.008599   Mean   : 0.01019  </span></a>
+<a class="sourceLine" id="cb22-49" title="49"><span class="co">#&gt;  3rd Qu.: 0.20603   3rd Qu.: 0.077924   3rd Qu.: 0.09869  </span></a>
+<a class="sourceLine" id="cb22-50" title="50"><span class="co">#&gt;  Max.   : 3.38922   Max.   : 2.789490   Max.   : 2.58776  </span></a>
+<a class="sourceLine" id="cb22-51" title="51"><span class="co">#&gt;    N6_US_T210         N6_US_T390      </span></a>
+<a class="sourceLine" id="cb22-52" title="52"><span class="co">#&gt;  Min.   :-2.89696   Min.   :-4.15575  </span></a>
+<a class="sourceLine" id="cb22-53" title="53"><span class="co">#&gt;  1st Qu.:-0.17750   1st Qu.:-0.24111  </span></a>
+<a class="sourceLine" id="cb22-54" title="54"><span class="co">#&gt;  Median : 0.02146   Median :-0.03612  </span></a>
+<a class="sourceLine" id="cb22-55" title="55"><span class="co">#&gt;  Mean   :-0.01274   Mean   :-0.06744  </span></a>
+<a class="sourceLine" id="cb22-56" title="56"><span class="co">#&gt;  3rd Qu.: 0.19801   3rd Qu.: 0.14960  </span></a>
+<a class="sourceLine" id="cb22-57" title="57"><span class="co">#&gt;  Max.   : 2.08709   Max.   : 2.97212</span></a></code></pre></div>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(S)</a></code></pre></div>
 <p><img src="sim-with-sb_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
 <p>Generates the datasets sampling for each of them 100 probesets expressions among the 1650 that were selected and linking the response to the expressions of the first five probesets.</p>

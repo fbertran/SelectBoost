@@ -92,7 +92,7 @@
       Université de Strasbourg and CNRS<br><a class="author_email" href="mailto:#"></a><a href="mailto:frederic.bertrand@math.unistra.fr" class="email">frederic.bertrand@math.unistra.fr</a>
       </address>
                   
-            <h4 class="date">2019-05-04</h4>
+            <h4 class="date">2019-05-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/fbertran/SelectBoost/blob/master/vignettes/confidence-indices-Cascade-networks.Rmd"><code>vignettes/confidence-indices-Cascade-networks.Rmd</code></a></small>
       <div class="hidden name"><code>confidence-indices-Cascade-networks.Rmd</code></div>
@@ -161,13 +161,12 @@
 <a href="#network-inference" class="anchor"></a>Network inference</h2>
 <p>We infer the new network.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">Net_inf_C &lt;-<span class="st"> </span>Cascade<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/Cascade/topics/inference-methods">inference</a></span>(M,<span class="dt">cv.subjects=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="co">#&gt; Le chargement a nécessité le package : nnls</span></a>
-<a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt; We are at step :  1</span></a>
-<a class="sourceLine" id="cb6-4" title="4"><span class="co">#&gt; The convergence of the network is (L1 norm) : 0.0068</span></a>
-<a class="sourceLine" id="cb6-5" title="5"><span class="co">#&gt; We are at step :  2</span></a>
-<a class="sourceLine" id="cb6-6" title="6"><span class="co">#&gt; The convergence of the network is (L1 norm) : 0.00121</span></a>
-<a class="sourceLine" id="cb6-7" title="7"><span class="co">#&gt; We are at step :  3</span></a>
-<a class="sourceLine" id="cb6-8" title="8"><span class="co">#&gt; The convergence of the network is (L1 norm) : 0.00096</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-2" title="2"><span class="co">#&gt; We are at step :  1</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt; The convergence of the network is (L1 norm) : 0.0068</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="co">#&gt; We are at step :  2</span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="co">#&gt; The convergence of the network is (L1 norm) : 0.00121</span></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="co">#&gt; We are at step :  3</span></a>
+<a class="sourceLine" id="cb6-7" title="7"><span class="co">#&gt; The convergence of the network is (L1 norm) : 0.00096</span></a></code></pre></div>
 <p>Heatmap of the coefficients of the Omega matrix of the network. Run the code to get the graph.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">stats<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/heatmap">heatmap</a></span>(Net_inf_C<span class="op">@</span>network, <span class="dt">Rowv =</span> <span class="ot">NA</span>, <span class="dt">Colv =</span> <span class="ot">NA</span>, <span class="dt">scale=</span><span class="st">"none"</span>, <span class="dt">revC=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">Fab_inf_C &lt;-<span class="st"> </span>Net_inf_C<span class="op">@</span>F</a></code></pre></div>

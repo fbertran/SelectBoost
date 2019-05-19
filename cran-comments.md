@@ -14,9 +14,10 @@ Maintainer: ‘Frederic Bertrand <frederic.bertrand@math.unistra.fr>’
 New submission
 
 Possibly mis-spelled words in DESCRIPTION:
-  Aouadi (18:43)
-  al (18:53)
-  et (18:50)
+  Aouadi (18:62)
+  al (18:72)
+  et (18:69)
+  selectboost (18:39)
 
 These are not typos.
 

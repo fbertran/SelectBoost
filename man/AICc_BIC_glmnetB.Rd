@@ -85,5 +85,5 @@ AICc_glmnetB(xran,ynum,glmnet.fit,alpha=1,subSample, reducer='median')
 \code{\link{var_select}}
 }
 \author{
-Eric C. Chi, slightly modified by Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}
+Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}
 }
