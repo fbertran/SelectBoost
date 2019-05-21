@@ -153,7 +153,7 @@ if(step.scale=="quantile"){
 }
 if(step.scale=="linear"){
   if(step.limit=="Pearson"){
-    cat("Option Pearson limit for correlation is not used with a linear scale.")
+    warning("Option Pearson limit for correlation is not used with a linear scale.")
   }
   c0.seq=pmax(round(steps.seq[-c(1,length(steps.seq))],6),0)
 }
@@ -496,7 +496,7 @@ fastboost<-function(X,Y,ncores=4,group=group_func_1,func=lasso_msgps_AICc,corrfu
     }
     if(step.scale=="linear"){
       if(step.limit=="Pearson"){
-        cat("Option Pearson limit for correlation is not used with a linear scale.")
+        warning("Option Pearson limit for correlation is not used with a linear scale.")
       }
       c0.seq=pmax(round(steps.seq[-c(1,length(steps.seq))],6),0)
     }

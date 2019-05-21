@@ -125,7 +125,7 @@ BIC_glmnetB = function(Z, Y, glmnet.model, alpha, modelSet, reducer='median') {
 				corzz = function(zz) {
 				  if(is.infinite(exp(zz))){
 				    return(zz)
-				    cat(L[i],"\n")
+				    #cat(L[i],"\n")
 				  } else {
 				    return(log(1 + exp(zz)))
 				  }
@@ -149,7 +149,7 @@ BIC_glmnetB = function(Z, Y, glmnet.model, alpha, modelSet, reducer='median') {
 				corzz = function(zz) {
 				  if(is.infinite(exp(zz))){
 				    return(zz)
-				    cat(L[i],"\n")
+				    #cat(L[i],"\n")
 				  } else {
 				    return(log(1 + exp(zz)))
 				  }
@@ -184,7 +184,7 @@ BIC_glmnetB = function(Z, Y, glmnet.model, alpha, modelSet, reducer='median') {
 				corzz = function(zz) {
 				  if(is.infinite(exp(zz))){
 				    return(zz)
-				    cat(L[i],"\n")
+				    #cat(L[i],"\n")
 				  } else {
 				    return(log(1 + exp(zz)))
 				  }
@@ -208,7 +208,7 @@ BIC_glmnetB = function(Z, Y, glmnet.model, alpha, modelSet, reducer='median') {
 				corzz = function(zz) {
 				  if(is.infinite(exp(zz))){
 				    return(zz)
-				    cat(L[i],"\n")
+				    #cat(L[i],"\n")
 				  } else {
 				    return(log(1 + exp(zz)))
 				  }
@@ -279,7 +279,7 @@ AICc_glmnetB = function(Z, Y, glmnet.model, alpha, modelSet, reducer='median') {
 				corzz = function(zz) {
 				  if(is.infinite(exp(zz))){
 				    return(zz)
-				    cat(L[i],"\n")
+				    #cat(L[i],"\n")
 				  } else {
 				    return(log(1 + exp(zz)))
 				  }
@@ -303,7 +303,7 @@ AICc_glmnetB = function(Z, Y, glmnet.model, alpha, modelSet, reducer='median') {
 				corzz = function(zz) {
 				  if(is.infinite(exp(zz))){
 				    return(zz)
-				    cat(L[i],"\n")
+				    #cat(L[i],"\n")
 				  } else {
 				    return(log(1 + exp(zz)))
 				  }
@@ -338,7 +338,7 @@ AICc_glmnetB = function(Z, Y, glmnet.model, alpha, modelSet, reducer='median') {
 				corzz = function(zz) {
 				  if(is.infinite(exp(zz))){
 				    return(zz)
-				    cat(L[i],"\n")
+				    #cat(L[i],"\n")
 				  } else {
 				    return(log(1 + exp(zz)))
 				  }
@@ -362,7 +362,7 @@ AICc_glmnetB = function(Z, Y, glmnet.model, alpha, modelSet, reducer='median') {
 				corzz = function(zz) {
 				  if(is.infinite(exp(zz))){
 				    return(zz)
-				    cat(L[i],"\n")
+				    #cat(L[i],"\n")
 				  } else {
 				    return(log(1 + exp(zz)))
 				  }
