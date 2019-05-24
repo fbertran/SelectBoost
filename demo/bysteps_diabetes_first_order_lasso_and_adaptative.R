@@ -262,7 +262,7 @@ barplot(colSums(path_probs.weighted.greater),beside=TRUE)
 #proportion of selections for the tested path of c0 (21 steps from 1 to 0 by .05)
 barplot(colSums(path_probs.weighted.greater)/length(jjj:lll),beside=TRUE,ylim=0:1)
 #some variables are always selected, the red ones were discarted with in the initial model with a proportion of inclusions less than .95, the green ones were included.
-pos.bar<-barplot(colSums(path_probs.weighted.greater)/length(jjj:lll),beside=TRUE,col=(path_prob.weighteds[1,]>.95)+2,ylim=0:1)
+pos.bar<-barplot(colSums(path_probs.weighted.greater)/length(jjj:lll),beside=TRUE,col=(path_probs.weighted[1,]>.95)+2,ylim=0:1)
 
 #Compute confidence intervals on the proportion of c0 for which proportion of selection of a variable in the model is > .95
 confints.list<-simplify2array(lapply(lapply(colSums(path_probs.weighted.greater),binom.test,length(jjj:lll),p=.95),getElement,"conf.int"))
@@ -273,3 +273,4 @@ abline(h=.85,lty=3,lwd=1,col="red")
 # BMI, SEX, MAP and HDL had a proportion of selection less than .95 but not less than .90.
 
 #On that example again, the algorithm helps selecting reliable variables using the adaptative lasso.
+
