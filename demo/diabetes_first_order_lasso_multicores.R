@@ -2,7 +2,7 @@
 ######## with Parallel support ########
 
 # Change ncores to match the number of cores you want to use
-ncores.value = 4
+ncores.value = 2
 
 library(SelectBoost)
 require(lars)

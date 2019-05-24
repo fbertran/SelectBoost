@@ -851,7 +851,8 @@ summary.selectboost <- function(object,crit.func=mean,crit.int="mean",custom.val
 
   if(!is.null(custom.values.lim)) {crit.func.values.lim<-custom.values.lim} else {
     if(crit.int=="median"){
-      warn.opt<-options("warn")$warn
+      warn.opt <- options("warn")$warn
+      on.exit(options(warn=warn.opt))
       options(warn=-1)
       crit.func.values.lim=c(wilcox.test(crit.func.values,conf.int=TRUE, conf.level = alpha.conf.level)$conf.int[1],median(crit.func.values),wilcox.test(crit.func.values,conf.int=TRUE, conf.level = alpha.conf.level)$conf.int[2])
       options(warn=warn.opt)

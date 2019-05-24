@@ -2,7 +2,11 @@
 ######## with Parallel support ########
 
 # Change ncores to match the number of cores you want to use
-ncores.value = parallel::detectCores()
+# ncores.found=parallel::detectCores()
+# ncores.found
+
+# Set to two by default to match CRAN requirements
+ncores.found = 2
 
 library(SelectBoost)
 data(diabetes,package="lars")
