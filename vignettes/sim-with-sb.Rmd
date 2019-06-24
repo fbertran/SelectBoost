@@ -2,7 +2,7 @@
 title: "Simulation Tools Provided With the Selectboost Package"
 shorttitle: "Selectboost: Simulation Tools"
 author: 
-- name: "Frédéric Bertrand"
+- name: "Frédéric Bertrand and Myriam Maumy-Bertrand"
   affiliation: 
   - Université de Strasbourg and CNRS
   - IRMA, labex IRMIA

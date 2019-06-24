@@ -2,7 +2,7 @@
 title: "Benchmarking the SelectBoost Package for Network Reverse Engineering"
 shorttitle: "SelectBoost: Network Reverse Engineering"
 author: 
-- name: "Frédéric Bertrand"
+- name: "Frédéric Bertrand and Myriam Maumy-Bertrand"
   affiliation: 
   - Université de Strasbourg and CNRS
   - IRMA, labex IRMIA

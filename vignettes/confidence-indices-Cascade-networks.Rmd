@@ -2,7 +2,7 @@
 title: "Towards confidence estimates in Cascade Networks using the SelectBoost package"
 shorttitle: "SelectBoost: Confidence Estimates in Cascade Networks"
 author: 
-- name: "Frédéric Bertrand"
+- name: "Frédéric Bertrand and Myriam Maumy-Bertrand"
   affiliation: 
   - Université de Strasbourg and CNRS
   - IRMA, labex IRMIA
