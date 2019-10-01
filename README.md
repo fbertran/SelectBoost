@@ -5,6 +5,7 @@ output: github_document
 ---
 
 [![CRAN status](https://www.r-pkg.org/badges/version/SelectBoost)](https://cran.r-project.org/package=SelectBoost)
+[![DOI](https://zenodo.org/badge/136206211.svg)](https://zenodo.org/badge/latestdoi/136206211)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
