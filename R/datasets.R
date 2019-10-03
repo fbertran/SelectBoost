@@ -26,7 +26,7 @@
 #' @docType data
 #' @format A numerical matrix frame with 13 rows and 10 variables with attributes.
 "autoboost.res.x.adapt"
-#> [1] "autoboost.res.x"
+#> [1] "autoboost.res.x.adapt"
 
 #' Autoboost adaptative lasso diabetes second order.
 #'
@@ -36,7 +36,7 @@
 #' @docType data
 #' @format A numerical matrix frame with 13 rows and 64 variables with attributes.
 "autoboost.res.x2.adapt"
-#> [1] "autoboost.res.x2"
+#> [1] "autoboost.res.x2.adapt"
 
 #' Fastboost lasso diabetes first order.
 #'
@@ -46,7 +46,7 @@
 #' @docType data
 #' @format A numerical matrix frame with 13 rows and 10 variables with attributes.
 "fastboost.res.x"
-#> [1] "autoboost.res.x"
+#> [1] "fastboost.res.x"
 
 #' Fastboost lasso diabetes second order.
 #'
@@ -56,7 +56,7 @@
 #' @docType data
 #' @format A numerical matrix frame with 13 rows and 64 variables with attributes.
 "fastboost.res.x2"
-#> [1] "autoboost.res.x2"
+#> [1] "fastboost.res.x2"
 
 #' Fastboost adaptative lasso diabetes first order.
 #'
@@ -66,7 +66,7 @@
 #' @docType data
 #' @format A numerical matrix frame with 13 rows and 10 variables with attributes.
 "fastboost.res.x.adapt"
-#> [1] "autoboost.res.x"
+#> [1] "fastboost.res.x.adapt"
 
 #' Fastboost adaptative lasso diabetes second order.
 #'
@@ -76,7 +76,7 @@
 #' @docType data
 #' @format A numerical matrix frame with 13 rows and 64 variables with attributes.
 "fastboost.res.x2.adapt"
-#> [1] "autoboost.res.x2"
+#> [1] "fastboost.res.x2.adapt"
 
 
 #' Simulations for reverse-engineering
@@ -329,6 +329,7 @@ NULL
 #'   \item{cv.subjects}{Logical. Was crossvalidation carried out subjectwise?}
 #' }
 #'
+#' @name Cascade_confidence
 #' @rdname Cascade_confidence
 "net_confidence"
 #> [1] "net_confidence"
@@ -349,6 +350,7 @@ NULL
 #'   \item{Net}{Simulated network}
 #'   \item{Net_inf_C}{Inferred network}
 #' }
+#' @name Cascade_example
 #' @rdname Cascade_example
 "M"
 #> [1] "M"

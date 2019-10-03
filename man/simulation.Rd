@@ -75,7 +75,7 @@ random samples generated according to the Cor matrix.
 \code{simulation_DATA} returns a list with the X matrix, the response vector Y,
 the true predictors, the beta coefficients, the scaling factor and the standard deviation.
 
-\code{compsim.simuls} computes sensitivity (precision), specificity (recall), and several Fscores (non-weighted Fscore, F1/2 and F2 weighted Fscores).
+\code{compsim.simuls} computes recall (sensitivity), precision (positive predictive value), and several Fscores (non-weighted Fscore, F1/2 and F2 weighted Fscores).
 }
 \examples{
 N<-10

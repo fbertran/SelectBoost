@@ -1,3 +1,11 @@
+# SelectBoost 1.4.1
+
+* Update to datalist, lazyload data to fix CRAN check, correct some typos in readme and in compsim.simuls help page.
+
+# SelectBoost 1.4.0
+
+* Fixes to get in CRAN.
+
 # SelectBoost 1.3.0
 
 * Completed third vignette.

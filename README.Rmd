@@ -1,12 +1,3 @@
----
-title: "A General Algorithm to Enhance the Performance of Variable Selection Methods in Correlated Datasets"
-author: "Frédéric Bertrand and Myriam Maumy-Bertrand"
-output: github_document
----
-
-[![CRAN status](https://www.r-pkg.org/badges/version/SelectBoost)](https://cran.r-project.org/package=SelectBoost)
-[![DOI](https://zenodo.org/badge/136206211.svg)](https://zenodo.org/badge/latestdoi/136206211)
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r setup, include = FALSE}
@@ -19,7 +10,23 @@ knitr::opts_chunk$set(
   fig.keep="all"
 )
 ```
+
+# A General Algorithm to Enhance the Performance of Variable Selection Methods in Correlated Datasets
+
+
+### *Frédéric Bertrand and Myriam Maumy-Bertrand*
+
+
+[![CRAN status](https://www.r-pkg.org/badges/version/SelectBoost)](https://cran.r-project.org/package=SelectBoost)
+[![DOI](https://zenodo.org/badge/136206211.svg)](https://zenodo.org/badge/latestdoi/136206211)
+
+
+----------------
+
+
 # SelectBoost
+
+
 
 With the growth of big data, variable selection has become one of the major challenges in statistics. Although many methods have been proposed in the literature their performance in terms of recall and precision are limited in a context where the number of variables by far exceeds the number of observations or in a high correlated setting. Results: This package implements a new general algorithm which improves the precision of any existing variable selection method. This algorithm is based on highly intensive simulations and takes into account the correlation structure of the data. Our algorithm can either produce a confidence index for variable selection or it can be used in an experimental design planning perspective.
 
@@ -116,7 +123,7 @@ result.boost
 
 #### Comparing true and selected predictors
 
-We can compute, for all the $c_0$ values and for a selection threshold varying from $1$ to $0.5$ by $0.05$ steps, the sensitivity (precision), the specificity (recall), as well as several Fscores ($F_1$ harmonic mean of precision and recall, $F_{1/2}$ and $F_2$ two weighted harmonic means of precision and recall).
+We can compute, for all the $c_0$ values and for a selection threshold varying from $1$ to $0.5$ by $0.05$ steps, the recall (sensitivity), the precision (positive predictive value), as well as several Fscores ($F_1$ harmonic mean of recall and precision, $F_{1/2}$ and $F_2$ two weighted harmonic means of recall and precision).
 ```{r datasetsimulation5, cache=TRUE}
 All_res=NULL
 #Here are the cutoff level tested
@@ -136,8 +143,8 @@ matplot(1:nrow(result.boost),All_res[,,3],type="l",ylab="criterion value",
         xlab="c0 value",xaxt="n",lwd=2)
 axis(1, at=1:length(attr(result.boost,"c0.seq")),  
      labels=round(attr(result.boost,"c0.seq"),3))
-legend(x="topright",legend=c("sensitivity (precision)",
-      "specificity (recall)","non-weighted Fscore",
+legend(x="topright",legend=c("recall (sensitivity)",
+      "precision (positive predictive value)","non-weighted Fscore",
       "F1/2 weighted Fscore","F2 weighted Fscore"),lty=1:5,col=1:5,lwd=2)
 ```
 
@@ -182,7 +189,7 @@ dec.result.boost.45 <- summary(result.boost.45)$selectboost_result.dec
 dec.result.boost.45
 ```
 
-Let's compute again, for all the $c_0$ values, the sensitivity (precision), specificity (recall), and several Fscores ($F_1$ harmonic mean of precision and recall, $F_{1/2}$ and $F_2$ two weighted harmonic means of precision and recall).
+Let's compute again, for all the $c_0$ values, the recall (sensitivity), precision (positive predictive value), and several Fscores ($F_1$ harmonic mean of recall and precision, $F_{1/2}$ and $F_2$ two weighted harmonic means of recall and precision).
 ```{r datasetsimulationc03res45, cache=TRUE}
 All_res.45=NULL
 #Here are the cutoff level tested
@@ -203,8 +210,8 @@ matplot(1:nrow(dec.result.boost.45),All_res.45[,,3],type="l",
         ylab="criterion value",xlab="c0 value",xaxt="n",lwd=2)
 axis(1, at=1:length(attr(result.boost.45,"c0.seq")), 
      labels=round(attr(result.boost.45,"c0.seq"),3))
-legend(x="topright",legend=c("sensitivity (precision)",
-       "specificity (recall)","non-weighted Fscore",
+legend(x="topright",legend=c("recall (sensitivity)",
+       "precision (positive predictive value)","non-weighted Fscore",
        "F1/2 weighted Fscore","F2 weighted Fscore"),
        lty=1:5,col=1:5,lwd=2)
 ```
@@ -272,7 +279,7 @@ data(micro_US)
 micro_US<-Cascade::as.micro_array(micro_US,c(60,90,240,390),6)
 micro_S<-Cascade::as.micro_array(micro_S,c(60,90,240,390),6)
 S<-Cascade::geneSelection(list(micro_S,micro_US),list("condition",c(1,2),1),-1)
-data(micro_S)
+rm(micro_S);data(micro_S)
 Sel<-micro_S[S@name,]
 
 supp<-c(1,1,1,1,1,rep(0,95))
@@ -346,7 +353,7 @@ abline(h=)
 ```
 
 
-Let's compute again, for all the $c_0$ values, the sensitivity (precision), specificity (recall), and several Fscores ($F_1$ harmonic mean of precision and recall, $F_{1/2}$ and $F_2$ two weighted harmonic means of precision and recall).
+Let's compute again, for all the $c_0$ values, the recall (sensitivity), precision (positive predictive value), and several Fscores ($F_1$ harmonic mean of recall and precision, $F_{1/2}$ and $F_2$ two weighted harmonic means of recall and precision).
 ```{r datasetsimulationc03micro, cache=TRUE, fig.keep='last'}
 All_micro_nb1=NULL
 #Here are the cutoff level tested
@@ -367,8 +374,8 @@ matplot(1:nrow(dec.result.boost.micro_nb1),All_micro_nb1[,,3],type="l",
         ylab="criterion value",xlab="c0 value",xaxt="n",lwd=2)
 axis(1, at=1:length(attr(result.boost.micro_nb1,"c0.seq")),
      labels=round(attr(result.boost.micro_nb1,"c0.seq"),3))
-legend(x="topright",legend=c("sensitivity (precision)",
-       "specificity (recall)","non-weighted Fscore",
+legend(x="topright",legend=c("recall (sensitivity)",
+       "precision (positive predictive value)","non-weighted Fscore",
        "F1/2 weighted Fscore","F2 weighted Fscore"),
        lty=1:5,col=1:5,lwd=2)
 ```

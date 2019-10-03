@@ -118,7 +118,7 @@ compsim = function(x, ...){
   UseMethod("compsim")
 }
 
-#' @details \code{compsim.simuls} computes sensitivity (precision), specificity (recall), and several Fscores (non-weighted Fscore, F1/2 and F2 weighted Fscores).
+#' @details \code{compsim.simuls} computes recall (sensitivity), precision (positive predictive value), and several Fscores (non-weighted Fscore, F1/2 and F2 weighted Fscores).
 #'
 #' @return \code{compsim.simuls} returns a numerical vector.
 #'
@@ -140,20 +140,20 @@ compsim.simuls<-function(x, result.boost, level=1, ...){
 
   vp<-sum(result.boost[which(x$support==1)]>=level)
   totp<-sum(x$support==1)
-  sens<-vp/totp
+  recall<-vp/totp
 
-  spe<-0
-  if(sum(result.boost>=level)!=0)	spe<-vp/sum(result.boost>=level)
+  precision<-0
+  if(sum(result.boost>=level)!=0)	precision<-vp/sum(result.boost>=level)
   Fscore<-0
   Fscore2<-0
   Fscore<-0
   Fscore12<-0
-  if(sens !=0){
-    Fscore<-2*spe*sens/(spe+sens)
-    Fscore12<-(1+0.5^2)*spe*sens/(spe/4+sens)
-    Fscore2<-(1+2^2)*spe*sens/(spe*4+sens)
+  if(recall !=0){
+    Fscore<-2*precision*recall/(precision+recall)
+    Fscore12<-(1+0.5^2)*precision*recall/(precision/4+recall)
+    Fscore2<-(1+2^2)*precision*recall/(precision*4+recall)
   }
   zeroz<-1
   if(sum(result.boost)==0){zeroz<-0}
-  return(c(sens,spe,Fscore,Fscore12,Fscore2,zeroz))
+  return(c(recall,precision,Fscore,Fscore12,Fscore2,zeroz))
 }
