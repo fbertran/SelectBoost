@@ -201,33 +201,35 @@ boost.adjust<-function(X,groups,Correlation_sign,Xpass=boost.Xpass(nrowX,ncolX),
   }
 
   corr_set0<-func_passage1(X) #t(Xpass)%*%X
-  fit1<-function(j){
-    if(attr(groups,"length.groups")[j]>=2){
-      if(verbose){
-        cat(paste(j,": Random","\n"))
-      }
-      if(attr(groups,"type")=="compact"){
-        indice<-unlist((communities)[groups[[j]]])
-      } else {
-        indice<-groups[[j]]
-      }
-      corr_set2<-sweep(corr_set0[,indice,drop=FALSE],2L,Correlation_sign[indice,j],"*")
-      out.vmf.lme <- tryCatch({
-        vmf.mle(t(corr_set2))
-      }, error=function(cond) {
-        message("Here's the original error message:")
-        message(cond)
-        return("NoRandom")
-      }
-      )
-      return(out.vmf.lme)
-    }else{
-      if(verbose){
-        print(paste(j,": NoRandom","\n"))
-      }
-      return("NoRandom")
+  fit1 <- function(j) {
+  if (attr(groups, "length.groups")[j] >= 2) {
+    if (verbose) {
+      cat(paste(j, ": Random", "\n"))
     }
+    if (attr(groups, "type") == "compact") {
+      indice <- unlist((communities)[groups[[j]]])
+    }
+    else {
+      indice <- groups[[j]]
+    }
+    corr_set2 <- sweep(corr_set0[, indice, drop = FALSE], 
+                       2L, Correlation_sign[indice, j], "*")
+    out.vmf.lme <- tryCatch({
+      vmf.mle(t(corr_set2))
+    }, error = function(cond) {
+      message("Error in vmf.mle -> no random for that group")
+      #message(cond)
+      return("NoRandom")
+    })
+    return(out.vmf.lme)
   }
+  else {
+    if (verbose) {
+      print(paste(j, ": NoRandom", "\n"))
+    }
+    return("NoRandom")
+  }
+}
   fit1<-Vectorize(fit1, SIMPLIFY = FALSE)
 
   if(use.parallel) {
