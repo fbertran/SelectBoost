@@ -212,7 +212,15 @@ boost.adjust<-function(X,groups,Correlation_sign,Xpass=boost.Xpass(nrowX,ncolX),
         indice<-groups[[j]]
       }
       corr_set2<-sweep(corr_set0[,indice,drop=FALSE],2L,Correlation_sign[indice,j],"*")
-      return(vmf.mle(t(corr_set2)))
+      return(tryCatch({
+        vmf.mle(t(corr_set2))
+      }, error=function(cond) {
+        message("Here's the original error message:")
+        message(cond)
+        return("NoRandom")
+      }
+      )
+      )
     }else{
       if(verbose){
         print(paste(j,": NoRandom","\n"))
