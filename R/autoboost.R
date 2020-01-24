@@ -671,7 +671,11 @@ fastboost<-function(X,Y,ncores=4,group=group_func_1,func=lasso_msgps_AICc,corrfu
     attr(result,"Xpass")<-Xpass
     attr(result,"tmpcorrelation_sign")<-tmpcorrelation_sign
   }
-  attr(result,"c0.seq")<-c(1,c0.seq,0)
+  if(c0lim){
+    attr(res_random_sets, "c0.seq") <- c(1, c0.seq, 0)
+  } else {
+    attr(res_random_sets, "c0.seq") <- c0.seq
+  }
   attr(result,"steps.seq")<-steps.seq
   attr(result,"typeboost")<-"fastboost"
   attr(result,"limi_alea")<-NA

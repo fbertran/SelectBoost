@@ -193,7 +193,7 @@ lasso_cv_glmnet_min<-function(X,Y){
   requireNamespace("glmnet")
   resultat<-glmnet::cv.glmnet(X,Y,nfolds=10)
   coefvec<-try(as.vector(coef(resultat,s="lambda.min")[-1]))
-  if(!is.vector(coefvec)){repu<-rep(0,ncol(X))}
+  if(!is.vector(coefvec)){coefvec<-rep(0,ncol(X))}
   return(coefvec)
 }
 
@@ -215,7 +215,7 @@ lasso_cv_glmnet_min_weighted<-function(X,Y,priors){
   if(is.null(priors)) priors<-rep(1,ncol(X))
   resultat<-glmnet::cv.glmnet(X,Y,nfolds=10,penalty.factor=priors)
   coefvec<-try(as.vector(coef(resultat,s="lambda.min")[-1]))
-  if(!is.vector(coefvec)){repu<-rep(0,ncol(X))}
+  if(!is.vector(coefvec)){coefvec<-rep(0,ncol(X))}
   return(coefvec)
 }
 
@@ -238,7 +238,7 @@ lasso_cv_glmnet_1se<-function(X,Y){
   requireNamespace("glmnet")
   resultat<-glmnet::cv.glmnet(X,Y,nfolds=10)
   coefvec<-try(as.vector(coef(resultat,s="lambda.1se")[-1]))
-  if(!is.vector(coefvec)){repu<-rep(0,ncol(X))}
+  if(!is.vector(coefvec)){coefvec<-rep(0,ncol(X))}
   return(coefvec)
 }
 
@@ -261,7 +261,7 @@ lasso_cv_glmnet_1se_weighted<-function(X,Y,priors){
   if(is.null(priors)) priors<-rep(1,ncol(X))
   resultat<-glmnet::cv.glmnet(X,Y,nfolds=10,penalty.factor=priors)
   coefvec<-try(as.vector(coef(resultat,s="lambda.1se")[-1]))
-  if(!is.vector(coefvec)){repu<-rep(0,ncol(X))}
+  if(!is.vector(coefvec)){coefvec<-rep(0,ncol(X))}
   return(coefvec)
 }
 
