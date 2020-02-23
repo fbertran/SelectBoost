@@ -16,7 +16,7 @@
 #'
 #' @family Simulation functions
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr} with contributions from Nicolas Jung.
-#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, \url{https://arxiv.org/abs/1810.01670}
 #' @seealso \code{\link[glmnet]{glmnet}}, \code{\link[glmnet]{cv.glmnet}}, \code{\link{AICc_BIC_glmnetB}}, \code{\link[lars]{lars}}, \code{\link[lars]{cv.lars}}, \code{\link[msgps]{msgps}}
 #' @examples
 #' N<-10
@@ -124,7 +124,7 @@ compsim = function(x, ...){
 #'
 #' @rdname simulation
 #' @method compsim simuls
-#' @S3method compsim simuls
+#' @exportS3Method compsim simuls
 #'
 #' @param result.boost Row matrix of numerical value. Result of selecboost for a given c0.
 #' @param level List. Threshold for proportions of selected variables.

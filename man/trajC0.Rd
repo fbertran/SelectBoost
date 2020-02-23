@@ -7,9 +7,15 @@
 \usage{
 trajC0(x, ...)
 
-\method{trajC0}{selectboost}(x, summary.selectboost.res, lasso.coef.path,
-  type.x.axis = "noscale", type.graph = "boost",
-  threshold.level = NULL, ...)
+\method{trajC0}{selectboost}(
+  x,
+  summary.selectboost.res,
+  lasso.coef.path,
+  type.x.axis = "noscale",
+  type.graph = "boost",
+  threshold.level = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{Numerical matrix. Selectboost object.}
@@ -56,13 +62,14 @@ trajC0(autoboost.res.x,autoboost.res.x.mean,type.x.axis ="scale")
 
 }
 \references{
-\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, \url{https://arxiv.org/abs/1810.01670}
 }
 \seealso{
 \code{\link{fastboost}}, \code{\link{autoboost}} and \code{\link{summary.selectboost}}
 
-Other Selectboost analyze functions: \code{\link{auto.analyze}},
-  \code{\link{plot.summary.selectboost}}
+Other Selectboost analyze functions: 
+\code{\link{auto.analyze}()},
+\code{\link{plot.summary.selectboost}()}
 }
 \author{
 Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}

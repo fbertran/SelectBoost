@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SelectBoost</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -229,7 +229,7 @@ the true predictors, the beta coefficients, the scaling factor and the standard 
 <p><code>compsim.simuls</code> computes recall (sensitivity), precision (positive predictive value), and several Fscores (non-weighted Fscore, F1/2 and F2 weighted Fscores).</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p><em>selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets</em>, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, <a href='https://arxiv.org/abs/1810.01670'>https://arxiv.org/abs/1810.01670</a></p>
+    <p><em>selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets</em>, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, <a href='https://arxiv.org/abs/1810.01670'>https://arxiv.org/abs/1810.01670</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/glmnet/man/glmnet.html'>glmnet</a></code>, <code><a href='https://rdrr.io/pkg/glmnet/man/cv.glmnet.html'>cv.glmnet</a></code>, <code><a href='AICc_BIC_glmnetB.html'>AICc_BIC_glmnetB</a></code>, <code><a href='https://rdrr.io/pkg/lars/man/lars.html'>lars</a></code>, <code><a href='https://rdrr.io/pkg/lars/man/cv.lars.html'>cv.lars</a></code>, <code><a href='https://rdrr.io/pkg/msgps/man/msgps.html'>msgps</a></code></p></div>
@@ -254,7 +254,7 @@ the true predictors, the beta coefficients, the scaling factor and the standard 
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>314</span>)
 <span class='no'>result.boost</span> <span class='kw'>=</span> <span class='fu'><a href='fastboost.html'>fastboost</a></span>(<span class='no'>DATA_exemple</span>$<span class='no'>X</span>, <span class='no'>DATA_exemple</span>$<span class='no'>Y</span>, <span class='kw'>steps.seq</span> <span class='kw'>=</span> <span class='fl'>.7</span>, <span class='kw'>c0lim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
 <span class='kw'>use.parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>B</span><span class='kw'>=</span><span class='fl'>10</span>)
-<span class='fu'>compsim</span>(<span class='no'>DATA_exemple</span>, <span class='no'>result.boost</span>, <span class='kw'>level</span><span class='kw'>=</span><span class='fl'>.7</span>)</div><div class='output co'>#&gt; [1] 0.6666667 0.4000000 0.5000000 0.4347826 0.5882353 1.0000000</div><div class='input'>
+<span class='fu'>compsim</span>(<span class='no'>DATA_exemple</span>, <span class='no'>result.boost</span>, <span class='kw'>level</span><span class='kw'>=</span><span class='fl'>.7</span>)</div><div class='output co'>#&gt; [1] 0.6666667 0.5000000 0.5714286 0.5263158 0.6250000 1.0000000</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -4,11 +4,26 @@
 \alias{autoboost}
 \title{Autoboost}
 \usage{
-autoboost(X, Y, ncores = 4, group = group_func_1,
-  func = lasso_msgps_AICc, corrfunc = "cor", use.parallel = FALSE,
-  B = 100, step.num = 0.1, step.limit = "none", risk = 0.05,
-  verbose = FALSE, step.scale = "quantile", normalize = TRUE,
-  steps.seq = NULL, debug = FALSE, version = "lars", ...)
+autoboost(
+  X,
+  Y,
+  ncores = 4,
+  group = group_func_1,
+  func = lasso_msgps_AICc,
+  corrfunc = "cor",
+  use.parallel = FALSE,
+  B = 100,
+  step.num = 0.1,
+  step.limit = "none",
+  risk = 0.05,
+  verbose = FALSE,
+  step.scale = "quantile",
+  normalize = TRUE,
+  steps.seq = NULL,
+  debug = FALSE,
+  version = "lars",
+  ...
+)
 }
 \arguments{
 \item{X}{Numerical matrix. Matrix of the variables.}
@@ -103,10 +118,11 @@ autoboost(xran,ybin,func=lasso_cv_glmnet_bin_min)
 \seealso{
 \code{\link{boost}}, \code{\link{fastboost}}, \code{\link{plot.selectboost}}
 
-Other Selectboost functions: \code{\link{boost}},
-  \code{\link{fastboost}},
-  \code{\link{plot_selectboost_cascade}},
-  \code{\link{selectboost_cascade}}
+Other Selectboost functions: 
+\code{\link{boost}},
+\code{\link{fastboost}()},
+\code{\link{plot_selectboost_cascade}},
+\code{\link{selectboost_cascade}}
 }
 \author{
 Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}

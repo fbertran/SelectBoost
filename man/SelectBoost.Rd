@@ -3,7 +3,6 @@
 \docType{package}
 \name{SelectBoost}
 \alias{SelectBoost}
-\alias{SelectBoost-package}
 \title{SelectBoost}
 \description{
 Motivation: With the growth of big data, variable selection has become one of the major
@@ -36,5 +35,5 @@ fastboost(xran,ybin,func=lasso_cv_glmnet_bin_min)
 }
 }
 \references{
-\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, \url{https://arxiv.org/abs/1810.01670}
 }

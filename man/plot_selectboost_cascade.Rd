@@ -7,8 +7,7 @@
 \alias{plot,network.confidence,network.confidence-method}
 \title{plot_Selectboost_cascade}
 \usage{
-\S4method{plot}{network.confidence,ANY}(x, col = gray((1:99)/100, alpha =
-  NULL), ...)
+\S4method{plot}{network.confidence,ANY}(x, col = gray((1:99)/100, alpha = NULL), ...)
 }
 \arguments{
 \item{x}{A \code{network.confidence} object to be plotted.}
@@ -46,14 +45,16 @@ plot(net_confidence_thr)
 
 }
 \references{
-\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, \url{https://arxiv.org/abs/1810.01670}
 }
 \seealso{
 \code{\link{boost}}, \code{\link{fastboost}}, \code{\link{selectboost}}, \code{\link[Cascade]{inference}}
 
-Other Selectboost functions: \code{\link{autoboost}},
-  \code{\link{boost}}, \code{\link{fastboost}},
-  \code{\link{selectboost_cascade}}
+Other Selectboost functions: 
+\code{\link{autoboost}()},
+\code{\link{boost}},
+\code{\link{fastboost}()},
+\code{\link{selectboost_cascade}}
 }
 \author{
 Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}

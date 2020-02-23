@@ -70,7 +70,7 @@ and saves some memory." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SelectBoost</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -137,11 +137,26 @@ and saves some memory." />
 and saves some memory.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>autoboost</span>(<span class='no'>X</span>, <span class='no'>Y</span>, <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group_func_1</span>,
-  <span class='kw'>func</span> <span class='kw'>=</span> <span class='no'>lasso_msgps_AICc</span>, <span class='kw'>corrfunc</span> <span class='kw'>=</span> <span class='st'>"cor"</span>, <span class='kw'>use.parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>step.num</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>step.limit</span> <span class='kw'>=</span> <span class='st'>"none"</span>, <span class='kw'>risk</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>step.scale</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>, <span class='kw'>normalize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>steps.seq</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>debug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>version</span> <span class='kw'>=</span> <span class='st'>"lars"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>autoboost</span>(
+  <span class='no'>X</span>,
+  <span class='no'>Y</span>,
+  <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group_func_1</span>,
+  <span class='kw'>func</span> <span class='kw'>=</span> <span class='no'>lasso_msgps_AICc</span>,
+  <span class='kw'>corrfunc</span> <span class='kw'>=</span> <span class='st'>"cor"</span>,
+  <span class='kw'>use.parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>step.num</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>step.limit</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
+  <span class='kw'>risk</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>step.scale</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>,
+  <span class='kw'>normalize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>steps.seq</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>debug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>version</span> <span class='kw'>=</span> <span class='st'>"lars"</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -252,10 +267,11 @@ the algorithm.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='boost.html'>boost</a></code>, <code><a href='fastboost.html'>fastboost</a></code>, <code><a href='plot.selectboost.html'>plot.selectboost</a></code></p>
-<p>Other Selectboost functions: <code><a href='boost.html'>boost</a></code>,
-  <code><a href='fastboost.html'>fastboost</a></code>,
-  <code><a href='plot_selectboost_cascade.html'>plot_selectboost_cascade</a></code>,
-  <code><a href='selectboost_cascade.html'>selectboost_cascade</a></code></p></div>
+<p>Other Selectboost functions: 
+<code><a href='boost.html'>boost</a></code>,
+<code><a href='fastboost.html'>fastboost</a>()</code>,
+<code><a href='plot_selectboost_cascade.html'>plot_selectboost_cascade</a></code>,
+<code><a href='selectboost_cascade.html'>selectboost_cascade</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>314</span>)

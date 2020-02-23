@@ -77,7 +77,7 @@ perspective." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SelectBoost</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -155,7 +155,7 @@ perspective.</p>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p><em>selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets</em>, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, <a href='https://arxiv.org/abs/1810.01670'>https://arxiv.org/abs/1810.01670</a></p>
+    <p><em>selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets</em>, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, <a href='https://arxiv.org/abs/1810.01670'>https://arxiv.org/abs/1810.01670</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>314</span>)
@@ -185,6 +185,8 @@ perspective.</p>
 #&gt; 1.000000 0.566382 0.439093 0.353778 0.197544 0.184814 0.163711 0.104148 
 #&gt;    12.5%       0%          
 #&gt; 0.022531 0.009343 0.000000 
+#&gt; attr(,"c0lim")
+#&gt; [1] TRUE
 #&gt; attr(,"steps.seq")
 #&gt; [1] 1.000 0.875 0.750 0.625 0.500 0.375 0.250 0.125 0.000
 #&gt; attr(,"typeboost")
@@ -197,10 +199,12 @@ perspective.</p>
 #&gt; [1] "selectboost"</div><div class='input'><span class='co'>#Customize resampling levels</span>
 <span class='fu'><a href='fastboost.html'>fastboost</a></span>(<span class='no'>xran</span>,<span class='no'>yran</span>,<span class='kw'>steps.seq</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.99</span>,<span class='fl'>.95</span>,<span class='fl'>.9</span>),<span class='kw'>c0lim</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;           1 2 3 4 5
 #&gt; c0 = 0.99 0 0 1 1 1
-#&gt; c0 = 0.9  0 0 1 1 1
 #&gt; c0 = 0.95 0 0 1 1 1
+#&gt; c0 = 0.9  0 0 1 1 1
 #&gt; attr(,"c0.seq")
-#&gt; [1] 1.00 0.99 0.95 0.90 0.00
+#&gt; [1] 0.99 0.95 0.90
+#&gt; attr(,"c0lim")
+#&gt; [1] FALSE
 #&gt; attr(,"steps.seq")
 #&gt; [1] 0.00 0.99 0.95 0.90 1.00
 #&gt; attr(,"typeboost")
@@ -229,6 +233,8 @@ perspective.</p>
 #&gt; 1.000000 0.566382 0.439093 0.353778 0.197544 0.184814 0.163711 0.104148 
 #&gt;    12.5%       0%          
 #&gt; 0.022531 0.009343 0.000000 
+#&gt; attr(,"c0lim")
+#&gt; [1] TRUE
 #&gt; attr(,"steps.seq")
 #&gt; [1] 1.000 0.875 0.750 0.625 0.500 0.375 0.250 0.125 0.000
 #&gt; attr(,"typeboost")

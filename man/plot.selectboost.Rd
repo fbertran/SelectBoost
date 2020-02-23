@@ -4,8 +4,14 @@
 \alias{plot.selectboost}
 \title{Plot selectboost object}
 \usage{
-\method{plot}{selectboost}(x, verbose = FALSE, prop.level = 0.95,
-  conf.int.level = 0.95, conf.threshold = 0.95, ...)
+\method{plot}{selectboost}(
+  x,
+  verbose = FALSE,
+  prop.level = 0.95,
+  conf.int.level = 0.95,
+  conf.threshold = 0.95,
+  ...
+)
 }
 \arguments{
 \item{x}{Numerical matrix. Result of selectboost (autoboost, fastboost, ...).}
@@ -52,12 +58,14 @@ plot(autoboost.res.x2)
 
 }
 \references{
-\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, \url{https://arxiv.org/abs/1810.01670}
 }
 \seealso{
 \code{\link{fastboost}}, \code{\link{autoboost}}
 
-Other Selectboost analyse functions: \code{\link{summary.selectboost}}
+Other Selectboost analyse functions: 
+\code{\link{force.non.inc}()},
+\code{\link{summary.selectboost}()}
 }
 \author{
 Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}

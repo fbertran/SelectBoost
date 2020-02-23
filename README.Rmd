@@ -117,7 +117,13 @@ quantile(abs(cor(DATA_exemple$X))[abs(cor(DATA_exemple$X))!=1],(0:10)/10)
 ```
 
 ```{r datasetsimulation4bis, cache=TRUE}
-result.boost = fastboost(DATA_exemple$X, DATA_exemple$Y)
+result.boost.raw = fastboost(DATA_exemple$X, DATA_exemple$Y)
+result.boost.raw
+```
+
+Applying a non increasing post-processing step to the results improves the performance of the algorithm. 
+```{r datasetsimulation4ter, cache=TRUE}
+result.boost = force.non.inc(result.boost.raw)
 result.boost
 ```
 
@@ -176,8 +182,14 @@ groups.seq.f2[[1]]
 ```
 
 ```{r datasetsimulationc02res45, cache=TRUE}
-result.boost.45 = fastboost(DATA_exemple$X, DATA_exemple$Y, B=100,
+result.boost.45.raw = fastboost(DATA_exemple$X, DATA_exemple$Y, B=100,
                     steps.seq=sort(unique(all.cors),decreasing=TRUE))
+result.boost.45.raw
+```
+
+Applying a non increasing post-processing step to the results improves the performance of the algorithm. 
+```{r datasetsimulationc02res45bis, cache=TRUE}
+result.boost.45 = force.non.inc(result.boost.45.raw)
 result.boost.45
 ```
 
@@ -315,6 +327,7 @@ result.boost.micro_nb1 = fastboost(DATA_exemple3_nb_1$X, DATA_exemple3_nb_1$Y, B
 result.boost.micro_nb1
 ```
 
+The summary function computes applies a non increasing post-processing step to the results to improve the performance of the algorithm. The results are store int the selectboost_result.dec entry of the summary.
 ```{r datasetsimulationc02res45decbis, cache=TRUE}
 dec.result.boost.micro_nb1 <- summary(result.boost.micro_nb1)$selectboost_result.dec
 dec.result.boost.micro_nb1

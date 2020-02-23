@@ -11,12 +11,12 @@ Some details about this class and my plans for it in the body.
 \describe{
    \item{network.confidence}{Matrix of confidence indices.}
 
-\item{name}{Vector.}
+   \item{name}{Vector.}
 
-\item{array}{F array}
+   \item{array}{F array}
 
-\item{time_pt}{Vector}
+   \item{time_pt}{Vector}
 
-\item{cv.subjects}{Logical. Was crossvalidation carried out subjectwise?}
+   \item{cv.subjects}{Logical. Was crossvalidation carried out subjectwise?}
  }
 }
