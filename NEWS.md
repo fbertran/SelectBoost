@@ -1,3 +1,7 @@
+# SelectBoost 2.1.0
+
+* Added reference for the article about the Selectboost algorithm that was published in Bioinformatics
+
 # SelectBoost 2.0.0
 
 * Major imrovement of the package with new c0 sequences: "mixed", "zoom_l" and "zoom_q". The use of the "zoom_l" sequence is recommended. New function to perform a post-processing step that ensures that the proportion of times a variable is selected is non-increasing with respect to 1-c0.

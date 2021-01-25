@@ -41,7 +41,8 @@ devtools::install_github("fbertran/SelectBoost", ref = "doMC")
 * Reference for the Cascade package: Jung, N., Bertrand, F., Bahram, S., Vallat, L. et Maumy-Bertrand, M. (2014). Cascade : A R package to study, predict and simulate the diffusion of a signal through a temporal gene network. *Bioinformatics*.
 
 # Code
-Code to reproduce the datasets saved with the package and some the figures of the article Aouadi et al. (2018), <arXiv:1810.01670>
+
+Code to reproduce the datasets saved with the package and some the figures of the article Bertrand et al. (2020), Bioinformatics. <doi:10.1093/bioinformatics/btaa855>
 
 ## Data simulation
 ```{r Cascade, cache= FALSE, eval = LOCAL}

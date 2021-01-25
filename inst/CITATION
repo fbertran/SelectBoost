@@ -19,3 +19,29 @@ citEntry(entry="Manual",
                titl, ", ", vers, ".", sep=""
                )
 )
+
+citEntry(entry="Article",
+         title = titl,
+         author = personList(as.person("F. Bertrand"),
+                             as.person("M. Maumy-Bertrand"),
+                             as.person("N. Jung"),
+                             as.person("I. Aouadi")),
+	 publisher = "OUP",
+         year         = year,
+         note         = vers,
+         url          = "http://www-irma.u-strasbg.fr/~fbertran/",
+         textVersion =
+         paste("Frederic Bertrand, Myriam Maumy-Bertrand, Nicolas Jung and Ismail Aouadi (",year ,"). ",
+               titl, ", ", vers, ".", sep=""
+               )
+)
+
+citEntry(entry="Article",
+         title = "SelectBoost: a general algorithm to enhance the performance of variable selection methods",
+         author = personList(as.person("F. Bertrand"), as.person("I. Aouadi"), as.person("N. Jung"), as.person("R. Carapito"), as.person("L. Vallat"), as.person("S. Bahram"), 
+as.person("M. Maumy-Bertrand")),
+         year         = 2020,
+         journal = "Bioinformatics",
+         textVersion = 
+         paste("F. Bertrand, I. Aouadi, N. Jung, R. Carapito, L. Vallat, S. Bahram, M. Maumy-Bertrand (2020).", "SelectBoost: a general algorithm to enhance the performance of variable selection methods", "Bioinformatics,", "doi:10.1093/bioinformatics/btaa855." )
+)
