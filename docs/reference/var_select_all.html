@@ -8,25 +8,36 @@
 
 <title>Variable selection functions (all) — var_select_all • SelectBoost</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,7 +48,7 @@
 
 <meta property="og:title" content="Variable selection functions (all) — var_select_all" />
 <meta property="og:description" content="Compute coefficient vector after variable selection for the fitting criteria of a given model. May be used for a step by step use of Selectboost." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -55,7 +66,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -69,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SelectBoost</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
       </span>
     </div>
 
@@ -77,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -108,8 +119,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/fbertran/SelectBoost">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/fbertran/SelectBoost/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -135,29 +146,29 @@
     <p>Compute coefficient vector after variable selection for the fitting criteria of a given model. May be used for a step by step use of Selectboost.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lasso_msgps_all</span>(<span class='no'>X</span>, <span class='no'>Y</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='st'>"enet"</span>)
+    <pre class="usage"><span class='fu'>lasso_msgps_all</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>Y</span>, penalty <span class='op'>=</span> <span class='st'>"enet"</span><span class='op'>)</span>
 
-<span class='fu'>enet_msgps_all</span>(<span class='no'>X</span>, <span class='no'>Y</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='st'>"enet"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
+<span class='fu'>enet_msgps_all</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>Y</span>, penalty <span class='op'>=</span> <span class='st'>"enet"</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
 
-<span class='fu'>alasso_msgps_all</span>(<span class='no'>X</span>, <span class='no'>Y</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='st'>"alasso"</span>)
+<span class='fu'>alasso_msgps_all</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>Y</span>, penalty <span class='op'>=</span> <span class='st'>"alasso"</span><span class='op'>)</span>
 
-<span class='fu'>alasso_enet_msgps_all</span>(<span class='no'>X</span>, <span class='no'>Y</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='st'>"alasso"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
+<span class='fu'>alasso_enet_msgps_all</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>Y</span>, penalty <span class='op'>=</span> <span class='st'>"alasso"</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
 
-<span class='fu'>lasso_cv_glmnet_all_5f</span>(<span class='no'>X</span>, <span class='no'>Y</span>)
+<span class='fu'>lasso_cv_glmnet_all_5f</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>Y</span><span class='op'>)</span>
 
-<span class='fu'>spls_spls_all</span>(<span class='no'>X</span>, <span class='no'>Y</span>, <span class='kw'>K.seq</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>), <span class='kw'>eta.seq</span> <span class='kw'>=</span> (<span class='fl'>1</span>:<span class='fl'>9</span>)/<span class='fl'>10</span>, <span class='kw'>fold.val</span> <span class='kw'>=</span> <span class='fl'>5</span>)
+<span class='fu'>spls_spls_all</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>Y</span>, K.seq <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>, eta.seq <span class='op'>=</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>10</span>, fold.val <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
 
-<span class='fu'>varbvs_linear_all</span>(<span class='no'>X</span>, <span class='no'>Y</span>, <span class='kw'>include.threshold.list</span> <span class='kw'>=</span> (<span class='fl'>1</span>:<span class='fl'>19</span>)/<span class='fl'>20</span>)
+<span class='fu'>varbvs_linear_all</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>Y</span>, include.threshold.list <span class='op'>=</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>19</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>20</span><span class='op'>)</span>
 
-<span class='fu'>lasso_cv_glmnet_bin_all</span>(<span class='no'>X</span>, <span class='no'>Y</span>)
+<span class='fu'>lasso_cv_glmnet_bin_all</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>Y</span><span class='op'>)</span>
 
-<span class='fu'>lasso_glmnet_bin_all</span>(<span class='no'>X</span>, <span class='no'>Y</span>)
+<span class='fu'>lasso_glmnet_bin_all</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>Y</span><span class='op'>)</span>
 
-<span class='fu'>splsda_spls_all</span>(<span class='no'>X</span>, <span class='no'>Y</span>, <span class='kw'>K.seq</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>), <span class='kw'>eta.seq</span> <span class='kw'>=</span> (<span class='fl'>1</span>:<span class='fl'>9</span>)/<span class='fl'>10</span>)
+<span class='fu'>splsda_spls_all</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>Y</span>, K.seq <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>, eta.seq <span class='op'>=</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>10</span><span class='op'>)</span>
 
-<span class='fu'>sgpls_spls_all</span>(<span class='no'>X</span>, <span class='no'>Y</span>, <span class='kw'>K.seq</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>), <span class='kw'>eta.seq</span> <span class='kw'>=</span> (<span class='fl'>1</span>:<span class='fl'>9</span>)/<span class='fl'>10</span>)
+<span class='fu'>sgpls_spls_all</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>Y</span>, K.seq <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>, eta.seq <span class='op'>=</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>10</span><span class='op'>)</span>
 
-<span class='fu'>varbvs_binomial_all</span>(<span class='no'>X</span>, <span class='no'>Y</span>, <span class='kw'>include.threshold.list</span> <span class='kw'>=</span> (<span class='fl'>1</span>:<span class='fl'>19</span>)/<span class='fl'>20</span>)</pre>
+<span class='fu'>varbvs_binomial_all</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>Y</span>, include.threshold.list <span class='op'>=</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>19</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>20</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -274,62 +285,71 @@ variable selection in logistic regression, <code>family = binomial</code>) and t
 It uses the <code>varbvs</code>, <code>coef</code> and <code>variable.names</code> functions of the <code>varbvs</code> package.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p><em>selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets</em>, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, <a href='https://arxiv.org/abs/1810.01670'>https://arxiv.org/abs/1810.01670</a></p>
+    <p><em>selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets</em>, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. doi: <a href='https://doi.org/10.1093/bioinformatics/btaa855'>10.1093/bioinformatics/btaa855</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/glmnet/man/glmnet.html'>glmnet</a></code>, <code><a href='https://rdrr.io/pkg/glmnet/man/cv.glmnet.html'>cv.glmnet</a></code>, <code><a href='https://rdrr.io/pkg/msgps/man/msgps.html'>msgps</a></code>, <code><a href='AICc_BIC_glmnetB.html'>AICc_BIC_glmnetB</a></code>, <code><a href='https://rdrr.io/pkg/spls/man/spls.html'>spls</a></code>, <code><a href='https://rdrr.io/pkg/spls/man/cv.spls.html'>cv.spls</a></code>, <code><a href='https://rdrr.io/pkg/spls/man/correct.spls.html'>correct.spls</a></code>, <code><a href='https://rdrr.io/pkg/spls/man/splsda.html'>splsda</a></code>, <code><a href='https://rdrr.io/pkg/spls/man/cv.splsda.html'>cv.splsda</a></code>, <code><a href='https://rdrr.io/pkg/spls/man/sgpls.html'>sgpls</a></code>, <code><a href='https://rdrr.io/pkg/spls/man/cv.sgpls.html'>cv.sgpls</a></code>, <code><a href='https://rdrr.io/pkg/varbvs/man/varbvs.html'>varbvs</a></code></p>
+    <div class='dont-index'><p><code><a href='https://glmnet.stanford.edu/reference/glmnet.html'>glmnet</a></code>, <code><a href='https://glmnet.stanford.edu/reference/cv.glmnet.html'>cv.glmnet</a></code>, <code><a href='https://rdrr.io/pkg/msgps/man/msgps.html'>msgps</a></code>, <code><a href='AICc_BIC_glmnetB.html'>AICc_BIC_glmnetB</a></code>, <code><a href='https://rdrr.io/pkg/spls/man/spls.html'>spls</a></code>, <code><a href='https://rdrr.io/pkg/spls/man/cv.spls.html'>cv.spls</a></code>, <code><a href='https://rdrr.io/pkg/spls/man/correct.spls.html'>correct.spls</a></code>, <code><a href='https://rdrr.io/pkg/spls/man/splsda.html'>splsda</a></code>, <code><a href='https://rdrr.io/pkg/spls/man/cv.splsda.html'>cv.splsda</a></code>, <code><a href='https://rdrr.io/pkg/spls/man/sgpls.html'>sgpls</a></code>, <code><a href='https://rdrr.io/pkg/spls/man/cv.sgpls.html'>cv.sgpls</a></code>, <code><a href='https://rdrr.io/pkg/varbvs/man/varbvs.html'>varbvs</a></code></p>
 <p>Other Variable selection functions: 
 <code><a href='var_select.html'>var_select</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Frederic Bertrand, <a href='mailto:frederic.bertrand@math.unistra.fr'>frederic.bertrand@math.unistra.fr</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>314</span>)
-<span class='no'>xran</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>*<span class='fl'>6</span>),<span class='fl'>100</span>,<span class='fl'>6</span>)
-<span class='no'>beta0</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>1.5</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>2</span>,<span class='fl'>0</span>)
-<span class='no'>epsilon</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>,<span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>3</span>)
-<span class='no'>yran</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>xran</span> <span class='kw'>%*%</span> <span class='no'>beta0</span> + <span class='no'>epsilon</span>)
-<span class='no'>ybin</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>yran</span><span class='kw'>&gt;=</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>314</span>)
-<span class='fu'>lasso_msgps_all</span>(<span class='no'>xran</span>,<span class='no'>yran</span>)</div><div class='output co'>#&gt;          Cp     AICc      GCV      BIC
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>314</span><span class='op'>)</span>
+<span class='va'>xran</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>*</span><span class='fl'>6</span><span class='op'>)</span>,<span class='fl'>100</span>,<span class='fl'>6</span><span class='op'>)</span>
+<span class='va'>beta0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>1.5</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>2</span>,<span class='fl'>0</span><span class='op'>)</span>
+<span class='va'>epsilon</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>,sd<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>yran</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>xran</span> <span class='op'>%*%</span> <span class='va'>beta0</span> <span class='op'>+</span> <span class='va'>epsilon</span><span class='op'>)</span>
+<span class='va'>ybin</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>yran</span><span class='op'>&gt;=</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>314</span><span class='op'>)</span>
+<span class='fu'>lasso_msgps_all</span><span class='op'>(</span><span class='va'>xran</span>,<span class='va'>yran</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          Cp     AICc      GCV      BIC
 #&gt; V1 2.888389 2.888389 2.888389 2.822453
 #&gt; V2 1.240134 1.240134 1.240134 1.158685
 #&gt; V3 0.294536 0.294536 0.294536 0.197723
 #&gt; V4 0.000000 0.000000 0.000000 0.000000
 #&gt; V5 1.488073 1.488073 1.488073 1.396131
 #&gt; V6 0.000000 0.000000 0.000000 0.000000</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>314</span>)
-<span class='fu'>enet_msgps_all</span>(<span class='no'>xran</span>,<span class='no'>yran</span>)</div><div class='output co'>#&gt;          Cp     AICc      GCV      BIC
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>314</span><span class='op'>)</span>
+<span class='fu'>enet_msgps_all</span><span class='op'>(</span><span class='va'>xran</span>,<span class='va'>yran</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          Cp     AICc      GCV      BIC
 #&gt; V1 2.941541 2.937504 2.941541 2.814043
 #&gt; V2 1.442444 1.440943 1.442444 1.393650
 #&gt; V3 0.516834 0.515345 0.516834 0.472523
 #&gt; V4 0.000000 0.000000 0.000000 0.000000
 #&gt; V5 1.629282 1.626506 1.629282 1.540810
 #&gt; V6 0.225360 0.224630 0.225360 0.200158</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>314</span>)
-<span class='fu'>alasso_msgps_all</span>(<span class='no'>xran</span>,<span class='no'>yran</span>)</div><div class='output co'>#&gt;          Cp     AICc      GCV      BIC
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>314</span><span class='op'>)</span>
+<span class='fu'>alasso_msgps_all</span><span class='op'>(</span><span class='va'>xran</span>,<span class='va'>yran</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          Cp     AICc      GCV      BIC
 #&gt; V1 3.007477 3.006131 3.007813 2.968790
 #&gt; V2 1.309948 1.305444 1.311450 1.172197
 #&gt; V3 0.278524 0.269215 0.281131 0.000000
 #&gt; V4 0.000000 0.000000 0.000000 0.000000
 #&gt; V5 1.602220 1.598403 1.603261 1.487032
 #&gt; V6 0.000000 0.000000 0.000000 0.000000</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>314</span>)
-<span class='fu'>alasso_enet_msgps_all</span>(<span class='no'>xran</span>,<span class='no'>yran</span>)</div><div class='output co'>#&gt;          Cp     AICc      GCV      BIC
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>314</span><span class='op'>)</span>
+<span class='fu'>alasso_enet_msgps_all</span><span class='op'>(</span><span class='va'>xran</span>,<span class='va'>yran</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          Cp     AICc      GCV      BIC
 #&gt; V1 3.007477 3.006131 3.007813 2.968790
 #&gt; V2 1.309948 1.305444 1.311450 1.172197
 #&gt; V3 0.278524 0.269215 0.281131 0.000000
 #&gt; V4 0.000000 0.000000 0.000000 0.000000
 #&gt; V5 1.602220 1.598403 1.603261 1.487032
 #&gt; V6 0.000000 0.000000 0.000000 0.000000</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>314</span>)
-<span class='fu'>lasso_cv_glmnet_all_5f</span>(<span class='no'>xran</span>,<span class='no'>yran</span>)</div><div class='output co'>#&gt;      lambda.min lambda.1se
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>314</span><span class='op'>)</span>
+<span class='fu'>lasso_cv_glmnet_all_5f</span><span class='op'>(</span><span class='va'>xran</span>,<span class='va'>yran</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      lambda.min lambda.1se
 #&gt; [1,]  3.0265634  2.5914804
 #&gt; [2,]  1.4632565  0.8834199
 #&gt; [3,]  0.5351174  0.0000000
 #&gt; [4,]  0.0000000  0.0000000
 #&gt; [5,]  1.6827459  1.0760789
 #&gt; [6,]  0.2299210  0.0000000</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>314</span>)
-<span class='fu'>spls_spls_all</span>(<span class='no'>xran</span>,<span class='no'>yran</span>)</div><div class='output co'>#&gt; eta = 0.1 
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>314</span><span class='op'>)</span>
+<span class='fu'>spls_spls_all</span><span class='op'>(</span><span class='va'>xran</span>,<span class='va'>yran</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; eta = 0.1 
 #&gt; eta = 0.2 
 #&gt; eta = 0.3 
 #&gt; eta = 0.4 
@@ -363,61 +383,65 @@ It uses the <code>varbvs</code>, <code>coef</code> and <code>variable.names</cod
 #&gt; [4,]                                      0.000000
 #&gt; [5,]                                      1.647004
 #&gt; [6,]                                      0.000000</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>314</span>)
-<span class='fu'>varbvs_linear_all</span>(<span class='no'>xran</span>,<span class='no'>yran</span>)</div><div class='output co'>#&gt;    coef_varbvs_0.05 coef_varbvs_0.1 coef_varbvs_0.15 coef_varbvs_0.2
-#&gt; X1         3.016325        3.016325         3.016325        3.016325
-#&gt; X2         1.282165        1.282165         1.282165        1.282165
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>314</span><span class='op'>)</span>
+<span class='fu'>varbvs_linear_all</span><span class='op'>(</span><span class='va'>xran</span>,<span class='va'>yran</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    coef_varbvs_0.05 coef_varbvs_0.1 coef_varbvs_0.15 coef_varbvs_0.2
+#&gt; X1         3.016354        3.016354         3.016354        3.016354
+#&gt; X2         1.282221        1.282221         1.282221        1.282221
 #&gt; X3         0.000000        0.000000         0.000000        0.000000
 #&gt; X4         0.000000        0.000000         0.000000        0.000000
-#&gt; X5         1.645791        1.645791         1.645791        1.645791
+#&gt; X5         1.645789        1.645789         1.645789        1.645789
 #&gt; X6         0.000000        0.000000         0.000000        0.000000
 #&gt;    coef_varbvs_0.25 coef_varbvs_0.3 coef_varbvs_0.35 coef_varbvs_0.4
-#&gt; X1         3.016325        3.016325         3.016325        3.016325
-#&gt; X2         1.282165        1.282165         1.282165        1.282165
+#&gt; X1         3.016354        3.016354         3.016354        3.016354
+#&gt; X2         1.282221        1.282221         1.282221        1.282221
 #&gt; X3         0.000000        0.000000         0.000000        0.000000
 #&gt; X4         0.000000        0.000000         0.000000        0.000000
-#&gt; X5         1.645791        1.645791         1.645791        1.645791
+#&gt; X5         1.645789        1.645789         1.645789        1.645789
 #&gt; X6         0.000000        0.000000         0.000000        0.000000
 #&gt;    coef_varbvs_0.45 coef_varbvs_0.5 coef_varbvs_0.55 coef_varbvs_0.6
-#&gt; X1         3.016325        3.016325         3.016325        3.016325
-#&gt; X2         1.282165        1.282165         1.282165        1.282165
+#&gt; X1         3.016354        3.016354         3.016354        3.016354
+#&gt; X2         1.282221        1.282221         1.282221        1.282221
 #&gt; X3         0.000000        0.000000         0.000000        0.000000
 #&gt; X4         0.000000        0.000000         0.000000        0.000000
-#&gt; X5         1.645791        1.645791         1.645791        1.645791
+#&gt; X5         1.645789        1.645789         1.645789        1.645789
 #&gt; X6         0.000000        0.000000         0.000000        0.000000
 #&gt;    coef_varbvs_0.65 coef_varbvs_0.7 coef_varbvs_0.75 coef_varbvs_0.8
-#&gt; X1         3.016325        3.016325         3.016325        3.016325
-#&gt; X2         1.282165        1.282165         1.282165        1.282165
+#&gt; X1         3.016354        3.016354         3.016354        3.016354
+#&gt; X2         1.282221        1.282221         1.282221        1.282221
 #&gt; X3         0.000000        0.000000         0.000000        0.000000
 #&gt; X4         0.000000        0.000000         0.000000        0.000000
-#&gt; X5         1.645791        1.645791         1.645791        1.645791
+#&gt; X5         1.645789        1.645789         1.645789        1.645789
 #&gt; X6         0.000000        0.000000         0.000000        0.000000
 #&gt;    coef_varbvs_0.85 coef_varbvs_0.9 coef_varbvs_0.95
-#&gt; X1         3.016325        3.016325         3.016325
-#&gt; X2         1.282165        1.282165         0.000000
+#&gt; X1         3.016354        3.016354         3.016354
+#&gt; X2         1.282221        1.282221         0.000000
 #&gt; X3         0.000000        0.000000         0.000000
 #&gt; X4         0.000000        0.000000         0.000000
-#&gt; X5         1.645791        1.645791         1.645791
+#&gt; X5         1.645789        1.645789         1.645789
 #&gt; X6         0.000000        0.000000         0.000000</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>314</span>)
-<span class='fu'>lasso_cv_glmnet_bin_all</span>(<span class='no'>xran</span>,<span class='no'>ybin</span>)</div><div class='output co'>#&gt;      lambda.min lambda.1se
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>314</span><span class='op'>)</span>
+<span class='fu'>lasso_cv_glmnet_bin_all</span><span class='op'>(</span><span class='va'>xran</span>,<span class='va'>ybin</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      lambda.min lambda.1se
 #&gt; [1,]  1.0500913  0.9854475
 #&gt; [2,]  0.3353787  0.2834710
 #&gt; [3,]  0.1756045  0.1187688
 #&gt; [4,]  0.0000000  0.0000000
 #&gt; [5,]  0.5707957  0.5097384
 #&gt; [6,]  0.0000000  0.0000000</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>314</span>)
-<span class='fu'>lasso_glmnet_bin_all</span>(<span class='no'>xran</span>,<span class='no'>ybin</span>)</div><div class='output co'>#&gt;          AICc      BIC
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>314</span><span class='op'>)</span>
+<span class='fu'>lasso_glmnet_bin_all</span><span class='op'>(</span><span class='va'>xran</span>,<span class='va'>ybin</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          AICc      BIC
 #&gt; [1,] 1.345775 1.345775
 #&gt; [2,] 0.000000 0.000000
 #&gt; [3,] 0.000000 0.000000
 #&gt; [4,] 0.000000 0.000000
 #&gt; [5,] 0.000000 0.000000
 #&gt; [6,] 0.000000 0.000000</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>314</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>314</span><span class='op'>)</span>
 <span class='co'># \donttest{</span>
-<span class='fu'>splsda_spls_all</span>(<span class='no'>xran</span>,<span class='no'>ybin</span>, <span class='kw'>K.seq</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>3</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>splsda_spls_all</span><span class='op'>(</span><span class='va'>xran</span>,<span class='va'>ybin</span>, K.seq<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; Optimal parameters: eta = 0.9, K = 3</div><div class='output co'>#&gt;    raw_coefs_K.opt_3_eta.opt_0.9
 #&gt; x1                     0.9729799
 #&gt; x2                     0.4145599
@@ -426,9 +450,10 @@ It uses the <code>varbvs</code>, <code>coef</code> and <code>variable.names</cod
 #&gt; x5                     0.6557821
 #&gt; x6                     0.0000000</div><div class='input'><span class='co'># }</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>314</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>314</span><span class='op'>)</span>
 <span class='co'># \donttest{</span>
-<span class='fu'>sgpls_spls_all</span>(<span class='no'>xran</span>,<span class='no'>ybin</span>, <span class='kw'>K.seq</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>3</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>sgpls_spls_all</span><span class='op'>(</span><span class='va'>xran</span>,<span class='va'>ybin</span>, K.seq<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; Optimal parameters: eta = 0.4, K = 3</div><div class='output co'>#&gt;    raw_coefs_K.opt_3_eta.opt_0.4
 #&gt; x1                    0.52287257
 #&gt; x2                    0.23647477
@@ -437,37 +462,38 @@ It uses the <code>varbvs</code>, <code>coef</code> and <code>variable.names</cod
 #&gt; x5                    0.33188549
 #&gt; x6                    0.03978646</div><div class='input'><span class='co'># }</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>314</span>)
-<span class='fu'>varbvs_binomial_all</span>(<span class='no'>xran</span>,<span class='no'>ybin</span>)</div><div class='output co'>#&gt;    coef_varbvs_0.05 coef_varbvs_0.1 coef_varbvs_0.15 coef_varbvs_0.2
-#&gt; X1       1.35696226       1.3569623        1.3569623       1.3569623
-#&gt; X2       0.02417951       0.0000000        0.0000000       0.0000000
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>314</span><span class='op'>)</span>
+<span class='fu'>varbvs_binomial_all</span><span class='op'>(</span><span class='va'>xran</span>,<span class='va'>ybin</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    coef_varbvs_0.05 coef_varbvs_0.1 coef_varbvs_0.15 coef_varbvs_0.2
+#&gt; X1       1.35696371       1.3569637        1.3569637       1.3569637
+#&gt; X2       0.02417606       0.0000000        0.0000000       0.0000000
 #&gt; X3       0.00000000       0.0000000        0.0000000       0.0000000
 #&gt; X4       0.00000000       0.0000000        0.0000000       0.0000000
-#&gt; X5       0.57262410       0.5726241        0.5726241       0.5726241
+#&gt; X5       0.57264860       0.5726486        0.5726486       0.5726486
 #&gt; X6       0.00000000       0.0000000        0.0000000       0.0000000
 #&gt;    coef_varbvs_0.25 coef_varbvs_0.3 coef_varbvs_0.35 coef_varbvs_0.4
-#&gt; X1        1.3569623       1.3569623        1.3569623       1.3569623
+#&gt; X1        1.3569637       1.3569637        1.3569637       1.3569637
 #&gt; X2        0.0000000       0.0000000        0.0000000       0.0000000
 #&gt; X3        0.0000000       0.0000000        0.0000000       0.0000000
 #&gt; X4        0.0000000       0.0000000        0.0000000       0.0000000
-#&gt; X5        0.5726241       0.5726241        0.5726241       0.5726241
+#&gt; X5        0.5726486       0.5726486        0.5726486       0.5726486
 #&gt; X6        0.0000000       0.0000000        0.0000000       0.0000000
 #&gt;    coef_varbvs_0.45 coef_varbvs_0.5 coef_varbvs_0.55 coef_varbvs_0.6
-#&gt; X1        1.3569623       1.3569623        1.3569623       1.3569623
+#&gt; X1        1.3569637       1.3569637        1.3569637       1.3569637
 #&gt; X2        0.0000000       0.0000000        0.0000000       0.0000000
 #&gt; X3        0.0000000       0.0000000        0.0000000       0.0000000
 #&gt; X4        0.0000000       0.0000000        0.0000000       0.0000000
-#&gt; X5        0.5726241       0.5726241        0.5726241       0.5726241
+#&gt; X5        0.5726486       0.5726486        0.5726486       0.5726486
 #&gt; X6        0.0000000       0.0000000        0.0000000       0.0000000
 #&gt;    coef_varbvs_0.65 coef_varbvs_0.7 coef_varbvs_0.75 coef_varbvs_0.8
-#&gt; X1        1.3569623       1.3569623        1.3569623        1.356962
+#&gt; X1        1.3569637       1.3569637        1.3569637        1.356964
 #&gt; X2        0.0000000       0.0000000        0.0000000        0.000000
 #&gt; X3        0.0000000       0.0000000        0.0000000        0.000000
 #&gt; X4        0.0000000       0.0000000        0.0000000        0.000000
-#&gt; X5        0.5726241       0.5726241        0.5726241        0.000000
+#&gt; X5        0.5726486       0.5726486        0.5726486        0.000000
 #&gt; X6        0.0000000       0.0000000        0.0000000        0.000000
 #&gt;    coef_varbvs_0.85 coef_varbvs_0.9 coef_varbvs_0.95
-#&gt; X1         1.356962        1.356962         1.356962
+#&gt; X1         1.356964        1.356964         1.356964
 #&gt; X2         0.000000        0.000000         0.000000
 #&gt; X3         0.000000        0.000000         0.000000
 #&gt; X4         0.000000        0.000000         0.000000
@@ -475,19 +501,10 @@ It uses the <code>varbvs</code>, <code>coef</code> and <code>variable.names</cod
 #&gt; X6         0.000000        0.000000         0.000000</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Frederic Bertrand, <a href='mailto:frederic.bertrand@math.unistra.fr'>frederic.bertrand@math.unistra.fr</a></p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -498,7 +515,7 @@ It uses the <code>varbvs</code>, <code>coef</code> and <code>variable.names</cod
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

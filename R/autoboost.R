@@ -43,7 +43,7 @@
 #' @return A numeric matrix with attributes.
 #' @family Selectboost functions
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
-#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \url{https://doi:10.1093/bioinformatics/btaa855}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 #' @seealso \code{\link{boost}}, \code{\link{fastboost}}, \code{\link{plot.selectboost}}
 #' @examples
 #' set.seed(314)
@@ -372,7 +372,7 @@ autoboost<-function(X,Y,ncores=4,group=group_func_1,func=lasso_msgps_AICc,corrfu
 #' @return A numeric matrix with attributes.
 #' @family Selectboost functions
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
-#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \url{https://doi:10.1093/bioinformatics/btaa855}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 #' @seealso \code{\link{boost}}, \code{\link{autoboost}}, \code{\link{plot.selectboost}}
 #' @examples
 #' set.seed(314)
@@ -846,7 +846,7 @@ fastboost <-
 #' @return A matrix with the results.
 #' @family Selectboost analyse functions
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
-#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \url{https://doi:10.1093/bioinformatics/btaa855}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 #' @seealso \code{\link{fastboost}}, \code{\link{autoboost}}
 NULL
 #> NULL
@@ -899,7 +899,7 @@ force.non.inc = function(object){
 #' @return An invisible list.
 #' @family Selectboost analyse functions
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
-#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \url{https://doi:10.1093/bioinformatics/btaa855}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 #' @seealso \code{\link{fastboost}}, \code{\link{autoboost}}
 #' @examples
 #' set.seed(314)
@@ -1063,7 +1063,7 @@ plot.selectboost <-
 #' @return A list with the results.
 #' @family Selectboost analyse functions
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
-#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \url{https://doi:10.1093/bioinformatics/btaa855}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 #' @seealso \code{\link{fastboost}}, \code{\link{autoboost}}
 NULL
 #> NULL
@@ -1233,7 +1233,7 @@ summary.selectboost <-
 #' @return An invisible list.
 #' @family Selectboost analyze functions
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
-#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \url{https://doi:10.1093/bioinformatics/btaa855}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 #' @seealso \code{\link{fastboost}}, \code{\link{autoboost}} and \code{\link{summary.selectboost}}
 NULL
 #> NULL
@@ -1286,7 +1286,7 @@ plot.summary.selectboost <- function(x, ...)
 #' @return An invisible list.
 #' @family Selectboost analyze functions
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
-#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \url{https://doi:10.1093/bioinformatics/btaa855}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 #' @seealso \code{\link{fastboost}}, \code{\link{autoboost}} and \code{\link{summary.selectboost}}
 NULL
 #> NULL
@@ -1446,7 +1446,7 @@ trajC0.selectboost <-
 #'
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
 #'
-#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \url{https://doi:10.1093/bioinformatics/btaa855}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 #' @seealso \code{\link{fastboost}} and \code{\link{autoboost}}
 NULL
 #> NULL

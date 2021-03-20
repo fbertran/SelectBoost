@@ -11,20 +11,22 @@ knitr::opts_chunk$set(
 )
 ```
 
+# SelectBoost <img src="man/figures/logo.png" align="right" width="200"/>
+
 # A General Algorithm to Enhance the Performance of Variable Selection Methods in Correlated Datasets
+## Frédéric Bertrand and Myriam Maumy-Bertrand
 
 
-### *Frédéric Bertrand and Myriam Maumy-Bertrand*
-
-
+<!-- badges: start -->
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![R-CMD-check](https://github.com/fbertran/SelectBoost/workflows/R-CMD-check/badge.svg)](https://github.com/fbertran/SelectBoost/actions)
+[![Codecov test coverage](https://codecov.io/gh/fbertran/SelectBoost/branch/master/graph/badge.svg)](https://codecov.io/gh/fbertran/SelectBoost?branch=master)
 [![CRAN status](https://www.r-pkg.org/badges/version/SelectBoost)](https://cran.r-project.org/package=SelectBoost)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/SelectBoost)](https://cran.r-project.org/package=SelectBoost)
+[![GitHub Repo stars](https://img.shields.io/github/stars/fbertran/SelectBoost?style=social)](https://github.com/fbertran/SelectBoost)
 [![DOI](https://zenodo.org/badge/136206211.svg)](https://zenodo.org/badge/latestdoi/136206211)
-
-
-----------------
-
-
-# SelectBoost
+<!-- badges: end -->
 
 
 The SelectBoost package implements SelectBoost: a general algorithm to enhance the performance of variable selection methods <https://doi.org/10.1093/bioinformatics/btaa855>, F. Bertrand, I. Aouadi, N. Jung, R. Carapito, L. Vallat, S. Bahram, M. Maumy-Bertrand (2015), 
@@ -92,7 +94,7 @@ str(DATA_exemple)
 
 #### Selectboost analysis
 
-By default `fastboost` performs $B=100$ resamplings of the model. As a result, we get a matrix with the proportions of selection of each variable at a given resampling level $c_0$. The resampling are designed to take into account the correlation structure of the predictors. The correlation used by default is the Pearson Correlation but any can be passed through the `corrfunc` argument. The $c_0$ value sets the minimum level for which correlations between two predictors are kept in the resampling process. The correlation structure is used to group the variables. Two groups functions `group_func_1`, grouping by thresholding the correlation matrix, and `group_func_2`, grouping using community selection, are available but any can be provided using the `group` argument of the function. The `func` argument is the variable selection function that should be used to assess variable memberships. It  defaults to `lasso_msgps_AICc` but many others, for instance for lasso, elastinet, logistic glmnet and network inference with the [Cascade package](http://fbertran.github.io/Cascade/), are provided:
+By default `fastboost` performs $B=100$ resamplings of the model. As a result, we get a matrix with the proportions of selection of each variable at a given resampling level $c_0$. The resampling are designed to take into account the correlation structure of the predictors. The correlation used by default is the Pearson Correlation but any can be passed through the `corrfunc` argument. The $c_0$ value sets the minimum level for which correlations between two predictors are kept in the resampling process. The correlation structure is used to group the variables. Two groups functions `group_func_1`, grouping by thresholding the correlation matrix, and `group_func_2`, grouping using community selection, are available but any can be provided using the `group` argument of the function. The `func` argument is the variable selection function that should be used to assess variable memberships. It  defaults to `lasso_msgps_AICc` but many others, for instance for lasso, elastinet, logistic glmnet and network inference with the [Cascade package](https://fbertran.github.io/Cascade/), are provided:
 
 * lasso_cv_glmnet_bin_min(X, Y)
 * lasso_cv_glmnet_bin_1se(X, Y)
@@ -177,7 +179,7 @@ all.cors=unique(abs(cor(DATA_exemple$X))[abs(cor(DATA_exemple$X))!=1])
 length(all.cors)
 ```
 
-With such datasets, we can perform all the 45 steps for the Selectboost analysis. We switch to  community analysis from the [igraph package](http://igraph.org) as the grouping variable function.
+With such datasets, we can perform all the 45 steps for the Selectboost analysis. We switch to  community analysis from the [igraph package](https://igraph.org) as the grouping variable function.
 ```{r datasetsimulationc01res45bis, cache=TRUE}
 groups.seq.f2=lapply(sort(unique(c(1,all.cors,0)),decreasing=TRUE), function(c0)
   if(c0!=1){lapply(group_func_2(cor(DATA_exemple$X),c0)$communities,sort)}
@@ -347,7 +349,7 @@ index.last.c0.micro_nb1=apply(dec.result.boost.micro_nb1>=thr,2,which.min)-1
 index.last.c0.micro_nb1
 ```
 
-We have to cap the confidence index value to the $1-\{\textrm{smallest } c_0\}$ that we specified in the $c_0$ sequence and that was actually used for resampling. As a consequence, we have to exclude the $c_0=0$ case since we do not know what happen between $c0=\verb+quantile+(cors,.9)$ and $c_0=0$.
+We have to cap the confidence index value to the $1-\{\textrm{smallest } c_0\}$ that we specified in the $c_0$ sequence and that was actually used for resampling. As a consequence, we have to exclude the $c_0=0$ case since we do not know what happen between $c0=\mathrm{quantile}(cors,.9)$ and $c_0=0$.
 
 ```{r CascadeDataconfindicesindices, cache=TRUE}
 index.last.c0.micro_nb1 <- pmin(index.last.c0.micro_nb1,

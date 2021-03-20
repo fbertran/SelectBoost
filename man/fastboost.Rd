@@ -119,7 +119,7 @@ fastboost(xran,ybin,func=lasso_cv_glmnet_bin_min)
 
 }
 \references{
-\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, \url{https://arxiv.org/abs/1810.01670}
+\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 }
 \seealso{
 \code{\link{boost}}, \code{\link{autoboost}}, \code{\link{plot.selectboost}}

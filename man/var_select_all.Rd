@@ -194,7 +194,7 @@ varbvs_binomial_all(xran,ybin)
 
 }
 \references{
-\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, \url{https://arxiv.org/abs/1810.01670}
+\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 }
 \seealso{
 \code{\link[glmnet]{glmnet}}, \code{\link[glmnet]{cv.glmnet}}, \code{\link[msgps]{msgps}}, \code{\link{AICc_BIC_glmnetB}}, \code{\link[spls]{spls}}, \code{\link[spls]{cv.spls}}, \code{\link[spls]{correct.spls}}, \code{\link[spls]{splsda}}, \code{\link[spls]{cv.splsda}}, \code{\link[spls]{sgpls}}, \code{\link[spls]{cv.sgpls}}, \code{\link[varbvs]{varbvs}}

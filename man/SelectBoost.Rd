@@ -35,5 +35,8 @@ fastboost(xran,ybin,func=lasso_cv_glmnet_bin_min)
 }
 }
 \references{
-\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, \url{https://arxiv.org/abs/1810.01670}
+F. Bertrand, I. Aouadi, N. Jung, R. Carapito, L. Vallat, S. Bahram, M. Maumy-Bertrand (2020). SelectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets, \emph{Bioinformatics}. \doi{10.1093/bioinformatics/btaa855}
+
+SelectBoost was used to decypher networks in
+C. Schleiss, [...], M. Maumy-Bertrand, S. Bahram, F. Bertrand, and L. Vallat. (2021). Temporal multiomic modelling reveals a B-cell receptor proliferative program in chronic lymphocytic leukemia. \emph{Leukemia}.
 }

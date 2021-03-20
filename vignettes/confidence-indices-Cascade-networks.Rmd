@@ -10,13 +10,15 @@ author:
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Towards confidence estimates in Cascade Networks using the SelectBoost package}
+  %\VignetteIndexEntry{Towards Confidence Estimates in Cascade Networks using the SelectBoost Package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include = FALSE}
+#file.edit(normalizePath("~/.Renviron"))
 LOCAL <- identical(Sys.getenv("LOCAL"), "TRUE")
+#LOCAL=TRUE
 knitr::opts_chunk$set(purl = LOCAL)
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -42,7 +44,7 @@ devtools::install_github("fbertran/SelectBoost", ref = "doMC")
 
 # Code
 
-Code to reproduce the datasets saved with the package and some the figures of the article Bertrand et al. (2020), Bioinformatics. <doi:10.1093/bioinformatics/btaa855>
+Code to reproduce the datasets saved with the package and some the figures of the article Bertrand et al. (2020), Bioinformatics. <https://doi.org/10.1093/bioinformatics/btaa855>
 
 ## Data simulation
 ```{r Cascade, cache= FALSE, eval = LOCAL}

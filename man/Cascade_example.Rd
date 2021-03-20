@@ -7,12 +7,18 @@
 \alias{Net}
 \alias{Net_inf_C}
 \title{Simulated Cascade network and inference}
-\format{Three objects :
+\format{
+Three objects :
 \describe{
   \item{M}{Simulated microarray}
   \item{Net}{Simulated network}
   \item{Net_inf_C}{Inferred network}
-}}
+}
+
+An object of class \code{network} of length 1.
+
+An object of class \code{network} of length 1.
+}
 \usage{
 M
 

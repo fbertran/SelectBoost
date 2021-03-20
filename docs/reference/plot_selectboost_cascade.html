@@ -8,25 +8,36 @@
 
 <title>plot_Selectboost_cascade — plot_selectboost_cascade • SelectBoost</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,7 +48,7 @@
 
 <meta property="og:title" content="plot_Selectboost_cascade — plot_selectboost_cascade" />
 <meta property="og:description" content="Plot result of Selectboost for Cascade inference." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -55,7 +66,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -69,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SelectBoost</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
       </span>
     </div>
 
@@ -77,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -108,8 +119,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/fbertran/SelectBoost">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/fbertran/SelectBoost/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -136,7 +147,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S4 method for network.confidence,ANY</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/gray.html'>gray</a></span>((<span class='fl'>1</span>:<span class='fl'>99</span>)/<span class='fl'>100</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>), <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/gray.html'>gray</a></span><span class='op'>(</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>99</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>100</span>, alpha <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,33 +184,31 @@ Cascade : A R package to study, predict and simulate the diffusion of a signal
 through a temporal gene network. Bioinformatics. ISSN 13674803..</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p><em>selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets</em>, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, <a href='https://arxiv.org/abs/1810.01670'>https://arxiv.org/abs/1810.01670</a></p>
+    <p><em>selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets</em>, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. doi: <a href='https://doi.org/10.1093/bioinformatics/btaa855'>10.1093/bioinformatics/btaa855</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='boost.html'>boost</a></code>, <code><a href='fastboost.html'>fastboost</a></code>, <code><a href='selectboost_cascade.html'>selectboost</a></code>, <code><a href='https://rdrr.io/pkg/Cascade/man/inference-methods.html'>inference</a></code></p>
+    <div class='dont-index'><p><code><a href='boost.html'>boost</a></code>, <code><a href='fastboost.html'>fastboost</a></code>, <code><a href='selectboost_cascade.html'>selectboost</a></code>, <code><a href='https://rdrr.io/pkg/Cascade/man/inference-micro_array-method.html'>inference</a></code></p>
 <p>Other Selectboost functions: 
 <code><a href='autoboost.html'>autoboost</a>()</code>,
 <code><a href='boost.html'>boost</a></code>,
 <code><a href='fastboost.html'>fastboost</a>()</code>,
 <code><a href='selectboost_cascade.html'>selectboost_cascade</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Frederic Bertrand, <a href='mailto:frederic.bertrand@math.unistra.fr'>frederic.bertrand@math.unistra.fr</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>net_confidences</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: data set ‘net_confidences’ not found</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>net_confidence</span>)</div><div class='img'><img src='plot_selectboost_cascade-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>net_confidence_.5</span>)</div><div class='img'><img src='plot_selectboost_cascade-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>net_confidence_thr</span>)</div><div class='img'><img src='plot_selectboost_cascade-3.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>net_confidences</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: data set ‘net_confidences’ not found</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>net_confidence</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_selectboost_cascade-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>net_confidence_.5</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_selectboost_cascade-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>net_confidence_thr</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_selectboost_cascade-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Frederic Bertrand, <a href='mailto:frederic.bertrand@math.unistra.fr'>frederic.bertrand@math.unistra.fr</a></p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -210,7 +219,7 @@ through a temporal gene network. Bioinformatics. ISSN 13674803..</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

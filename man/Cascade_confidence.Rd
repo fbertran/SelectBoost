@@ -7,14 +7,20 @@
 \alias{net_confidence_.5}
 \alias{net_confidence_thr}
 \title{Confidence indices}
-\format{A \code{network.confidence} object with four slots :
+\format{
+A \code{network.confidence} object with four slots :
 \describe{
   \item{network.confidence}{The confidence matrix}
   \item{name}{Names of the variables (genes)}
   \item{F}{F array, see Cascade for more details}
   \item{time_pt}{Repeated measurements}
   \item{cv.subjects}{Logical. Was crossvalidation carried out subjectwise?}
-}}
+}
+
+An object of class \code{network.confidence} of length 1.
+
+An object of class \code{network.confidence} of length 1.
+}
 \usage{
 net_confidence
 

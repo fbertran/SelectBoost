@@ -1,3 +1,9 @@
+# SelectBoost 2.2.0
+
+* Add more badges, logo and update pkgdown site
+* Add github actions
+* Added reference to a Leukemia article that used the Selectboost algorithm to decypher multi-omics networks.
+
 # SelectBoost 2.1.0
 
 * Added reference for the article about the Selectboost algorithm that was published in Bioinformatics

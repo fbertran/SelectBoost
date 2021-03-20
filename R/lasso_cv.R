@@ -25,7 +25,7 @@
 #' @return A vector of coefficients.
 #' @family Variable selection functions
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
-#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \url{https://doi:10.1093/bioinformatics/btaa855}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 #' @seealso \code{\link[glmnet]{glmnet}}, \code{\link[glmnet]{cv.glmnet}}, \code{\link{AICc_BIC_glmnetB}}, \code{\link[lars]{lars}}, \code{\link[lars]{cv.lars}}, \code{\link[msgps]{msgps}}
 #' @examples
 #' set.seed(314)
@@ -515,7 +515,7 @@ cv.lars1 <- function (x, y, K = 10, index, trace = FALSE, plot.it = TRUE,
 #' @return A vector or matrix of coefficients.
 #' @family Variable selection functions
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
-#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \url{https://doi:10.1093/bioinformatics/btaa855}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 #' @seealso \code{\link[glmnet]{glmnet}}, \code{\link[glmnet]{cv.glmnet}}, \code{\link[msgps]{msgps}}, \code{\link{AICc_BIC_glmnetB}}, \code{\link[spls]{spls}}, \code{\link[spls]{cv.spls}}, \code{\link[spls]{correct.spls}}, \code{\link[spls]{splsda}}, \code{\link[spls]{cv.splsda}}, \code{\link[spls]{sgpls}}, \code{\link[spls]{cv.sgpls}}, \code{\link[varbvs]{varbvs}}
 #' @examples
 #' set.seed(314)

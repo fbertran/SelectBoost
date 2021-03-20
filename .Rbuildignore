@@ -1,5 +1,12 @@
+genlogo.R
+.gitignore
+^codecov\.yml$
+^revdep$
+^_pkgdown\.yml$
+^figure$
+^pkgdown$
 ^Meta$
-^doc$
+#^doc$
 #All packages
 ^.*\.Rproj$
 ^\.Rproj\.user$
@@ -13,11 +20,26 @@
 #If README too big, not on CRAN but only on git
 ^man/figures*$
 ^README\.Rmd$
-^README\.md$
+#^README\.md$
 #Specific
 ^fullrespdf*$
 ^inst/animation*$
 ^articles*$
+^review*$
+^\.github$
+
+#For the cached chunks of the vignettes
+^vignettes.*cache$
+#For the image outputs of the vignettes
+^vignettes.*files$
+#Specific
+^animation.gif$
+^evolution_example*$
+^add_data
+^doc$
+^Meta$
+^cran-comments[.].*$
+
 #Vignette cache
 ^cran-comments[.].*$
 ^vignettes/.*[.](pdf|PDF)$
@@ -25,3 +47,4 @@
 ^vignettes/[.]install_extras$
 ^vignettes/.*_cache$
 ^vignettes/.*_files$
+
