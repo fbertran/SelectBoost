@@ -20,6 +20,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@v1
+      - name: Install ghostscript on macOS
+        if: runner.os == 'macOS'
+        run: brew install ghostscript
+      - name: Install Magick on macOS
+        if: runner.os == 'macOS'
+        run: brew install imagemagick
       - name: Install dependencies
         run: |
           install.packages(c("remotes", "rcmdcheck"))
