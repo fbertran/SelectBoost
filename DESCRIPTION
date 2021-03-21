@@ -25,5 +25,5 @@ Classification/MSC: 62H11, 62J12, 62J99
 LazyData: true
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
-URL: https://github.com/fbertran/SelectBoost, http://www-irma.u-strasbg.fr/~fbertran/
-BugReports: https://github.com/fbertran/SelectBoost/issues
+URL: https://fbertran.github.io/SelectBoost/, https://github.com/fbertran/SelectBoost/
+BugReports: https://github.com/fbertran/SelectBoost/issues/
