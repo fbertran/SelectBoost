@@ -97,7 +97,7 @@ corr_sum=corr_sum+cor(get(paste("DATA_exemple1_nb_",i,sep=""))$X)
 }
 corr_mean=corr_sum/NDatasets
 ```
-
+\doi{
 Then we display and plot that the mean correlation matrix. 
 ```{r, fig.width=7, eval = LOCAL}
 corr_mean
@@ -528,7 +528,11 @@ corr_mean=corr_sum/NDatasets
 ```
 
 Then we display and plot that the mean correlation matrix. 
+
 ```{r, fig.keep='none', fig.width=7, eval = LOCAL}
+
+```{r, fig.keep='none', fig.width=7}
+
 corr_mean[1:10,1:10]
 plot(abs(corr_mean))
 ```

@@ -1,7 +1,11 @@
 base
 SelectBoost
+Cascade
+VGAM
+abind
+magic
+nnls
 lars
 CascadeData
-Cascade
 limma
 cluster

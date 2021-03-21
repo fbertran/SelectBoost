@@ -190,7 +190,7 @@ hist(net_pct_selected_cv@network.confidence[abs(Net_inf_C@network)>1e-5])
 ```
 
 ## Further improvements
-Either decrease percent selected or choose `c0` as a quantile.
+For further recommandations on the choice of the `c0` parameter, for instance as a quantile, please consult the SI of Bertrand et al. 2020.
 
 
 
