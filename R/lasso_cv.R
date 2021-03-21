@@ -3,7 +3,7 @@
 #' @description Compute coefficient vector after variable selection.
 #'
 #' @name var_select
-#' @param X A numeric matrix. The predictors matrix or the transposed predictors matrix for lasso_cascade.
+#' @param X A numeric matrix. The predictors matrix.
 #' @param Y A binary factor. The 0/1 classification response.
 #' @param priors A numeric vector. Weighting vector for the variable selection. When used with the \code{glmnet} estimation function, the weights share the following meanings:
 #' \itemize{
@@ -17,6 +17,7 @@
 #' which is a weighted version of the lasso.
 #' @param alpha A numeric value to set the value of \eqn{\alpha} on "enet" and "genet" penalty in msgps
 #' (Model Selection Criteria via Generalized Path Seeking).
+#' @param M A numeric matrix. The transposed predictors matrix.
 #' @param K A numeric value. Number of folds to use.
 #' @param eps A numeric value. Threshold to set to 0 the inferred value of a parameter.
 #' @param cv.fun A function. Fonction used to create folds. Used to perform corss-validation subkectwise.
@@ -423,31 +424,21 @@ enetf_msgps_BIC<-function(X,Y,penalty="enet",alpha=0.5){
 #'
 #' @examples
 #' set.seed(314)
-#' \dontrun{
-#' #Not ment to used out outside of man function.
 #' lasso_cascade(t(xran),yran,5,cv.fun=lars::cv.folds)
-#' }
 #'
 #' @export
-lasso_cascade<-function(X,Y,K,eps=10^-5,cv.fun#=lars::cv.folds
-#                    ,cv.fun.name#="lars::cv.folds" #X = M
+lasso_cascade<-function(M,Y,K,eps=10^-5,cv.fun#=lars::cv.folds
+#                    ,cv.fun.name#="lars::cv.folds"
 ){
   #  require(lars)
 #  cat("lasso_reg",cv.fun.name,"\n")
-#cv.subjects
-  #  if(!missing("cv.subjects")){cv.subjects=eval(expression(cv.subjects),envir = sys.frame(sys.nframe()-12))}
-  if(!missing("eps")){eps=eval(expression(eps),envir = sys.frame(sys.nframe()-12))}
-  if(!missing("K")){K=eval(expression(K),envir = sys.frame(sys.nframe()-12))}
-  if(!missing("cv.fun")){cv.fun=eval(expression(cv.folds1),envir = sys.frame(sys.nframe()-12))}
-  if(!missing("cv.fun")){cv.folds1=eval(expression(cv.folds1),envir = sys.frame(sys.nframe()-12))}
-
-  model<-try(cv.lars1(t(X),(Y),intercept=FALSE,K=K,plot.it=FALSE,eps=eps,cv.fun=cv.fun
+  model<-try(cv.lars1(t(M),(Y),intercept=FALSE,K=K,plot.it=FALSE,eps=eps,cv.fun=cv.fun
 #                      , cv.fun.name=cv.fun.name
   ))
   n<-try(model$index[which(model$cv %in% min(model$cv))])
-  model<-try(lars::lars(t(X),(Y),intercept=FALSE,eps=eps))
+  model<-try(lars::lars(t(M),(Y),intercept=FALSE,eps=eps))
   repu<-try(lars::coef.lars(model,s=n,mode="fraction"))
-  if(!is.vector(repu)){repu<-rep(0,dim(X)[1])}
+  if(!is.vector(repu)){repu<-rep(0,dim(M)[1])}
   return(repu)
 }
 
@@ -457,15 +448,8 @@ cv.lars1 <- function (x, y, K = 10, index, trace = FALSE, plot.it = TRUE,
 #                      , cv.fun.name
                       , ...)
 {
-  dots <- eval(substitute(alist(...)))
-
-  if(is.element("cv.subjects",names(dots))){cv.subjects=eval(expression(cv.subjects),envir = sys.frame(sys.nframe()-18))}
-  if(is.element("eps",names(dots))){eps=eval(expression(eps),envir = sys.frame(sys.nframe()-18))}
-#TODO adapt for all lars arguments. Not useful only eps is used in the call from lasso_cascade<
-  if(!missing("K")){K=eval(expression(K),envir = sys.frame(sys.nframe()-18))}
-  if(!missing("cv.fun")){cv.fun=eval(expression(cv.folds1),envir = sys.frame(sys.nframe()-18))}
-  if(!missing("cv.fun")){cv.folds1=eval(expression(cv.folds1),envir = sys.frame(sys.nframe()-18))}
-
+  #  requireNamespace("lars")
+#  cat(cv.fun.name)
   type = match.arg(type)
   if (missing(mode)) {
     mode = switch(type, lasso = "fraction", lar = "step",
@@ -487,13 +471,8 @@ cv.lars1 <- function (x, y, K = 10, index, trace = FALSE, plot.it = TRUE,
   residmat <- matrix(0, length(index), K)
   for (i in seq(K)) {
     omit <- all.folds[[i]]
-      if(is.element("eps",names(dots))){
-        fit <- lars::lars(x[-omit, , drop = FALSE], y[-omit], trace = trace,
-                        type = type, eps = eps)
-        } else {
-        fit <- lars::lars(x[-omit, , drop = FALSE], y[-omit], trace = trace,
-                          type = type)
-        }
+    fit <- lars::lars(x[-omit, , drop = FALSE], y[-omit], trace = trace,
+                      type = type, ...)
     fit <- lars::predict.lars(fit, x[omit, , drop = FALSE], mode = mode,
                               s = index)$fit
     if (length(omit) == 1)

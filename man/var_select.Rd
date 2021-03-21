@@ -59,10 +59,10 @@ enetf_msgps_GCV(X, Y, penalty = "enet", alpha = 0.5)
 
 enetf_msgps_BIC(X, Y, penalty = "enet", alpha = 0.5)
 
-lasso_cascade(X, Y, K, eps = 10^-5, cv.fun)
+lasso_cascade(M, Y, K, eps = 10^-5, cv.fun)
 }
 \arguments{
-\item{X}{A numeric matrix. The predictors matrix or the transposed predictors matrix for lasso_cascade.}
+\item{X}{A numeric matrix. The predictors matrix.}
 
 \item{Y}{A binary factor. The 0/1 classification response.}
 
@@ -80,6 +80,8 @@ which is a weighted version of the lasso.}
 
 \item{alpha}{A numeric value to set the value of \eqn{\alpha} on "enet" and "genet" penalty in msgps
 (Model Selection Criteria via Generalized Path Seeking).}
+
+\item{M}{A numeric matrix. The transposed predictors matrix.}
 
 \item{K}{A numeric value. Number of folds to use.}
 
@@ -239,10 +241,7 @@ set.seed(314)
 enetf_msgps_BIC(xran,yran)
 
 set.seed(314)
-\dontrun{
-#Not ment to used out outside of man function.
 lasso_cascade(t(xran),yran,5,cv.fun=lars::cv.folds)
-}
 
 }
 \references{
