@@ -1,11 +1,3 @@
----
-title: "A General Algorithm to Enhance the Performance of Variable Selection Methods in Correlated Datasets"
-author: "Frédéric Bertrand and Myriam Maumy-Bertrand"
-output: github_document
----
-
-[![CRAN status](https://www.r-pkg.org/badges/version/SelectBoost)](https://cran.r-project.org/package=SelectBoost)
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r setup, include = FALSE}
@@ -18,9 +10,32 @@ knitr::opts_chunk$set(
   fig.keep="all"
 )
 ```
-# SelectBoost
 
-With the growth of big data, variable selection has become one of the major challenges in statistics. Although many methods have been proposed in the literature their performance in terms of recall and precision are limited in a context where the number of variables by far exceeds the number of observations or in a high correlated setting. Results: This package implements a new general algorithm which improves the precision of any existing variable selection method. This algorithm is based on highly intensive simulations and takes into account the correlation structure of the data. Our algorithm can either produce a confidence index for variable selection or it can be used in an experimental design planning perspective.
+# SelectBoost <img src="man/figures/logo.png" align="right" width="200"/>
+
+# A General Algorithm to Enhance the Performance of Variable Selection Methods in Correlated Datasets
+## Frédéric Bertrand and Myriam Maumy-Bertrand
+
+
+<!-- badges: start -->
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![R-CMD-check](https://github.com/fbertran/SelectBoost/workflows/R-CMD-check/badge.svg)](https://github.com/fbertran/SelectBoost/actions)
+[![Codecov test coverage](https://codecov.io/gh/fbertran/SelectBoost/branch/master/graph/badge.svg)](https://codecov.io/gh/fbertran/SelectBoost?branch=master)
+[![CRAN status](https://www.r-pkg.org/badges/version/SelectBoost)](https://cran.r-project.org/package=SelectBoost)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/SelectBoost)](https://cran.r-project.org/package=SelectBoost)
+[![GitHub Repo stars](https://img.shields.io/github/stars/fbertran/SelectBoost?style=social)](https://github.com/fbertran/SelectBoost)
+[![DOI](https://zenodo.org/badge/136206211.svg)](https://zenodo.org/badge/latestdoi/136206211)
+<!-- badges: end -->
+
+
+The SelectBoost package implements SelectBoost: a general algorithm to enhance the performance of variable selection methods <https://doi.org/10.1093/bioinformatics/btaa855>, F. Bertrand, I. Aouadi, N. Jung, R. Carapito, L. Vallat, S. Bahram, M. Maumy-Bertrand (2015), 
+
+
+With the growth of big data, variable selection has become one of the major challenges in statistics. Although many methods have been proposed in the literature their performance in terms of recall and precision are limited in a context where the number of variables by far exceeds the number of observations or in a high correlated setting. 
+
+
+Results: This package implements a new general algorithm which improves the precision of any existing variable selection method. This algorithm is based on highly intensive simulations and takes into account the correlation structure of the data. Our algorithm can either produce a confidence index for variable selection or it can be used in an experimental design planning perspective.
 
 
 This website and these examples were created by F. Bertrand and M. Maumy-Bertrand.
@@ -38,6 +53,13 @@ You can install the development version of SelectBoost from [github](https://git
 ```{r, eval = FALSE}
 devtools::install_github("fbertran/SelectBoost")
 ```
+
+If you are a Linux/Unix or a Macos user, you can install a version of SelectBoost with support for `doMC` from [github](https://github.com) with:
+
+```{r, eval = FALSE}
+devtools::install_github("fbertran/SelectBoost", ref = "doMC")
+```
+
 
 ## Examples
 
@@ -72,7 +94,7 @@ str(DATA_exemple)
 
 #### Selectboost analysis
 
-By default `fastboost` performs $B=100$ resamplings of the model. As a result, we get a matrix with the proportions of selection of each variable at a given resampling level $c_0$. The resampling are designed to take into account the correlation structure of the predictors. The correlation used by default is the Pearson Correlation but any can be passed through the `corrfunc` argument. The $c_0$ value sets the minimum level for which correlations between two predictors are kept in the resampling process. The correlation structure is used to group the variables. Two groups functions `group_func_1`, grouping by thresholding the correlation matrix, and `group_func_2`, grouping using community selection, are available but any can be provided using the `group` argument of the function. The `func` argument is the variable selection function that should be used to assess variable memberships. It  defaults to `lasso_msgps_AICc` but many others, for instance for lasso, elastinet, logistic glmnet and network inference with the [Cascade package](http://fbertran.github.io/Cascade/), are provided:
+By default `fastboost` performs $B=100$ resamplings of the model. As a result, we get a matrix with the proportions of selection of each variable at a given resampling level $c_0$. The resampling are designed to take into account the correlation structure of the predictors. The correlation used by default is the Pearson Correlation but any can be passed through the `corrfunc` argument. The $c_0$ value sets the minimum level for which correlations between two predictors are kept in the resampling process. The correlation structure is used to group the variables. Two groups functions `group_func_1`, grouping by thresholding the correlation matrix, and `group_func_2`, grouping using community selection, are available but any can be provided using the `group` argument of the function. The `func` argument is the variable selection function that should be used to assess variable memberships. It  defaults to `lasso_msgps_AICc` but many others, for instance for lasso, elastinet, logistic glmnet and network inference with the [Cascade package](https://fbertran.github.io/Cascade/), are provided:
 
 * lasso_cv_glmnet_bin_min(X, Y)
 * lasso_cv_glmnet_bin_1se(X, Y)
@@ -102,13 +124,19 @@ quantile(abs(cor(DATA_exemple$X))[abs(cor(DATA_exemple$X))!=1],(0:10)/10)
 ```
 
 ```{r datasetsimulation4bis, cache=TRUE}
-result.boost = fastboost(DATA_exemple$X, DATA_exemple$Y)
+result.boost.raw = fastboost(DATA_exemple$X, DATA_exemple$Y)
+result.boost.raw
+```
+
+Applying a non increasing post-processing step to the results improves the performance of the algorithm. 
+```{r datasetsimulation4ter, cache=TRUE}
+result.boost = force.non.inc(result.boost.raw)
 result.boost
 ```
 
 #### Comparing true and selected predictors
 
-We can compute, for all the $c_0$ values and for a selection threshold varying from $1$ to $0.5$ by $0.05$ steps, the sensitivity (precision), the specificity (recall), as well as several Fscores ($F_1$ harmonic mean of precision and recall, $F_{1/2}$ and $F_2$ two weighted harmonic means of precision and recall).
+We can compute, for all the $c_0$ values and for a selection threshold varying from $1$ to $0.5$ by $0.05$ steps, the recall (sensitivity), the precision (positive predictive value), as well as several Fscores ($F_1$ harmonic mean of recall and precision, $F_{1/2}$ and $F_2$ two weighted harmonic means of recall and precision).
 ```{r datasetsimulation5, cache=TRUE}
 All_res=NULL
 #Here are the cutoff level tested
@@ -128,8 +156,8 @@ matplot(1:nrow(result.boost),All_res[,,3],type="l",ylab="criterion value",
         xlab="c0 value",xaxt="n",lwd=2)
 axis(1, at=1:length(attr(result.boost,"c0.seq")),  
      labels=round(attr(result.boost,"c0.seq"),3))
-legend(x="topright",legend=c("sensitivity (precision)",
-      "specificity (recall)","non-weighted Fscore",
+legend(x="topright",legend=c("recall (sensitivity)",
+      "precision (positive predictive value)","non-weighted Fscore",
       "F1/2 weighted Fscore","F2 weighted Fscore"),lty=1:5,col=1:5,lwd=2)
 ```
 
@@ -151,7 +179,7 @@ all.cors=unique(abs(cor(DATA_exemple$X))[abs(cor(DATA_exemple$X))!=1])
 length(all.cors)
 ```
 
-With such datasets, we can perform all the 45 steps for the Selectboost analysis. We switch to  community analysis from the [igraph package](http://igraph.org) as the grouping variable function.
+With such datasets, we can perform all the 45 steps for the Selectboost analysis. We switch to  community analysis from the [igraph package](https://igraph.org) as the grouping variable function.
 ```{r datasetsimulationc01res45bis, cache=TRUE}
 groups.seq.f2=lapply(sort(unique(c(1,all.cors,0)),decreasing=TRUE), function(c0)
   if(c0!=1){lapply(group_func_2(cor(DATA_exemple$X),c0)$communities,sort)}
@@ -161,8 +189,14 @@ groups.seq.f2[[1]]
 ```
 
 ```{r datasetsimulationc02res45, cache=TRUE}
-result.boost.45 = fastboost(DATA_exemple$X, DATA_exemple$Y, B=100,
+result.boost.45.raw = fastboost(DATA_exemple$X, DATA_exemple$Y, B=100,
                     steps.seq=sort(unique(all.cors),decreasing=TRUE))
+result.boost.45.raw
+```
+
+Applying a non increasing post-processing step to the results improves the performance of the algorithm. 
+```{r datasetsimulationc02res45bis, cache=TRUE}
+result.boost.45 = force.non.inc(result.boost.45.raw)
 result.boost.45
 ```
 
@@ -174,7 +208,7 @@ dec.result.boost.45 <- summary(result.boost.45)$selectboost_result.dec
 dec.result.boost.45
 ```
 
-Let's compute again, for all the $c_0$ values, the sensitivity (precision), specificity (recall), and several Fscores ($F_1$ harmonic mean of precision and recall, $F_{1/2}$ and $F_2$ two weighted harmonic means of precision and recall).
+Let's compute again, for all the $c_0$ values, the recall (sensitivity), precision (positive predictive value), and several Fscores ($F_1$ harmonic mean of recall and precision, $F_{1/2}$ and $F_2$ two weighted harmonic means of recall and precision).
 ```{r datasetsimulationc03res45, cache=TRUE}
 All_res.45=NULL
 #Here are the cutoff level tested
@@ -195,8 +229,8 @@ matplot(1:nrow(dec.result.boost.45),All_res.45[,,3],type="l",
         ylab="criterion value",xlab="c0 value",xaxt="n",lwd=2)
 axis(1, at=1:length(attr(result.boost.45,"c0.seq")), 
      labels=round(attr(result.boost.45,"c0.seq"),3))
-legend(x="topright",legend=c("sensitivity (precision)",
-       "specificity (recall)","non-weighted Fscore",
+legend(x="topright",legend=c("recall (sensitivity)",
+       "precision (positive predictive value)","non-weighted Fscore",
        "F1/2 weighted Fscore","F2 weighted Fscore"),
        lty=1:5,col=1:5,lwd=2)
 ```
@@ -264,7 +298,7 @@ data(micro_US)
 micro_US<-Cascade::as.micro_array(micro_US,c(60,90,240,390),6)
 micro_S<-Cascade::as.micro_array(micro_S,c(60,90,240,390),6)
 S<-Cascade::geneSelection(list(micro_S,micro_US),list("condition",c(1,2),1),-1)
-data(micro_S)
+rm(micro_S);data(micro_S)
 Sel<-micro_S[S@name,]
 
 supp<-c(1,1,1,1,1,rep(0,95))
@@ -300,6 +334,7 @@ result.boost.micro_nb1 = fastboost(DATA_exemple3_nb_1$X, DATA_exemple3_nb_1$Y, B
 result.boost.micro_nb1
 ```
 
+The summary function computes applies a non increasing post-processing step to the results to improve the performance of the algorithm. The results are store int the selectboost_result.dec entry of the summary.
 ```{r datasetsimulationc02res45decbis, cache=TRUE}
 dec.result.boost.micro_nb1 <- summary(result.boost.micro_nb1)$selectboost_result.dec
 dec.result.boost.micro_nb1
@@ -314,7 +349,7 @@ index.last.c0.micro_nb1=apply(dec.result.boost.micro_nb1>=thr,2,which.min)-1
 index.last.c0.micro_nb1
 ```
 
-We have to cap the confidence index value to the $1-\{\textrm{smallest } c_0\}$ that we specified in the $c_0$ sequence and that was actually used for resampling. As a consequence, we have to exclude the $c_0=0$ case since we do not know what happen between $c0=\verb+quantile+(cors,.9)$ and $c_0=0$.
+We have to cap the confidence index value to the $1-\{\textrm{smallest } c_0\}$ that we specified in the $c_0$ sequence and that was actually used for resampling. As a consequence, we have to exclude the $c_0=0$ case since we do not know what happen between $c0=\mathrm{quantile}(cors,.9)$ and $c_0=0$.
 
 ```{r CascadeDataconfindicesindices, cache=TRUE}
 index.last.c0.micro_nb1 <- pmin(index.last.c0.micro_nb1,
@@ -338,7 +373,7 @@ abline(h=)
 ```
 
 
-Let's compute again, for all the $c_0$ values, the sensitivity (precision), specificity (recall), and several Fscores ($F_1$ harmonic mean of precision and recall, $F_{1/2}$ and $F_2$ two weighted harmonic means of precision and recall).
+Let's compute again, for all the $c_0$ values, the recall (sensitivity), precision (positive predictive value), and several Fscores ($F_1$ harmonic mean of recall and precision, $F_{1/2}$ and $F_2$ two weighted harmonic means of recall and precision).
 ```{r datasetsimulationc03micro, cache=TRUE, fig.keep='last'}
 All_micro_nb1=NULL
 #Here are the cutoff level tested
@@ -359,8 +394,8 @@ matplot(1:nrow(dec.result.boost.micro_nb1),All_micro_nb1[,,3],type="l",
         ylab="criterion value",xlab="c0 value",xaxt="n",lwd=2)
 axis(1, at=1:length(attr(result.boost.micro_nb1,"c0.seq")),
      labels=round(attr(result.boost.micro_nb1,"c0.seq"),3))
-legend(x="topright",legend=c("sensitivity (precision)",
-       "specificity (recall)","non-weighted Fscore",
+legend(x="topright",legend=c("recall (sensitivity)",
+       "precision (positive predictive value)","non-weighted Fscore",
        "F1/2 weighted Fscore","F2 weighted Fscore"),
        lty=1:5,col=1:5,lwd=2)
 ```

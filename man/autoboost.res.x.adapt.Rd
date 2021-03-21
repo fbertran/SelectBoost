@@ -4,7 +4,9 @@
 \name{autoboost.res.x.adapt}
 \alias{autoboost.res.x.adapt}
 \title{Autoboost adaptative lasso diabetes first order.}
-\format{A numerical matrix frame with 13 rows and 10 variables with attributes.}
+\format{
+A numerical matrix frame with 13 rows and 10 variables with attributes.
+}
 \usage{
 autoboost.res.x.adapt
 }

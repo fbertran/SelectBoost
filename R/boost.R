@@ -7,7 +7,7 @@
 #' @return Various types depending on the function.
 #' @family Selectboost functions
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
-#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 #' @seealso \code{\link{fastboost}}, \code{\link{autoboost}}
 #' @examples
 #' set.seed(314)
@@ -191,6 +191,10 @@ boost.adjust<-function(X,groups,Correlation_sign,Xpass=boost.Xpass(nrowX,ncolX),
     groups$communities <- NULL
     listnames=vector("list",length(groups))
   }
+
+  if(use.parallel){
+    use.parallel=FALSE
+  }
   ngroups=length(groups)
   nrowX=nrow(X)
   ncolX=ncol(X)
@@ -212,7 +216,15 @@ boost.adjust<-function(X,groups,Correlation_sign,Xpass=boost.Xpass(nrowX,ncolX),
         indice<-groups[[j]]
       }
       corr_set2<-sweep(corr_set0[,indice,drop=FALSE],2L,Correlation_sign[indice,j],"*")
-      return(vmf.mle(t(corr_set2)))
+      out.vmf.mle <- tryCatch({
+        vmf.mle(t(corr_set2))
+      }, error=function(cond) {
+        message("Here's the original error message:")
+        message(cond)
+        return("NoRandom")
+      }
+      )
+      return(out.vmf.mle)
     }else{
       if(verbose){
         print(paste(j,": NoRandom","\n"))
@@ -223,16 +235,9 @@ boost.adjust<-function(X,groups,Correlation_sign,Xpass=boost.Xpass(nrowX,ncolX),
   fit1<-Vectorize(fit1, SIMPLIFY = FALSE)
 
   if(use.parallel) {
-    requireNamespace("doParallel")
-    if (.Platform$OS.type != "windows") {
-      workers=parallel::makeForkCluster(nnodes = ncores)
-    }
-    else {
-      workers=parallel::makePSOCKcluster(names = ncores)
-    }
-    doParallel::registerDoParallel(workers)
-    vmf.params=foreach(iforeach=1:ngroups, .combine=c, .errorhandling = 'remove', .verbose = verbose) %dopar% fit1(iforeach)
-    parallel::stopCluster(workers)
+    #requireNamespace("doMC")
+    #registerDoMC(ncores)
+    #vmf.params=foreach(iforeach=1:ngroups, .combine=c, .errorhandling = 'remove', .verbose = verbose) %dopar% fit1(iforeach)
 
   } else {
     vmf.params=fit1(1:ngroups)
@@ -268,7 +273,7 @@ boost.adjust<-function(X,groups,Correlation_sign,Xpass=boost.Xpass(nrowX,ncolX),
 #' #Not meaningful, should be run with B>=100
 #' xran_random <- boost.random(xran_norm, xran_Xpass, xran_adjust$vmf.params, B=5)
 #'
-#' \dontrun{
+#' \donttest{
 #' xran_random <- boost.random(xran_norm, xran_Xpass, xran_adjust$vmf.params, B=100)
 #' }
 #'
@@ -277,7 +282,9 @@ boost.random<-function(X,Xpass,vmf.params,verbose=FALSE,B=100,use.parallel=FALSE
   nvmf.params=length(vmf.params)
   nrowX=nrow(X)
   ncolX=ncol(X)
-
+  if(use.parallel){
+    use.parallel=FALSE
+  }
   func_passage2<-function(x){
     return(Xpass%*%t(x)) #tcrossprod(Xpass,x)
   }
@@ -300,32 +307,18 @@ boost.random<-function(X,Xpass,vmf.params,verbose=FALSE,B=100,use.parallel=FALSE
   if(B>1){
     simul2<-function(){simul1(colstosimul)}
     if(use.parallel & !is.null(colstosimul)) {
-      requireNamespace("doParallel")
-      if (.Platform$OS.type != "windows") {
-        workers=parallel::makeForkCluster(nnodes = ncores)
-      }
-      else {
-        workers=parallel::makePSOCKcluster(names = ncores)
-      }
-      registerDoParallel(workers)
-      res<-foreach(iforeach=1:B, .combine=list, .multicombine=TRUE, .errorhandling = 'remove', .verbose = verbose) %dopar% simul2()
-      parallel::stopCluster(workers)
-      res<-simplify2array(res)
+      #requireNamespace("doMC")
+      #registerDoMC(ncores)
+      #res<-foreach(iforeach=1:B, .combine=list, .multicombine=TRUE, .errorhandling = 'remove', .verbose = verbose) %dopar% simul2()
+      #res<-simplify2array(res)
     } else {
       res<-replicate(B,simul2())
     }
   } else {
     if(use.parallel & !is.null(colstosimul)) {
-      requireNamespace("doParallel")
-      if (.Platform$OS.type != "windows") {
-        workers=parallel::makeForkCluster(nnodes = ncores)
-      }
-      else {
-        workers=parallel::makePSOCKcluster(names = ncores)
-      }
-      registerDoParallel(workers)
-      res<-foreach(iforeach=colstosimul, .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% simul1(iforeach)
-      parallel::stopCluster(workers)
+      #requireNamespace("doMC")
+      #registerDoMC(ncores)
+      #res<-foreach(iforeach=colstosimul, .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% simul1(iforeach)
     } else {
       res<-simul1(colstosimul)
     }
@@ -353,6 +346,7 @@ boost.random<-function(X,Xpass,vmf.params,verbose=FALSE,B=100,use.parallel=FALSE
 # #' Defaults to \code{FALSE}.
 # #' @param ncores Numerical value. Number of cores to use.
 # #' Defaults to \code{4}.
+#' @param exportlist list of exports
 #' @param ... . Additionnal parameters passed to the \code{func} function.
 #'
 #' @details \code{boost.apply} returns a matrix with the coefficients estimated using the resampled datasets.
@@ -374,23 +368,15 @@ if (is.function(func)){
 
 if(attr(cols.simul,"nosimul")) {
     if(attr(cols.simul,"nsimul")==1) {
-      return(do.call(what=funcgroup, args=c(X=list(X),Y=list(Y), dots)))
+      return(funcgroup(X,Y,...))
     } else {
       applyfunction<-function(k){
-        return(do.call(what=funcgroup, args=c(X=list(X),Y=list(Y), dots)))
+        return(funcgroup(X,Y,...))
       }
       if(use.parallel) {
-        requireNamespace("doParallel")
-        if (.Platform$OS.type != "windows") {
-          workers=parallel::makeForkCluster(nnodes = ncores)
-        }
-        else {
-          workers=parallel::makePSOCKcluster(names = ncores)
-        }
-        registerDoParallel(workers)
-        resres <- foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% applyfunction(iforeach)
-        parallel::stopCluster(workers)
-        return(resres)
+        #requireNamespace("doMC")
+        #registerDoMC(ncores)
+        #return(foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% applyfunction(iforeach))
       } else {
         return(sapply(1:attr(cols.simul,"nsimul"),applyfunction))
       }
@@ -398,11 +384,11 @@ if(attr(cols.simul,"nosimul")) {
   } else {
     if(attr(cols.simul,"nsimul")==1) {
       X[,attr(cols.simul,"colstosimul")] <-cols.simul
-      return(do.call(what=funcgroup, args=c(X=list(X),Y=list(Y),dots)))
+      return(funcgroup(X,Y,...))
     } else {
       applyfunction<-function(k){
         X[,attr(cols.simul,"colstosimul")] <-cols.simul[,,k]
-        return(do.call(what=funcgroup, args=c(X=list(X),Y=list(Y),dots)))
+        return(funcgroup(X,Y,...))
       }
       if(use.parallel) {
         requireNamespace("doParallel")

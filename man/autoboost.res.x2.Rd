@@ -4,7 +4,9 @@
 \name{autoboost.res.x2}
 \alias{autoboost.res.x2}
 \title{Autoboost lasso diabetes second order.}
-\format{A numerical matrix frame with 13 rows and 64 variables with attributes.}
+\format{
+A numerical matrix frame with 13 rows and 64 variables with attributes.
+}
 \usage{
 autoboost.res.x2
 }

@@ -8,21 +8,36 @@
 
 <title>Boost step by step functions — boost • SelectBoost</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +45,11 @@
 
 
 
-<meta property="og:title" content="Boost step by step functions — boost" />
 
+<meta property="og:title" content="Boost step by step functions — boost" />
 <meta property="og:description" content="Step by step functions to apply the selectboost algorithm." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="/logo.png" />
+
 
 
 
@@ -47,9 +63,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -63,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SelectBoost</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
       </span>
     </div>
 
@@ -71,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -89,7 +106,7 @@
       <a href="../articles/benchmarking-selectboost-networks.html">Benchmarking the SelectBoost Package for Network Reverse Engineering</a>
     </li>
     <li>
-      <a href="../articles/confidence-indices-Cascade-networks.html">Towards confidence estimates in Cascade Networks using the SelectBoost package</a>
+      <a href="../articles/confidence-indices-Cascade-networks.html">Towards Confidence Estimates in Cascade Networks using the SelectBoost Package</a>
     </li>
     <li>
       <a href="../articles/sim-with-sb.html">Simulation Tools Provided With the Selectboost Package</a>
@@ -100,11 +117,10 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/fbertran/SelectBoost">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/fbertran/SelectBoost/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -115,6 +131,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -126,34 +143,57 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Step by step functions to apply the selectboost algorithm.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>boost.normalize</span>(<span class='no'>X</span>, <span class='kw'>eps</span> <span class='kw'>=</span> <span class='fl'>1e-08</span>)
+    <pre class="usage"><span class='fu'>boost.normalize</span><span class='op'>(</span><span class='va'>X</span>, eps <span class='op'>=</span> <span class='fl'>1e-08</span><span class='op'>)</span>
 
-<span class='fu'>boost.compcorrs</span>(<span class='no'>Xnorm</span>, <span class='kw'>corrfunc</span> <span class='kw'>=</span> <span class='st'>"cor"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>testvarindic</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>TRUE</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nrow'>ncol</a></span>(<span class='no'>Xnorm</span>)))
+<span class='fu'>boost.compcorrs</span><span class='op'>(</span>
+  <span class='va'>Xnorm</span>,
+  corrfunc <span class='op'>=</span> <span class='st'>"cor"</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  testvarindic <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>Xnorm</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>boost.correlation_sign</span>(<span class='no'>Correlation_matrice</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>boost.correlation_sign</span><span class='op'>(</span><span class='va'>Correlation_matrice</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>boost.findgroups</span>(<span class='no'>Correlation_matrice</span>, <span class='no'>group</span>, <span class='kw'>corr</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>boost.findgroups</span><span class='op'>(</span><span class='va'>Correlation_matrice</span>, <span class='va'>group</span>, corr <span class='op'>=</span> <span class='fl'>1</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>boost.Xpass</span>(<span class='no'>nrowX</span>, <span class='no'>ncolX</span>)
+<span class='fu'>boost.Xpass</span><span class='op'>(</span><span class='va'>nrowX</span>, <span class='va'>ncolX</span><span class='op'>)</span>
 
-<span class='fu'>boost.adjust</span>(<span class='no'>X</span>, <span class='no'>groups</span>, <span class='no'>Correlation_sign</span>, <span class='kw'>Xpass</span> <span class='kw'>=</span> <span class='fu'>boost.Xpass</span>(<span class='no'>nrowX</span>,
-  <span class='no'>ncolX</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>use.parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+<span class='fu'>boost.adjust</span><span class='op'>(</span>
+  <span class='va'>X</span>,
+  <span class='va'>groups</span>,
+  <span class='va'>Correlation_sign</span>,
+  Xpass <span class='op'>=</span> <span class='fu'>boost.Xpass</span><span class='op'>(</span><span class='va'>nrowX</span>, <span class='va'>ncolX</span><span class='op'>)</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  use.parallel <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  ncores <span class='op'>=</span> <span class='fl'>4</span>
+<span class='op'>)</span>
 
-<span class='fu'>boost.random</span>(<span class='no'>X</span>, <span class='no'>Xpass</span>, <span class='no'>vmf.params</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>use.parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+<span class='fu'>boost.random</span><span class='op'>(</span>
+  <span class='va'>X</span>,
+  <span class='va'>Xpass</span>,
+  <span class='va'>vmf.params</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  B <span class='op'>=</span> <span class='fl'>100</span>,
+  use.parallel <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  ncores <span class='op'>=</span> <span class='fl'>4</span>
+<span class='op'>)</span>
 
-<span class='fu'>boost.apply</span>(<span class='no'>X</span>, <span class='no'>cols.simul</span>, <span class='no'>Y</span>, <span class='no'>func</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>use.parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='no'>...</span>)
+<span class='fu'>boost.apply</span><span class='op'>(</span>
+  <span class='va'>X</span>,
+  <span class='va'>cols.simul</span>,
+  <span class='va'>Y</span>,
+  <span class='va'>func</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  use.parallel <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  ncores <span class='op'>=</span> <span class='fl'>4</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>boost.select</span>(<span class='no'>Boost.coeffs</span>, <span class='kw'>eps</span> <span class='kw'>=</span> <span class='fl'>10</span>^(-<span class='fl'>4</span>), <span class='kw'>version</span> <span class='kw'>=</span> <span class='st'>"lars"</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+<span class='fu'>boost.select</span><span class='op'>(</span><span class='va'>Boost.coeffs</span>, eps <span class='op'>=</span> <span class='fl'>10</span><span class='op'>^</span><span class='op'>(</span><span class='op'>-</span><span class='fl'>4</span><span class='op'>)</span>, version <span class='op'>=</span> <span class='st'>"lars"</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -181,7 +221,7 @@ Defaults to <code>FALSE</code>.</p></td>
     <tr>
       <th>testvarindic</th>
       <td><p>Boolean vector. Compute associations for a subset of variables.
-By default, the scope of the computation is the whole dataset, i.e. <code><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep(TRUE,ncol(Xnorm))</a></code>.</p></td>
+By default, the scope of the computation is the whole dataset, i.e. <code><a href='https://rdrr.io/r/base/rep.html'>rep(TRUE,ncol(Xnorm))</a></code>.</p></td>
     </tr>
     <tr>
       <th>Correlation_matrice</th>
@@ -259,11 +299,10 @@ Defaults to <code>4</code>.</p></td>
       <td><p>Character value. "lars" (no intercept value) or "glmnet" (first coefficient is the intercept value).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Various types depending on the function.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>boost.normalize</code> returns a numeric matrix whose colun are centered and l2 normalized.</p>
@@ -275,65 +314,58 @@ Defaults to <code>4</code>.</p></td>
 <p><code>boost.random</code> returns an array with the resampled datasets.</p>
 <p><code>boost.apply</code> returns a matrix with the coefficients estimated using the resampled datasets.</p>
 <p><code>boost.select</code> returns a vector with the proportion of times each variable was selected.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p><em>selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets</em>, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, <a href='https://arxiv.org/abs/1810.01670'>https://arxiv.org/abs/1810.01670</a></p>
-    
+    <p><em>selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets</em>, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. doi: <a href='https://doi.org/10.1093/bioinformatics/btaa855'>10.1093/bioinformatics/btaa855</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='fastboost.html'>fastboost</a></code>, <code><a href='autoboost.html'>autoboost</a></code></p>
-<p>Other Selectboost functions: <code><a href='autoboost.html'>autoboost</a></code>,
-  <code><a href='fastboost.html'>fastboost</a></code>,
-  <code><a href='plot_selectboost_cascade.html'>plot_selectboost_cascade</a></code>,
-  <code><a href='selectboost_cascade.html'>selectboost_cascade</a></code></p></div>
-    
+<p>Other Selectboost functions: 
+<code><a href='autoboost.html'>autoboost</a>()</code>,
+<code><a href='fastboost.html'>fastboost</a>()</code>,
+<code><a href='plot_selectboost_cascade.html'>plot_selectboost_cascade</a></code>,
+<code><a href='selectboost_cascade.html'>selectboost_cascade</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Frederic Bertrand, <a href='mailto:frederic.bertrand@math.unistra.fr'>frederic.bertrand@math.unistra.fr</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>314</span>)
-<span class='no'>xran</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>200</span>),<span class='fl'>20</span>,<span class='fl'>10</span>)
-<span class='no'>yran</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>20</span>)
-<span class='no'>xran_norm</span> <span class='kw'>&lt;-</span> <span class='fu'>boost.normalize</span>(<span class='no'>xran</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>314</span><span class='op'>)</span>
+<span class='va'>xran</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>200</span><span class='op'>)</span>,<span class='fl'>20</span>,<span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>yran</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>20</span><span class='op'>)</span>
+<span class='va'>xran_norm</span> <span class='op'>&lt;-</span> <span class='fu'>boost.normalize</span><span class='op'>(</span><span class='va'>xran</span><span class='op'>)</span>
 
-<span class='no'>xran_corr</span><span class='kw'>&lt;-</span> <span class='fu'>boost.compcorrs</span>(<span class='no'>xran_norm</span>)
+<span class='va'>xran_corr</span><span class='op'>&lt;-</span> <span class='fu'>boost.compcorrs</span><span class='op'>(</span><span class='va'>xran_norm</span><span class='op'>)</span>
 
-<span class='no'>xran_corr_sign</span> <span class='kw'>&lt;-</span> <span class='fu'>boost.correlation_sign</span>(<span class='no'>xran_corr</span>)
+<span class='va'>xran_corr_sign</span> <span class='op'>&lt;-</span> <span class='fu'>boost.correlation_sign</span><span class='op'>(</span><span class='va'>xran_corr</span><span class='op'>)</span>
 
-<span class='no'>xran_groups</span> <span class='kw'>&lt;-</span> <span class='fu'>boost.findgroups</span>(<span class='no'>xran_corr</span>, <span class='kw'>group</span><span class='kw'>=</span><span class='no'>group_func_1</span>, <span class='fl'>.3</span>)
-<span class='no'>xran_groups_2</span> <span class='kw'>&lt;-</span> <span class='fu'>boost.findgroups</span>(<span class='no'>xran_corr</span>, <span class='kw'>group</span><span class='kw'>=</span><span class='no'>group_func_2</span>, <span class='fl'>.3</span>)
+<span class='va'>xran_groups</span> <span class='op'>&lt;-</span> <span class='fu'>boost.findgroups</span><span class='op'>(</span><span class='va'>xran_corr</span>, group<span class='op'>=</span><span class='va'>group_func_1</span>, <span class='fl'>.3</span><span class='op'>)</span>
+<span class='va'>xran_groups_2</span> <span class='op'>&lt;-</span> <span class='fu'>boost.findgroups</span><span class='op'>(</span><span class='va'>xran_corr</span>, group<span class='op'>=</span><span class='va'>group_func_2</span>, <span class='fl'>.3</span><span class='op'>)</span>
 
-<span class='no'>xran_Xpass</span> <span class='kw'>&lt;-</span> <span class='fu'>boost.Xpass</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nrow'>nrow</a></span>(<span class='no'>xran_norm</span>),<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nrow'>ncol</a></span>(<span class='no'>xran_norm</span>))
+<span class='va'>xran_Xpass</span> <span class='op'>&lt;-</span> <span class='fu'>boost.Xpass</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>xran_norm</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>xran_norm</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='no'>xran_adjust</span> <span class='kw'>&lt;-</span> <span class='fu'>boost.adjust</span>(<span class='no'>xran_norm</span>, <span class='no'>xran_groups</span>$<span class='no'>groups</span>, <span class='no'>xran_corr_sign</span>)
+<span class='va'>xran_adjust</span> <span class='op'>&lt;-</span> <span class='fu'>boost.adjust</span><span class='op'>(</span><span class='va'>xran_norm</span>, <span class='va'>xran_groups</span><span class='op'>$</span><span class='va'>groups</span>, <span class='va'>xran_corr_sign</span><span class='op'>)</span>
 
 <span class='co'>#Not meaningful, should be run with B&gt;=100</span>
-<span class='no'>xran_random</span> <span class='kw'>&lt;-</span> <span class='fu'>boost.random</span>(<span class='no'>xran_norm</span>, <span class='no'>xran_Xpass</span>, <span class='no'>xran_adjust</span>$<span class='no'>vmf.params</span>, <span class='kw'>B</span><span class='kw'>=</span><span class='fl'>5</span>)</div><span class='co'># NOT RUN {</span>
-<span class='no'>xran_random</span> <span class='kw'>&lt;-</span> <span class='fu'>boost.random</span>(<span class='no'>xran_norm</span>, <span class='no'>xran_Xpass</span>, <span class='no'>xran_adjust</span>$<span class='no'>vmf.params</span>, <span class='kw'>B</span><span class='kw'>=</span><span class='fl'>100</span>)
-<span class='co'># }</span><div class='input'>
-<span class='no'>xran_apply</span> <span class='kw'>&lt;-</span> <span class='fu'>boost.apply</span>(<span class='no'>xran_norm</span>, <span class='no'>xran_random</span>, <span class='no'>yran</span>, <span class='no'>lasso_msgps_AICc</span>)
+<span class='va'>xran_random</span> <span class='op'>&lt;-</span> <span class='fu'>boost.random</span><span class='op'>(</span><span class='va'>xran_norm</span>, <span class='va'>xran_Xpass</span>, <span class='va'>xran_adjust</span><span class='op'>$</span><span class='va'>vmf.params</span>, B<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span>
 
-<span class='no'>xran_select</span> <span class='kw'>&lt;-</span> <span class='fu'>boost.select</span>(<span class='no'>xran_apply</span>)</div></pre>
+<span class='co'># \donttest{</span>
+<span class='va'>xran_random</span> <span class='op'>&lt;-</span> <span class='fu'>boost.random</span><span class='op'>(</span><span class='va'>xran_norm</span>, <span class='va'>xran_Xpass</span>, <span class='va'>xran_adjust</span><span class='op'>$</span><span class='va'>vmf.params</span>, B<span class='op'>=</span><span class='fl'>100</span><span class='op'>)</span>
+<span class='co'># }</span>
+
+<span class='va'>xran_apply</span> <span class='op'>&lt;-</span> <span class='fu'>boost.apply</span><span class='op'>(</span><span class='va'>xran_norm</span>, <span class='va'>xran_random</span>, <span class='va'>yran</span>, <span class='va'>lasso_msgps_AICc</span><span class='op'>)</span>
+
+<span class='va'>xran_select</span> <span class='op'>&lt;-</span> <span class='fu'>boost.select</span><span class='op'>(</span><span class='va'>xran_apply</span><span class='op'>)</span>
+
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Frederic Bertrand, <a href='mailto:frederic.bertrand@math.unistra.fr'>frederic.bertrand@math.unistra.fr</a></p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -341,13 +373,16 @@ Defaults to <code>4</code>.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

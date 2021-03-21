@@ -4,11 +4,26 @@
 \alias{autoboost}
 \title{Autoboost}
 \usage{
-autoboost(X, Y, ncores = 4, group = group_func_1,
-  func = lasso_msgps_AICc, corrfunc = "cor", use.parallel = TRUE,
-  B = 100, step.num = 0.1, step.limit = "none", risk = 0.05,
-  verbose = FALSE, step.scale = "quantile", normalize = TRUE,
-  steps.seq = NULL, debug = FALSE, version = "lars", ...)
+autoboost(
+  X,
+  Y,
+  ncores = 4,
+  group = group_func_1,
+  func = lasso_msgps_AICc,
+  corrfunc = "cor",
+  use.parallel = FALSE,
+  B = 100,
+  step.num = 0.1,
+  step.limit = "none",
+  risk = 0.05,
+  verbose = FALSE,
+  step.scale = "quantile",
+  normalize = TRUE,
+  steps.seq = NULL,
+  debug = FALSE,
+  version = "lars",
+  ...
+)
 }
 \arguments{
 \item{X}{Numerical matrix. Matrix of the variables.}
@@ -27,8 +42,8 @@ Defaults to \code{lasso_msgps_AICc}.}
 \item{corrfunc}{Character value or function. Used to compute associations between
 the variables. Defaults to \code{"cor"}.}
 
-\item{use.parallel}{Boolean. Use parallel computing (doParallel).
-Defaults to \code{TRUE}.}
+\item{use.parallel}{Boolean. To use parallel computing (doMC) download the extended package from Github.
+Set to \code{FALSE}.}
 
 \item{B}{Numerical value. Number of resampled fits of the model.
 Defaults to \code{100}.}
@@ -83,7 +98,7 @@ xran=matrix(rnorm(75),15,5)
 ybin=sample(0:1,15,replace=TRUE)
 yran=rnorm(15)
 set.seed(314)
-#For quick test purposes, not meaningful, should be run with greater value of B
+#For quick test purpose, not meaningful, should be run with greater value of B
 #and disabling parallel computing as well
 res.autoboost <- autoboost(xran,yran,B=3,use.parallel=FALSE)
 
@@ -98,15 +113,16 @@ autoboost(xran,ybin,func=lasso_cv_glmnet_bin_min)
 
 }
 \references{
-\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 }
 \seealso{
 \code{\link{boost}}, \code{\link{fastboost}}, \code{\link{plot.selectboost}}
 
-Other Selectboost functions: \code{\link{boost}},
-  \code{\link{fastboost}},
-  \code{\link{plot_selectboost_cascade}},
-  \code{\link{selectboost_cascade}}
+Other Selectboost functions: 
+\code{\link{boost}},
+\code{\link{fastboost}()},
+\code{\link{plot_selectboost_cascade}},
+\code{\link{selectboost_cascade}}
 }
 \author{
 Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}

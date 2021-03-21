@@ -4,11 +4,26 @@
 \alias{fastboost}
 \title{Fastboost}
 \usage{
-fastboost(X, Y, ncores = 4, group = group_func_1,
-  func = lasso_msgps_AICc, corrfunc = "cor", use.parallel = TRUE,
-  B = 100, step.num = 0.1, step.limit = "none", verbose = FALSE,
-  step.scale = "quantile", normalize = TRUE, steps.seq = NULL,
-  debug = FALSE, version = "lars", c0lim = TRUE, ...)
+fastboost(
+  X,
+  Y,
+  ncores = 4,
+  group = group_func_1,
+  func = lasso_msgps_AICc,
+  corrfunc = "cor",
+  use.parallel = FALSE,
+  B = 100,
+  step.num = 0.1,
+  step.limit = "none",
+  verbose = FALSE,
+  step.scale = "quantile",
+  normalize = TRUE,
+  steps.seq = NULL,
+  debug = FALSE,
+  version = "lars",
+  c0lim = TRUE,
+  ...
+)
 }
 \arguments{
 \item{X}{Numerical matrix. Matrix of the variables.}
@@ -27,8 +42,8 @@ Defaults to \code{lasso_msgps_AICc}.}
 \item{corrfunc}{Character value or function. Used to compute associations between
 the variables. Defaults to \code{"cor"}.}
 
-\item{use.parallel}{Boolean. Use parallel computing (doParallel).
-Defaults to \code{TRUE}.}
+\item{use.parallel}{Boolean. To use parallel computing (doMC) download the extended package from Github.
+Set to \code{FALSE}.}
 
 \item{B}{Numerical value. Number of resampled fits of the model.
 Defaults to \code{100}.}
@@ -42,7 +57,7 @@ Defaults to \code{0.1}.}
 Defaults to \code{FALSE}.}
 
 \item{step.scale}{Character value. How to compute the c0 sequence if not user-provided:
-either "quantile" or "linear".
+either "quantile" or "linear", "zoom_l", "zoom_q" and "mixed".
 Defaults to \code{"quantile"}.}
 
 \item{normalize}{Boolean. Shall the X matrix be centered and scaled?
@@ -65,7 +80,7 @@ Defaults to \code{TRUE}}
 A numeric matrix with attributes.
 }
 \description{
-All in one use of selectboost that prevents redondant fitting of distributions
+All in one use of selectboost that avoids redondant fitting of distributions
 and saves some memory.
 }
 \details{
@@ -91,6 +106,12 @@ res.fastboost <- fastboost(xran,yran,B=3,use.parallel=FALSE)
 fastboost(xran,yran)
 #Customize resampling levels
 fastboost(xran,yran,steps.seq=c(.99,.95,.9),c0lim=FALSE)
+fastboost(xran,yran,step.scale="mixed",c0lim=TRUE)
+fastboost(xran,yran,step.scale="zoom_l",c0lim=FALSE)
+fastboost(xran,yran,step.scale="zoom_l",step.num = c(1,.9,.01),c0lim=FALSE)
+fastboost(xran,yran,step.scale="zoom_q",c0lim=FALSE)
+fastboost(xran,yran,step.scale="linear",c0lim=TRUE)
+fastboost(xran,yran,step.scale="quantile",c0lim=TRUE)
 
 #Binary logistic regression
 fastboost(xran,ybin,func=lasso_cv_glmnet_bin_min)
@@ -98,15 +119,16 @@ fastboost(xran,ybin,func=lasso_cv_glmnet_bin_min)
 
 }
 \references{
-\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 }
 \seealso{
 \code{\link{boost}}, \code{\link{autoboost}}, \code{\link{plot.selectboost}}
 
-Other Selectboost functions: \code{\link{autoboost}},
-  \code{\link{boost}},
-  \code{\link{plot_selectboost_cascade}},
-  \code{\link{selectboost_cascade}}
+Other Selectboost functions: 
+\code{\link{autoboost}()},
+\code{\link{boost}},
+\code{\link{plot_selectboost_cascade}},
+\code{\link{selectboost_cascade}}
 }
 \author{
 Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}

@@ -10,9 +10,18 @@
 \usage{
 selectboost(M, ...)
 
-\S4method{selectboost}{micro_array}(M, Fabhat, K = 5, eps = 10^-5,
-  cv.subjects = TRUE, ncores = 4, use.parallel = TRUE,
-  verbose = FALSE, group = group_func_2, c0value = 0.95)
+\S4method{selectboost}{micro_array}(
+  M,
+  Fabhat,
+  K = 5,
+  eps = 10^-5,
+  cv.subjects = TRUE,
+  ncores = 4,
+  use.parallel = FALSE,
+  verbose = FALSE,
+  group = group_func_2,
+  c0value = 0.95
+)
 }
 \arguments{
 \item{M}{Microarray class from the Cascade package.}
@@ -80,14 +89,16 @@ net_confidence_thr <- selectboost(M, Fab_inf_C, group = group_func_1)
 
 }
 \references{
-\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 }
 \seealso{
 \code{\link{boost}}, \code{\link{fastboost}}, \code{\link{plot.selectboost}}, \code{\link[Cascade]{inference}}
 
-Other Selectboost functions: \code{\link{autoboost}},
-  \code{\link{boost}}, \code{\link{fastboost}},
-  \code{\link{plot_selectboost_cascade}}
+Other Selectboost functions: 
+\code{\link{autoboost}()},
+\code{\link{boost}},
+\code{\link{fastboost}()},
+\code{\link{plot_selectboost_cascade}}
 }
 \author{
 Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}

@@ -79,7 +79,159 @@
 \alias{nv_PB_075_075}
 \alias{nv_PB_W}
 \title{Simulations for reverse-engineering}
-\format{A numerical matrix frame with 100 rows and 200 variables or a numerical vector of length 100.}
+\format{
+A numerical matrix frame with 100 rows and 200 variables or a numerical vector of length 100.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{matrix} (inherits from \code{array}) with 100 rows and 200 columns.
+
+An object of class \code{numeric} of length 100.
+
+An object of class \code{numeric} of length 100.
+
+An object of class \code{numeric} of length 100.
+
+An object of class \code{numeric} of length 100.
+
+An object of class \code{numeric} of length 100.
+
+An object of class \code{numeric} of length 100.
+
+An object of class \code{numeric} of length 100.
+
+An object of class \code{numeric} of length 100.
+
+An object of class \code{numeric} of length 100.
+
+An object of class \code{numeric} of length 100.
+
+An object of class \code{numeric} of length 100.
+
+An object of class \code{numeric} of length 100.
+
+An object of class \code{numeric} of length 100.
+
+An object of class \code{numeric} of length 100.
+
+An object of class \code{numeric} of length 100.
+}
 \usage{
 test.seq_C
 

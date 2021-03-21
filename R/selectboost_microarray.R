@@ -24,7 +24,7 @@
 #' @return A \code{network.confidence} object.
 #' @family Selectboost functions
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
-#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 #' @seealso \code{\link{boost}}, \code{\link{fastboost}}, \code{\link{plot.selectboost}}, \code{\link[Cascade]{inference}}
 #' @examples
 #' set.seed(314)
@@ -79,7 +79,7 @@ setMethod(f="selectboost"
                      ,eps=10^-5
                      ,cv.subjects=TRUE
                      ,ncores=4
-                     ,use.parallel=TRUE
+                     ,use.parallel=FALSE
                      ,verbose=FALSE
                      ,group = group_func_2
                      ,c0value = .95
