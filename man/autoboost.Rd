@@ -42,8 +42,8 @@ Defaults to \code{lasso_msgps_AICc}.}
 \item{corrfunc}{Character value or function. Used to compute associations between
 the variables. Defaults to \code{"cor"}.}
 
-\item{use.parallel}{Boolean. To use parallel computing (doMC) download the extended package from Github.
-Set to \code{FALSE}.}
+\item{use.parallel}{Boolean. Use parallel computing (doMC).
+Defaults to \code{TRUE}.}
 
 \item{B}{Numerical value. Number of resampled fits of the model.
 Defaults to \code{100}.}

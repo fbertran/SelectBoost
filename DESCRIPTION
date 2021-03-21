@@ -5,7 +5,7 @@ Version: 2.2.0
 Date: 2021-03-20
 Depends: R (>= 2.10)
 biocViews:
-Imports: lars, glmnet, igraph, parallel, msgps, Rfast, methods, Cascade, graphics, grDevices, varbvs, spls, abind
+Imports: lars, glmnet, igraph, parallel, msgps, Rfast, doMC, foreach, methods, Cascade, graphics, grDevices, varbvs, spls, abind
 Suggests: 
     knitr,
     rmarkdown,
