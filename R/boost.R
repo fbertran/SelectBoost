@@ -346,6 +346,7 @@ boost.random<-function(X,Xpass,vmf.params,verbose=FALSE,B=100,use.parallel=FALSE
 # #' Defaults to \code{FALSE}.
 # #' @param ncores Numerical value. Number of cores to use.
 # #' Defaults to \code{4}.
+#' @param exportlist list of exports
 #' @param ... . Additionnal parameters passed to the \code{func} function.
 #'
 #' @details \code{boost.apply} returns a matrix with the coefficients estimated using the resampled datasets.
@@ -354,10 +355,9 @@ boost.random<-function(X,Xpass,vmf.params,verbose=FALSE,B=100,use.parallel=FALSE
 #' xran_apply <- boost.apply(xran_norm, xran_random, yran, lasso_msgps_AICc)
 #'
 #' @export
-boost.apply<-function(X,cols.simul,Y,func,verbose=FALSE,use.parallel=FALSE,ncores=4,...){
-  if(use.parallel){
-    use.parallel=FALSE
-  }
+boost.apply<-function(X,cols.simul,Y,func,verbose=FALSE,use.parallel=FALSE,ncores=4,exportlist=NULL,...){
+
+dots <- eval(substitute(alist(...)))
 
 if (is.character(func)){
   funcgroup <- get(func, mode = "function", envir = parent.frame())
@@ -391,9 +391,17 @@ if(attr(cols.simul,"nosimul")) {
         return(funcgroup(X,Y,...))
       }
       if(use.parallel) {
-        #requireNamespace("doMC")
-        #registerDoMC(ncores)
-        #return(foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind, .errorhandling = 'remove', .verbose = verbose) %dopar% applyfunction(iforeach))
+        requireNamespace("doParallel")
+        if (.Platform$OS.type != "windows") {
+          workers=parallel::makeForkCluster(nnodes = ncores)
+        }
+        else {
+          workers=parallel::makePSOCKcluster(names = ncores)
+        }
+        registerDoParallel(workers)
+        resres <- foreach(iforeach=1:attr(cols.simul,"nsimul"), .combine=cbind, .errorhandling = 'remove', .verbose = verbose, .export="X") %dopar% applyfunction(iforeach)
+        parallel::stopCluster(workers)
+        return(resres)
       } else {
         return(sapply(1:attr(cols.simul,"nsimul"),applyfunction))
       }
