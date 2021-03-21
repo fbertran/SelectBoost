@@ -15,7 +15,7 @@
 #'   \item "length.groups" the length of each groups.
 #' }
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
-#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 #' @seealso \code{\link{group_func_2}} \code{\link{boost.findgroups}}, \code{\link[igraph]{infomap.community}} and \code{\link[igraph]{igraph}}.
 #' @examples
 #' set.seed(314)

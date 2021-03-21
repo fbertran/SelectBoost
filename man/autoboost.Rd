@@ -4,11 +4,26 @@
 \alias{autoboost}
 \title{Autoboost}
 \usage{
-autoboost(X, Y, ncores = 4, group = group_func_1,
-  func = lasso_msgps_AICc, corrfunc = "cor", use.parallel = TRUE,
-  B = 100, step.num = 0.1, step.limit = "none", risk = 0.05,
-  verbose = FALSE, step.scale = "quantile", normalize = TRUE,
-  steps.seq = NULL, debug = FALSE, version = "lars", ...)
+autoboost(
+  X,
+  Y,
+  ncores = 4,
+  group = group_func_1,
+  func = lasso_msgps_AICc,
+  corrfunc = "cor",
+  use.parallel = FALSE,
+  B = 100,
+  step.num = 0.1,
+  step.limit = "none",
+  risk = 0.05,
+  verbose = FALSE,
+  step.scale = "quantile",
+  normalize = TRUE,
+  steps.seq = NULL,
+  debug = FALSE,
+  version = "lars",
+  ...
+)
 }
 \arguments{
 \item{X}{Numerical matrix. Matrix of the variables.}
@@ -98,15 +113,16 @@ autoboost(xran,ybin,func=lasso_cv_glmnet_bin_min)
 
 }
 \references{
-\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 }
 \seealso{
 \code{\link{boost}}, \code{\link{fastboost}}, \code{\link{plot.selectboost}}
 
-Other Selectboost functions: \code{\link{boost}},
-  \code{\link{fastboost}},
-  \code{\link{plot_selectboost_cascade}},
-  \code{\link{selectboost_cascade}}
+Other Selectboost functions: 
+\code{\link{boost}},
+\code{\link{fastboost}()},
+\code{\link{plot_selectboost_cascade}},
+\code{\link{selectboost_cascade}}
 }
 \author{
 Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}

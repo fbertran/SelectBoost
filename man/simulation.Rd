@@ -75,7 +75,7 @@ random samples generated according to the Cor matrix.
 \code{simulation_DATA} returns a list with the X matrix, the response vector Y,
 the true predictors, the beta coefficients, the scaling factor and the standard deviation.
 
-\code{compsim.simuls} computes sensitivity (precision), specificity (recall), and several Fscores (non-weighted Fscore, F1/2 and F2 weighted Fscores).
+\code{compsim.simuls} computes recall (sensitivity), precision (positive predictive value), and several Fscores (non-weighted Fscore, F1/2 and F2 weighted Fscores).
 }
 \examples{
 N<-10
@@ -102,7 +102,7 @@ compsim(DATA_exemple, result.boost, level=.7)
 
 }
 \references{
-\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 }
 \seealso{
 \code{\link[glmnet]{glmnet}}, \code{\link[glmnet]{cv.glmnet}}, \code{\link{AICc_BIC_glmnetB}}, \code{\link[lars]{lars}}, \code{\link[lars]{cv.lars}}, \code{\link[msgps]{msgps}}

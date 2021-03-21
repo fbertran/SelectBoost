@@ -3,8 +3,11 @@
 library(SelectBoost)
 
 # To use all the "cores" of the host. It is often two times the real number of cores of the CPU.
-ncores.found=parallel::detectCores()
-ncores.found
+# ncores.found=parallel::detectCores()
+# ncores.found
+
+# Set to two by default to match CRAN requirements
+ncores.found = 2
 
 data(diabetes,package="lars")
 

@@ -2,7 +2,7 @@
 title: "Benchmarking the SelectBoost Package for Network Reverse Engineering"
 shorttitle: "SelectBoost: Network Reverse Engineering"
 author: 
-- name: "Frédéric Bertrand"
+- name: "Frédéric Bertrand and Myriam Maumy-Bertrand"
   affiliation: 
   - Université de Strasbourg and CNRS
   - IRMA, labex IRMIA
@@ -16,6 +16,10 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
+#file.edit(normalizePath("~/.Renviron"))
+LOCAL <- identical(Sys.getenv("LOCAL"), "TRUE")
+#LOCAL=TRUE
+knitr::opts_chunk$set(purl = LOCAL)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -26,6 +30,13 @@ knitr::opts_chunk$set(
 This vignettes is a first benchmark of the use of the selectboost algorithm for stable and robust scale free network reverse engineering. It differs from the vignette *Towards confidence estimates in Cascade Networks using the SelectBoost package* where we compute *confidence indices* **after** *the model was fitted*. In this vignette, we use the Selecboost algorithm **as a part of the inference algorithm** in order to retrieve **the most stable and robust links (against correlated resampling)** between the genes of the network.
 
 
+If you are a Linux/Unix or a Macos user, you can install a version of SelectBoost with support for `doMC` from [github](https://github.com) with:
+
+```{r, eval = FALSE}
+devtools::install_github("fbertran/SelectBoost", ref = "doMC")
+```
+
+
 Since the simulation time is quite large, we shipped the results with the package as an example dataset. We provide the code to rerun the simulations at the end of the vignette.
 
 
@@ -34,14 +45,14 @@ The following allows to reproduce some the figures of the article Aouadi et al. 
 
 ## Retrieve the results
 Some simulation results were stored in the `results_simuls_reverse_engineering_v3` dataset provided with the package. 
-```{r loadresults, cache= FALSE}
+```{r loadresults, cache= FALSE, eval = LOCAL}
 library(SelectBoost)
 data(results_simuls_reverse_engineering_v3)
 colgrey=grey(.05,NULL)
 ```
 
 ## Compute graphs' ranges
-```{r ranges, cache= FALSE}
+```{r ranges, cache= FALSE, eval = LOCAL}
 rangeCPy_S=range(sensitivity_C,sensitivity_PL,sensitivity_PL2,sensitivity_PL2_W,sensitivity_PL2_tW,sensitivity_PSel,sensitivity_PSel_W,sensitivity_PSel.5,sensitivity_PSel.e2,sensitivity_PSel.5.e2,sensitivity_robust,sensitivity_PB,predictive_positive_value_PB_095_075,predictive_positive_value_PB_075_075,sensitivity_PB_W)
 rangeCPy_PPV=range(predictive_positive_value_C,predictive_positive_value_PL,predictive_positive_value_PL2,predictive_positive_value_PL2_W,predictive_positive_value_PL2_tW,predictive_positive_value_PSel,predictive_positive_value_PSel_W,predictive_positive_value_PSel.5,predictive_positive_value_PSel.e2,predictive_positive_value_PSel.5.e2,predictive_positive_value_robust,predictive_positive_value_PB,predictive_positive_value_PB_095_075,predictive_positive_value_PB_075_075,predictive_positive_value_PB_W)
 rangeCPy_F=range(F_score_C,F_score_PL,F_score_PL2,F_score_PL2_W,F_score_PL2_tW,F_score_PSel,F_score_PSel_W,F_score_PSel.5,F_score_PSel.e2,F_score_PSel.5.e2,F_score_PB,F_score_PB_095_075,F_score_PB_075_075,F_score_PB_W)
@@ -49,7 +60,7 @@ rangeCPx=range(test.seq_C,test.seq_PL,test.seq_PL2,test.seq_PL2_W,test.seq_PL2_t
 ```
 
 ## Sensitivity
-```{r artgraphs1, cache= FALSE, fig.width=6}
+```{r artgraphs1, cache= FALSE, fig.width=6, eval = LOCAL}
 layout(matrix(1:6,nrow=2))
 matplot(t(test.seq_PL2),t(sensitivity_PL2),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Lasso2",ylim=rangeCPy_S,col=grey(.05,NULL))
 abline(v=nv_PL2,col=grey(.05,NULL),lty=3)
@@ -66,7 +77,7 @@ abline(v=nv_PB_W,col=grey(.05,NULL),lty=3)
 ```
 
 Run the code to plot the graph.
-```{r artgraphs2, cache= FALSE, fig.width=6, fig.keep='none'}
+```{r artgraphs2, cache= FALSE, fig.width=6, fig.keep='none', eval = LOCAL}
 layout(matrix(1:6,nrow=2))
 matplot(t(test.seq_robust),t(sensitivity_robust),type="l",xlab="cutoff",ylab="Sensitivity",main="Patterns_Robust",ylim=rangeCPy_S,col=grey(.05,NULL))
 abline(v=nv_robust,col=grey(.05,NULL),lty=3)
@@ -83,7 +94,7 @@ abline(v=nv_PSel,col=grey(.05,NULL),lty=3)
 ```
 
 ## Predictive positive value
-```{r artgraphs3, cache= FALSE, fig.width=6}
+```{r artgraphs3, cache= FALSE, fig.width=6, eval = LOCAL}
 layout(matrix(1:6,nrow=2))
 matplot(t(test.seq_PL2),t(predictive_positive_value_PL2),type="l",xlab="cutoff",ylab="Predictive Positive Value",main="Patterns_Lasso2",ylim=rangeCPy_PPV,col=grey(.05,NULL))
 abline(v=nv_PL2,col=grey(.05,NULL),lty=3)
@@ -100,7 +111,7 @@ abline(v=nv_PB_W,col=grey(.05,NULL),lty=3)
 ```
 
 Run the code to plot the graph.
-```{r artgraphs4, cache= FALSE, fig.width=6, fig.keep='none'}
+```{r artgraphs4, cache= FALSE, fig.width=6, fig.keep='none', eval = LOCAL}
 layout(matrix(1:6,nrow=2))
 matplot(t(test.seq_robust),t(predictive_positive_value_robust),type="l",xlab="cutoff",ylab="Predictive Positive Value",main="Patterns_Robust",ylim=rangeCPy_PPV,col=grey(.05,NULL))
 abline(v=nv_robust,col=grey(.05,NULL),lty=3)
@@ -117,7 +128,7 @@ abline(v=nv_PSel,col=grey(.05,NULL),lty=3)
 ```
 
 ## F-score
-```{r artgraphs5, cache= FALSE, fig.width=6}
+```{r artgraphs5, cache= FALSE, fig.width=6, eval = LOCAL}
 layout(matrix(1:6,nrow=2))
 matplot(t(test.seq_PL2),t(F_score_PL2),type="l",xlab="cutoff",ylab="Fscore",main="Patterns_Lasso2",ylim=rangeCPy_F,col=grey(.05,NULL))
 abline(v=nv_PL2,col=grey(.05,NULL),lty=3)
@@ -134,7 +145,7 @@ abline(v=nv_PB_W,col=grey(.05,NULL),lty=3)
 ```
 
 Run the code to plot the graph.
-```{r artgraphs6, cache= FALSE, fig.width=6, fig.keep='none'}
+```{r artgraphs6, cache= FALSE, fig.width=6, fig.keep='none', eval = LOCAL}
 layout(matrix(1:6,nrow=2))
 matplot(t(test.seq_robust),t(F_score_robust),type="l",xlab="cutoff",ylab="Fscore",main="Patterns_Robust",ylim=rangeCPy_F,col=grey(.05,NULL))
 abline(v=nv_robust,col=grey(.05,NULL),lty=3)

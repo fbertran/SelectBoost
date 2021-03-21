@@ -4,7 +4,9 @@
 \name{fastboost.res.x}
 \alias{fastboost.res.x}
 \title{Fastboost lasso diabetes first order.}
-\format{A numerical matrix frame with 13 rows and 10 variables with attributes.}
+\format{
+A numerical matrix frame with 13 rows and 10 variables with attributes.
+}
 \usage{
 fastboost.res.x
 }

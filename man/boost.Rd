@@ -15,8 +15,12 @@
 \usage{
 boost.normalize(X, eps = 1e-08)
 
-boost.compcorrs(Xnorm, corrfunc = "cor", verbose = FALSE,
-  testvarindic = rep(TRUE, ncol(Xnorm)))
+boost.compcorrs(
+  Xnorm,
+  corrfunc = "cor",
+  verbose = FALSE,
+  testvarindic = rep(TRUE, ncol(Xnorm))
+)
 
 boost.correlation_sign(Correlation_matrice, verbose = FALSE)
 
@@ -24,17 +28,38 @@ boost.findgroups(Correlation_matrice, group, corr = 1, verbose = FALSE)
 
 boost.Xpass(nrowX, ncolX)
 
-boost.adjust(X, groups, Correlation_sign, Xpass = boost.Xpass(nrowX,
-  ncolX), verbose = FALSE, use.parallel = FALSE, ncores = 4)
+boost.adjust(
+  X,
+  groups,
+  Correlation_sign,
+  Xpass = boost.Xpass(nrowX, ncolX),
+  verbose = FALSE,
+  use.parallel = FALSE,
+  ncores = 4
+)
 
-boost.random(X, Xpass, vmf.params, verbose = FALSE, B = 100,
-  use.parallel = FALSE, ncores = 4)
+boost.random(
+  X,
+  Xpass,
+  vmf.params,
+  verbose = FALSE,
+  B = 100,
+  use.parallel = FALSE,
+  ncores = 4
+)
 
-boost.apply(X, cols.simul, Y, func, verbose = FALSE,
-  use.parallel = FALSE, ncores = 4, ...)
+boost.apply(
+  X,
+  cols.simul,
+  Y,
+  func,
+  verbose = FALSE,
+  use.parallel = FALSE,
+  ncores = 4,
+  ...
+)
 
-boost.select(Boost.coeffs, eps = 10^(-4), version = "lars",
-  verbose = FALSE)
+boost.select(Boost.coeffs, eps = 10^(-4), version = "lars", verbose = FALSE)
 }
 \arguments{
 \item{X}{Numerical matrix. Matrix of the variables.}
@@ -135,7 +160,7 @@ xran_adjust <- boost.adjust(xran_norm, xran_groups$groups, xran_corr_sign)
 #Not meaningful, should be run with B>=100
 xran_random <- boost.random(xran_norm, xran_Xpass, xran_adjust$vmf.params, B=5)
 
-\dontrun{
+\donttest{
 xran_random <- boost.random(xran_norm, xran_Xpass, xran_adjust$vmf.params, B=100)
 }
 
@@ -145,15 +170,16 @@ xran_select <- boost.select(xran_apply)
 
 }
 \references{
-\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+\emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 }
 \seealso{
 \code{\link{fastboost}}, \code{\link{autoboost}}
 
-Other Selectboost functions: \code{\link{autoboost}},
-  \code{\link{fastboost}},
-  \code{\link{plot_selectboost_cascade}},
-  \code{\link{selectboost_cascade}}
+Other Selectboost functions: 
+\code{\link{autoboost}()},
+\code{\link{fastboost}()},
+\code{\link{plot_selectboost_cascade}},
+\code{\link{selectboost_cascade}}
 }
 \author{
 Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}

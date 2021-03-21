@@ -7,7 +7,7 @@
 #' @return Various types depending on the function.
 #' @family Selectboost functions
 #' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr}
-#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Frédéric Bertrand, \url{https://arxiv.org/abs/1810.01670}
+#' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 #' @seealso \code{\link{fastboost}}, \code{\link{autoboost}}
 #' @examples
 #' set.seed(314)
@@ -191,6 +191,10 @@ boost.adjust<-function(X,groups,Correlation_sign,Xpass=boost.Xpass(nrowX,ncolX),
     groups$communities <- NULL
     listnames=vector("list",length(groups))
   }
+
+  if(use.parallel){
+    use.parallel=FALSE
+  }
   ngroups=length(groups)
   nrowX=nrow(X)
   ncolX=ncol(X)
@@ -201,32 +205,30 @@ boost.adjust<-function(X,groups,Correlation_sign,Xpass=boost.Xpass(nrowX,ncolX),
   }
 
   corr_set0<-func_passage1(X) #t(Xpass)%*%X
-  fit1 <- function(j) {
-  if (attr(groups, "length.groups")[j] >= 2) {
-    if (verbose) {
-      cat(paste(j, ": Random", "\n"))
-    }
-    if (attr(groups, "type") == "compact") {
-      indice <- unlist((communities)[groups[[j]]])
-    }
-    else {
-      indice <- groups[[j]]
-    }
-    corr_set2 <- sweep(corr_set0[, indice, drop = FALSE], 
-                       2L, Correlation_sign[indice, j], "*")
-    out.vmf.lme <- tryCatch({
-      vmf.mle(t(corr_set2))
-    }, error = function(cond) {
-      message("Error in vmf.mle -> no random for that group")
-      #message(cond)
-      return("NoRandom")
-    })
-    return(out.vmf.lme)
-  }
-  else {
-    if (verbose) {
-      print(paste(j, ": NoRandom", "\n"))
-    }
+  fit1<-function(j){
+    if(attr(groups,"length.groups")[j]>=2){
+      if(verbose){
+        cat(paste(j,": Random","\n"))
+      }
+      if(attr(groups,"type")=="compact"){
+        indice<-unlist((communities)[groups[[j]]])
+      } else {
+        indice<-groups[[j]]
+      }
+      corr_set2<-sweep(corr_set0[,indice,drop=FALSE],2L,Correlation_sign[indice,j],"*")
+      out.vmf.mle <- tryCatch({
+        vmf.mle(t(corr_set2))
+      }, error=function(cond) {
+        message("Here's the original error message:")
+        message(cond)
+        return("NoRandom")
+      }
+      )
+      return(out.vmf.mle)
+    }else{
+      if(verbose){
+        print(paste(j,": NoRandom","\n"))
+      }
     return("NoRandom")
   }
 }
@@ -271,7 +273,7 @@ boost.adjust<-function(X,groups,Correlation_sign,Xpass=boost.Xpass(nrowX,ncolX),
 #' #Not meaningful, should be run with B>=100
 #' xran_random <- boost.random(xran_norm, xran_Xpass, xran_adjust$vmf.params, B=5)
 #'
-#' \dontrun{
+#' \donttest{
 #' xran_random <- boost.random(xran_norm, xran_Xpass, xran_adjust$vmf.params, B=100)
 #' }
 #'
@@ -280,7 +282,9 @@ boost.random<-function(X,Xpass,vmf.params,verbose=FALSE,B=100,use.parallel=FALSE
   nvmf.params=length(vmf.params)
   nrowX=nrow(X)
   ncolX=ncol(X)
-
+  if(use.parallel){
+    use.parallel=FALSE
+  }
   func_passage2<-function(x){
     return(Xpass%*%t(x)) #tcrossprod(Xpass,x)
   }
