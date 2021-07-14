@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 ```
 
 # Overview
-This vignettes is a first benchmark of the use of the selectboost algorithm for stable and robust scale free network reverse engineering. It differs from the vignette *Towards confidence estimates in Cascade Networks using the SelectBoost package* where we compute *confidence indices* **after** *the model was fitted*. In this vignette, we use the Selecboost algorithm **as a part of the inference algorithm** in order to retrieve **the most stable and robust links (against correlated resampling)** between the genes of the network.
+This vignette is a first benchmark of the use of the selectboost algorithm for stable and robust scale free network reverse engineering. It differs from the vignette *Towards confidence estimates in Cascade Networks using the SelectBoost package* where we compute *confidence indices* **after** *the model was fitted*. In this vignette, we use the Selecboost algorithm **as a part of the inference algorithm** in order to retrieve **the most stable and robust links (against correlated resampling)** between the genes of the network.
 
 
 If you are a Linux/Unix or a Macos user, you can install a version of SelectBoost with support for `doMC` from [github](https://github.com) with:
