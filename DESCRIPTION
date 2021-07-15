@@ -8,6 +8,7 @@ biocViews:
 Imports: lars, glmnet, igraph, parallel, msgps, Rfast, methods, Cascade, graphics, grDevices, varbvs, spls, abind
 Suggests: 
     knitr,
+    markdown,
     rmarkdown,
     mixOmics,
     CascadeData
