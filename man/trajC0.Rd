@@ -72,6 +72,6 @@ Other Selectboost analyze functions:
 \code{\link{plot.summary.selectboost}()}
 }
 \author{
-Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}
+Frederic Bertrand, \email{frederic.bertrand@utt.fr}
 }
 \concept{Selectboost analyze functions}

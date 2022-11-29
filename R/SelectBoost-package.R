@@ -33,6 +33,7 @@
 #' @importFrom igraph graph.adjacency infomap.community communities
 #' @importFrom grDevices rgb gray
 #' @importFrom graphics image layout
+#' @importFrom parallel detectCores
 #' @examples
 #' set.seed(314)
 #' xran=matrix(rnorm(75),15,5)

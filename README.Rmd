@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R-CMD-check](https://github.com/fbertran/SelectBoost/workflows/R-CMD-check/badge.svg)](https://github.com/fbertran/SelectBoost/actions)
-[![Codecov test coverage](https://codecov.io/gh/fbertran/SelectBoost/branch/master/graph/badge.svg)](https://codecov.io/gh/fbertran/SelectBoost?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/fbertran/SelectBoost/branch/master/graph/badge.svg)](https://app.codecov.io/gh/fbertran/SelectBoost?branch=master)
 [![CRAN status](https://www.r-pkg.org/badges/version/SelectBoost)](https://cran.r-project.org/package=SelectBoost)
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/SelectBoost)](https://cran.r-project.org/package=SelectBoost)
 [![GitHub Repo stars](https://img.shields.io/github/stars/fbertran/SelectBoost?style=social)](https://github.com/fbertran/SelectBoost)

@@ -46,6 +46,6 @@ Other Selectboost analyze functions:
 \code{\link{trajC0}()}
 }
 \author{
-Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}
+Frederic Bertrand, \email{frederic.bertrand@utt.fr}
 }
 \concept{Selectboost analyze functions}

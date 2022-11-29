@@ -125,6 +125,6 @@ Other Selectboost functions:
 \code{\link{selectboost_cascade}}
 }
 \author{
-Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}
+Frederic Bertrand, \email{frederic.bertrand@utt.fr}
 }
 \concept{Selectboost functions}

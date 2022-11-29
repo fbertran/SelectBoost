@@ -108,6 +108,6 @@ compsim(DATA_exemple, result.boost, level=.7)
 \code{\link[glmnet]{glmnet}}, \code{\link[glmnet]{cv.glmnet}}, \code{\link{AICc_BIC_glmnetB}}, \code{\link[lars]{lars}}, \code{\link[lars]{cv.lars}}, \code{\link[msgps]{msgps}}
 }
 \author{
-Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr} with contributions from Nicolas Jung.
+Frederic Bertrand, \email{frederic.bertrand@utt.fr} with contributions from Nicolas Jung.
 }
 \concept{Simulation functions}

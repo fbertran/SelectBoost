@@ -254,6 +254,6 @@ Other Variable selection functions:
 \code{\link{var_select_all}}
 }
 \author{
-Frederic Bertrand, \email{frederic.bertrand@math.unistra.fr}
+Frederic Bertrand, \email{frederic.bertrand@utt.fr}
 }
 \concept{Variable selection functions}

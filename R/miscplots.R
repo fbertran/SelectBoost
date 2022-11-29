@@ -7,7 +7,7 @@
 #' @param ... . Additionnal arguments passed to the plot function.
 #'
 #' @family Plot functions
-#' @author Frederic Bertrand, \email{frederic.bertrand@@math.unistra.fr} with contributions from Nicolas Jung.
+#' @author Frederic Bertrand, \email{frederic.bertrand@@utt.fr} with contributions from Nicolas Jung.
 #' @references \emph{selectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets}, Frédéric Bertrand, Ismaïl Aouadi, Nicolas Jung, Raphael Carapito, Laurent Vallat, Seiamak Bahram, Myriam Maumy-Bertrand, Bioinformatics, 2020. \doi{10.1093/bioinformatics/btaa855}
 #' @examples
 #' set.seed(3141)
