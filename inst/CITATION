@@ -3,29 +3,38 @@ citHeader("To cite the SelectBoost package in publications use:")
 titl <- meta$Title
 year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
 vers <- paste("R package version", meta$Version)
+doi <- paste0("10.32614/CRAN.package.", meta$Package)
+urldoi <- paste0("https://doi.org/", doi)
 
-citEntry(entry="Manual",
+bibentry(bibtype="Manual",
          title = titl,
-         author = personList(as.person("F. Bertrand"),
-                             as.person("M. Maumy-Bertrand"),
-                             as.person("N. Jung"),
-                             as.person("I. Aouadi")),
-	 publisher = "manual",
+         author = c(person(given = "Frederic", family= "Bertrand"),
+                  person(given = "Myriam", family= "Maumy-Bertrand"),
+                  person(given = "Nicolas", family= "Jung"),
+                  person(given = "Ismail", family= "Aouadi")),
+         publisher = "manual",
          year         = year,
          note         = vers,
          url          = "https://fbertran.github.io/SelectBoost/",
+         doi          = doi,
          textVersion =
          paste("Frederic Bertrand, Myriam Maumy-Bertrand, Nicolas Jung and Ismail Aouadi (",year ,"). ",
-               titl, ", ", vers, ".", sep=""
+               titl, ", ", vers, ". doi:", doi, ".", sep=""
                )
 )
 
-citEntry(entry="Article",
+bibentry(bibtype="Article",
          title = "SelectBoost: a general algorithm to enhance the performance of variable selection methods",
-         author = personList(as.person("F. Bertrand"), as.person("I. Aouadi"), as.person("N. Jung"), as.person("R. Carapito"), as.person("L. Vallat"), as.person("S. Bahram"),
-as.person("M. Maumy-Bertrand")),
+         author = c(person(given = "Frederic", family= "Bertrand"),
+                  person(given = "Ismail", family= "Aouadi"),
+                  person(given = "Nicolas", family= "Jung"),
+                  person(given = "Raphael", family= "Carapito"),
+                  person(given = "Laurent", family= "Vallat"),
+                  person(given = "Siamak", family= "Bahram"),
+                  person(given = "Myriam", family= "Maumy-Bertrand")),
          year         = 2020,
          journal = "Bioinformatics",
+         doi = "10.1093/bioinformatics/btaa855",
          textVersion =
          paste("F. Bertrand, I. Aouadi, N. Jung, R. Carapito, L. Vallat, S. Bahram, M. Maumy-Bertrand (2020).", "SelectBoost: a general algorithm to enhance the performance of variable selection methods", "Bioinformatics,", "doi:10.1093/bioinformatics/btaa855." )
 )

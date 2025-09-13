@@ -1,0 +1,7 @@
+test_that("exported objects exist in the namespace", {
+  ns <- asNamespace("SelectBoost")
+  exports <- c("AICc_glmnetB", "BIC_glmnetB", "alasso_enet_msgps_all", "alasso_msgps_all", "auto.analyze", "autoboost", "boost.Xpass", "boost.adjust", "boost.apply", "boost.compcorrs", "boost.correlation_sign", "boost.findgroups", "boost.normalize", "boost.random", "boost.select", "compsim", "enet_msgps_all", "enetf_msgps_AICc", "enetf_msgps_BIC", "enetf_msgps_Cp", "enetf_msgps_GCV", "fastboost", "force.non.inc", "group_func_1", "group_func_2", "lasso_cascade", "lasso_cv_glmnet_1se", "lasso_cv_glmnet_1se_weighted", "lasso_cv_glmnet_all_5f", "lasso_cv_glmnet_bin_1se", "lasso_cv_glmnet_bin_all", "lasso_cv_glmnet_bin_min", "lasso_cv_glmnet_min", "lasso_cv_glmnet_min_weighted", "lasso_cv_lars_1se", "lasso_cv_lars_min", "lasso_glmnet_bin_AICc", "lasso_glmnet_bin_BIC", "lasso_glmnet_bin_all", "lasso_msgps_AICc", "lasso_msgps_BIC", "lasso_msgps_Cp", "lasso_msgps_GCV", "lasso_msgps_all", "rerr", "ridge_logistic", "selectboost", "sgpls_spls_all", "simulation_DATA", "simulation_X", "simulation_cor", "spls_spls_all", "splsda_spls_all", "trajC0", "varbvs_binomial_all", "varbvs_linear_all")
+  if (length(exports) == 0L) skip("No exports found in NAMESPACE")
+  missing <- exports[!vapply(exports, exists, logical(1), envir = ns, inherits = FALSE)]
+  expect(length(missing) == 0L, paste("Missing exports:", paste(missing, collapse=", ")))
+})

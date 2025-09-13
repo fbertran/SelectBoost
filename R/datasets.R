@@ -87,7 +87,6 @@
 #' @format A numerical matrix frame with 100 rows and 200 variables or a numerical vector of length 100.
 #' @rdname reverse
 #' @name results_simuls_reverse_engineering_v3
-#' @docType data
 NULL
 #' @rdname reverse
 "test.seq_C"

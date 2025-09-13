@@ -1,6 +1,12 @@
+# SelectBoost 2.3.0
+
+* Maintainer email update
+* Added unit tests
+* Fix the package to get rid of CRAN check notes
+
 # SelectBoost 2.2.2
 
-* Update email maintainer address
+* Maintainer email update
 
 # SelectBoost 2.2.1
 

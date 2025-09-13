@@ -203,6 +203,6 @@ Other Variable selection functions:
 \code{\link{var_select}}
 }
 \author{
-Frederic Bertrand, \email{frederic.bertrand@utt.fr}
+Frederic Bertrand, \email{frederic.bertrand@lecnam.net}
 }
 \concept{Variable selection functions}

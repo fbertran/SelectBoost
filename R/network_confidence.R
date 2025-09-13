@@ -16,7 +16,12 @@
 #' @name network.confidence-class
 #' @rdname network.confidence-class
 #' @exportClass network.confidence
-
 setClass(Class = "network.confidence",
-         representation(network.confidence="matrix",name="vector",F="array",time_pt="vector",cv.subjects="logical")#,cv.fun="function",cv.fun.name="vector"
+         slots = c(network.confidence="matrix",
+                        name="character",
+                        F="array",
+                        time_pt="numeric",
+                        cv.subjects="logical")
+         #,cv.fun="function"
+         #,cv.fun.name="vector"
 )

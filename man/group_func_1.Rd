@@ -38,5 +38,5 @@ group_func_1(cor(matrix(rnorm(50),10,5)),.4)
 \code{\link{group_func_2}} and \code{\link{boost.findgroups}}
 }
 \author{
-Frederic Bertrand, \email{frederic.bertrand@utt.fr}
+Frederic Bertrand, \email{frederic.bertrand@lecnam.net}
 }

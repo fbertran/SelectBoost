@@ -1,9 +1,11 @@
-pandoc: 2.19.2
-pkgdown: 2.0.6
+pandoc: '3.4'
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   benchmarking-selectboost-networks: benchmarking-selectboost-networks.html
   confidence-indices-Cascade-networks: confidence-indices-Cascade-networks.html
   sim-with-sb: sim-with-sb.html
-last_built: 2022-11-29T21:15Z
-
+last_built: 2025-09-13T19:18Z
+urls:
+  reference: https://fbertran.github.io/SelectBoost/reference
+  article: https://fbertran.github.io/SelectBoost/articles

@@ -1,39 +1,15 @@
-#' SelectBoost
+#' @keywords internal
+#' @aliases SelectBoost-package SelectBoost NULL
 #'
-#' Motivation: With the growth of big data, variable selection has become one of the major
-#' challenges in statistics. Although many methods have been proposed in the literature their
-#' performance in terms of recall and precision are limited in a context where the number of
-#' variables by far exceeds the number of observations or in a high correlated setting.
-#' Results: This package implements a new general algorithm which improves the precision of any
-#' existing variable selection method. This algorithm is based on highly intensive simulations and
-#' takes into account the correlation structure of the data. Our algorithm can either produce a
-#' confidence index for variable selection or it can be used in an experimental design planning
-#' perspective.
-#'
-#' @docType package
-#' @name SelectBoost
 #' @references F. Bertrand, I. Aouadi, N. Jung, R. Carapito, L. Vallat, S. Bahram, M. Maumy-Bertrand (2020). SelectBoost: a general algorithm to enhance the performance of variable selection methods in correlated datasets, \emph{Bioinformatics}. \doi{10.1093/bioinformatics/btaa855}
 #'
 #' SelectBoost was used to decypher networks in
 #' C. Schleiss, [...], M. Maumy-Bertrand, S. Bahram, F. Bertrand, and L. Vallat. (2021). Temporal multiomic modelling reveals a B-cell receptor proliferative program in chronic lymphocytic leukemia. \emph{Leukemia}.
 #'
-# @import parallel doMC foreach
-#' @import lars glmnet msgps spls varbvs
-#' @importFrom abind abind
-#' @importFrom methods new
-#' @importFrom utils head tail
-#' @importFrom stats coef cor heatmap predict var
-#' @importFrom grDevices rainbow
-#' @importFrom graphics abline axis barplot matplot mtext par plot points segments
-#' @importFrom stats binom.test median plogis pt qbinom quantile rbinom rnorm runif sd t.test wilcox.test
-#' @importFrom Rfast vmf.mle rvmf
-# #' @importFrom parallel detectCores makeCluster clusterEvalQ clusterExport parLapply stopCluster
-# #' @importFrom doMC registerDoMC
-# #' @importFrom foreach foreach "%dopar%"
-#' @importFrom igraph graph.adjacency infomap.community communities
-#' @importFrom grDevices rgb gray
-#' @importFrom graphics image layout
-#' @importFrom parallel detectCores
+#'#' @author This package has been written by Frédéric Bertrand, Myriam
+#' Maumy-Bertrand, Ismail Aouadi and Nicolas Jung.
+#' Maintainer: Frédéric Bertrand <frederic.bertrand@@lecnam.net>
+#'
 #' @examples
 #' set.seed(314)
 #' xran=matrix(rnorm(75),15,5)
@@ -52,4 +28,25 @@
 #' #Binary logistic regression
 #' fastboost(xran,ybin,func=lasso_cv_glmnet_bin_min)
 #'}
+#'
+"_PACKAGE"
+
+# @import parallel doMC foreach
+#' @import lars glmnet msgps spls varbvs
+#' @importFrom abind abind
+#' @importFrom methods new
+#' @importFrom utils head tail
+#' @importFrom stats coef cor heatmap predict var
+#' @importFrom grDevices rainbow
+#' @importFrom graphics abline axis barplot matplot mtext par plot points segments
+#' @importFrom stats binom.test median plogis pt qbinom quantile rbinom rnorm runif sd t.test wilcox.test
+#' @importFrom Rfast vmf.mle rvmf
+# #' @importFrom parallel detectCores makeCluster clusterEvalQ clusterExport parLapply stopCluster
+# #' @importFrom doMC registerDoMC
+# #' @importFrom foreach foreach "%dopar%"
+#' @importFrom igraph graph.adjacency infomap.community communities
+#' @importFrom grDevices rgb gray
+#' @importFrom graphics image layout
+#' @importFrom parallel detectCores
+#'
 NULL

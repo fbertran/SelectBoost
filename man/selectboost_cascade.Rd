@@ -101,6 +101,6 @@ Other Selectboost functions:
 \code{\link{plot_selectboost_cascade}}
 }
 \author{
-Frederic Bertrand, \email{frederic.bertrand@utt.fr}
+Frederic Bertrand, \email{frederic.bertrand@lecnam.net}
 }
 \concept{Selectboost functions}

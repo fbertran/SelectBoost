@@ -7,8 +7,10 @@
 # A General Algorithm to Enhance the Performance of Variable Selection Methods in Correlated Datasets
 ## Frédéric Bertrand and Myriam Maumy-Bertrand
 
+<https://doi.org/10.32614/CRAN.package.SelectBoost>
 
 <!-- badges: start -->
+[![DOI](https://img.shields.io/badge/doi-10.32614/CRAN.package.ModStatR-blue.svg)](https://doi.org/10.32614/CRAN.package.SelectBoost)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R-CMD-check](https://github.com/fbertran/SelectBoost/workflows/R-CMD-check/badge.svg)](https://github.com/fbertran/SelectBoost/actions)
@@ -16,7 +18,6 @@
 [![CRAN status](https://www.r-pkg.org/badges/version/SelectBoost)](https://cran.r-project.org/package=SelectBoost)
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/SelectBoost)](https://cran.r-project.org/package=SelectBoost)
 [![GitHub Repo stars](https://img.shields.io/github/stars/fbertran/SelectBoost?style=social)](https://github.com/fbertran/SelectBoost)
-[![DOI](https://zenodo.org/badge/136206211.svg)](https://zenodo.org/badge/latestdoi/136206211)
 <!-- badges: end -->
 
 
@@ -36,21 +37,21 @@ This website and these examples were created by F. Bertrand and M. Maumy-Bertran
 You can install the released version of SelectBoost from [CRAN](https://CRAN.R-project.org) with:
 
 
-```r
+``` r
 install.packages("SelectBoost")
 ```
 
 You can install the development version of SelectBoost from [github](https://github.com) with:
 
 
-```r
+``` r
 devtools::install_github("fbertran/SelectBoost")
 ```
 
 If you are a Linux/Unix or a Macos user, you can install a version of SelectBoost with support for `doMC` from [github](https://github.com) with:
 
 
-```r
+``` r
 devtools::install_github("fbertran/SelectBoost", ref = "doMC")
 ```
 
@@ -62,7 +63,7 @@ devtools::install_github("fbertran/SelectBoost", ref = "doMC")
 #### Simulating data
 Create a correlation matrix for two groups of variable with an intragroup correlation value of $cor\_group$.
 
-```r
+``` r
 library(SelectBoost)
 group<-c(rep(1:2,5))
 cor_group<-c(.8,.4)

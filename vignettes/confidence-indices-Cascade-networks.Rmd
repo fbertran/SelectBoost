@@ -6,7 +6,7 @@ author:
   affiliation: 
   - Université de Strasbourg and CNRS
   - IRMA, labex IRMIA
-  email: frederic.bertrand@utt.fr
+  email: frederic.bertrand@lecnam.net
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >

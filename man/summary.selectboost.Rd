@@ -81,6 +81,6 @@ Other Selectboost analyse functions:
 \code{\link{plot.selectboost}()}
 }
 \author{
-Frederic Bertrand, \email{frederic.bertrand@utt.fr}
+Frederic Bertrand, \email{frederic.bertrand@lecnam.net}
 }
 \concept{Selectboost analyse functions}

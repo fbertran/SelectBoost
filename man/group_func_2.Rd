@@ -39,5 +39,5 @@ group_func_2(cor(matrix(rnorm(100),10,10)),.5)
 \code{\link{group_func_2}} \code{\link{boost.findgroups}}, \code{\link[igraph]{infomap.community}} and \code{\link[igraph]{igraph}}.
 }
 \author{
-Frederic Bertrand, \email{frederic.bertrand@utt.fr}
+Frederic Bertrand, \email{frederic.bertrand@lecnam.net}
 }
