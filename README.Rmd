@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 <https://doi.org/10.32614/CRAN.package.SelectBoost>
 
 <!-- badges: start -->
-[![DOI](https://img.shields.io/badge/doi-10.32614/CRAN.package.ModStatR-blue.svg)](https://doi.org/10.32614/CRAN.package.SelectBoost)
+[![DOI](https://img.shields.io/badge/doi-10.32614/CRAN.package.SelectBoost-blue.svg)](https://doi.org/10.32614/CRAN.package.SelectBoost)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R-CMD-check](https://github.com/fbertran/SelectBoost/workflows/R-CMD-check/badge.svg)](https://github.com/fbertran/SelectBoost/actions)
