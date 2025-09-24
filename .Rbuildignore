@@ -48,3 +48,4 @@ genlogo.R
 ^vignettes/.*_cache$
 ^vignettes/.*_files$
 
+\.DS_Store$
